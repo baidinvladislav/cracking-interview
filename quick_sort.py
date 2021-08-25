@@ -5,24 +5,27 @@ def quicksort(arr):
     qs(arr, 0, len(arr) - 1)
 
 
-def qs(arr, l, r):
-    if l >= r:
+def qs(array, start_index, pivot_index):
+    if start_index >= pivot_index:
         return
-    p = partition(arr, l, r)
 
-    qs(arr, l, p - 1)
-    qs(arr, p + 1, r)
+    p = partition(array, start_index, pivot_index)
+
+    qs(array, start_index, p - 1)
+    qs(array, p + 1, pivot_index)
 
 
-def partition(arr, l, r):
-    pivot = arr[r]
-    i = l - 1
-    for j in range(l, r):
-        if arr[j] < pivot:
-            i += 1
-            arr[i], arr[j] = arr[j], arr[i]
-    arr[i + 1], arr[r] = arr[r], arr[i + 1]
-    return i + 1
+def partition(array, start_index, pivot_index):
+    pivot = array[pivot_index]
+    current_element = start_index - 1
+
+    for j in range(start_index, pivot_index):
+        if array[j] < pivot:
+            current_element += 1
+            array[current_element], array[j] = array[j], array[current_element]
+
+    array[current_element + 1], array[pivot_index] = array[pivot_index], array[current_element + 1]
+    return current_element + 1
 
 
 if __name__ == '__main__':
