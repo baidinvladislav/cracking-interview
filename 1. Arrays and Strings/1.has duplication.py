@@ -10,6 +10,15 @@ def no_duplicate(string):
     return True
 
 
-no_duplicate('Hello')  # False
-no_duplicate('World')  # True
-no_duplicate('Python')  # True
+if __name__ == '__main__':
+    test_cases = [
+        'Hello',
+        'World',
+        'Python',
+        'qweasd',
+        'zxcvbnz'
+    ]
+
+    for string in test_cases:
+        no_duplicate(string)
+        print(string)
