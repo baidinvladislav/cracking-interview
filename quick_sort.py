@@ -1,8 +1,8 @@
 from random import random
 
 
-def quicksort(arr):
-    qs(arr, 0, len(arr) - 1)
+def quicksort(array):
+    qs(array, 0, len(array) - 1)
 
 
 def qs(array, start_index, pivot_index):
