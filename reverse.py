@@ -5,16 +5,16 @@ Reverse string through `stack` data structure.
 
 class Stack:
 	def __init__(self):
-		self.place = []
+		self.container = []
 
 	def push(self, value):
-		self.place.append(value)
+		self.container.append(value)
 
 	def pop(self):
-		return self.place.pop()
+		return self.container.pop()
 
 	def is_empty(self):
-		return len(self.place) == 0
+		return len(self.container) == 0
 
 
 def reverse(string):
