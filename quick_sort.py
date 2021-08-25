@@ -1,47 +1,37 @@
-def swap(a, b, arr):
-    if a != b:
-        tmp = arr[a]
-        arr[a] = arr[b]
-        arr[b] = tmp
+from random import random
 
 
-def quick_sort(elements, start, end):
-    if start < end:
-        pi = partition(elements, start, end)
-        quick_sort(elements, start, pi-1)
-        quick_sort(elements, pi+1, end)
+def quicksort(arr):
+    qs(arr, 0, len(arr) - 1)
 
 
-def partition(elements, start, end):
-    pivot_index = start
-    pivot = elements[pivot_index]
+def qs(arr, l, r):
+    if l >= r:
+        return
+    p = partition(arr, l, r)
 
-    while start < end:
-        while start < len(elements) and elements[start] <= pivot:
-            start += 1
+    qs(arr, l, p - 1)
+    qs(arr, p + 1, r)
 
-        while elements[end] > pivot:
-            end -= 1
 
-        if start < end:
-            swap(start, end, elements)
-
-    swap(pivot_index, end, elements)
-
-    return end
+def partition(arr, l, r):
+    pivot = arr[r]
+    i = l - 1
+    for j in range(l, r):
+        if arr[j] < pivot:
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1], arr[r] = arr[r], arr[i + 1]
+    return i + 1
 
 
 if __name__ == '__main__':
-
-    test_arrays = [
-        [11, 9, 29, 7, 2, 15, 28],
-        [3, 7, 9, 11],
-        [25, 22, 21, 10],
-        [29, 15, 28],
-        [],
-        [6]
+    test_cases = [
+        [int(10 * random()) for i in range(7)],
+        [int(100 * random()) for i in range(14)],
+        [int(1000 * random()) for i in range(21)]
     ]
 
-    for arr in test_arrays:
-        quick_sort(arr, 0, len(arr)-1)
-        print(f'sorted array: {arr}')
+    for array in test_cases:
+        quicksort(array)
+        print(array)
