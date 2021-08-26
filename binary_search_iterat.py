@@ -3,26 +3,26 @@ from random import random
 
 def binary_search(data, found_el):
     """
-    Recursive binary search implementation.
+    Iterative binary search implementation.
 
     :param data: `list` contains found integer.
     :param found_el: `int` found integer
     :return: `int` or recursion call.
     """
-    middle_index = len(data) // 2
-    middle_el = data[middle_index]
+    start = 0
+    end = len(data)
 
-    left_part = data[:middle_index]
-    right_part = data[middle_index:]
+    while True:
+        middle_index = start + (end - start) // 2
 
-    if middle_el == found_el:
-        return found_el
+        if data[middle_index] == found_el:
+            return data[middle_index]
 
-    elif middle_el > found_el:
-        return binary_search(left_part, found_el)
+        elif data[middle_index] > found_el:
+            end = middle_index
 
-    else:
-        return binary_search(right_part, found_el)
+        else:
+            start = middle_index + 1
 
 
 if __name__ == '__main__':
