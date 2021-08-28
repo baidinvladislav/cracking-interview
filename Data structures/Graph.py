@@ -1,10 +1,10 @@
 class Vertex:
-	def __init__(self, n):
-		self.name = n
+	def __init__(self, name):
+		self.name = name
 		self.neighbors = list()
 
 	def add_neighbor(self, v):
-		if v in self.neighbors:
+		if v.name not in self.neighbors:
 			self.neighbors.append(v)
 			self.neighbors.sort()
 
@@ -20,11 +20,11 @@ class Graph:
 			return False
 
 	def add_edge(self, u, v):
-		if u in self.vertices and v in self.vertices:
+		if u.name in self.vertices and v.name in self.vertices:
 			for key, value in self.vertices.items():
-				if key == u:
+				if key == u.name:
 					value.add_neighbor(v)
-				if key == v:
+				if key == v.name:
 					value.add_neighbor(u)
 			return True
 		else:
@@ -34,3 +34,14 @@ class Graph:
 		for key in sorted(list(self.vertices.keys())):
 			print(key + str(self.vertices[key].neighbors))
 
+
+g = Graph()
+a = Vertex('A')
+b = Vertex('B')
+
+g.add_vertex(a)
+g.add_vertex(b)
+
+g.add_edge(a, b)
+
+print(g.vertices)
