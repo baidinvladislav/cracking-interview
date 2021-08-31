@@ -31,21 +31,18 @@ class Graph:
 		print(self.vertices)
 
 
-# g = Graph()
-# a = Vertex('A')
-# b = Vertex('B')
-# c = Vertex('C')
-# d = Vertex('D')
-#
-# g.add_vertex(a)
-# g.add_vertex(b)
-#
-#
-# g.add_edge(a, b)
-# g.add_edge(a, c)
-# g.add_edge(a, d)
-#
-# g.print_graph()
+g = Graph()
+a = Vertex('A')
+b = Vertex('B')
+c = Vertex('C')
+d = Vertex('D')
+
+g.add_vertex(a)
+g.add_vertex(b)
 
 
+g.add_edge(a, b)
+g.add_edge(a, c)
+g.add_edge(a, d)
 
+g.print_graph()
