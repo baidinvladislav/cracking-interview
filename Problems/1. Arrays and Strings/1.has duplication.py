@@ -1,3 +1,6 @@
+# Write a function to determine that string has duplicates character
+
+
 def no_duplicate(string):
     storage = {}
     for character in string:
