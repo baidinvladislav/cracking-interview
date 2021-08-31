@@ -1,21 +1,29 @@
-# для двух строк напишите метод, определяющий, является ли одна строка перестановкой другой
+# Write a function that determines that string1 is a permutation of string2
 
 
-# TODO: do it problem
 def check_strings(string1, string2):
-	storage = {}
-	for i in string1:
-		for j in string2:
+	list1 = list(string1)
 
-			if i == j:
-				storage[i] = 1
+	try:
+		for i in string2:
+			list1.remove(i)
 
-	if len(storage) == len(string1) == len(string2):
-		print(f'str: -{string1}- is str: -{string2}-')
-		return True
-	else:
-		print(f'str: -{string1}- is not str: -{string2}-')
+		if len(list1) > 0:
+			return False
+		else:
+			return True
+
+	except ValueError:
 		return False
 
 
-check_strings('Hello', 'loHel')
+if __name__ == '__main__':
+	test_cases = [
+		('hello', 'lloeh'),
+		('python', 'ypthon'),
+		('zxc', 'abc'),
+		('qwerty', 'ytrewq')
+	]
+
+	for case in test_cases:
+		print(check_strings(case[0], case[1]))
