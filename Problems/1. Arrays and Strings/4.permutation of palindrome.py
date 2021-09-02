@@ -15,10 +15,10 @@ def check_palindrome(string):
             odd_char.append(key)
 
     if len(odd_char) > 1:
-        print(f'String -{string}- is not palindrome')
+        print(f'String -{string}- is not a palindrome')
         return False
     else:
-        print(f'String -{string}- is palindrome')
+        print(f'String -{string}- is a palindrome')
         return True
 
 
