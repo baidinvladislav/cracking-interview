@@ -10,7 +10,7 @@ def is_substring(string, sub):
 
 def is_cyclic_shift(str1, str2):
     if len(str1) == len(str2) != 0:
-        return is_substring(str1 + str1, str2)
+        return is_substring(str1 * 2, str2)
     return False
 
 
