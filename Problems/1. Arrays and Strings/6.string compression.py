@@ -1,4 +1,6 @@
-# Write a function which compressions strings
+"""
+Write a function which compressions strings
+"""
 
 
 def to_compress(string):

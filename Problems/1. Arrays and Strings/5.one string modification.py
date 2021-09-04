@@ -1,4 +1,6 @@
-# Write a function that determines that two strings can be converted in one step
+"""
+Write a function that determines that two strings can be converted in one step
+"""
 
 
 def check_one_step(string1, string2):

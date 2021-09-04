@@ -1,4 +1,6 @@
-# Write a function that determines that string1 is a permutation of string2
+"""
+Write a function that determines that string1 is a permutation of string2
+"""
 
 
 def check_strings(string1, string2):

@@ -1,4 +1,6 @@
-# Write a function that replaces space symbol to '%20'
+"""
+Write a function that replaces space symbol to '%20'
+"""
 
 
 def replace_spaces(string):

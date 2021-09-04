@@ -1,4 +1,6 @@
-# Write a function which determines that string is permutation of palindrome
+"""
+Write a function which determines that string is permutation of palindrome
+"""
 
 
 def check_palindrome(string):
