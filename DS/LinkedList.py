@@ -12,14 +12,14 @@ class LinkedList:
         self.head = None
 
     def reverse(self):
-        prev = None
+        previous = None
         current = self.head
         while current is not None:
             next = current.next
-            current.next = prev
-            prev = current
+            current.next = previous
+            previous = current
             current = next
-        self.head = prev
+        self.head = previous
 
     def push(self, new_data):
         if self.head is None:
