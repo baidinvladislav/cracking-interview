@@ -3,6 +3,7 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
+        self.previous = None
 
 
 class LinkedList:
@@ -21,27 +22,17 @@ class LinkedList:
         self.head = prev
 
     def push(self, new_data):
-        new_node = Node(new_data)
-        new_node.next = self.head
-        self.head = new_node
+        if self.head is None:
+            self.head = Node(new_data)
+        else:
+            new_node = Node(new_data)
+            self.head.next = new_node
+            new_node.previous = self.head
+            self.head = new_node
+        return
 
     def printList(self):
         temp = self.head
         while temp:
             print(temp.data, end='')
             temp = temp.next
-
-
-llist = LinkedList()
-llist.push(1)
-llist.push(2)
-llist.push(3)
-llist.push(4)
-llist.push(5)
-
-print('Given Linked List')
-llist.printList()
-print('\n------ ')
-llist.reverse()
-print('Reversed Linked List')
-llist.printList()
