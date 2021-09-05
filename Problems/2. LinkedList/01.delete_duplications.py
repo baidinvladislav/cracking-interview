@@ -1,69 +1,28 @@
-class Node:
-
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-
-class LinkedList:
-
-    def __init__(self):
-        self.head = None
-
-    def push(self, new_data):
-        new_node = Node(new_data)
-        new_node.next = self.head
-        self.head = new_node
+"""
+Write a function that removes duplicates from linked list
+"""
+from DS.LinkedList import LinkedList
 
 
-def remove_dups(ll):
-    if ll.head is None:
-        return
-
-    current = ll.head
-    seen = {current.data}
-    while current.next:
-        if current.next.data in seen:
-            current.next = current.next.next
+def remove_duplicates(linked_list):
+    storage = {}
+    for i, node in enumerate(linked_list, start=1):
+        if node.data in storage.values():
+            node.previous.next = node.next
+            node.next.previous = node.previous
         else:
-            seen.add(current.next.data)
-            current = current.next
-
-    return ll
+            storage[f'node_{i}'] = node.data
+    return linked_list
 
 
-linked_list = LinkedList()
-linked_list.push(100)
-linked_list.push(100)
-linked_list.push(0)
-linked_list.push(9)
+if __name__ == '__main__':
+    test_cases = [
+        [1, 2, 2, 3, 1, 4],
+        ['q', 'w', 'e', 'q', 'w', 't'],
+        ['python', 'java', 'c++', 'python', 'c#', 'java', 'javascript', 'scala']
+    ]
 
-
-def read_ll_values(linked_list):
-    current_node = linked_list.head
-    while current_node:
-        print(current_node.data, end=' ')
-        current_node = current_node.next
-
-
-read_ll_values(linked_list)
-print('\n --- after delete duplicates ---')
-read_ll_values(remove_dups(linked_list))
-
-
-# TODO: do this function
-def remove_dups_followup(ll):
-    if ll.head is None:
-        return
-
-    current = ll.head
-    while current:
-        runner = current
-        while runner.next:
-            if runner.next.value == current.value:
-                runner.next = runner.next.next
-            else:
-                runner = runner.next
-        current = current.next
-
-    return ll.head
+    for llist in test_cases:
+        print(LinkedList(llist))
+        print('after removing duplicates')
+        print(f'{remove_duplicates(LinkedList(llist))}\n')
