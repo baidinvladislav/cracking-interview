@@ -3,6 +3,7 @@ class Node:
     def __init__(self, data):
         self.data = f'({data})'
         self.next = None
+        self.previous = None
 
     def __repr__(self):
         return self.data
@@ -17,6 +18,7 @@ class LinkedList:
             self.head = node
             for elem in nodes:
                 node.next = Node(data=elem)
+                node.next.previous = node
                 node = node.next
 
     def __repr__(self):
