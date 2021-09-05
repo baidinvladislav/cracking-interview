@@ -1,38 +1,49 @@
 class Node:
 
     def __init__(self, data):
-        self.data = data
+        self.data = f'({data})'
         self.next = None
-        self.previous = None
+
+    def __repr__(self):
+        return self.data
 
 
 class LinkedList:
 
-    def __init__(self):
+    def __init__(self, nodes=None):
         self.head = None
+        if nodes is not None:
+            node = Node(data=nodes.pop(0))
+            self.head = node
+            for elem in nodes:
+                node.next = Node(data=elem)
+                node = node.next
 
-    def reverse(self):
-        previous = None
-        current = self.head
-        while current is not None:
-            next = current.next
-            current.next = previous
-            previous = current
-            current = next
-        self.head = previous
+    def __repr__(self):
+        node = self.head
+        nodes = []
+        while node is not None:
+            nodes.append(node.data)
+            node = node.next
+        nodes.append('None')
+        return ' -> '.join(nodes)
 
-    def push(self, new_data):
+    def __iter__(self):
+        node = self.head
+        while node is not None:
+            yield node
+            node = node.next
+
+    def add_first(self, node):
+        node.next = self.head
+        self.head = node
+
+    def add_last(self, node):
         if self.head is None:
-            self.head = Node(new_data)
-        else:
-            new_node = Node(new_data)
-            self.head.next = new_node
-            new_node.previous = self.head
-            self.head = new_node
-        return
+            self.head = node
+            return
 
-    def printList(self):
-        temp = self.head
-        while temp:
-            print(temp.data, end='')
-            temp = temp.next
+        current_node = None
+        for current_node in self:
+            pass
+        current_node.next = node
