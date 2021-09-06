@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
         (LinkedList(['qw', 'rt', 'ty', 'yu', 'xz', 'bn', 'mm', 'cc', 'pp']), 0, 'pp'),
     ]
 
-    def test_is_cyclic_shift(self):
+    def test_find_from_end(self):
         for test_case in self.data:
             result = find_from_end(test_case[0], test_case[1])
             self.assertEqual(result.data, Node(test_case[2]).data)
