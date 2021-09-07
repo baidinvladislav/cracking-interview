@@ -30,5 +30,24 @@ class Test(unittest.TestCase):
             self.assertEqual(result.data, Node(test_case[2]).data)
 
 
+# more effectively solution from the book
+def book_solution(lin_list, index):
+    p1 = lin_list.head
+    p2 = lin_list.head
+
+    i = 0
+    while i < index:
+        if p1 is None:
+            break
+        p1 = p1.next
+        i += 1
+
+    while p1 is not None:
+        p1 = p1.next
+        p2 = p2.next
+
+    return p2
+
+
 if __name__ == "__main__":
     unittest.main()
