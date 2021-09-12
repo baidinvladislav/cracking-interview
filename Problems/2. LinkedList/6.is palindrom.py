@@ -7,7 +7,6 @@ def is_polindrome(llist):
     storage = {}
     while node is not None:
         if node.data in storage.keys():
-            a=storage[node.data]
             storage[node.data] += 1
         else:
             storage[node.data] = 1
