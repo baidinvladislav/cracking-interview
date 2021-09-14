@@ -1,5 +1,5 @@
 # 09:30-10:30
-# списал ответ, нужно освоить эту задачу
+# TODO: разобрать задачу
 class MultipleStacks:
     def __init__(self, stacks_size):
         self.number_stacks = 3
