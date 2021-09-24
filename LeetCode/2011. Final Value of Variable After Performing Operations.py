@@ -31,7 +31,7 @@ print(Solution().finalValueAfterOperations(operations=["--X", "X++", "X++"]))
 # One line solution
 class Solution1:
     def finalValueAfterOperations(self, operations: List[str]) -> int:
-        return sum(1 if '+' in o else -1 for o in operations)
+        return sum([1 if '+' in o else -1 for o in operations])
 
 
 print(Solution1().finalValueAfterOperations(operations=["--X", "X++", "X++"]))
