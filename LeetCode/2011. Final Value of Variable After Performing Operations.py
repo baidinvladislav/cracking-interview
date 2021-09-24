@@ -11,6 +11,7 @@ return the final value of X after performing all the operations.
 from typing import List
 
 
+# Simple solution
 class Solution:
     def finalValueAfterOperations(self, operations: List[str]) -> int:
         val = 0
@@ -25,3 +26,12 @@ class Solution:
 
 
 print(Solution().finalValueAfterOperations(operations=["--X", "X++", "X++"]))
+
+
+# One line solution
+class Solution1:
+    def finalValueAfterOperations(self, operations: List[str]) -> int:
+        return sum(1 if '+' in o else -1 for o in operations)
+
+
+print(Solution1().finalValueAfterOperations(operations=["--X", "X++", "X++"]))
