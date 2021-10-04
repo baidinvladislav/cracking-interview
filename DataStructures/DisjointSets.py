@@ -1,5 +1,7 @@
 class DisjointSets:
-
+    """
+    Data structure which allow quickly determine that two vertex are connected.
+    """
     def __init__(self, vertex_array):
         """
         Creates the array where index is vertex and value is a root vertex.
