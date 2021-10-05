@@ -1,3 +1,9 @@
+"""
+The algorithm used to find the shortest path from source vertex to others graph vertices.
+If the graph contains a negative cycle, then the algorithm detects it.
+"""
+
+
 class Graph:
 
     def __init__(self, vertices):
