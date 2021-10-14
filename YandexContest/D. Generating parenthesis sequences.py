@@ -21,14 +21,15 @@ import sys
 n = int(sys.stdin.readline())
 
 
-def bracket(count, s='', left=0, right=0):
-    if left == count and right == count:
+def gen_brackets(n, s='', opening=0, closing=0):
+
+    if opening == n and closing == n:
         print(s)
     else:
-        if left < count:
-            bracket(count, s + '(', left+1, right)
-        if right < left:
-            bracket(count, s + ')', left, right+1)
+        if opening < n:
+            gen_brackets(n, s + '(', opening + 1, closing)
+        if closing < opening:
+            gen_brackets(n, s + ')', opening, closing + 1)
 
 
-bracket(n)
+gen_brackets(n)
