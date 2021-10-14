@@ -25,9 +25,11 @@ def gen_brackets(n, s='', opening=0, closing=0):
 
     if opening == n and closing == n:
         print(s)
+
     else:
         if opening < n:
             gen_brackets(n, s + '(', opening + 1, closing)
+
         if closing < opening:
             gen_brackets(n, s + ')', opening, closing + 1)
 
