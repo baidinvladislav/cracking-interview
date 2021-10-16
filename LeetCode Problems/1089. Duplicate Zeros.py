@@ -10,15 +10,31 @@ from typing import List
 
 class Solution:
     def duplicateZeros(self, arr: List[int]) -> None:
-        zeroes = arr.count(0)
         n = len(arr)
-        for i in range(n - 1, -1, -1):
-            if i + zeroes < n:
-                arr[i + zeroes] = arr[i]
+        possible_dups = 0
+
+        # counting possible duplicates
+        for i in range(n):
             if arr[i] == 0:
-                zeroes -= 1
-                if i + zeroes < n:
-                    arr[i + zeroes] = 0
+                possible_dups += 1
+
+        # iterate to array from end to start
+        for i in range(n - 1, -1, -1):
+            # ignore those elements for which there is no place in the array
+            if i + possible_dups < n:
+                # if there is place in array we copy the element to index
+                # which will be shifted zeroes duplicate
+                arr[i + possible_dups] = arr[i]
+
+            # if we faced zeroes we increase numbers of zeroes
+            if arr[i] == 0:
+                possible_dups -= 1
+
+                # if there is place in array we copy the zero duplicates
+                # to index which will be shifted zeroes duplicate
+                if i + possible_dups < n:
+                    arr[i + possible_dups] = 0
+
         print(arr)
 
 
