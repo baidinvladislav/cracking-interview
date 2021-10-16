@@ -26,7 +26,7 @@ class Solution:
                 # which will be shifted zeroes duplicate
                 arr[i + possible_dups] = arr[i]
 
-            # if we faced zeroes we increase numbers of zeroes
+            # if we faced zeroes we decrease numbers of zeroes
             if arr[i] == 0:
                 possible_dups -= 1
 
