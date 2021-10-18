@@ -12,6 +12,7 @@ Returns the current value of the coordinate (row,col) from the rectangle.
 from typing import List
 
 
+# date: 18.10.21
 class SubrectangleQueries:
 
     def __init__(self, rectangle: List[List[int]]):

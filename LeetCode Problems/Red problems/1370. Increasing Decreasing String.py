@@ -16,6 +16,7 @@ Return the result string after sorting s with this algorithm.
 import collections
 
 
+# date: 18.10.21
 class Solution:
     def sortString(self, s: str) -> str:
         d = sorted([c, n] for c, n in collections.Counter(s).items())
