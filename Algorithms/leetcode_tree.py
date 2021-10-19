@@ -79,5 +79,3 @@ def _inorder_traversal(node):
         _inorder_traversal(node.left)
         inorder.append(node)
         _inorder_traversal(node.right)
-
-_inorder_traversal(root)
