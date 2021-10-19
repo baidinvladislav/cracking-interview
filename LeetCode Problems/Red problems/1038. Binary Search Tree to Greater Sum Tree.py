@@ -106,7 +106,7 @@ class Solution:
 
 
 if __name__ == '__main__':
-    root_arr = [4, 1, 6, 0, 2, 5, 7, 'N', 'N', 'N', 3, 'N', 'N', 'N', 8]
+    root_arr = [4, 1, 6, 0, 2, 5, 7, None, None, None, 3, None, None, None, 8]
     root = buildTree(root_arr)
     print_tree(root)
     print(Solution().bstToGst(root))
