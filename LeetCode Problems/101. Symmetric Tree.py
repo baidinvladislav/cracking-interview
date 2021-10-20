@@ -40,4 +40,3 @@ class Solution:
 
 root = buildTree([1, 2, 2, None, 3, None, 3])
 print(Solution().isSymmetric(root))
-
