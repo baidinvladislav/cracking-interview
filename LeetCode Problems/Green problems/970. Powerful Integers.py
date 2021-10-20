@@ -28,7 +28,8 @@ class Solution:
 print(Solution().powerfulIntegers(x=2, y=3, bound=10))
 
 
-# LeetCode solution
+# LeetCode solution does not run.
+# They also used bruteforce approach.
 class Solution1:
     def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
 
