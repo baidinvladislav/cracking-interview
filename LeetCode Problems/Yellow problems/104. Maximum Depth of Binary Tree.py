@@ -18,28 +18,12 @@ from Algorithms.leetcode_tree import TreeNode, buildTree
 
 
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:
 
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
 
-        queue = [root]
-        level = 0
-
-        while len(queue) > 0:
-            level += 1
-            temp_queue = queue
-            queue = []
-
-            for node in temp_queue:
-
-                if node.left:
-                    queue.append(node.left)
-
-                if node.right:
-                    queue.append(node.right)
-
-        return level
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 
 
 # root_arr = [2, None, 3, None, 4, None, 5, None, 6]
