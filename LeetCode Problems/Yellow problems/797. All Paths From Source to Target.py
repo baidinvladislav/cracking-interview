@@ -59,5 +59,3 @@ class Solution1:
 
 
 print(Solution1().allPathsSourceTarget(graph=[[1, 2], [3], [3], []]))
-
-
