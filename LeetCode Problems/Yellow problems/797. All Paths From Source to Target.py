@@ -12,23 +12,25 @@ from typing import List
 # My unfinished decision
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        g = {x: None for x in range(len(graph))}
-
-        for i in range(len(graph)):
+        n = len(graph)
+        g = {x: None for x in range(n)}
+        paths = []
+        for i in range(n):
             g[i] = graph[i]
 
+        def recurs(vertex, linked_vertex, paths):
+            if vertex == n - 1:
+                return paths
 
-        def recursion(node, target, length):
-            if node is target:
-                return
+            for i in linked_vertex:
+                paths.append(i)
+                recurs(vertex=i, linked_vertex=g[i], paths=paths)
 
-            recursion(node[i])
-            i -= 1
+        for i in range(n):
+            paths.append(i)
+            paths.append(recurs(vertex=i, linked_vertex=graph[i], paths=paths))
 
-
-        recursion(0, len(graph) - 1)
-
-
+        return paths
 
 
 print(Solution().allPathsSourceTarget(graph=[[1, 2], [3], [3], []]))
