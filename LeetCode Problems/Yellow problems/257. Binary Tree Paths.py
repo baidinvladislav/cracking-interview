@@ -23,20 +23,20 @@ class Solution:
         if not root: return []
         if not root.left and not root.right: return [str(root.val)]
 
-        self.res = []
+        result = []
 
         def dfs(root, path):
             if not root:
                 return
             path += str(root.val)
             if not root.left and not root.right:
-                self.res.append(path)
+                result.append(path)
                 return
             dfs(root.left, path + '->')
             dfs(root.right, path + '->')
 
         dfs(root, "")
-        return self.res
+        return result
 
 
 root_arr = [1, 2, 3, None, 5]
