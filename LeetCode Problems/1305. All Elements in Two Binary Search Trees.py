@@ -34,9 +34,24 @@ class Solution:
         dfs(root1, result_1)
         dfs(root2, result_2)
 
-        result_1.extend(result_2)
-        result_1.sort()
-        return result_1
+        answer = []
+        i, j = 0, 0
+        while i < len(result_1) and j < len(result_2):
+
+            if result_1[i] <= result_2[j]:
+                answer.append(result_1[i])
+                i += 1
+            else:
+                answer.append(result_2[j])
+                j += 1
+
+        if j != len(result_2):
+            answer += result_2[j:]
+
+        if i != len(result_1):
+            answer += result_1[i:]
+
+        return answer
 
 
 root_arr1 = [2, 1, 4]
