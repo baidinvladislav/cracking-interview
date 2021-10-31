@@ -9,11 +9,10 @@ def bfs(root):
 
     result = []
     while deque:
-        size, val = len(deque), 0
+        size = len(deque)
 
         for _ in range(size):
             node = deque.popleft()
-            val = node.val
 
             if node.left:
                 deque.append(node.left)
@@ -21,6 +20,6 @@ def bfs(root):
             if node.right:
                 deque.append(node.right)
 
-            result.append(val)
+            result.append(node.val)
 
     return result
