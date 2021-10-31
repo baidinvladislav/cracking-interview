@@ -1,27 +1,6 @@
-# Python program to for tree traversals
+from typing import Optional, List
 
-# A class that represents an individual node in a
-# Binary Tree
-
-
-class Node:
-    def __init__(self, key):
-        self.left = None
-        self.right = None
-        self.val = key
-
-
-# A function to do inorder tree traversal
-def printInorder(root):
-    if root:
-        # First recur on left child
-        printInorder(root.left)
-
-    # then print the data of node# Python program to for tree traversals
-
-
-# A class that represents an individual node in a
-# Binary Tree
+from Algorithms.leetcode_tree import TreeNode
 
 
 class Node:
@@ -31,106 +10,44 @@ class Node:
         self.val = key
 
 
-# A function to do inorder tree traversal
-def printInorder(root):
-    if root:
-        # First recur on left child
-        printInorder(root.left)
+def in_order_tree_traversal(root: Optional[TreeNode]) -> List[int]:
+    def _in_order_traversal(node, values):
+        if not node:
+            return
 
-        # then print the data of node
-        print(root.val),
+        _in_order_traversal(node.left, values)
+        values.append(node.val)
+        _in_order_traversal(node.right, values)
 
-        # now recur on right child
-        printInorder(root.right)
-
-
-# A function to do postorder tree traversal
-def printPostorder(root):
-    if root:
-        # First recur on left child
-        printPostorder(root.left)
-
-        # the recur on right child
-        printPostorder(root.right)
-
-        # now print the data of node
-        print(root.val),
+    values = []
+    _in_order_traversal(root, values)
+    return values
 
 
-# A function to do preorder tree traversal
-def printPreorder(root):
-    if root:
-        # First print the data of node
-        print(root.val),
+def _pre_order_tree_traversal(root: Optional[TreeNode]) -> List[int]:
+    def _pre_order_traversal(node, values):
 
-        # Then recur on left child
-        printPreorder(root.left)
+        if not node:
+            return
 
-        # Finally recur on right child
-        printPreorder(root.right)
+        values.append(node.val)
+        _pre_order_traversal(node.left, values)
+        _pre_order_traversal(node.right, values)
 
-
-# Driver code
-root = Node(1)
-root.left = Node(2)
-root.right = Node(3)
-root.left.left = Node(4)
-root.left.right = Node(5)
-
-print("Preorder traversal of binary tree is")
-printPreorder(root)
+    values = []
+    _pre_order_traversal(root, values)
+    return values
 
 
-print("\nInorder traversal of binary tree is")
-printInorder(root)
+def post_order_tree_traversal(root: Optional[TreeNode]) -> List[int]:
+    def _post_order_traversal(node, values):
+        if not node:
+            return
 
+        _post_order_traversal(node.left, values)
+        _post_order_traversal(node.right, values)
+        values.append(node.val)
 
-print("\nPostorder traversal of binary tree is")
-printPostorder(root)
-
-print(root.val),
-
-# now recur on right child
-printInorder(root.right)
-
-
-# A function to do postorder tree traversal
-def printPostorder(root):
-    if root:
-        # First recur on left child
-        printPostorder(root.left)
-
-        # the recur on right child
-        printPostorder(root.right)
-
-        # now print the data of node
-        print(root.val),
-
-
-# A function to do preorder tree traversal
-def printPreorder(root):
-    if root:
-        # First print the data of node
-        print(root.val),
-
-        # Then recur on left child
-        printPreorder(root.left)
-
-        # Finally recur on right child
-        printPreorder(root.right)
-
-
-# Driver code
-root = Node(1)
-root.left = Node(2)
-root.right = Node(3)
-root.left.left = Node(4)
-root.left.right = Node(5)
-print("Preorder traversal of binary tree is")
-printPreorder(root)
-
-print("\nInorder traversal of binary tree is")
-printInorder(root)
-
-print("\nPostorder traversal of binary tree is")
-printPostorder(root)
+    values = []
+    _post_order_traversal(root, values)
+    return values
