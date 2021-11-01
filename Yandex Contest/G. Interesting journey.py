@@ -24,23 +24,35 @@
 которое нужно проехать, чтобы попасть из начальной точки маршрута в конечную.
 Если пути не существует, выведите -1.
 """
-import sys
+# import sys
+#
+# amount = int(sys.stdin.readline())
+# cities = ''
+#
+# while amount != 0:
+#     cities += sys.stdin.readline()
+#     amount -= 1
+#
+# max_path = int(sys.stdin.readline())
+# from_to = sys.stdin.readline()
+#
+#
+# print(
+#     f'amount = {amount}, cities = {cities}, max_path = {max_path}, from_to = {from_to}'
+# )
 
-amount = int(sys.stdin.readline())
-cities = ''
 
-while amount != 0:
-    cities += sys.stdin.readline()
-    amount -= 1
+def find_min_path(amount, cities, max_path, from_to):
+    graph = {x: None for x in range(amount)}
 
-max_path = int(sys.stdin.readline())
-from_to = sys.stdin.readline()
+    for i in range(amount):
+        graph[i] = cities[i]
 
-
-print(
-    f'amount = {amount}, cities = {cities}, max_path = {max_path}, from_to = {from_to}'
-)
+    return graph
 
 
-def find_min_path():
-    pass
+amount = 7
+cities = [(0, 0), (0, 2), (2, 2), (0, -2), (2, -2), (2, -1), (2, 1)]
+max_path = 2
+from_to = (1, 3)
+print(find_min_path(amount, cities, max_path, from_to))
