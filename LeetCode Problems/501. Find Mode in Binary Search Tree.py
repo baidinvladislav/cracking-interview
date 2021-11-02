@@ -30,29 +30,22 @@ class Solution:
         if root.left is None and root.right is None:
             return [root.val]
 
-        def dfs(node, arr):
+        def dfs(node, hash_map):
             if not node:
                 return
 
-            dfs(node.left, arr)
-            arr.append(node.val)
-            dfs(node.right, arr)
+            if node.val in hash_map:
+                hash_map[node.val] += 1
+            else:
+                hash_map[node.val] = 1
 
-        values = []
-        dfs(root, values)
+            dfs(node.left, hash_map)
+            dfs(node.right, hash_map)
 
         hash_map = {}
-        for i in range(len(values)):
-            if values[i] in hash_map:
-                hash_map[values[i]] += 1
-            else:
-                hash_map[values[i]] = 1
+        dfs(root, hash_map)
 
-        max_value = float('-inf')
-        for key in hash_map.keys():
-            if hash_map[key] > max_value:
-                max_value = hash_map[key]
-
+        max_value = max(list(hash_map.values()))
         result = []
         for key in hash_map.keys():
             if hash_map[key] == max_value:
