@@ -3,6 +3,7 @@ Given a string s, find the length of the longest substring without repeating cha
 """
 
 
+# it's work but i do not like code duplication
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
 
@@ -37,4 +38,20 @@ class Solution:
 # print(Solution().lengthOfLongestSubstring(s="dvdf"))
 # print(Solution().lengthOfLongestSubstring(s="abcabcbb"))
 # print(Solution().lengthOfLongestSubstring(s="pwwkew"))
-print(Solution().lengthOfLongestSubstring(s="au"))
+# print(Solution().lengthOfLongestSubstring(s="au"))
+
+
+# more elegant solution by LeetCode
+class Solution1(object):
+    def lengthOfLongestSubstring(self, s):
+        dic, res, start, = {}, 0, 0
+
+        for i, ch in enumerate(s):
+            if ch in dic:
+                res = max(res, i-start)
+                start = max(start, dic[ch]+1)
+            dic[ch] = i
+        return max(res, len(s)-start)
+
+
+print(Solution1().lengthOfLongestSubstring(s="abcabcbb"))
