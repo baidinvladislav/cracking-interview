@@ -16,10 +16,9 @@ class Solution:
         max_sub = float('-inf')
 
         for item in input:
+
             if item not in output:
                 output.append(item)
-                if max_sub < len(output):
-                    max_sub = len(output)
             else:
                 if max_sub < len(output):
                     max_sub = len(output)
@@ -27,6 +26,10 @@ class Solution:
                 idx = output.index(item)
                 output = output[idx + 1:]
                 output.append(item)
+
+        else:
+            if max_sub < len(output):
+                max_sub = len(output)
 
         return max_sub
 
