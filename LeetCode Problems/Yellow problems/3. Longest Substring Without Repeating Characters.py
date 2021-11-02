@@ -51,7 +51,7 @@ class Solution1(object):
                 res = max(res, i - start)
                 start = max(start, dic[ch]+1)
             dic[ch] = i
-        return max(res, len(s)-start)
+        return max(res, len(s) - start)
 
 
 print(Solution1().lengthOfLongestSubstring(s="abcabcbb"))
