@@ -17,3 +17,6 @@ class Solution:
                 pos += 1
 
         return nums
+
+
+print(Solution().moveZeroes(nums=[0, 1, 0, 3, 12]))
