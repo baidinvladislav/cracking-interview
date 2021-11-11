@@ -8,4 +8,4 @@ Repository keeps my resolved coding problems.
 * "Yandex Contest" contains problems from previous interviews at Yandex.
 * "Yandex Interview" contains problems from habr article https://habr.com/ru/post/550088/.
 * "Yandex Blitz" contains problems from habr arcticle https://habr.com/ru/company/yandex/blog/340784/.
-* "Yandex LeetCode" contains problems that face in Yandex interview by according LeetCode opinion. https://leetcode.com/company/yandex/
+* "Yandex LeetCode" contains problems that face in Yandex interview by according LeetCode opinion. https://leetcode.com/company/yandex/.
