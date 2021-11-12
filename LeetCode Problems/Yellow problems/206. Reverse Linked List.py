@@ -13,9 +13,15 @@ class ListNode:
 class Solution:
     # Iterative
     def reverseList(self, head):
-        prev, curr = None, head
+        prev = None
+        curr = head
+
         while curr:
-            curr.next, prev, curr = prev, curr, curr.next
+            next_tmp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_tmp
+
         return prev
 
     # Recursive
