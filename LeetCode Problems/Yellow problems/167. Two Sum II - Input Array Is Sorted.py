@@ -9,7 +9,6 @@ added by one as an integer array [index1, index2] of length 2.
 The tests are generated such that there is exactly one solution. You may not use the same element twice.
 """
 
-
 from typing import List
 
 
@@ -19,13 +18,18 @@ class Solution:
         high = len(numbers) - 1
 
         while low < high:
-            if numbers[low] + numbers[high] == target:
+            attempt = numbers[low] + numbers[high]
+
+            if attempt == target:
                 return [low + 1, high + 1]
-            elif numbers[low] + numbers[high] < target:
+
+            elif attempt < target:
                 low += 1
-            elif numbers[low] + numbers[high] > target:
+
+            elif attempt > target:
                 high -= 1
+
         return [-1, -1]
 
 
-print(Solution().twoSum(numbers=[2, 7, 11, 15], target=9))
+print(Solution().twoSum(numbers=[5, 25, 75], target=100))
