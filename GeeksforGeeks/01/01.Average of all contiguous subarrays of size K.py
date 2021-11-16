@@ -23,11 +23,12 @@ def find_averages_of_subarrays_v1(arr, K):
     1. Initialize of empty array that we'll return.
     2. Initialize `windowSum` variable for calculate sum of sub-array.
     3. Initialize `windowStart` variable for tracking beginning of the subarray.
-    4. Inside every iteration we add value to `windowSum`.
-    5. If number of iteration greater or equal to `K-1`.
+    4. Inside every iteration we sum value to `windowSum`.
+    5. If number of iteration greater or equal to `K-1`. - create a window size
     6. Add `windowSum / K` to returned array.
     7. Decrease `windowSum` on value tracked in `windowStart` during first iteration it is `0`.
-    8. Increase `windowStart` variable on `1`.
+    - removed left element
+    8. Increase `windowStart` variable on `1`. - shifting window to the right
     9. Return `list` result.
 
     :param arr: `list` input array.
