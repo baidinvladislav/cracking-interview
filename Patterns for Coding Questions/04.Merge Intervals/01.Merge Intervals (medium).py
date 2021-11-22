@@ -3,16 +3,21 @@ Given a list of intervals, merge all the overlapping intervals to produce a list
 that has only mutually exclusive intervals.
 """
 
+
 from __future__ import print_function
 
 
 class Interval:
+
     def __init__(self, start, end):
         self.start = start
         self.end = end
 
     def print_interval(self):
         print("[" + str(self.start) + ", " + str(self.end) + "]", end='')
+
+    def __repr__(self):
+        return f'[{self.start}, {self.end}]'
 
 
 def merge(intervals):
@@ -25,6 +30,7 @@ def merge(intervals):
     mergedIntervals = []
     start = intervals[0].start
     end = intervals[0].end
+
     for i in range(1, len(intervals)):
         interval = intervals[i]
         if interval.start <= end:  # overlapping intervals, adjust the 'end'
