@@ -18,26 +18,22 @@ def longest_substring_with_k_distinct(str1, k):
     :param k: `int` amount values inside sub-array.
     :return: `int` max_length max length of sub-array distinct K elements.
     """
-    window_start = 0
-    max_length = 0
-    char_frequency = {}
+    window_start, max_length = 0, 0
+    hash_map = {}
 
-    # in the following loop we'll try to extend the range [window_start, window_end]
     for window_end in range(len(str1)):
         right_char = str1[window_end]
-        if right_char not in char_frequency:
-            char_frequency[right_char] = 0
-        char_frequency[right_char] += 1
+        if right_char not in hash_map:
+            hash_map[right_char] = 0
+        hash_map[right_char] += 1
 
-        # shrink the sliding window, until we are left with 'k' distinct characters in the char_frequency
-        while len(char_frequency) > k:
+        while len(hash_map) > k:
             left_char = str1[window_start]
-            char_frequency[left_char] -= 1
-            if char_frequency[left_char] == 0:
-                del char_frequency[left_char]
-            window_start += 1  # shrink the window
-        # remember the maximum length so far
-        max_length = max(max_length, window_end - window_start + 1)
+            hash_map[left_char] -= 1
+            if hash_map[left_char] == 0:
+                del hash_map[left_char]
+            window_start += 1
+        max_length = max(window_end - window_start + 1, max_length)
     return max_length
 
 
@@ -45,6 +41,7 @@ def main():
     print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 2)))
     print("Length of the longest substring: " + str(longest_substring_with_k_distinct("araaci", 1)))
     print("Length of the longest substring: " + str(longest_substring_with_k_distinct("cbbebi", 3)))
+    print("Length of the longest substring: " + str(longest_substring_with_k_distinct("cbbebi", 10)))
 
 
 main()
