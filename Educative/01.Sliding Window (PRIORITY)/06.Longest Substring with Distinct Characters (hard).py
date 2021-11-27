@@ -27,7 +27,6 @@ def main():
     print("Length of the longest substring: " + str(non_repeat_substring("aabccbb")))
     print("Length of the longest substring: " + str(non_repeat_substring("abbbb")))
     print("Length of the longest substring: " + str(non_repeat_substring("abccde")))
-
     # test case explanations why we used max function
     # without max function = 'cadcbefg'
     # with max function = 'adcbefg'
