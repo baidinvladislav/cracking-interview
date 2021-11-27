@@ -1,5 +1,6 @@
 """
-Given a string, find the length of the longest substring, which has all distinct characters.
+Given a string, find the length of the longest substring,
+which has all distinct characters.
 """
 
 
