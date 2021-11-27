@@ -16,6 +16,7 @@ def non_repeat_substring(str1):
             # why used max function?
             # we get the same result when we assign `char_index_map[right_char] + 1` to `window_start`
             # window_start = char_index_map[right_char] + 1
+            # read test cases
             window_start = max(window_start, char_index_map[right_char] + 1)
 
         char_index_map[right_char] = window_end
