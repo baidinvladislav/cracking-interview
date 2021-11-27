@@ -12,26 +12,22 @@ Write a function to return the maximum number of fruits in both baskets.
 
 
 def fruits_into_baskets(fruits):
-    window_start = 0
-    max_length = 0
-    fruit_frequency = {}
+    window_start, max_sub = 0, 0
+    hash_map = {}
 
-    # try to extend the range [window_start, window_end]
     for window_end in range(len(fruits)):
-        right_fruit = fruits[window_end]
-        if right_fruit not in fruit_frequency:
-            fruit_frequency[right_fruit] = 0
-        fruit_frequency[right_fruit] += 1
+        if fruits[window_end] not in hash_map:
+            hash_map[fruits[window_end]] = 0
+        hash_map[fruits[window_end]] += 1
 
-        # shrink the sliding window, until we are left with '2' fruits in the fruit frequency dictionary
-        while len(fruit_frequency) > 2:
+        while len(hash_map) > 2:
             left_fruit = fruits[window_start]
-            fruit_frequency[left_fruit] -= 1
-            if fruit_frequency[left_fruit] == 0:
-                del fruit_frequency[left_fruit]
-            window_start += 1  # shrink the window
-        max_length = max(max_length, window_end - window_start + 1)
-    return max_length
+            hash_map[left_fruit] -= 1
+            if hash_map[left_fruit] == 0:
+                del hash_map[left_fruit]
+            window_start += 1
+        max_sub = max(max_sub, window_end - window_start + 1)
+    return max_sub
 
 
 def main():
