@@ -35,16 +35,16 @@ def find_averages_of_subarrays_v1(arr, K):
     :param K: `int` length of sub-arrays.
     :return: `list` result contains all the averages of the sub-arrays.
     """
+    window_start = 0
+    window_sum = 0
     result = []
-    windowSum, windowStart = 0.0, 0
-    for windowEnd in range(len(arr)):
-        windowSum += arr[windowEnd]  # add the next element
-        # slide the window, we don't need to slide if we've not hit the required window size of 'k'
-        if windowEnd >= K - 1:
-            result.append(windowSum / K)  # calculate the average
-            windowSum -= arr[windowStart]  # subtract the element going out
-            windowStart += 1  # slide the window ahead
 
+    for window_end in range(len(arr)):
+        window_sum += arr[window_end]
+        if window_end >= K - 1:
+            result.append(window_sum / K)
+            window_sum -= arr[window_start]
+            window_start += 1
     return result
 
 
