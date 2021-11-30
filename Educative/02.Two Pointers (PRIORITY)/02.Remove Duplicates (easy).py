@@ -6,23 +6,28 @@ after removing the duplicates in-place return the length of the subarray that ha
 
 def remove_duplicates(arr):
     # index of the next non-duplicate element
-    next_non_duplicate_idx = 1
+    next_non_duplicate = 1
 
     i = 1
     while i < len(arr):
-        last_no_dupl_el = arr[next_non_duplicate_idx - 1]
-        element = arr[i]
-
-        if last_no_dupl_el != element:
-            arr[next_non_duplicate_idx] = element
-            next_non_duplicate_idx += 1
+        if arr[next_non_duplicate - 1] != arr[i]:
+            arr[next_non_duplicate] = arr[i]
+            next_non_duplicate += 1
         i += 1
 
-    return next_non_duplicate_idx
+    return next_non_duplicate
 
 
 def main():
     print(remove_duplicates([2, 3, 3, 3, 6, 9, 9]))
+    print(remove_duplicates([2, 2, 2, 11]))
+
+
+main()
+
+
+def main():
+    # print(remove_duplicates([2, 3, 3, 3, 6, 9, 9]))
     print(remove_duplicates([2, 2, 2, 11]))
 
 
