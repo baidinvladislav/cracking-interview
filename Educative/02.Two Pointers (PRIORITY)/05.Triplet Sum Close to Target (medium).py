@@ -17,6 +17,7 @@ def triplet_sum_close_to_target(arr, target_sum):
         right = len(arr) - 1
         while left < right:
             target_diff = target_sum - arr[i] - arr[left] - arr[right]
+
             if target_diff == 0:  # we've found a triplet with an exact sum
                 return target_sum - target_diff  # return sum of all the numbers
 
