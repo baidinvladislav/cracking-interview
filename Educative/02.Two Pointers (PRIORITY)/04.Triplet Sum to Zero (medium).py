@@ -6,10 +6,16 @@ Given an array of unsorted numbers, find all unique triplets in it that add up t
 def search_triplets(arr):
     arr.sort()
     triplets = []
+
     for i in range(len(arr)):
-        if i > 0 and arr[i] == arr[i - 1]:  # skip same element to avoid duplicate triplets
+        prev_cur_elem = arr[i - 1]
+        cur_elem = arr[i]
+
+        if i > 0 and prev_cur_elem == cur_elem:  # skip same element to avoid duplicate triplets
             continue
-        search_pair(arr, -arr[i], i + 1, triplets)
+
+        target_sum = -arr[i]
+        search_pair(arr=arr, target_sum=target_sum, left=i + 1, triplets=triplets)
 
     return triplets
 
