@@ -2,6 +2,7 @@
 Given an array, find the length of the smallest subarray in it which when sorted will sort the whole array.
 """
 
+
 import math
 
 
@@ -28,6 +29,7 @@ def shortest_window_sort(arr):
     # extend the subarray to include any number which is bigger than the minimum of the subarray
     while low > 0 and arr[low - 1] > subarray_min:
         low -= 1
+
     # extend the subarray to include any number which is smaller than the maximum of the subarray
     while high < len(arr) - 1 and arr[high + 1] < subarray_max:
         high += 1
