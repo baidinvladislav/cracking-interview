@@ -10,7 +10,8 @@ You should assume that the array is circular which means two things:
     2.If, while moving backward, we reach the beginning of the array,
     we will jump to the last element to continue the movement.
 
-Write a method to determine if the array has a cycle. The cycle should have more than one element and should follow one direction which means the cycle should not contain both forward and backward movements.
+Write a method to determine if the array has a cycle. The cycle should have more than one element
+and should follow one direction which means the cycle should not contain both forward and backward movements.
 """
 
 
