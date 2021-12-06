@@ -1,4 +1,5 @@
-Created on April 24.08.21
+Created on April 24.08.21.
+
 Repository keeps my resolved coding problems.
 
 * "Algorithms" contains popular algorithms to work with data structures.
