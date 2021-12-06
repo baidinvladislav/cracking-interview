@@ -24,7 +24,7 @@ class EmployeeInterval:
         self.interval = interval  # interval representing employee's working hours
         # index of the list containing working hours of this employee
         self.employeeIndex = employeeIndex
-        self.intervalIndex = intervalIndex  # index of the interval in the employee list
+        self.intervalIndex = intervalIndex  # index of the interval in the employee list.
 
     def __lt__(self, other):
         # min heap based on meeting.end
