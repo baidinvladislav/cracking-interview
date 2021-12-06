@@ -1,4 +1,6 @@
 """
+Given the head of a Singly LinkedList, write a method to check if the LinkedList is a palindrome or not.
+
 Your algorithm should use constant space and the input LinkedList should be
 in the original form once the algorithm is finished.
 
@@ -10,6 +12,9 @@ class Node:
     def __init__(self, value, next=None):
         self.value = value
         self.next = next
+
+    def __repr__(self):
+        return str(self.value)
 
 
 def is_palindromic_linked_list(head):
@@ -28,6 +33,7 @@ def is_palindromic_linked_list(head):
 
     # compare the first and the second half
     while head is not None and head_second_half is not None:
+
         if head.value != head_second_half.value:
             break  # not a palindrome
 
