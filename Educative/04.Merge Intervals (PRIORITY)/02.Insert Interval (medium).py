@@ -27,6 +27,7 @@ def insert(intervals, new_interval):
     while i < len(intervals):
         merged.append(intervals[i])
         i += 1
+
     return merged
 
 
