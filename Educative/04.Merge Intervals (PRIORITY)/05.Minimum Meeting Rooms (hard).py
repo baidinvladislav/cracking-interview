@@ -27,7 +27,7 @@ def min_meeting_rooms(meetings):
         # remove all the meetings that have ended
         while len(minHeap) > 0 and meeting.start >= minHeap[0].end:
             heappop(minHeap)
-        # add the current meeting into min_heap
+        # add the current meeting into min_heap.
         heappush(minHeap, meeting)
         # all active meetings are in the min_heap, so we need rooms for all of them.
         minRooms = max(minRooms, len(minHeap))
