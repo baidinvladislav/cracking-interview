@@ -8,6 +8,7 @@ your method should return 1 -> 6 -> 2 -> 5 -> 3 -> 4 -> null.
 Your algorithm should not use any extra space and the input LinkedList should be modified in-place.
 """
 
+
 from __future__ import print_function
 
 
@@ -22,6 +23,9 @@ class Node:
             print(str(temp.value) + " ", end='')
             temp = temp.next
         print()
+
+    def __repr__(self):
+        return str(self.value)
 
 
 def reorder(head):
