@@ -10,6 +10,9 @@ class Node:
         self.value = value
         self.next = next
 
+    def __repr__(self):
+        return str(self.value)
+
 
 def find_middle_of_linked_list(head):
     slow = head
