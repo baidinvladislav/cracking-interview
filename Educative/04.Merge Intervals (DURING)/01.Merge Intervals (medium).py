@@ -21,6 +21,17 @@ class Interval:
 
 
 def merge(intervals):
+    """
+    1. Sort the intervals on the start time
+    2. Take the first interval as a reference point
+    3. Find overlapping intervals start from second interval in the list
+    4. If interval overlapped so calculate its end
+    5. If interval not overlapped add to result list and change a reference point
+    6. Add the last interval
+
+    :param intervals: list of intervals
+    :return: merged list of intervals
+    """
     if len(intervals) < 2:
         return intervals
 
