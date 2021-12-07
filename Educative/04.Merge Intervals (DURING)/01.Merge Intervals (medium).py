@@ -28,15 +28,22 @@ def merge(intervals):
     intervals.sort(key=lambda x: x.start)
 
     mergedIntervals = []
+    # take the first interval as a reference point
     start = intervals[0].start
     end = intervals[0].end
 
+    # find overlapping intervals start from second interval in the list
     for i in range(1, len(intervals)):
         interval = intervals[i]
-        if interval.start <= end:  # overlapping intervals, adjust the 'end'
+        # if interval overlapped
+        if interval.start <= end:
+            # calculate its end
             end = max(interval.end, end)
-        else:  # non-overlapping interval, add the previous interval and reset
+        # if interval not overlapped
+        else:
+            # added to result list
             mergedIntervals.append(Interval(start, end))
+            # change a reference point
             start = interval.start
             end = interval.end
 
