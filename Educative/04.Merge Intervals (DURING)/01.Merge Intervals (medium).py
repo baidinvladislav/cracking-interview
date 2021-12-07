@@ -29,7 +29,7 @@ def merge(intervals):
     5. If interval not overlapped add to result list and change a reference point
     6. Add the last interval
 
-    :param intervals: list of intervals
+    :param intervals: unsorted list of intervals
     :return: merged list of intervals
     """
     if len(intervals) < 2:
