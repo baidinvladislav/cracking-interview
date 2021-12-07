@@ -47,7 +47,7 @@ def merge(intervals):
     for i in range(1, len(intervals)):
         interval = intervals[i]
         # if interval overlapped
-        if interval.start <= end:
+        if end >= interval.start:
             # calculate its end
             end = max(interval.end, end)
         # if interval not overlapped
