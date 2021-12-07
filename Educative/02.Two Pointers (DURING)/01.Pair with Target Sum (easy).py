@@ -8,16 +8,27 @@ such that they add up to the given target.
 
 
 def pair_with_targetsum(arr, target_sum):
-    left, right = 0, len(arr) - 1
-    while left < right:
-        current_sum = arr[left] + arr[right]
-        if current_sum == target_sum:
-            return [left, right]
+    # len(arr) - 1 because we need to get index of last element
+    left_pointer, right_pointer = 0, len(arr) - 1
 
-        if target_sum > current_sum:
-            left += 1  # we need a pair with a bigger sum
-        else:
-            right -= 1  # we need a pair with a smaller sum
+    while left_pointer < right_pointer:
+        # calculate current sum
+        cur_sum = arr[left_pointer] + arr[right_pointer]
+
+        if cur_sum == target_sum:
+            return [left_pointer, right_pointer]
+
+        # if the current amount is greater than the target amount,
+        # we decrease it by shifting the right pointer from the end one element closer to the beginning
+        elif cur_sum > target_sum:
+            right_pointer -= 1
+
+        # if the current amount is less than the target amount,
+        # we increase it by shifting the left pointer from the beginning one element closer to the end
+        elif cur_sum < target_sum:
+            left_pointer += 1
+
+    # if we can not find pair
     return [-1, -1]
 
 
