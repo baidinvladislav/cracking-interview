@@ -41,7 +41,7 @@ def merge(intervals):
             end = max(interval.end, end)
         # if interval not overlapped
         else:
-            # added to result list
+            # add to result list
             mergedIntervals.append(Interval(start, end))
             # change a reference point
             start = interval.start
