@@ -23,7 +23,6 @@ class Node:
         print()
 
 
-# find the LinkedList cycle
 def find_cycle_start(head):
     slow, fast = head, head
     while True:
