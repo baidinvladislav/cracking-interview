@@ -25,18 +25,15 @@ class Node:
 
 # find the LinkedList cycle
 def find_cycle_start(head):
-    cycle_length = 0
     slow, fast = head, head
-    while fast is not None and fast.next is not None:
-        fast = fast.next.next
+    while True:
         slow = slow.next
+        fast = fast.next.next
         if slow == fast:
             cycle_length = calculate_cycle_length(slow)
-            break
-    return find_start(head, cycle_length)
+            return find_start_node(head, cycle_length)
 
 
-# returns cycle length
 def calculate_cycle_length(slow):
     current = slow
     cycle_length = 0
@@ -44,22 +41,21 @@ def calculate_cycle_length(slow):
         current = current.next
         cycle_length += 1
         if current == slow:
-            break
-    return cycle_length
+            return cycle_length
 
 
-def find_start(head, cycle_length):
-    pointer1 = head
-    pointer2 = head
-    # move pointer2 ahead 'cycle_length' nodes
+def find_start_node(head, cycle_length):
+    pointer_1, pointer_2 = head, head
+
     while cycle_length > 0:
-        pointer2 = pointer2.next
+        pointer_2 = pointer_2.next
         cycle_length -= 1
-    # increment both pointers until they meet at the start of the cycle
-    while pointer1 != pointer2:
-        pointer1 = pointer1.next
-        pointer2 = pointer2.next
-    return pointer1
+
+    while pointer_1 != pointer_2:
+        pointer_1 = pointer_1.next
+        pointer_2 = pointer_2.next
+
+    return pointer_1
 
 
 def main():
