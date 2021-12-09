@@ -5,26 +5,21 @@ of the input array in the sorted order.
 
 
 def make_squares(arr):
-    n = len(arr)
-    squares = [0 for _ in range(n)]
-
-    highest_square_idx = n - 1
-    left, right = 0, n - 1
+    result, inserted_index = [None for _ in arr], len(arr) - 1
+    left, right = 0, len(arr) - 1
 
     while left <= right:
-        left_square = arr[left] * arr[left]
-        right_square = arr[right] * arr[right]
+        left_square, right_square = arr[left] ** 2, arr[right] ** 2
 
-        if left_square > right_square:
-            squares[highest_square_idx] = left_square
-            left += 1
-        else:
-            squares[highest_square_idx] = right_square
+        if right_square > left_square:
+            result[inserted_index] = right_square
             right -= 1
+        else:
+            result[inserted_index] = left_square
+            left += 1
 
-        highest_square_idx -= 1
-
-    return squares
+        inserted_index -= 1
+    return result
 
 
 def main():
