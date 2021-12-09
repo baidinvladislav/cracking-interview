@@ -6,29 +6,30 @@ to produce a list that has only mutually exclusive intervals.
 
 
 def insert(intervals, new_interval):
-    merged = []
-    i, start, end = 0, 0, 1
+    start, end = 0, 1
+    counter = 0
+    merged_arr = []
 
-    # skip (and add to output) all intervals that come before the 'new_interval'
-    while i < len(intervals) and intervals[i][end] < new_interval[start]:
-        merged.append(intervals[i])
-        i += 1
+    # add to result array all intervals that come before new interval
+    while counter < len(intervals) and intervals[counter][end] < new_interval[start]:
+        merged_arr.append(intervals[counter])
+        counter += 1
 
-    # merge all intervals that overlap with 'new_interval'
-    while i < len(intervals) and intervals[i][start] <= new_interval[end]:
-        new_interval[start] = min(intervals[i][start], new_interval[start])
-        new_interval[end] = max(intervals[i][end], new_interval[end])
-        i += 1
+    # merge overlapping intervals with new interval
+    while counter < len(intervals) and new_interval[end] >= intervals[counter][start]:
+        new_interval[start] = min(intervals[counter][start], new_interval[start])
+        new_interval[end] = max(intervals[counter][end], new_interval[end])
+        counter += 1
 
-    # insert the new_interval
-    merged.append(new_interval)
+    # insert merged new interval with all overlapping intervals
+    merged_arr.append(new_interval)
 
-    # add all the remaining intervals to the output
-    while i < len(intervals):
-        merged.append(intervals[i])
-        i += 1
+    # insert other intervals into result array
+    while counter < len(intervals):
+        merged_arr.append(intervals[counter])
+        counter += 1
 
-    return merged
+    return merged_arr
 
 
 def main():
