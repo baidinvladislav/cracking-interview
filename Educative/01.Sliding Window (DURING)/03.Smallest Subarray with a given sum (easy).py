@@ -15,6 +15,7 @@ def smallest_subarray_with_given_sum(s, arr):
             window_sum -= arr[window_start]
             window_start += 1
 
+    # return 0 if no such subarray exists
     if min_length == float('inf'):
         return 0
 
