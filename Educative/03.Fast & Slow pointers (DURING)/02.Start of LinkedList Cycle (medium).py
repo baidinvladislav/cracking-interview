@@ -23,19 +23,20 @@ class Node:
         print()
 
 
+# find the LinkedList cycle
 def find_cycle_start(head):
     cycle_length = 0
-    # find the LinkedList cycle
     slow, fast = head, head
     while fast is not None and fast.next is not None:
         fast = fast.next.next
         slow = slow.next
-        if slow == fast:  # found the cycle
+        if slow == fast:
             cycle_length = calculate_cycle_length(slow)
             break
     return find_start(head, cycle_length)
 
 
+# returns cycle length
 def calculate_cycle_length(slow):
     current = slow
     cycle_length = 0
