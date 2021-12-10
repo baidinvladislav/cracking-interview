@@ -16,6 +16,8 @@ Write a function to return a list of starting indices of the anagrams of the pat
 """
 
 
+# Time Complexity: O(N+M)
+# Space Complexity: O(M)
 def find_string_anagrams(str1, pattern):
     window_start, matched = 0, 0
     char_frequency = {}

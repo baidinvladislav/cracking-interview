@@ -4,6 +4,8 @@ with no more than K distinct characters.
 """
 
 
+# Time Complexity: O(N)
+# Space Complexity: O(K)
 def longest_substring_with_k_distinct(str1, k):
     """
     1. Initialize `window_start` to tracking beginning of window.

@@ -15,6 +15,8 @@ If a string has ‘n’ distinct characters, it will have n! permutations.
 """
 
 
+# Time Complexity: O(N+M)
+# Space Complexity: O(M)
 def find_permutation(str1, pattern):
     window_start, matched = 0, 0
     char_frequency = {}

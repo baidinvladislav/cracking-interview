@@ -4,6 +4,8 @@ find the length of the longest contiguous subarray having all 1s.
 """
 
 
+# Time Complexity: O(N)
+# Space Complexity: O(1)
 def length_of_longest_substring(arr, k):
     ones, window_start, max_length = 0, 0, 0
 

@@ -4,6 +4,8 @@ find the smallest substring in the given string which has all the characters of 
 """
 
 
+# Time Complexity: O(N+M)
+# Space Complexity: O(M)
 def find_substring(str1, pattern):
     window_start, matched, substr_start = 0, 0, 0
     min_length = len(str1) + 1

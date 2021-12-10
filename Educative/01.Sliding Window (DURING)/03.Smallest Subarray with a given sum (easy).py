@@ -6,6 +6,8 @@ Return 0 if no such subarray exists.
 """
 
 
+# Time Complexity: O(N)
+# Space Complexity: O(1)
 def smallest_subarray_with_given_sum(s, arr):
     window_start, window_sum, min_length = 0, 0, float('inf')
     for window_end in range(len(arr)):

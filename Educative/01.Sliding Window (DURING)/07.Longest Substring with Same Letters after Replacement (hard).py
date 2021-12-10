@@ -4,6 +4,8 @@ find the length of the longest substring having the same letters after replaceme
 """
 
 
+# Time Complexity: O(N)
+# Space Complexity: O(1)
 def length_of_longest_substring(str1, k):
     window_start, max_length, max_repeat_letter_count = 0, 0, 0
     frequency_map = {}

@@ -11,6 +11,8 @@ Write a function to return the maximum number of fruits in both baskets.
 """
 
 
+# Time Complexity: O(N)
+# Space Complexity: O(1)
 def fruits_into_baskets(fruits):
     window_start, max_sub = 0, 0
     hash_map = {}

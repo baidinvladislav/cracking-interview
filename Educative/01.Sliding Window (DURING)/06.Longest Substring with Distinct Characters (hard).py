@@ -4,6 +4,8 @@ which has all distinct characters.
 """
 
 
+# Time Complexity: O(N)
+# Space Complexity: O(K)
 def non_repeat_substring(str1):
     window_start = 0
     max_length = 0

@@ -4,6 +4,8 @@ find the maximum sum of any contiguous subarray of size ‘k’.
 """
 
 
+# Time Complexity: O(N)
+# Space Complexity: O(1)
 def max_sub_array_of_size_k(k, arr):
     window_start, window_sum, max_sum = 0, 0, 0
 
