@@ -4,6 +4,7 @@ that are a concatenation of all the given words exactly once without any overlap
 It is given that all words are of the same length.
 """
 
+
 # Time Complexity: O(N∗M∗Len)
 # Space Complexity: O(M+N)
 def find_word_concatenation(str1, words):
