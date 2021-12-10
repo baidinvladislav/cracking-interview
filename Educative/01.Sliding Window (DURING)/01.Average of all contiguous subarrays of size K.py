@@ -4,6 +4,7 @@ Given an array, find the average of all contiguous sub-arrays of size ‘K’ in
 
 
 # brute-force
+# Time complexity: O(N**2)
 def find_averages_of_subarrays(arr, K):
     result = []
 
@@ -17,6 +18,7 @@ def find_averages_of_subarrays(arr, K):
 
 
 # sliding window
+# Time complexity: O(N)
 def find_averages_of_subarrays_v1(arr, K):
     """
     1. Initialize of empty array that we'll return.
