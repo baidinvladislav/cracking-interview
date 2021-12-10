@@ -6,6 +6,7 @@ Instead, they will be stuck in a cycle of numbers which does not include ‘1’
 """
 
 
+# determines where stuck of cycle
 def find_happy_number(num):
     slow, fast = num, num
     while True:
@@ -19,6 +20,7 @@ def find_happy_number(num):
     return slow == 1
 
 
+# calculates the sum of the squares of the digits of a number
 def find_square_sum(num):
     _sum = 0
     while num > 0:
