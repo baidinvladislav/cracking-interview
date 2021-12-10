@@ -4,29 +4,24 @@ Each list consists of disjoint intervals sorted on their start time.
 """
 
 
+# Time complexity: O(N+M)
+# Space complexity: O(1)
 def merge(intervals_a, intervals_b):
+    i, j = 0, 0
+    start, end = 0, 1
     result = []
-    i, j, start, end = 0, 0, 0, 1
 
     while i < len(intervals_a) and j < len(intervals_b):
-        interval_from_a_start, interval_from_a_end = intervals_a[i][start], intervals_a[i][end]
-        interval_from_b_start, interval_from_b_end = intervals_b[j][start], intervals_b[j][end]
+        is_overlapping = intervals_b[j][start] <= intervals_a[i][start] <= intervals_b[j][end] or \
+                         intervals_a[i][start] <= intervals_b[j][start] <= intervals_a[i][end]
 
-        # check if intervals overlap and intervals_a[i]'s start time lies within the other intervals_b[j]
-        a_overlaps_b = interval_from_b_start <= interval_from_a_start <= interval_from_b_end
-
-        # check if intervals overlap and intervals_a[j]'s start time lies within the other intervals_b[i]
-        b_overlaps_a = interval_from_a_start <= interval_from_b_start <= interval_from_a_end
-
-        # store the intersection part
-        if a_overlaps_b or b_overlaps_a:
+        if is_overlapping:
             result.append([
-                max(interval_from_a_start, interval_from_b_start),
-                min(interval_from_a_end, interval_from_b_end)
+                max(intervals_a[i][start], intervals_b[j][start]),
+                min(intervals_a[i][end], intervals_b[j][end])
             ])
 
-        # move next from the interval which is finishing first
-        if interval_from_a_end < interval_from_b_end:
+        if intervals_a[i][end] < intervals_b[j][end]:
             i += 1
         else:
             j += 1
