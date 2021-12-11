@@ -4,8 +4,8 @@ and your goal is to put maximum number of fruits in each basket.
 The only restriction is that each basket can have only one type of fruit.
 
 You can start with any tree, but you can’t skip a tree once you have started.
-You will pick one fruit from each tree until you cannot, i.e.,
-you will stop when you have to pick from a third fruit type.
+You will pick one fruit from each tree until you cannot,
+i.e., you will stop when you have to pick from a third fruit type.
 
 Write a function to return the maximum number of fruits in both baskets.
 """
@@ -14,22 +14,20 @@ Write a function to return the maximum number of fruits in both baskets.
 # Time Complexity: O(N)
 # Space Complexity: O(1)
 def fruits_into_baskets(fruits):
-    window_start, max_sub = 0, 0
-    hash_map = {}
+    window_start, max_length, storage = 0, float('-inf'), dict()
 
     for window_end in range(len(fruits)):
-        if fruits[window_end] not in hash_map:
-            hash_map[fruits[window_end]] = 0
-        hash_map[fruits[window_end]] += 1
+        if fruits[window_end] not in storage:
+            storage[fruits[window_end]] = 0
+        storage[fruits[window_end]] += 1
 
-        while len(hash_map) > 2:
-            left_fruit = fruits[window_start]
-            hash_map[left_fruit] -= 1
-            if hash_map[left_fruit] == 0:
-                del hash_map[left_fruit]
+        while len(storage) > 2:
+            storage[fruits[window_start]] -= 1
+            if storage[fruits[window_start]] == 0:
+                del storage[fruits[window_start]]
             window_start += 1
-        max_sub = max(max_sub, window_end - window_start + 1)
-    return max_sub
+        max_length = max(max_length, window_end - window_start + 1)
+    return max_length
 
 
 def main():
