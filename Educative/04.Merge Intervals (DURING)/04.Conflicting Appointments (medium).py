@@ -5,10 +5,11 @@ find out if a person can attend all the appointments.
 
 
 def can_attend_all_appointments(intervals):
-    intervals.sort(key=lambda x: x[0])
     start, end = 0, 1
+    intervals.sort(key=lambda x: x[start])
+
     for i in range(1, len(intervals)):
-        if intervals[i][start] < intervals[i - 1][end]:
+        if intervals[i - 1][end] > intervals[i][start]:
             return False
     return True
 
