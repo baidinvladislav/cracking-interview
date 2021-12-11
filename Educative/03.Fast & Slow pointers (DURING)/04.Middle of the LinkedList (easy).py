@@ -15,9 +15,8 @@ class Node:
 
 
 def find_middle_of_linked_list(head):
-    slow = head
-    fast = head
-    while fast is not None and fast.next is not None:
+    slow, fast = head, head
+    while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
     return slow
