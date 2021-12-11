@@ -21,22 +21,19 @@ def longest_substring_with_k_distinct(str1, k):
     :param k: `int` amount values inside sub-array.
     :return: `int` max_length max length of sub-array distinct K elements.
     """
-    window_start, max_length = 0, 0
-    hash_map = {}
+    window_start, max_length, storage = 0, float('-inf'), dict()
 
     for window_end in range(len(str1)):
-        right_char = str1[window_end]
-        if right_char not in hash_map:
-            hash_map[right_char] = 0
-        hash_map[right_char] += 1
+        if str1[window_end] not in storage:
+            storage[str1[window_end]] = 0
+        storage[str1[window_end]] += 1
 
-        while len(hash_map) > k:
-            left_char = str1[window_start]
-            hash_map[left_char] -= 1
-            if hash_map[left_char] == 0:
-                del hash_map[left_char]
+        while len(storage) > k:
+            storage[str1[window_start]] -= 1
+            if storage[str1[window_start]] == 0:
+                del storage[str1[window_start]]
             window_start += 1
-        max_length = max(window_end - window_start + 1, max_length)
+        max_length = max(max_length, window_end - window_start + 1)
     return max_length
 
 
