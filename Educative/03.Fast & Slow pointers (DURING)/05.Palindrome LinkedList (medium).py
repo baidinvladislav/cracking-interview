@@ -4,7 +4,7 @@ Given the head of a Singly LinkedList, write a method to check if the LinkedList
 Your algorithm should use constant space and the input LinkedList should be
 in the original form once the algorithm is finished.
 
-The algorithm should have O(N)O(N) time complexity where ‘N’ is the number of nodes in the LinkedList.
+The algorithm should have O(N) time complexity where ‘N’ is the number of nodes in the LinkedList.
 """
 
 
