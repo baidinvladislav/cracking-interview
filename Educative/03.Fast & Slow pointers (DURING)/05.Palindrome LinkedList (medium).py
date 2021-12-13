@@ -40,12 +40,14 @@ def is_palindromic_linked_list(head):
             # not a palindrome
             break
 
+        # here both heads will be None after the last iteration of the loop
         head = head.next
         head_second_half = head_second_half.next
 
     # revert the reverse of the second half
     reverse(copy_head_second_half)
 
+    # here we will catch None if the last cycle has reached the end
     if head is None or head_second_half is None:
         # if both halves match
         return True
