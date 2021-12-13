@@ -27,7 +27,9 @@ def is_palindromic_linked_list(head):
         slow = slow.next
         fast = fast.next.next
 
-    head_second_half = reverse(slow)  # reverse the second half
+    # reverse the second half
+    head_second_half = reverse(slow)
+
     # store the head of reversed part to revert back later
     copy_head_second_half = head_second_half
 
@@ -35,14 +37,17 @@ def is_palindromic_linked_list(head):
     while head is not None and head_second_half is not None:
 
         if head.value != head_second_half.value:
-            break  # not a palindrome
+            # not a palindrome
+            break
 
         head = head.next
         head_second_half = head_second_half.next
 
-    reverse(copy_head_second_half)  # revert the reverse of the second half
+    # revert the reverse of the second half
+    reverse(copy_head_second_half)
 
-    if head is None or head_second_half is None:  # if both halves match
+    if head is None or head_second_half is None:
+        # if both halves match
         return True
 
     return False
