@@ -7,21 +7,13 @@ which has all distinct characters.
 # Time Complexity: O(N)
 # Space Complexity: O(K)
 def non_repeat_substring(str1):
-    window_start = 0
-    max_length = 0
-    char_index_map = {}
+    window_start, max_length, hash_map = 0, 0, dict()
 
     for window_end in range(len(str1)):
-        right_char = str1[window_end]
-        if right_char in char_index_map:
+        if str1[window_end] in hash_map:
+            window_start = max(window_start, hash_map[str1[window_end]] + 1)
 
-            # why used max function?
-            # we get the same result when we assign `char_index_map[right_char] + 1` to `window_start`
-            # window_start = char_index_map[right_char] + 1
-            # read test cases
-            window_start = max(window_start, char_index_map[right_char] + 1)
-
-        char_index_map[right_char] = window_end
+        hash_map[str1[window_end]] = window_end
         max_length = max(max_length, window_end - window_start + 1)
     return max_length
 
