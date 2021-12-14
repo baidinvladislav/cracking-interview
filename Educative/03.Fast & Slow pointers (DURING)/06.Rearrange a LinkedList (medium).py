@@ -29,42 +29,37 @@ class Node:
 
 
 def reorder(head):
-    if head is None or head.next is None:
+    if not head or not head.next:
         return
 
-    # find middle of the LinkedList
     slow, fast = head, head
-    while fast is not None and fast.next is not None:
+    while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
 
-    # slow is now pointing to the middle node
-    head_second_half = reverse(slow)  # reverse the second half
-    head_first_half = head
+    def reverse(head):
+        prev = None
+        while head:
+            next = head.next
+            head.next = prev
+            prev = head
+            head = next
+        return prev
 
-    # rearrange to produce the LinkedList in the required order
-    while head_first_half is not None and head_second_half is not None:
-        temp = head_first_half.next
-        head_first_half.next = head_second_half
-        head_first_half = temp
+    head_first_half_list = head
+    head_second_half_list = reverse(slow)
 
-        temp = head_second_half.next
-        head_second_half.next = head_first_half
-        head_second_half = temp
+    while head_first_half_list and head_second_half_list:
+        tmp = head_first_half_list.next
+        head_first_half_list.next = head_second_half_list
+        head_first_half_list = tmp
 
-    # set the next of the last node to 'None'
-    if head_first_half is not None:
-        head_first_half.next = None
+        tmp = head_second_half_list.next
+        head_second_half_list.next = head_first_half_list
+        head_second_half_list = tmp
 
-
-def reverse(head):
-    prev = None
-    while head is not None:
-        next = head.next
-        head.next = prev
-        prev = head
-        head = next
-    return prev
+    if head_first_half_list:
+        head_first_half_list.next = None
 
 
 def main():
