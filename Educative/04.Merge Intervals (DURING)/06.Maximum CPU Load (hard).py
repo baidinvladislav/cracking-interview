@@ -19,21 +19,16 @@ class Job:
 
 
 def find_max_cpu_load(jobs):
-    # sort the jobs by start time
     jobs.sort(key=lambda x: x.start)
-    max_cpu_load, current_cpu_load = 0, 0
-    min_heap = []
-
-    for j in jobs:
-        # remove all the jobs that have ended
-        while len(min_heap) > 0 and j.start >= min_heap[0].end:
-            current_cpu_load -= min_heap[0].cpu_load
+    current_cpu, max_cpu, min_heap = 0, 0, []
+    for job in jobs:
+        while len(min_heap) > 0 and min_heap[0].end <= job.start:
+            current_cpu -= min_heap[0].cpu_load
             heappop(min_heap)
-        # add the current job into min_heap
-        heappush(min_heap, j)
-        current_cpu_load += j.cpu_load
-        max_cpu_load = max(max_cpu_load, current_cpu_load)
-    return max_cpu_load
+        heappush(min_heap, job)
+        current_cpu += job.cpu_load
+        max_cpu = max(max_cpu, current_cpu)
+    return max_cpu
 
 
 def main():
