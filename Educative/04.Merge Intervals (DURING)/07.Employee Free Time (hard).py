@@ -21,10 +21,12 @@ class Interval:
 class EmployeeInterval:
 
     def __init__(self, interval, employeeIndex, intervalIndex):
-        self.interval = interval  # interval representing employee's working hours
+        # interval representing employee's working hours
+        self.interval = interval
         # index of the list containing working hours of this employee
         self.employeeIndex = employeeIndex
-        self.intervalIndex = intervalIndex  # index of the interval in the employee list.
+        # index of the interval in the employee list.
+        self.intervalIndex = intervalIndex
 
     def __lt__(self, other):
         # min heap based on meeting.end
@@ -47,39 +49,42 @@ def find_employee_free_time(schedule):
         queueTop = heappop(minHeap)
         # if previousInterval is not overlapping with the next interval, insert a free interval
         if previousInterval.end < queueTop.interval.start:
-            result.append(Interval(previousInterval.end,
-                                   queueTop.interval.start))
+            result.append(Interval(previousInterval.end, queueTop.interval.start))
             previousInterval = queueTop.interval
-        else:  # overlapping intervals, update the previousInterval if needed
+        else:
+            # overlapping intervals, update the previousInterval if needed
             if previousInterval.end < queueTop.interval.end:
                 previousInterval = queueTop.interval
 
         # if there are more intervals available for the same employee, add their next interval
         employeeSchedule = schedule[queueTop.employeeIndex]
         if len(employeeSchedule) > queueTop.intervalIndex + 1:
-            heappush(minHeap, EmployeeInterval(employeeSchedule[queueTop.intervalIndex + 1], queueTop.employeeIndex,
-                                               queueTop.intervalIndex + 1))
+            heappush(
+                minHeap,
+                EmployeeInterval(
+                    interval=employeeSchedule[queueTop.intervalIndex + 1],
+                    employeeIndex=queueTop.employeeIndex,
+                    intervalIndex=queueTop.intervalIndex + 1
+                )
+            )
 
     return result
 
 
 def main():
-    input = [[Interval(1, 3), Interval(5, 6)], [
-        Interval(2, 3), Interval(6, 8)]]
+    input = [[Interval(1, 3), Interval(5, 6)], [Interval(2, 3), Interval(6, 8)]]
     print("Free intervals: ", end='')
     for interval in find_employee_free_time(input):
         interval.print_interval()
     print()
 
-    input = [[Interval(1, 3), Interval(9, 12)], [
-        Interval(2, 4)], [Interval(6, 8)]]
+    input = [[Interval(1, 3), Interval(9, 12)], [Interval(2, 4)], [Interval(6, 8)]]
     print("Free intervals: ", end='')
     for interval in find_employee_free_time(input):
         interval.print_interval()
     print()
 
-    input = [[Interval(1, 3)], [
-        Interval(2, 4)], [Interval(3, 5), Interval(7, 9)]]
+    input = [[Interval(1, 3)], [Interval(2, 4)], [Interval(3, 5), Interval(7, 9)]]
     print("Free intervals: ", end='')
     for interval in find_employee_free_time(input):
         interval.print_interval()
