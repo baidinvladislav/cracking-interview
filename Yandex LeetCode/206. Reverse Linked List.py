@@ -14,20 +14,18 @@ class Solution:
     # Iterative
     def reverseList(self, head):
         prev = None
-        curr = head
-
-        while curr:
-            next_tmp = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next_tmp
-
+        while head:
+            next = head.next
+            head.next = prev
+            prev = head
+            head = next
         return prev
 
     # Recursive
     def reverseList_v1(self, head):
         if not head or not head.next:
             return head
+
         p = self.reverseList(head.next)
         head.next.next = head
         head.next = None
