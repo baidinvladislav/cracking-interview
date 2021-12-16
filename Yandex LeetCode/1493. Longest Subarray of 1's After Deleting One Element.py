@@ -5,12 +5,19 @@ Return the size of the longest non-empty subarray containing only 1's in the res
 Return 0 if there is no such subarray.
 """
 
+
 from typing import List
 
 
 class Solution:
     def longestSubarray(self, nums: List[int]) -> int:
-        window_start, max_length, ones = 0, 0, 0
+        """
+        1. Track number of '1'.
+        2. If there is more than one zero in the window we shrink the window.
+        3. During window shrink look at the beginning of the window if it is '1' then we decrease `ones` variable.
+        4. Update maximum length.
+        """
+        ones, window_start, max_length = 0, 0, 0
 
         for window_end in range(len(nums)):
             if nums[window_end] == 1:
