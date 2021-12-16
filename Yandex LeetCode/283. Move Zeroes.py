@@ -8,12 +8,16 @@ Note that you must do this in-place without making a copy of the array.
 
 class Solution:
     def moveZeroes(self, nums):
-        pointer = 0
-
-        for i in range(len(nums)):
-            if nums[i] != 0:
-                nums[pointer], nums[i] = nums[i], nums[pointer]
-                pointer += 1
+        """
+        1. if the number is 0 then we only increment the pointer named "second".
+        2. if the number is not 0 we swap the number of pointers.
+        2. if the number is not 0 then we increment both pointers.
+        """
+        first = 0
+        for second in range(len(nums)):
+            if nums[second] != 0:
+                nums[first], nums[second] = nums[second], nums[first]
+                first += 1
 
 
 print(Solution().moveZeroes(nums=[0, 1, 0, 3, 12]))
