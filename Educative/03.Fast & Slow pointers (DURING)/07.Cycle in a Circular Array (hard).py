@@ -17,7 +17,8 @@ and should follow one direction which means the cycle should not contain both fo
 
 def circular_array_loop_exists(arr):
     for i in range(len(arr)):
-        is_forward = arr[i] >= 0  # if we are moving forward or not
+        # if we are moving forward or not
+        is_forward = arr[i] >= 0
         slow, fast = i, i
 
         # if slow or fast becomes '-1' this means we can't find cycle for this number
@@ -41,8 +42,9 @@ def circular_array_loop_exists(arr):
 def find_next_index(arr, is_forward, current_index):
     direction = arr[current_index] >= 0
 
+    # change in direction, return -1
     if is_forward != direction:
-        return -1  # change in direction, return -1
+        return -1
 
     next_index = (current_index + arr[current_index]) % len(arr)
 
