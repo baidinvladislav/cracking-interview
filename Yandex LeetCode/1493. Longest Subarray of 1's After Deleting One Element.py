@@ -12,6 +12,8 @@ from typing import List
 class Solution:
     def longestSubarray(self, nums: List[int]) -> int:
         """
+        Sliding window approach.
+
         1. Track number of '1'.
         2. If there is more than one zero in the window we shrink the window.
         3. During window shrink look at the beginning of the window if it is '1' then we decrease `ones` variable.
