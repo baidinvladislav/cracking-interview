@@ -6,7 +6,7 @@ typically using all the original letters exactly once.
 """
 
 
-import collections
+from collections import defaultdict
 
 
 class Solution(object):
@@ -18,10 +18,10 @@ class Solution(object):
         4. Insert a word to value array.
         5. Return only values from dict without their keys.
         """
-        char_map = collections.defaultdict(list)
+        char_map = defaultdict(list)
         for word in strs:
-            sorted_chars = sorted(word)
-            key = tuple(sorted_chars)
+            sorted_word = sorted(word)
+            key = tuple(sorted_word)
             char_map[key].append(word)
         return char_map.values()
 
