@@ -11,7 +11,7 @@ class Solution:
         """
         1. if the number is 0 then we only increment the pointer named "second".
         2. if the number is not 0 we swap the number of pointers.
-        2. if the number is not 0 then we increment both pointers.
+        3. then we increment both pointers.
         """
         first = 0
         for second in range(len(nums)):
