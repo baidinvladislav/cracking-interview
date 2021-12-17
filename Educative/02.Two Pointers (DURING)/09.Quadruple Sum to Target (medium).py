@@ -23,13 +23,10 @@ def search_quadruplets(arr, target):
     quadruplets = []
 
     for i in range(0, len(arr) - 3):
-        # skip same element to avoid duplicate quadruplets
-        if i > 0 and arr[i] == arr[i - 1]:
+        if i > 0 and arr[i - 1] == arr[i]:
             continue
-
         for j in range(i + 1, len(arr) - 2):
-            # skip same element to avoid duplicate quadruplets
-            if j > i + 1 and arr[j] == arr[j - 1]:
+            if j > i + 1 and arr[j - 1] == arr[j]:
                 continue
 
             search_pairs(arr, target, i, j, quadruplets)
@@ -37,34 +34,27 @@ def search_quadruplets(arr, target):
     return quadruplets
 
 
-def search_pairs(arr, target_sum, first, second, quadruplets):
-    left = second + 1
-    right = len(arr) - 1
-
+def search_pairs(arr, target, first, second, quadruplets):
+    left, right = second + 1, len(arr) - 1
     while left < right:
-        quad_sum = arr[first] + arr[second] + arr[left] + arr[right]
-        # found the quadruplet
-        if quad_sum == target_sum:
+        if arr[first] + arr[second] + arr[left] + arr[right] == target:
             quadruplets.append(
                 [arr[first], arr[second], arr[left], arr[right]]
             )
+
             left += 1
             right -= 1
 
-            # skip same element to avoid duplicate quadruplets
             while left < right and arr[left] == arr[left - 1]:
                 left += 1
 
-            # skip same element to avoid duplicate quadruplets
             while left < right and arr[right] == arr[right + 1]:
                 right -= 1
 
-        # we need a pair with a bigger sum
-        elif quad_sum < target_sum:
+        elif arr[first] + arr[second] + arr[left] + arr[right] < target:
             left += 1
 
-        # we need a pair with a smaller sum
-        else:
+        elif arr[first] + arr[second] + arr[left] + arr[right] > target:
             right -= 1
 
 
