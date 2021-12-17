@@ -16,7 +16,7 @@ def dutch_flag_sort(arr):
     4. If arr[i] is 2 then we swap arr[i] with arr[right] and decrease right pointer.
 
     All elements < left pointer are 0, and all elements > right are 2.
-    All elements from >= left < right are 1
+    All elements from >= left < right are 1.
     """
     left, right, i = 0, len(arr) - 1, 0
 
