@@ -9,23 +9,29 @@ that is why it is called Dutch National Flag problem.
 
 
 def dutch_flag_sort(arr):
-    # all elements < low are 0, and all elements > high are 2
-    # all elements from >= low < i are 1
-    low, high = 0, len(arr) - 1
-    i = 0
+    """
+    1. Initialize three pointers: left, right, i.
+    2. If arr[i] is 0 then we swap arr[i] with arr[left] and increase both pointers left and i.
+    3. If arr[i] is 1 increase only i pointer.
+    4. If arr[i] is 2 then we swap arr[i] with arr[right] and decrease right pointer.
 
-    while i <= high:
+    All elements < left pointer are 0, and all elements > right are 2.
+    All elements from >= left < right are 1
+    """
+    left, right, i = 0, len(arr) - 1, 0
+
+    while i <= right:
         if arr[i] == 0:
-            arr[i], arr[low] = arr[low], arr[i]
-            # increment 'i' and 'low'
+            arr[i], arr[left] = arr[left], arr[i]
             i += 1
-            low += 1
+            left += 1
+
         elif arr[i] == 1:
             i += 1
-        else:  # the case for arr[i] == 2
-            arr[i], arr[high] = arr[high], arr[i]
-            # decrement 'high' only, after the swap the number at index 'i' could be 0, 1 or 2
-            high -= 1
+
+        elif arr[i] == 2:
+            arr[i], arr[right] = arr[right], arr[i]
+            right -= 1
 
 
 def main():
