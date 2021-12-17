@@ -18,6 +18,15 @@ If a string has ‘n’ distinct characters, it will have n! permutations.
 # Time Complexity: O(N+M)
 # Space Complexity: O(M)
 def find_permutation(str1, pattern):
+    """
+    1. Save all the symbols in the pattern with the number of repetitions.
+    2. Increase the window size, decrease the frequency of the last character in window by 1.
+    3. If the frequency of the last symbol is 0, then we found one match, increase the matched variable.
+    4. If number of matches will be equal number of arrays elements it means that string contains pattern permutation.
+    5. If number of iteration greater than number of arrays elements we must shrink the window.
+    6. If first element into window is equal 0, it means we'll lose one matched then we decrease matched variable.
+    7. Increment new first element in window by 1.
+    """
     window_start, matched = 0, 0
     char_frequency = {}
 
