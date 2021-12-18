@@ -41,6 +41,7 @@ def find_substring(str1, pattern):
 
     if min_length > len(str1):
         return ""
+
     return str1[substr_start:substr_start + min_length]
 
 
