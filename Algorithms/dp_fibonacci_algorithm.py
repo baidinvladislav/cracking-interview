@@ -11,3 +11,6 @@ def fib(n):
     else:  # recursive step
         calculated[n] = fib(n - 1) + fib(n - 2)
         return calculated[n]
+
+
+print(fib(3))
