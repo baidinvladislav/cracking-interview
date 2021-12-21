@@ -8,6 +8,13 @@ It is given that all words are of the same length.
 # Time Complexity: O(N∗M∗Len)
 # Space Complexity: O(M+N)
 def find_word_concatenation(str1, words):
+    """
+    1. Keep the frequency of every word in a HashMap.
+    2. Starting from every index in the string, try to match all the words.
+    3. In each iteration, keep track of all the words that we have already seen in another HashMap.
+    4. If a word is not found or has a higher frequency than required, we can move on to the next character in the string.
+    5. Store the index if we have found all the words.
+    """
     if len(words) == 0 or len(words[0]) == 0:
         return []
 
