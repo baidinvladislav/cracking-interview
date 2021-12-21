@@ -7,6 +7,12 @@ find the smallest substring in the given string which has all the characters of 
 # Time Complexity: O(N+M)
 # Space Complexity: O(M)
 def find_substring(str1, pattern):
+    """
+    1. Insert pattern characters to Python dictionary.
+    2. Extend the window if the last window character in dictionary then decrement their frequency.
+    3. If after decrement last character frequency it will be equal 0. We got one match.
+    4. While number matches equal number character in pattern we shrink the window and update window start index.
+    """
     window_start, matched, substr_start = 0, 0, 0
     min_length = len(str1) + 1
     char_frequency = {}
