@@ -1,3 +1,9 @@
+"""
+You are given an NxN chessboard, and you are required to place N queens on this chessboard such
+that no queen is under threat from any other queen.
+"""
+
+
 def isSafe(i, j, board):
     for c in range(len(board)):
         for r in range(len(board)):
@@ -23,7 +29,7 @@ def nQueens(r, n, board):
             # if i-th columns is safe to place queen, place the queen there and check recursively for other rows
             board[r][i] = 'q'
             okay, newboard = nQueens(r + 1, n, board)
-            # if all next queens were placed correctly, recursive call should return true, and we should return true here too
+            # if all next queens were placed correctly, tabulation_fib call should return true, and we should return true here too
             if okay:
                 return True, newboard
             # else this is not a suitable box to place queen, and we should check for next box
@@ -32,10 +38,10 @@ def nQueens(r, n, board):
 
 
 def placeNQueens(n, board):
-    '''
+    """
     To check whether index i,j is safe to place queen call isSafe(i, j, board)
     True means it is safe, False means it is not
-    '''
+    """
     return nQueens(0, n, board)[1]
 
 
