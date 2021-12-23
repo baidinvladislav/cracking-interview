@@ -1,3 +1,13 @@
+"""
+Nick is standing next to a staircase that leads to his apartment.
+The staircase has n total steps; Nick knows he can climb anywhere between 1 and m steps in one jump.
+He thinks about how many ways there are to climb this staircase.
+He realizes it is a big number since there are a lot of possible combinations.
+So, he has asked you to write an algorithm for him that tells him the number of possible ways
+to climb a staircase given n (number of steps) and, m (number of steps covered in biggest jump).
+"""
+
+
 # Solution 1: Simple recursion
 def staircase(n, m):
     # base case of when there is no stair
