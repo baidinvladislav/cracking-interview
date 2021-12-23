@@ -13,3 +13,10 @@ def permutations(str):
         for each in subpermutes:
             permutes.append(char + each)
     return permutes
+
+
+def main():
+    print(permutations("abc"))
+
+
+main()
