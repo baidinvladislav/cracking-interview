@@ -9,26 +9,24 @@ Write a function to return the index of the ‘key’ if it is present in the ar
 
 def binary_search(arr, key):
     start, end = 0, len(arr) - 1
-    is_ascending = arr[start] < arr[end]
+    is_asceding = arr[start] < arr[end]
+
     while start <= end:
-        # calculate the middle of the current range
-        mid = start + (end - start) // 2
+        middle = start + (end - start) // 2
+        if arr[middle] == key:
+            return middle
 
-        if key == arr[mid]:
-            return mid
-
-        if is_ascending:  # ascending order
-            if key < arr[mid]:
-                end = mid - 1  # the 'key' can be in the first half
-            else:  # key > arr[mid]
-                start = mid + 1  # the 'key' can be in the second half
-        else:  # descending order
-            if key > arr[mid]:
-                end = mid - 1  # the 'key' can be in the first half
-            else:  # key < arr[mid]
-                start = mid + 1  # the 'key' can be in the second half
-
-    return -1  # element not found
+        if is_asceding:
+            if key > arr[middle]:
+                start = middle + 1
+            elif key < arr[middle]:
+                end = middle - 1
+        else:
+            if key < arr[middle]:
+                start = middle + 1
+            elif key > arr[middle]:
+                end = middle - 1
+    return -1
 
 
 def main():
