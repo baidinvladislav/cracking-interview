@@ -9,7 +9,7 @@ Write a function to return the index of the ‘key’ if it is present in the ar
 
 def binary_search(arr, key):
     start, end = 0, len(arr) - 1
-    isAscending = arr[start] < arr[end]
+    is_ascending = arr[start] < arr[end]
     while start <= end:
         # calculate the middle of the current range
         mid = start + (end - start) // 2
@@ -17,7 +17,7 @@ def binary_search(arr, key):
         if key == arr[mid]:
             return mid
 
-        if isAscending:  # ascending order
+        if is_ascending:  # ascending order
             if key < arr[mid]:
                 end = mid - 1  # the 'key' can be in the first half
             else:  # key > arr[mid]
