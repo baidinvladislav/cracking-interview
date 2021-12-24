@@ -7,7 +7,7 @@ Write a function to return the range of the ‘key’. If the ‘key’ is not p
 
 
 def find_range(arr, key):
-    result = [- 1, -1]
+    result = [-1, -1]
     result[0] = binary_search(arr, key, False)
     if result[0] != -1:  # no need to search, if 'key' is not present in the input array
         result[1] = binary_search(arr, key, True)
