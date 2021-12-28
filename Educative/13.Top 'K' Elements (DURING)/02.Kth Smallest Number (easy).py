@@ -13,20 +13,17 @@ from heapq import *
 
 
 def find_Kth_smallest_number(nums, k):
-    maxHeap = []
-    # put first k numbers in the max heap
+    max_heap = []
+
     for i in range(k):
-        heappush(maxHeap, -nums[i])
+        heappush(max_heap, -nums[i])
 
-    # go through the remaining numbers of the array, if the number from the array is smaller than the
-    # top(biggest) number of the heap, remove the top number from heap and add the number from array
     for i in range(k, len(nums)):
-        if -nums[i] > maxHeap[0]:
-            heappop(maxHeap)
-            heappush(maxHeap, -nums[i])
+        if -nums[i] > max_heap[0]:
+            heappop(max_heap)
+            heappush(max_heap, -nums[i])
 
-    # the root of the heap has the Kth smallest number
-    return -maxHeap[0]
+    return -max_heap[0]
 
 
 def main():
