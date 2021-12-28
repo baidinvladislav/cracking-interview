@@ -1,5 +1,5 @@
 """
-Design a class to efficiently find the Kth largest element in a stream of numbers.
+Design a class to efficiently find the Kth the largest element in a stream of numbers.
 
 The class should have the following two things:
 
@@ -7,7 +7,7 @@ The class should have the following two things:
     from the stream and an integer ‘K’.
 
     2.The class should expose a function add(int num) which will store the given number
-    and return the Kth largest number.
+    and return the Kth the largest number.
 """
 
 
@@ -31,7 +31,7 @@ class KthLargestNumberInStream:
         if len(self.minHeap) > self.k:
             heappop(self.minHeap)
 
-        # return the 'Kth largest number
+        # return the 'Kth the largest number
         return self.minHeap[0]
 
 
