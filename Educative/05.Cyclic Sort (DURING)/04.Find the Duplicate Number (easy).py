@@ -1,22 +1,22 @@
 """
 We are given an unsorted array containing ‘n+1’ numbers taken from the range 1 to ‘n’.
-The array has only one duplicate but it can be repeated multiple times.
+The array has only one duplicate, but it can be repeated multiple times.
 Find that duplicate number without using any extra space. You are, however, allowed to modify the input array.
 """
 
 
 def find_duplicate(nums):
-    i = 0
-    while i < len(nums):
-        if nums[i] != i + 1:
-            j = nums[i] - 1
-            if nums[i] != nums[j]:
-                nums[i], nums[j] = nums[j], nums[i]  # swap
-            else:  # we have found the duplicate
-                return nums[i]
-        else:
-            i += 1
+    pointer = 0
 
+    while pointer < len(nums):
+        if nums[pointer] != pointer + 1:
+            correct_idx = nums[pointer] - 1
+            if nums[pointer] != nums[correct_idx]:
+                nums[pointer], nums[correct_idx] = nums[correct_idx], nums[pointer]
+            else:
+                return nums[pointer]
+        else:
+            pointer += 1
     return -1
 
 
