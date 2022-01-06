@@ -5,21 +5,20 @@ which means some numbers will be missing. Find all those missing numbers.
 
 
 def find_missing_numbers(nums):
-    i = 0
-    while i < len(nums):
-        j = nums[i] - 1
-        if nums[i] != nums[j]:
-            nums[i], nums[j] = nums[j], nums[i]  # swap
+    pointer = 0
+
+    while pointer < len(nums):
+        correct_idx = nums[pointer] - 1
+        if nums[pointer] != nums[correct_idx]:
+            nums[pointer], nums[correct_idx] = nums[correct_idx], nums[pointer]
         else:
-            i += 1
+            pointer += 1
 
-    missingNumbers = []
-
+    missing_numbers = []
     for i in range(len(nums)):
         if nums[i] != i + 1:
-            missingNumbers.append(i + 1)
-
-    return missingNumbers
+            missing_numbers.append(i + 1)
+    return missing_numbers
 
 
 def main():
