@@ -11,13 +11,14 @@ though each number is actually an object.
 
 
 def cyclic_sort(nums):
-    i = 0
-    while i < len(nums):
-        j = nums[i] - 1
-        if nums[i] != nums[j]:
-            nums[i], nums[j] = nums[j], nums[i]  # swap
+    pointer = 0
+
+    while pointer < len(nums):
+        correct_idx = nums[pointer] - 1
+        if nums[pointer] != nums[correct_idx]:
+            nums[pointer], nums[correct_idx] = nums[correct_idx], nums[pointer]
         else:
-            i += 1
+            pointer += 1
     return nums
 
 
