@@ -20,7 +20,7 @@ def find_first_smallest_missing_positive(nums):
 
 
 def main():
-    print(find_first_smallest_missing_positive([-3, 1, 5, 4, 2]))
+    print(find_first_smallest_missing_positive([-3, 1, 5, 4, 9, 2]))
     print(find_first_smallest_missing_positive([3, -2, 0, 1, 2]))
     print(find_first_smallest_missing_positive([3, 2, 5, 1]))
 
