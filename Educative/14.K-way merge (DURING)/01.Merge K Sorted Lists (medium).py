@@ -12,34 +12,30 @@ class ListNode:
         self.value = value
         self.next = None
 
-    # used for the min-heap
     def __lt__(self, other):
         return self.value < other.value
 
 
 def merge_lists(lists):
-    minHeap = []
+    min_heap = []
 
-    # put the root of each list in the min heap
     for root in lists:
         if root is not None:
-            heappush(minHeap, root)
+            heappush(min_heap, root)
 
-    # take the smallest(top) element form the min-heap and add it to the result
-    # if the top element has a next element add it to the heap
-    resultHead, resultTail = None, None
-    while minHeap:
-        node = heappop(minHeap)
-        if resultHead is None:
-            resultHead = resultTail = node
+    result_head, result_tail = None, None
+    while min_heap:
+        node = heappop(min_heap)
+        if not result_head:
+            result_head = result_tail = node
         else:
-            resultTail.next = node
-            resultTail = resultTail.next
+            result_tail.next = node
+            result_tail = result_tail.next
 
-        if node.next is not None:
-            heappush(minHeap, node.next)
+        if node.next:
+            heappush(min_heap, node.next)
 
-    return resultHead
+    return result_head
 
 
 def main():
