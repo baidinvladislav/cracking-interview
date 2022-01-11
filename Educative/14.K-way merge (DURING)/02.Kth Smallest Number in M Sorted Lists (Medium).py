@@ -1,5 +1,5 @@
 """
-Given ‘M’ sorted arrays, find the K’th smallest number among all the arrays.
+Given ‘M’ sorted arrays, find the K’th the smallest number among all the arrays.
 """
 
 
@@ -11,7 +11,9 @@ def find_Kth_smallest(lists, k):
 
     # put the 1st element of each list in the min heap
     for i in range(len(lists)):
-        heappush(minHeap, (lists[i][0], 0, lists[i]))
+        array = lists[i]
+        first_array_element = lists[i][0]
+        heappush(minHeap, (first_array_element, 0, array))
 
     # take the smallest(top) element form the min heap, if the running count is equal to k return the number
     numberCount, number = 0, 0
