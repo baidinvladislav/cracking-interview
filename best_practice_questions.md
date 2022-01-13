@@ -1,19 +1,19 @@
 # Week 1 - Sequences
-+ [1. Two Sum](#two-sum)
-+ [217. Contains Duplicate](#contains-duplicate)
-+ [121. Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
-+ [242. Valid Anagram](#valid-anagram)
-+ [20. Valid Parentheses](#valid-parentheses)
-+ [238. Product of Array Except Self](#product-of-array-except-self)
-+ [53. Maximum Subarray](#maximum-subarray)
-+ [15. 3Sum](#3sum)
-+ [56. Merge Intervals](#merge-intervals)
-+ [49. Group Anagrams](#group-anagrams)
-+ [152. Maximum Product Subarray](#maximum-product-subarray)
-+ [33. Search in Rotated Sorted Array](#earch-in-rotated-sorted-array)
++ [Two Sum](two-sum)
++ [Contains Duplicate](#contains-duplicate)
++ [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
++ [Valid Anagram](#valid-anagram)
++ [Valid Parentheses](#valid-parentheses)
++ [Product of Array Except Self](#product-of-array-except-self)
++ [Maximum Subarray](#maximum-subarray)
++ [3Sum](#3sum)
++ [Merge Intervals](#merge-intervals)
++ [Group Anagrams](#group-anagrams)
++ [Maximum Product Subarray](#maximum-product-subarray)
++ [Search in Rotated Sorted Array](#earch-in-rotated-sorted-array)
 
 
-## 1. Two Sum
+## Two Sum
 Дан неотсортированный массив чисел, вернуть индексы двух чисел сумма которых равна таргету.
 
 https://leetcode.com/problems/two-sum/
@@ -45,7 +45,7 @@ class Solution:
                 return [h[n], i]
 ```
 
-## 217. Contains Duplicate
+## Contains Duplicate
 Дан массив чисел, вернуть True если в массиве есть дубликаты, вернуть False, если массив содержит только уникальные числа.
 
 https://leetcode.com/problems/contains-duplicate/
@@ -79,7 +79,7 @@ class Solution:
         return False
 ```
 
-## 121. Best Time to Buy and Sell Stock
+## Best Time to Buy and Sell Stock
 Дан массив с числами, каждое число представляет цену акции на iый день.
 Найти день наилучший для покупки и день наилучший для продажи.
 Вернуть наибольшую прибыль после продажи. Если прибыль получить невозможно вернуть 0.
@@ -111,7 +111,7 @@ class Solution:
 ```
 
 
-## 242. Valid Anagram
+## Valid Anagram
 Даны две строки. Вернуть True, если строки являются анаграмами, вернуть False в противном случае.
 Анаграмма - это слово образованное от другого путем перестановки букв.
 
@@ -139,7 +139,7 @@ def isAnagram1(self, s, t):
 ```
 
 
-## 20. Valid Parentheses
+## Valid Parentheses
 Дана строка в которой могу быть символы: '(', ')', '{', '}', '[', ']'.
 Вернуть True, если скобочная последовательность в строке верная (открывающая скобка закрывается скобкой такого же типа и 
 скобки закрываются в правильном порядке).
@@ -176,7 +176,7 @@ def isValid(self, s):
 # 3. finally check if the stack still contains unmatched left bracket
 ```
 
-## 238. Product of Array Except Self
+## Product of Array Except Self
 Дан массив чисел, вернуть новый массив содержащий перемножение всех элементов кроме iго элемента.
 Решение за линейное время и без операции деления.
 
@@ -207,7 +207,7 @@ def productExceptSelf(self, nums):
     return output
 ```
 
-## 53. Maximum Subarray
+## Maximum Subarray
 Вернуть самую большую сумму подмассива.
 
 https://leetcode.com/problems/maximum-subarray/
@@ -242,7 +242,7 @@ def maxSubArray(nums):
 ```
 
 
-## 15. 3Sum
+## 3Sum
 Для массива целых чисел nums вернуть все триплеты [nums[i], nums[j], nums[k]] такие, что i != j, i != k и j != k, и nums[i] + nums[j] + nums[k] == 0. Обратите внимание, что в наборе решений не должно быть повторяющихся триплетов.
 
 https://leetcode.com/problems/3sum/
@@ -287,7 +287,7 @@ def threeSum(nums):
 ```
 
 
-## 56. Merge Intervals
+## Merge Intervals
 Дан массив интервалов, смержить все пересекающиеся интервалы и вернуть массив не пересекающихся интервалов.
 
 https://leetcode.com/problems/merge-intervals/
@@ -316,7 +316,7 @@ def merge(intervals):
 ```
 
 
-## 49. Group Anagrams
+## Group Anagrams
 Дан массив слов, сгруппировать анаграммы в массивах.
 
 https://leetcode.com/problems/group-anagrams/
@@ -349,7 +349,7 @@ def groupAnagrams(strs):
 ```
 
 
-## 152. Maximum Product Subarray
+## Maximum Product Subarray
 Дан массив чисел. Вернуть максимальное произведение подмассивов.
 
 https://leetcode.com/problems/maximum-product-subarray/
@@ -371,7 +371,7 @@ Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 ```
 
 
-## 33. Search in Rotated Sorted Array
+## Search in Rotated Sorted Array
 Дан массив числе отсортированный по возрастанию и развернутый относительно одного указателя.
 Вернуть индекс таргета, если его нет вернуть -1.
 Решение за O(log n).
