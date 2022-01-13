@@ -13,28 +13,32 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 
+    def __repr__(self):
+        return str(self.val)
+
 
 def traverse(root):
     result = deque()
-    if root is None:
+    if not root:
         return result
 
     queue = deque()
     queue.append(root)
     while queue:
-        levelSize = len(queue)
-        currentLevel = []
-        for _ in range(levelSize):
-            currentNode = queue.popleft()
-            # add the node to the current level
-            currentLevel.append(currentNode.val)
-            # insert the children of current node in the queue
-            if currentNode.left:
-                queue.append(currentNode.left)
-            if currentNode.right:
-                queue.append(currentNode.right)
+        level_size = len(queue)
+        current_level = []
 
-        result.appendleft(currentLevel)
+        for _ in range(level_size):
+            current_node = queue.popleft()
+            current_level.append(current_node.val)
+
+            if current_node.left:
+                queue.append(current_node.left)
+
+            if current_node.right:
+                queue.append(current_node.right)
+
+        result.appendleft(current_level)
 
     return result
 
