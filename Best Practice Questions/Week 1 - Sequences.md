@@ -106,7 +106,7 @@ https://leetcode.com/problems/contains-duplicate/
  <li>Отсортировать массив и идти по нему циклом сравнивая nums[i-1] и nums[i].</li>
  <li>Добавить все числа в словарь и отслеживать их частоту, если у кого больше чем  1, то значит был дубликат.</li>
  <li>Воспользоваться встроенной структурой set().</li>
-
+</ol>
 
 </blockquote></details>
 
@@ -186,6 +186,16 @@ if __name__ == "__main__":
 
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
 
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Для решения задачи отслеживаем две переменные: max_profit и min_price.</li>
+ <li>Если на итерации число меньше чем в min_price, то обновляем min_price текущим числом.</li>
+ <li>Вычисляем прибыль, отнимая от числа на текущей итерации min_price.</li>
+ <li>Обновляем max_profit числом из второго пункта, если прибыль получилась больше чем была.</li>
+</ol>
+
+</blockquote></details>
+
 ```
 Example 1:
 Input: prices = [7,1,5,3,6,4]
@@ -209,6 +219,22 @@ class Solution:
             max_profit = max(max_profit, profit)
         return max_profit
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestContainsDuplicate(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual(5, Solution().maxProfit(prices=[7, 1, 5, 3, 6, 4]))
+
+    def test_second(self):
+        self.assertEqual(0, Solution().maxProfit(prices=[7, 6, 4, 3, 1]))
+```
+
+</blockquote></details>
 
 
 ## Valid Anagram
