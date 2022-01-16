@@ -34,16 +34,54 @@ Output: [0,1]
 ```
 
 ```python
+from typing import List
+
+
 class Solution:
-    def twoSum(self, nums, target):
-        h = {}
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        if not nums:
+            return [-1, -1]
+
+        buffer = {}
         for i, num in enumerate(nums):
-            n = target - num
-            if n not in h:
-                h[num] = i
+            attempt = target - num
+            if attempt not in buffer:
+                buffer[num] = i
             else:
-                return [h[n], i]
+                return [buffer[attempt], i]
+
+        return [-1, -1]
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python
+import unittest
+
+
+class TestTwoSum(unittest.TestCase):
+    def test_empty_list(self):
+        self.assertEqual([-1, -1], Solution().twoSum(nums=[], target=9))
+
+    def test_first(self):
+        self.assertEqual([0, 1], Solution().twoSum(nums=[2, 7, 11, 15], target=9))
+
+    def test_second(self):
+        self.assertEqual([1, 2], Solution().twoSum(nums=[3, 2, 4], target=6))
+
+    def test_third(self):
+        self.assertEqual([0, 1], Solution().twoSum(nums=[3, 3], target=6))
+
+    def test_no_solution(self):
+        self.assertEqual([-1, -1], Solution().twoSum(nums=[3, 3, 1, 4, 5], target=16))
+
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+</blockquote></details>
+
 
 ## Contains Duplicate
 Дан массив чисел, вернуть True если в массиве есть дубликаты, вернуть False, если массив содержит только уникальные числа.
