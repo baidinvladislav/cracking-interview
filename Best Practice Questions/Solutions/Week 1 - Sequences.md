@@ -1,7 +1,7 @@
 # Week 1 - Sequences
 + [Two Sum](#two-sum)
 + [Contains Duplicate](#contains-duplicate)
-+ [Best Time to Buy and Sell Stock (stop)](#best-time-to-buy-and-sell-stock)
++ [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
 + [Valid Anagram](#valid-anagram)
 + [Valid Parentheses](#valid-parentheses)
 + [Product of Array Except Self](#product-of-array-except-self)
@@ -243,6 +243,15 @@ class TestContainsDuplicate(unittest.TestCase):
 
 https://leetcode.com/problems/valid-anagram/
 
+<details><summary>Решение:</summary><blockquote>
+Два решения:
+<ol>
+ <li>Отсортировать две строки и сравнить их.</li>
+ <li>Создать по словарю для каждой строки. Добавить символы первой строки и их частоту в первый словарь, также поступить и для второй строки и второго словаря. Сравнить два словаря.</li>
+</ol>
+
+</blockquote></details>
+
 ```
 Example 1:
 Input: s = "anagram", t = "nagaram"
@@ -255,14 +264,39 @@ Output: false
 
 
 ```python3
-def isAnagram1(self, s, t):
-    dic1, dic2 = {}, {}
-    for item in s:
-        dic1[item] = dic1.get(item, 0) + 1
-    for item in t:
-        dic2[item] = dic2.get(item, 0) + 1
-    return dic1 == dic2
+class Solution:
+    def isAnagram_sorting(self, s: str, t: str) -> bool:
+        return sorted(s) == sorted(t)
+
+    def isAnagram_additional_memory(self, s: str, t: str) -> bool:
+        buffer_1, buffer_2 = {}, {}
+        
+        for char in s:
+            buffer_1[char] = buffer_1.get(char, 0) + 1
+
+        for char in t:
+            buffer_2[char] = buffer_2.get(char, 0) + 1
+
+        return buffer_1 == buffer_2
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestContainsDuplicate(unittest.TestCase):
+    def test_first(self):
+        self.assertTrue(5, Solution().isAnagram_sorting(s="anagram", t="nagaram"))
+        self.assertTrue(5, Solution().isAnagram_additional_memory(s="anagram", t="nagaram"))
+
+    def test_second(self):
+        self.assertFalse(0, Solution().isAnagram_sorting(s="rat", t="car"))
+        self.assertFalse(0, Solution().isAnagram_additional_memory(s="rat", t="car"))
+```
+
+</blockquote></details>
 
 
 ## Valid Parentheses
