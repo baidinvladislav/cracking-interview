@@ -1,5 +1,5 @@
 # Week 1 - Sequences
-+ [Two Sum](two-sum)
++ [Two Sum](#two-sum)
 + [Contains Duplicate](#contains-duplicate)
 + [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
 + [Valid Anagram](#valid-anagram)
