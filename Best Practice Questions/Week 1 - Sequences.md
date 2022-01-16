@@ -1,7 +1,7 @@
 # Week 1 - Sequences
 + [Two Sum](#two-sum)
 + [Contains Duplicate](#contains-duplicate)
-+ [Best Time to Buy and Sell Stock](#best-time-to-buy-and-sell-stock)
++ [Best Time to Buy and Sell Stock (stop)](#best-time-to-buy-and-sell-stock)
 + [Valid Anagram](#valid-anagram)
 + [Valid Parentheses](#valid-parentheses)
 + [Product of Array Except Self](#product-of-array-except-self)
