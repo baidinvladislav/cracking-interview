@@ -102,20 +102,60 @@ Input: nums = [1,1,1,3,3,4,3,2,4,2]
 Output: true
 ```
 
-```python3
+```python
 from typing import List
 
 
 class Solution:
-    def containsDuplicate(self, nums: List[int]) -> bool:
+    def containsDuplicate_additional_memory(self, nums: List[int]) -> bool:
         buffer = {}
-        for i in nums:
-            if i in buffer:
-                return True
+        for num in nums:
+            if num not in buffer:
+                buffer[num] = 1
             else:
-                buffer[i] = 1
+                return True
         return False
+
+    def containsDuplicate_sorting(self, nums: List[int]) -> bool:
+        nums.sort()
+        for i in range(1, len(nums)):
+            if nums[i - 1] == nums[i]:
+                return True
+        return False
+
+    def containsDuplicate_set(self, nums: List[int]) -> bool:
+        return len(nums) != len(set(nums))
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestContainsDuplicate(unittest.TestCase):
+    def test_first(self):
+        self.assertTrue(Solution().containsDuplicate_additional_memory(nums=[1, 2, 3, 1]))
+        self.assertTrue(Solution().containsDuplicate_sorting(nums=[1, 2, 3, 1]))
+        self.assertTrue(Solution().containsDuplicate_set(nums=[1, 2, 3, 1]))
+
+    def test_second(self):
+        self.assertFalse(Solution().containsDuplicate_additional_memory(nums=[1, 2, 3, 4]))
+        self.assertFalse(Solution().containsDuplicate_sorting(nums=[1, 2, 3, 4]))
+        self.assertFalse(Solution().containsDuplicate_set(nums=[1, 2, 3, 4]))
+
+    def test_third(self):
+        self.assertTrue(Solution().containsDuplicate_additional_memory(nums=[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
+        self.assertTrue(Solution().containsDuplicate_sorting(nums=[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
+        self.assertTrue(Solution().containsDuplicate_set(nums=[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
+
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+</blockquote></details>
+
 
 ## Best Time to Buy and Sell Stock
 Дан массив с числами, каждое число представляет цену акции на iый день.
