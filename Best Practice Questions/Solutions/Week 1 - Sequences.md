@@ -306,6 +306,17 @@ class TestContainsDuplicate(unittest.TestCase):
 
 https://leetcode.com/problems/valid-parentheses/
 
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Инициализировать словарь со скобками и пустой сткек.</li>
+ <li>Идем циклом по входной строке.</li>
+ <li>Если символ строке есть ключ в словаре скобок, то значит символ является открывающей скобкой, добавляем символ в стек.</li>
+ <li>Если стек пуст или если из словаря по последнему элементу стека мы не получаем текущий элемент (нужная закрывающая скобка), значит скобочная последовательность не верная.</li>
+ <li>Вернуть булево значение от пустого стека.</li>
+</ol>
+
+</blockquote></details>
+
 ```
 Example 1:
 Input: s = "()"
@@ -321,20 +332,43 @@ Output: false
 ```
 
 ```python3
-def isValid(self, s):
-    d = {'(':')', '{':'}','[':']'}
-    stack = []
-    for i in s:
-        if i in d:  # 1
-            stack.append(i)
-        elif len(stack) == 0 or d[stack.pop()] != i:  # 2
+from collections import deque
+
+
+def isValid(s):
+    parentheses = {'(': ')', '{': '}', '[': ']'}
+    stack = deque()
+
+    for symbol in s:
+        if symbol in parentheses:
+            stack.append(symbol)
+
+        elif len(stack) == 0 or parentheses[stack.pop()] != symbol:
             return False
-    return len(stack) == 0 # 3
-	
-# 1. if it's the left bracket then we append it to the stack
-# 2. else if it's the right bracket and the stack is empty(meaning no matching left bracket), or the left bracket doesn't match
-# 3. finally check if the stack still contains unmatched left bracket
+
+    return len(stack) == 0
 ```
+
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestContainsDuplicate(unittest.TestCase):
+    def test_first(self):
+        self.assertTrue(Solution().isValid(s="()"))
+
+    def test_second(self):
+        self.assertTrue(Solution().isValid(s="()[]{}"))
+
+    def test_third(self):
+        self.assertFalse(Solution().isValid(s="(]"))
+```
+
+</blockquote></details>
+
 
 ## Product of Array Except Self
 Дан массив чисел, вернуть новый массив содержащий перемножение всех элементов кроме iго элемента.
