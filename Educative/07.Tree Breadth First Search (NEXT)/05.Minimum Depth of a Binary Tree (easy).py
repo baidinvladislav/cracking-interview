@@ -14,25 +14,25 @@ class TreeNode:
 
 
 def find_maximum_depth(root):
-    if root is None:
+    if not root:
         return 0
 
     queue = deque()
     queue.append(root)
-    maximumTreeDepth = 0
+    tree_depth = 0
     while queue:
-        maximumTreeDepth += 1
-        levelSize = len(queue)
-        for _ in range(levelSize):
-            currentNode = queue.popleft()
+        level_size = len(queue)
+        tree_depth += 1
+        for _ in range(level_size):
+            current_node = queue.popleft()
 
-            # insert the children of current node in the queue
-            if currentNode.left:
-                queue.append(currentNode.left)
-            if currentNode.right:
-                queue.append(currentNode.right)
+            if current_node.left:
+                queue.append(current_node.left)
 
-    return maximumTreeDepth
+            if current_node.right:
+                queue.append(current_node.right)
+
+    return tree_depth
 
 
 def main():
