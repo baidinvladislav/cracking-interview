@@ -372,9 +372,16 @@ class TestContainsDuplicate(unittest.TestCase):
 
 ## Product of Array Except Self
 Дан массив чисел, вернуть новый массив содержащий перемножение всех элементов кроме iго элемента.
-Решение за линейное время и без операции деления.
+Решение должно быть за линейное время и без операции деления.
 
 https://leetcode.com/problems/product-of-array-except-self/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Накапливаем префикс каждого элемента в результирующем массиве.</li>
+ <li>Умножаем элемента результирующего массива на постфикс, проходя циклом с конца к началу.</li>
+</ol>
+</blockquote></details>
 
 ```
 Example 1:
@@ -387,19 +394,36 @@ Output: [0,0,9,0,0]
 ```
 
 ```python3
-def productExceptSelf(self, nums):
-    p = 1
-    n = len(nums)
-    output = []
-    for i in range(0,n):
-        output.append(p)
-        p = p * nums[i]
-    p = 1
-    for i in range(n-1,-1,-1):
-        output[i] = output[i] * p
-        p = p * nums[i]
-    return output
+def productExceptSelf(nums):
+    result = []
+
+    prefix = 1
+    for i in range(len(nums)):
+        result.append(prefix)
+        prefix *= nums[i]
+
+    postfix = 1
+    for i in reversed(range(len(nums))):
+        result[i] *= postfix
+        postfix *= nums[i]
+
+    return result
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestContainsDuplicate(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual([24, 12, 8, 6], Solution().productExceptSelf(nums=[1, 2, 3, 4]))
+
+    def test_second(self):
+        self.assertEqual([0, 0, 9, 0, 0], Solution().productExceptSelf(nums=[-1, 1, 0, -3, 3]))
+```
+</blockquote></details>
 
 ## Maximum Subarray
 Вернуть самую большую сумму подмассива.
