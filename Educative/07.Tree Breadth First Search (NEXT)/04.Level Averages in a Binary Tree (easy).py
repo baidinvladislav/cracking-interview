@@ -14,27 +14,25 @@ class TreeNode:
 
 def find_level_averages(root):
     result = []
-    if root is None:
+    if not root:
         return result
 
     queue = deque()
     queue.append(root)
     while queue:
-        levelSize = len(queue)
-        levelSum = 0.0
-        for _ in range(levelSize):
-            currentNode = queue.popleft()
-            # add the node's value to the running sum
-            levelSum += currentNode.val
-            # insert the children of current node to the queue
-            if currentNode.left:
-                queue.append(currentNode.left)
-            if currentNode.right:
-                queue.append(currentNode.right)
+        level_size = len(queue)
+        level_sum = 0.0
+        for _ in range(level_size):
+            current_node = queue.popleft()
+            level_sum += current_node.val
 
-        # append the current level's average to the result array
-        result.append(levelSum / levelSize)
+            if current_node.left:
+                queue.append(current_node.left)
 
+            if current_node.right:
+                queue.append(current_node.right)
+
+        result.append(level_sum / level_size)
     return result
 
 
