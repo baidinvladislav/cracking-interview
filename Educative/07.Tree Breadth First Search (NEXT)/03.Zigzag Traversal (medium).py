@@ -16,34 +16,31 @@ class TreeNode:
 
 def traverse(root):
     result = []
-    if root is None:
+    if not root:
         return result
 
     queue = deque()
     queue.append(root)
-    leftToRight = True
+    left_to_right = True
     while queue:
-        levelSize = len(queue)
-        currentLevel = deque()
-        for _ in range(levelSize):
-            currentNode = queue.popleft()
+        level_size = len(queue)
+        current_level = deque()
+        for _ in range(level_size):
+            current_node = queue.popleft()
 
-            # add the node to the current level based on the traverse direction
-            if leftToRight:
-                currentLevel.append(currentNode.val)
+            if left_to_right:
+                current_level.append(current_node.val)
             else:
-                currentLevel.appendleft(currentNode.val)
+                current_level.appendleft(current_node.val)
 
-            # insert the children of current node in the queue
-            if currentNode.left:
-                queue.append(currentNode.left)
-            if currentNode.right:
-                queue.append(currentNode.right)
+            if current_node.left:
+                queue.append(current_node.left)
 
-        result.append(list(currentLevel))
-        # reverse the traversal direction
-        leftToRight = not leftToRight
+            if current_node.right:
+                queue.append(current_node.right)
 
+        result.append(list(current_level))
+        left_to_right = not left_to_right
     return result
 
 
