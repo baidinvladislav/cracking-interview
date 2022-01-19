@@ -495,6 +495,14 @@ class TestMaxProduct(unittest.TestCase):
 
 https://leetcode.com/problems/3sum/
 
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Проходим первый раз по циклу и перемножаем элементы, сохраняем макс.произведение чисел, если натыкаемся на 0, то начинаем накапливать произведение заново.</li>
+ <li>Делаем тоже самое, но в этот раз проходим массив с конца к началу.</li>
+</ol>
+</blockquote></details>
+
+
 ```
 Example 1:
 Input: nums = [-1,0,1,2,-1,-4]
@@ -511,28 +519,58 @@ Output: []
 
 
 ```python3
-def threeSum(nums):
-    res = []
-    nums.sort()
-    for i in range(len(nums)-2):
-        if i > 0 and nums[i] == nums[i-1]:
-            continue
-        l, r = i+1, len(nums)-1
-        while l < r:
-            s = nums[i] + nums[l] + nums[r]
-            if s < 0:
-                l +=1 
-            elif s > 0:
-                r -= 1
-            else:
-                res.append((nums[i], nums[l], nums[r]))
-                while l < r and nums[l] == nums[l+1]:
-                    l += 1
-                while l < r and nums[r] == nums[r-1]:
-                    r -= 1
-                l += 1; r -= 1
-    return res
+class Solution:
+    def threeSum(self, nums):
+        nums.sort()
+        triplets = []
+
+        for i in range(len(nums)):
+            if nums[i - 1] == nums[i]:
+                continue
+
+            self.search_pair(nums, triplets, left=i + 1, target_sum=-nums[i])
+        return triplets
+
+    def search_pair(self, arr, triplets, left, target_sum):
+        right = len(arr) - 1
+        while left < right:
+            current_sum = arr[left] + arr[right]
+            if current_sum == target_sum:
+                triplets.append([-target_sum, arr[left], arr[right]])
+                left += 1
+                right -= 1
+
+                # skip duplicates
+                while left < right and arr[left] == arr[left - 1]:
+                    left += 1
+                while left < right and arr[right] == arr[right + 1]:
+                    right -= 1
+
+            elif current_sum < target_sum:
+                left += 1
+
+            elif current_sum > target_sum:
+                right -= 1
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestProductArrayExceptSelf(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual([[-1, -1, 2], [-1, 0, 1]], Solution().threeSum(nums=[-1, 0, 1, 2, -1, -4]))
+
+    def test_second(self):
+        self.assertEqual([], Solution().threeSum(nums=[]))
+
+    def test_third(self):
+        self.assertEqual([], Solution().threeSum(nums=[0]))
+```
+
+</blockquote></details>
 
 
 ## Merge Intervals
