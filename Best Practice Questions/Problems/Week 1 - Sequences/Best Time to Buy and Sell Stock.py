@@ -13,7 +13,7 @@ class Solution:
         return max_profit
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestBestTimeBuyAndSellStock(unittest.TestCase):
     def test_first(self):
         self.assertEqual(5, Solution().maxProfit(prices=[7, 1, 5, 3, 6, 4]))
 

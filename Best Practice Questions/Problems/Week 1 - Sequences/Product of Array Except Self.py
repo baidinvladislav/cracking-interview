@@ -19,7 +19,7 @@ class Solution:
         return result
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestProductArrayExceptSelf(unittest.TestCase):
     def test_first(self):
         self.assertEqual([24, 12, 8, 6], Solution().productExceptSelf(nums=[1, 2, 3, 4]))
 

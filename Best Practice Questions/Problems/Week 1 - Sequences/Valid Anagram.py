@@ -17,7 +17,7 @@ class Solution:
         return buffer_1 == buffer_2
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestValidAnagram(unittest.TestCase):
     def test_first(self):
         self.assertTrue(5, Solution().isAnagram_sorting(s="anagram", t="nagaram"))
         self.assertTrue(5, Solution().isAnagram_additional_memory(s="anagram", t="nagaram"))

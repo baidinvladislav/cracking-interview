@@ -17,7 +17,7 @@ class Solution:
         return len(stack) == 0
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestValidParentheses(unittest.TestCase):
     def test_first(self):
         self.assertTrue(Solution().isValid(s="()"))
 

@@ -226,7 +226,7 @@ class Solution:
 import unittest
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestBestTimeBuyAndSellStock(unittest.TestCase):
     def test_first(self):
         self.assertEqual(5, Solution().maxProfit(prices=[7, 1, 5, 3, 6, 4]))
 
@@ -286,7 +286,7 @@ class Solution:
 import unittest
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestValidAnagram(unittest.TestCase):
     def test_first(self):
         self.assertTrue(5, Solution().isAnagram_sorting(s="anagram", t="nagaram"))
         self.assertTrue(5, Solution().isAnagram_additional_memory(s="anagram", t="nagaram"))
@@ -356,7 +356,7 @@ def isValid(s):
 import unittest
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestValidParentheses(unittest.TestCase):
     def test_first(self):
         self.assertTrue(Solution().isValid(s="()"))
 
@@ -416,7 +416,7 @@ def productExceptSelf(nums):
 import unittest
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestProductArrayExceptSelf(unittest.TestCase):
     def test_first(self):
         self.assertEqual([24, 12, 8, 6], Solution().productExceptSelf(nums=[1, 2, 3, 4]))
 
@@ -429,6 +429,13 @@ class TestContainsDuplicate(unittest.TestCase):
 Вернуть самую большую сумму подмассива.
 
 https://leetcode.com/problems/maximum-subarray/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Проходим первый раз по циклу и перемножаем элементы, сохраняем макс.произведение чисел, если натыкаемся на 0, то начинаем накапливать произведение заново.</li>
+ <li>Делаем тоже самое, но в этот раз проходим массив с конца к началу.</li>
+</ol>
+</blockquote></details>
 
 ```
 Example 1:
@@ -446,18 +453,41 @@ Output: 23
 ```
 
 ```python3
-def maxSubArray(nums):
-    # Initialize our variables using the first element.
-    current_subarray = max_subarray = nums[0]
+def maxProduct(nums):
+    answer = nums[0]
+    product = 0
+    for i in range(len(nums)):
+        if product == 0:
+            product = nums[i]
+        else:
+            product *= nums[i]
+        answer = max(answer, product)
 
-    # Start with the 2nd element since we already used the first one.
-    for num in nums[1:]:
-        # If current_subarray is negative, throw it away. Otherwise, keep adding to it.
-        current_subarray = max(num, current_subarray + num)
-        max_subarray = max(max_subarray, current_subarray)
-
-    return max_subarray
+    product = 0
+    for i in range(len(nums) - 1, -1, -1):
+        if product == 0:
+            product = nums[i]
+        else:
+            product *= nums[i]
+        answer = max(answer, product)
+    return answer
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestMaxProduct(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual(6, Solution().maxProduct(nums=[2, 3, -2, 4]))
+
+    def test_second(self):
+        self.assertEqual(0, Solution().maxProduct(nums=[-2, 0, -1]))
+```
+
+</blockquote></details>
 
 
 ## 3Sum
