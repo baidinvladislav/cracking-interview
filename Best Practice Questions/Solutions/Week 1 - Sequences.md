@@ -583,6 +583,18 @@ class TestProductArrayExceptSelf(unittest.TestCase):
 
 https://leetcode.com/problems/merge-intervals/
 
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Отсортировать интервалы по их началу.</li>
+ <li>Берем за точку отсчета первый интервал из массива.</li>
+ <li>Цикл по массиву со второго элемента.</li>
+ <li>Если конец предыдущего интервала больше чем начало последующего, то интервалы пересекаются, берем за конец интервала больший конец двух интервалов.</li>
+ <li>В случае, если интервалы не пересекаются, то добавляем интервал в результирующий массив и обновляем начало и конец интервала значениями данного интервала.</li>
+ <li>После цикла нужно будет добавить последний интервал в результирующий массив.</li>
+ <li>Вернуть результирующий массив.</li>
+</ol>
+</blockquote></details>
+
 ```
 Example 1:
 Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
@@ -597,15 +609,43 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
 ```python3
 def merge(intervals):
-    out = []
-    for i in sorted(intervals, key=lambda i: i.start):
-        if out and i.start <= out[-1].end:
-            out[-1].end = max(out[-1].end, i.end)
+    if len(intervals) < 2:
+        return intervals
+
+    intervals.sort(key=lambda x: x[0])
+    merged_intervals = []
+
+    start = intervals[0][0]
+    end = intervals[0][1]
+
+    for i in range(1, len(intervals)):
+        interval = intervals[i]
+        if end >= interval[0]:
+            end = max(interval[1], end)
         else:
-            out += i,
-    return out
+            merged_intervals.append([start, end])
+            start = interval[0]
+            end = interval[1]
+
+    merged_intervals.append([start, end])
+    return merged_intervals
 ```
 
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestMergeIntervals(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual([[1, 6], [8, 10], [15, 18]], Solution().merge(intervals=[[1, 3], [2, 6], [8, 10], [15, 18]]))
+
+    def test_second(self):
+        self.assertEqual([[1, 5]], Solution().merge(intervals=[[1, 4], [4, 5]]))
+```
+
+</blockquote></details>
 
 ## Group Anagrams
 Дан массив слов, сгруппировать анаграммы в массивах.
