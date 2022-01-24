@@ -652,6 +652,17 @@ class TestMergeIntervals(unittest.TestCase):
 
 https://leetcode.com/problems/group-anagrams/
 
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Иницализовать словарь с пустым листом в значении.</li>
+ <li>Сортируем каждое слово.</li>
+ <li>Преобразуем отсортированное слово в кортеж (т.к. он может быть ключом, потому что неизменяемый тип данных).</li>
+ <li>Добавляем кортеж как ключ в словарь.</li>
+ <li>Проходя циклом по входному массиву слов, смотрим если слово совпадает с ключом (кортежем) то добавляем это слово в массив под этим ключом.</li>
+ <li>Вернуть значения наполненного словаря.</li>
+</ol>
+</blockquote></details>
+
 ```
 Example 1
 Input: strs = ["eat","tea","tan","ate","nat","bat"]
@@ -671,13 +682,34 @@ from collections import defaultdict
 
 
 def groupAnagrams(strs):
-    char_map = defaultdict(list)
+    if not strs:
+        return [[""]]
+
+    hash_map = defaultdict(list)
     for word in strs:
-        sorted_word = sorted(word)
-        key = tuple(sorted_word)
-        char_map[key].append(word)
-    return char_map.values()
+        hash_map[tuple(sorted(word))].append(word)
+    return list(hash_map.values())
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestMaxProduct(unittest.TestCase):
+    def test_first(self):
+        output = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+        self.assertEqual(output, Solution().groupAnagrams(strs=["eat", "tea", "tan", "ate", "nat", "bat"]))
+
+    def test_second(self):
+        self.assertEqual([[""]], Solution().groupAnagrams(strs=[""]))
+
+    def test_third(self):
+        self.assertEqual([["a"]], Solution().groupAnagrams(strs=["a"]))```
+```
+</blockquote></details>
+
 
 
 ## Maximum Product Subarray
