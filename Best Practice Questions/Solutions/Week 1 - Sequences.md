@@ -713,9 +713,17 @@ class TestMaxProduct(unittest.TestCase):
 
 
 ## Maximum Product Subarray
-Дан массив чисел. Вернуть максимальное произведение подмассивов.
+Дан массив чисел. Вернуть максимальную сумму смежного подмассива.
 
 https://leetcode.com/problems/maximum-product-subarray/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Инициализируем текущий массив и максимальный массив первым элементом в массиве</li>
+ <li>Идем циклом по массиву со второго элемента и обновляем текущий массив либо числом итерации либо число итерации + текущий массив</li>
+ <li>Обновляем максимальный массив либо максимальным массивом либо текущим массивом</li>
+</ol>
+</blockquote></details>
 
 ```
 Example 1:
@@ -730,8 +738,33 @@ Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 ```
 
 ```python3
+def maxSubArray(nums):
+    current_subarray = max_subarray = nums[0]
 
+    for i in range(1, len(nums)):
+        current_subarray = max(nums[i], current_subarray + nums[i])
+        max_subarray = max(current_subarray, max_subarray)
+
+    return max_subarray
 ```
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestMaxProduct(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual(6, Solution().maxSubArray(nums=[-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+
+    def test_second(self):
+        self.assertEqual(1, Solution().maxSubArray(nums=[1]))
+
+    def test_third(self):
+        self.assertEqual(23, Solution().maxSubArray(nums=[5, 4, -1, 7, 8]))
+```
+</blockquote></details>
 
 
 ## Search in Rotated Sorted Array
