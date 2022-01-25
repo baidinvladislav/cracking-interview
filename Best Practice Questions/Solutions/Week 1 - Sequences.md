@@ -777,6 +777,21 @@ class TestMaxProduct(unittest.TestCase):
 
 https://leetcode.com/problems/search-in-rotated-sorted-array/
 
+<details><summary>Решение:</summary><blockquote>
+<ol>
+    <li>Если начальный элемент меньше или равен центральному элементу</li>
+        <ol>
+            <li>Если таргет больше или равен начальному элементу и при этом тагрет меньше чем центральный элемент, то смотрим в правой части массива</li>
+            <li>Если таргет меньше чем центральный элемент или равен центральному, то смотрим в правой части массива</li>
+        </ol>
+    <li>Если начальный элемент больше центрального элемента</li>
+        <ol>
+            <li>Если таргет больше чем центральный элемент и при этом он меньше или равен последнему, то смотрим справа</li>
+            <li>Если таргет меньше или равен центральному элементу или таргет больше последнего элемента, то смотрим справа</li>
+        </ol>
+</ol>
+</blockquote></details>
+
 ```
 Example 1:
 Input: nums = [4,5,6,7,0,1,2], target = 0
@@ -791,9 +806,51 @@ Input: nums = [1], target = 0
 Output: -1
 ```
 
-```python3
 
+```python3
+def search(nums, target):
+    start, end = 0, len(nums) - 1
+    while start <= end:
+        mid = start + (end - start) // 2
+        if nums[mid] == target:
+            return mid
+
+        if nums[start] <= nums[mid]:
+            if nums[start] <= target < nums[mid]:
+                end = mid - 1
+            else:
+                start = mid + 1
+        else:
+            if nums[mid] < target <= nums[end]:
+                start = mid + 1
+            else:
+                end = mid - 1
+    return -1
 ```
+
+
+<details><summary>Test cases</summary><blockquote>
+
+```python3
+import unittest
+
+
+class TestMaxProduct(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual(4, Solution().search(nums=[4, 5, 6, 7, 0, 1, 2], target=0))
+
+    def test_second(self):
+        self.assertEqual(-1, Solution().search(nums=[4, 5, 6, 7, 0, 1, 2], target=3))
+
+    def test_third(self):
+        self.assertEqual(-1, Solution().search(nums=[1], target=0))
+
+
+if __name__ == "__main__":
+    unittest.main()
+```
+
+</blockquote></details>
 
 
 
