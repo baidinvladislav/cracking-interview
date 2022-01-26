@@ -13,54 +13,50 @@
 
 
 ## Longest Substring Without Repeating Characters
-Дан неотсортированный массив чисел, вернуть индексы двух чисел сумма которых равна таргету.
+Дана строка, найти в ней самую длинную подстроку без повторения символов.
 
-https://leetcode.com/problems/two-sum/
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>Идем по циклу, трекая порядковый номер итерации.</li>
- <li>Вычисляем попытку (target - nums[i]).</li>
- <li>Если попытки нет в словаре, то добавляем в словарь число текущей итерации.</li>
- <li>Если попытка в словаре, то вернуть индекс попытки из словаря (buffer[num]) и порядковый номер итерации цикла.</li>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [2,7,11,15], target = 9
-Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
 
 Example 2:
-Input: nums = [3,2,4], target = 6
-Output: [1,2]
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
 
 Example 3:
-Input: nums = [3,3], target = 6
-Output: [0,1]
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
 ```
 
 ```python
-from typing import List
+def lengthOfLongestSubstring(self, s: str) -> int:
+    window_start, max_length, hash_map = 0, 0, dict()
 
+    for window_end in range(len(s)):
+        if s[window_end] in hash_map:
+            window_start = max(window_start, hash_map[s[window_end]] + 1)
 
-class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        if not nums:
-            return [-1, -1]
-
-        buffer = {}
-        for i, num in enumerate(nums):
-            attempt = target - num
-            if attempt not in buffer:
-                buffer[num] = i
-            else:
-                return [buffer[attempt], i]
-
-        return [-1, -1]
+        hash_map[s[window_end]] = window_end
+        max_length = max(max_length, window_end - window_start + 1)
+    return max_length
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -69,25 +65,15 @@ class Solution:
 import unittest
 
 
-class TestTwoSum(unittest.TestCase):
-    def test_empty_list(self):
-        self.assertEqual([-1, -1], Solution().twoSum(nums=[], target=9))
-
+class TestProductArrayExceptSelf(unittest.TestCase):
     def test_first(self):
-        self.assertEqual([0, 1], Solution().twoSum(nums=[2, 7, 11, 15], target=9))
+        self.assertEqual(3, Solution().lengthOfLongestSubstring(s="abcabcbb"))
 
     def test_second(self):
-        self.assertEqual([1, 2], Solution().twoSum(nums=[3, 2, 4], target=6))
+        self.assertEqual(1, Solution().lengthOfLongestSubstring(s="bbbbb"))
 
     def test_third(self):
-        self.assertEqual([0, 1], Solution().twoSum(nums=[3, 3], target=6))
-
-    def test_no_solution(self):
-        self.assertEqual([-1, -1], Solution().twoSum(nums=[3, 3, 1, 4, 5], target=16))
-
-
-if __name__ == "__main__":
-    unittest.main()
+        self.assertEqual(3, Solution().lengthOfLongestSubstring(s="pwwkew"))
 ```
 
 </blockquote></details>
