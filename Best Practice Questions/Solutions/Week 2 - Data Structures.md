@@ -20,10 +20,10 @@ https://leetcode.com/problems/longest-substring-without-repeating-characters/
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li></li>
- <li></li>
- <li></li>
- <li></li>
+ <li>Идем циклом по строке</li>
+ <li>Если символ строки есть в словаре, то обновляем индекс начала окна, выбирая бОльшее значение из window_start и индекса +1 из словаря</li>
+ <li>Добавляем/обновляем индекс последнего элемента в словаре</li>
+ <li>Обновляем максимальную длину, выбирая бОльшее значение из старого значения и текущей длины окна</li>
 </ol>
 
 </blockquote></details>
