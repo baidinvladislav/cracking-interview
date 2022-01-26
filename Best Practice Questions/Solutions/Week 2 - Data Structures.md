@@ -80,58 +80,46 @@ class TestProductArrayExceptSelf(unittest.TestCase):
 
 
 ## Container With Most Water
-Дан массив чисел, вернуть True если в массиве есть дубликаты, вернуть False, если массив содержит только уникальные числа.
+Дан массив чисел, каждое число представляет высоту линии на графике.
+Найти две линии между которыми на графике будет больше всего площадь.
+Вернуть площадь.
 
-https://leetcode.com/problems/contains-duplicate/
+https://leetcode.com/problems/container-with-most-water/
 
 
 <details><summary>Решение:</summary><blockquote>
-Три решения:
 <ol>
- <li>Отсортировать массив и идти по нему циклом сравнивая nums[i-1] и nums[i].</li>
- <li>Добавить все числа в словарь и отслеживать их частоту, если у кого больше чем  1, то значит был дубликат.</li>
- <li>Воспользоваться встроенной структурой set().</li>
+ <li>ДОБАВИТЬ АЛГОРИТМ РЕШЕНИЯ</li>
+ <li></li>
+ <li>.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [1,2,3,1]
-Output: true
+Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. 
+In this case, the max area of water (blue section) the container can contain is 49.
 
 Example 2:
-Input: nums = [1,2,3,4]
-Output: false
-
-Example 3:
-Input: nums = [1,1,1,3,3,4,3,2,4,2]
-Output: true
+Input: height = [1,1]
+Output: 1
 ```
 
 ```python
-from typing import List
+def maxArea(self, height):
+    result = 0
+    left, right = 0, len(height) - 1
 
-
-class Solution:
-    def containsDuplicate_additional_memory(self, nums: List[int]) -> bool:
-        buffer = {}
-        for num in nums:
-            if num not in buffer:
-                buffer[num] = 1
-            else:
-                return True
-        return False
-
-    def containsDuplicate_sorting(self, nums: List[int]) -> bool:
-        nums.sort()
-        for i in range(1, len(nums)):
-            if nums[i - 1] == nums[i]:
-                return True
-        return False
-
-    def containsDuplicate_set(self, nums: List[int]) -> bool:
-        return len(nums) != len(set(nums))
+    while left < right:
+        result = max(result, (right - left) * min(height[left], height[right]))
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+    return result
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -140,21 +128,12 @@ class Solution:
 import unittest
 
 
-class TestContainsDuplicate(unittest.TestCase):
+class TestProductArrayExceptSelf(unittest.TestCase):
     def test_first(self):
-        self.assertTrue(Solution().containsDuplicate_additional_memory(nums=[1, 2, 3, 1]))
-        self.assertTrue(Solution().containsDuplicate_sorting(nums=[1, 2, 3, 1]))
-        self.assertTrue(Solution().containsDuplicate_set(nums=[1, 2, 3, 1]))
+        self.assertEqual(49, Solution().maxArea(height=[1, 8, 6, 2, 5, 4, 8, 3, 7]))
 
     def test_second(self):
-        self.assertFalse(Solution().containsDuplicate_additional_memory(nums=[1, 2, 3, 4]))
-        self.assertFalse(Solution().containsDuplicate_sorting(nums=[1, 2, 3, 4]))
-        self.assertFalse(Solution().containsDuplicate_set(nums=[1, 2, 3, 4]))
-
-    def test_third(self):
-        self.assertTrue(Solution().containsDuplicate_additional_memory(nums=[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
-        self.assertTrue(Solution().containsDuplicate_sorting(nums=[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
-        self.assertTrue(Solution().containsDuplicate_set(nums=[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]))
+        self.assertEqual(1, Solution().maxArea(height=[1, 1]))
 
 
 if __name__ == "__main__":
