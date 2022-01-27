@@ -290,75 +290,48 @@ class TestValidAnagram(unittest.TestCase):
 
 
 ## Linked List Cycle
-Дана строка в которой могу быть символы: '(', ')', '{', '}', '[', ']'.
-Вернуть True, если скобочная последовательность в строке верная (открывающая скобка закрывается скобкой такого же типа и 
-скобки закрываются в правильном порядке).
+Дан связной список. Определить содержит ли список цикл.
 
-https://leetcode.com/problems/valid-parentheses/
+https://leetcode.com/problems/linked-list-cycle/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Инициализировать словарь со скобками и пустой сткек.</li>
- <li>Идем циклом по входной строке.</li>
- <li>Если символ строке есть ключ в словаре скобок, то значит символ является открывающей скобкой, добавляем символ в стек.</li>
- <li>Если стек пуст или если из словаря по последнему элементу стека мы не получаем текущий элемент (нужная закрывающая скобка), значит скобочная последовательность не верная.</li>
- <li>Вернуть булево значение от пустого стека.</li>
+ <li>Ставим медленный указатель и быстрый указатель в начало списка.</li>
+ <li>Идем циклом по списку медленным указателем по узлу за шаг, а быстрым по два узла за шаг.</li>
+ <li>Доходим быстрым указателем до конца, если быстрый указатель догнал медленный, значит в списке есть цикл, если прошли весь список, то цикла нет.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: s = "()"
+Input: head = [3,2,0,-4], pos = 1
 Output: true
+Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed)
 
 Example 2:
-Input: s = "()[]{}"
+Input: head = [1,2], pos = 0
 Output: true
+Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
 
 Example 3:
-Input: s = "(]"
+Input: head = [1], pos = -1
 Output: false
+Explanation: There is no cycle in the linked list.
 ```
 
 ```python3
-from collections import deque
+def hasCycle(self, head: Optional[ListNode]) -> bool:
+    slow = fast = head
 
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
 
-def isValid(s):
-    parentheses = {'(': ')', '{': '}', '[': ']'}
-    stack = deque()
-
-    for symbol in s:
-        if symbol in parentheses:
-            stack.append(symbol)
-
-        elif len(stack) == 0 or parentheses[stack.pop()] != symbol:
-            return False
-
-    return len(stack) == 0
+        if slow == fast:
+            return True
+    return False
 ```
-
-
-<details><summary>Test cases</summary><blockquote>
-
-```python3
-import unittest
-
-
-class TestValidParentheses(unittest.TestCase):
-    def test_first(self):
-        self.assertTrue(Solution().isValid(s="()"))
-
-    def test_second(self):
-        self.assertTrue(Solution().isValid(s="()[]{}"))
-
-    def test_third(self):
-        self.assertFalse(Solution().isValid(s="(]"))
-```
-
-</blockquote></details>
-
 
 ## Find Minimum in Rotated Sorted Array
 Дан массив чисел, вернуть новый массив содержащий перемножение всех элементов кроме iго элемента.
