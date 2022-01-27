@@ -145,44 +145,51 @@ if __name__ == "__main__":
 
 
 ## Remove Nth Node From End of List
-Дан массив с числами, каждое число представляет цену акции на iый день.
-Найти день наилучший для покупки и день наилучший для продажи.
-Вернуть наибольшую прибыль после продажи. Если прибыль получить невозможно вернуть 0.
+Дан связной список и число n. Удалить из списка узел под числом n.
 
-https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Для решения задачи отслеживаем две переменные: max_profit и min_price.</li>
- <li>Если на итерации число меньше чем в min_price, то обновляем min_price текущим числом.</li>
- <li>Вычисляем прибыль, отнимая от числа на текущей итерации min_price.</li>
- <li>Обновляем max_profit числом из второго пункта, если прибыль получилась больше чем была.</li>
+ <li>Ставим два указателя в начало списка.</li>
+ <li>Перемещаем быстрый указатель на n узлов вперед.</li>
+ <li>Если быстрый указатель вышел за пределы списка, то вернуть второй по счету узел.</li>
+ <li>Двигаем два указателя пока быстрый указатель не дойдет до конца списка.</li>
+ <li>Переопределяем соседа медленного указателя через один узел от него.</li>
+ <li>Возвращаем новую голову связного списка.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: prices = [7,1,5,3,6,4]
-Output: 5
-Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
-Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
 
 Example 2:
-Input: prices = [7,6,4,3,1]
-Output: 0
-Explanation: In this case, no transactions are done and the max profit = 0.
+Input: head = [1], n = 1
+Output: []
+
+Example 3:
+Input: head = [1,2], n = 1
+Output: [1]
 ```
 
 ```python3 
-class Solution:
-    def maxProfit(self, prices):
-        max_profit, min_price = 0, float('inf')
-        for price in prices:
-            min_price = min(min_price, price)
-            profit = price - min_price
-            max_profit = max(max_profit, profit)
-        return max_profit
+def removeNthFromEnd(self, head, n):
+    fast = slow = head
+    for _ in range(n):
+        fast = fast.next
+
+    if not fast:
+        return head.next
+
+    while fast.next:
+        fast = fast.next
+        slow = slow.next
+
+    slow.next = slow.next.next
+    return head
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -191,12 +198,30 @@ class Solution:
 import unittest
 
 
-class TestBestTimeBuyAndSellStock(unittest.TestCase):
+class TestRemoveNthFromEnd(unittest.TestCase):
     def test_first(self):
-        self.assertEqual(5, Solution().maxProfit(prices=[7, 1, 5, 3, 6, 4]))
+        head = Node(1)
+        head.next = Node(2)
+        head.next.next = Node(3)
+        head.next.next.next = Node(4)
+        head.next.next.next.next = Node(5)
+
+        excepted_head = Node(1)
+        excepted_head.next = Node(2)
+        excepted_head.next.next = Node(3)
+        excepted_head.next.next.next = Node(5)
+        self.assertEqual(excepted_head, Solution().removeNthFromEnd(head=head, n=2))
 
     def test_second(self):
-        self.assertEqual(0, Solution().maxProfit(prices=[7, 6, 4, 3, 1]))
+        head = Node(1)
+        self.assertIsNone(Solution().removeNthFromEnd(head=head, n=1))
+
+    def test_third(self):
+        head = Node(1)
+        head.next = Node(2)
+
+        excepted_head = Node(1)
+        self.assertEqual(excepted_head, Solution().removeNthFromEnd(head=head, n=1))
 ```
 
 </blockquote></details>
