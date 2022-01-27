@@ -228,46 +228,87 @@ class TestRemoveNthFromEnd(unittest.TestCase):
 
 
 ## Minimum Window Substring
-Даны две строки. Вернуть True, если строки являются анаграмами, вернуть False в противном случае.
-Анаграмма - это слово образованное от другого путем перестановки букв.
+Даны две строки. Нужно найти окно в первой строке в котором будет полностью содержаться вторая строка независимо от перестановки строки паттерна. 
 
 https://leetcode.com/problems/valid-anagram/
 
 <details><summary>Решение:</summary><blockquote>
-Два решения:
 <ol>
- <li>Отсортировать две строки и сравнить их.</li>
- <li>Создать по словарю для каждой строки. Добавить символы первой строки и их частоту в первый словарь, также поступить и для второй строки и второго словаря. Сравнить два словаря.</li>
+ <li>Добавить все симваолы паттерна (второй строки) в словарь.</li>
+ <li>Идем циклом по строке и если символ строки есть в словаре, то вычитаем единицу из его частоты, если его частота больше или равна 0, то засчитываем одно совпадение.</li>
+ <li>Выполняем второй пункт до тех пор пока кол-во совпадений не будет равно кол-ву символов в строке паттерна.</li>
+ <li>Если минимальная длина (изначально равная длина строки + 1) больше чем длина окна, то обновляем мин. длину длиной окна.</li>
+ <li>Записываем индекс начала окна в начало подстроки.</li>
+ <li>Увеличиваем индекс начала окна на 1.</li>
+ <li>Проверяем есть ли начальный символ строки в словаре, если есть и его частота равна 0, то вычитаем одно совпадение..</li>
+ <li>В любом случае добавляем единицу к частоте левого символа.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: s = "anagram", t = "nagaram"
-Output: true
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
 
 Example 2:
-Input: s = "rat", t = "car"
-Output: false
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+
+Example 3:
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
 ```
 
 
 ```python3
-class Solution:
-    def isAnagram_sorting(self, s: str, t: str) -> bool:
-        return sorted(s) == sorted(t)
+def find_substring(str1, pattern):
+    """
+    1. Insert pattern characters to Python dictionary.
+    2. Extend the window if the last window character in dictionary then decrement their frequency.
+    3. If after decrement last character frequency it will be equal 0. We got one match.
+    4. While number matches equal number character in pattern we shrink the window and update window start index.
+    """
+    window_start, matched, substr_start = 0, 0, 0
+    min_length = len(str1) + 1
+    char_frequency = {}
 
-    def isAnagram_additional_memory(self, s: str, t: str) -> bool:
-        buffer_1, buffer_2 = {}, {}
-        
-        for char in s:
-            buffer_1[char] = buffer_1.get(char, 0) + 1
+    for chr in pattern:
+        if chr not in char_frequency:
+            char_frequency[chr] = 0
+        char_frequency[chr] += 1
 
-        for char in t:
-            buffer_2[char] = buffer_2.get(char, 0) + 1
+    # try to extend the range [window_start, window_end]
+    for window_end in range(len(str1)):
+        right_char = str1[window_end]
+        if right_char in char_frequency:
+            char_frequency[right_char] -= 1
+            if char_frequency[right_char] >= 0:  # Count every matching of a character
+                matched += 1
 
-        return buffer_1 == buffer_2
+        # Shrink the window if we can, finish as soon as we remove a matched character
+        while matched == len(pattern):
+            if min_length > window_end - window_start + 1:
+                min_length = window_end - window_start + 1
+                substr_start = window_start
+
+            left_char = str1[window_start]
+            window_start += 1
+            if left_char in char_frequency:
+                # Note that we could have redundant matching characters, therefore we'll decrement the
+                # matched count only when a useful occurrence of a matched character is going out of the window
+                if char_frequency[left_char] == 0:
+                    matched -= 1
+                char_frequency[left_char] += 1
+
+    if min_length > len(str1):
+        return ""
+
+    return str1[substr_start:substr_start + min_length]
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -276,14 +317,15 @@ class Solution:
 import unittest
 
 
-class TestValidAnagram(unittest.TestCase):
+class TestMinWindow(unittest.TestCase):
     def test_first(self):
-        self.assertTrue(5, Solution().isAnagram_sorting(s="anagram", t="nagaram"))
-        self.assertTrue(5, Solution().isAnagram_additional_memory(s="anagram", t="nagaram"))
+        self.assertEqual("BANC", Solution().minWindow(s="ADOBECODEBANC", t="ABC"))
 
     def test_second(self):
-        self.assertFalse(0, Solution().isAnagram_sorting(s="rat", t="car"))
-        self.assertFalse(0, Solution().isAnagram_additional_memory(s="rat", t="car"))
+        self.assertEqual("a", Solution().minWindow(s="a", t="a"))
+
+    def test_third(self):
+        self.assertEqual("", Solution().minWindow(s="a", t="aa"))
 ```
 
 </blockquote></details>

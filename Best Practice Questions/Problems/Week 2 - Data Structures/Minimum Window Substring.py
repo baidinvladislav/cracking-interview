@@ -1,3 +1,6 @@
+import unittest
+
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         """
@@ -42,3 +45,18 @@ class Solution:
             return ""
 
         return s[substr_start:substr_start + min_length]
+
+
+class TestMinWindow(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual("BANC", Solution().minWindow(s="ADOBECODEBANC", t="ABC"))
+
+    def test_second(self):
+        self.assertEqual("a", Solution().minWindow(s="a", t="a"))
+
+    def test_third(self):
+        self.assertEqual("", Solution().minWindow(s="a", t="aa"))
+
+
+if __name__ == "__main__":
+    unittest.main()
