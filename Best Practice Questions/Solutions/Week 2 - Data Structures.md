@@ -454,51 +454,74 @@ class TestFindMin(unittest.TestCase):
 
 
 ## Number of Islands
-Вернуть самую большую сумму подмассива.
+Дана сетка размером MxN. В сетке находятся находятся значение '0' и '1'. Где '0' - это вода и '1' - это суша.
+Вернуть кол-во островов на сетке.
 
-https://leetcode.com/problems/maximum-subarray/
+https://leetcode.com/problems/number-of-islands/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Проходим первый раз по циклу и перемножаем элементы, сохраняем макс.произведение чисел, если натыкаемся на 0, то начинаем накапливать произведение заново.</li>
- <li>Делаем тоже самое, но в этот раз проходим массив с конца к началу.</li>
+ <li>Рассмотрим сетку как неориентированный граф, у которого ребра есть у смежных соседних вершин по горизонтали и вертикали со значением '1'.</li>
+ <li>Линейно проходим по сетке, если в вершине значение '1', то ночинаем от этой вершины поиск в ширину.</li>
+ <li>Добавляем такую вершину в очередь и устанавливаем для нее значение '0', помечая вершину как посещенную..</li>
+ <li>Итеративно ищем соседей этой вершины у которых тоже значение '1', меняем на '0'.</li>
+ <li>Повторяем пока в очереди есть вершины.</li>
+ <li>Кол-во раз когда запускался поиск в ширину и будет равен кол-ву островое на сетке.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
-Output: 6
-Explanation: [4,-1,2,1] has the largest sum = 6.
-
-Example 2:
-Input: nums = [1]
+Input: grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
 Output: 1
 
-Example 3:
-Input: nums = [5,4,-1,7,8]
-Output: 23
+Example 2:
+Input: grid = [
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]
+Output: 3
 ```
 
 ```python3
-def maxProduct(nums):
-    answer = nums[0]
-    product = 0
-    for i in range(len(nums)):
-        if product == 0:
-            product = nums[i]
-        else:
-            product *= nums[i]
-        answer = max(answer, product)
+from collections import deque
 
-    product = 0
-    for i in range(len(nums) - 1, -1, -1):
-        if product == 0:
-            product = nums[i]
-        else:
-            product *= nums[i]
-        answer = max(answer, product)
-    return answer
+
+def numIslands(self, grid):
+    rows = len(grid)
+    columns = len(grid[0])
+    nums_islands = 0
+
+    for i in range(rows):
+        for j in range(columns):
+            if grid[i][j] == '1':
+                nums_islands += 1
+                grid[i][j] = '0'
+                neighbors = deque()
+                neighbors.append([i, j])
+                while neighbors:
+                    neighbor = neighbors.popleft()
+                    row, column = neighbor[0], neighbor[1]
+                    if row - 1 >= 0 and grid[row - 1][column] == '1':
+                        neighbors.append([row - 1, column])
+                        grid[row - 1][column] = '0'
+                    if row + 1 < rows and grid[row + 1][column] == '1':
+                        neighbors.append([row + 1, column])
+                        grid[row + 1][column] = '0'
+                    if column - 1 >= 0 and grid[row][column - 1] == '1':
+                        neighbors.append([row, column - 1])
+                        grid[row][column - 1] = '0'
+                    if column + 1 < columns and grid[row][column + 1] == '1':
+                        neighbors.append([row, column + 1])
+                        grid[row][column + 1] = '0'
+    return nums_islands
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -507,12 +530,24 @@ def maxProduct(nums):
 import unittest
 
 
-class TestMaxProduct(unittest.TestCase):
+class TestNumIslands(unittest.TestCase):
     def test_first(self):
-        self.assertEqual(6, Solution().maxProduct(nums=[2, 3, -2, 4]))
+        grid = [
+            ["1", "1", "1", "1", "0"],
+            ["1", "1", "0", "1", "0"],
+            ["1", "1", "0", "0", "0"],
+            ["0", "0", "0", "0", "0"]
+        ]
+        self.assertEqual(1, Solution().numIslands(grid))
 
     def test_second(self):
-        self.assertEqual(0, Solution().maxProduct(nums=[-2, 0, -1]))
+        grid = [
+            ["1", "1", "0", "0", "0"],
+            ["1", "1", "0", "0", "0"],
+            ["0", "0", "1", "0", "0"],
+            ["0", "0", "0", "1", "1"]
+        ]
+        self.assertEqual(3, Solution().numIslands(grid))
 ```
 
 </blockquote></details>
