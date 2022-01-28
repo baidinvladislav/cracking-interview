@@ -1,3 +1,6 @@
+import unittest
+
+
 class Solution:
     def findMin(self, nums):
         # If the list has just one element then return that element.
@@ -34,3 +37,18 @@ class Solution:
             # if nums[0] is greater than the mid value then this means the smallest value is somewhere to the left
             else:
                 right = mid - 1
+
+
+class TestProductArrayExceptSelf(unittest.TestCase):
+    def test_first(self):
+        self.assertEqual(1, Solution().findMin(nums=[3, 4, 5, 1, 2]))
+
+    def test_second(self):
+        self.assertEqual(0, Solution().findMin(nums=[4, 5, 6, 7, 0, 1, 2]))
+
+    def test_third(self):
+        self.assertEqual(11, Solution().findMin(nums=[11, 13, 15, 17]))
+
+
+if __name__ == "__main__":
+    unittest.main()
