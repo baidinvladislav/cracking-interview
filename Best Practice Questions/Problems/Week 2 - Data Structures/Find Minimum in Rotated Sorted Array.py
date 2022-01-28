@@ -39,7 +39,7 @@ class Solution:
                 right = mid - 1
 
 
-class TestProductArrayExceptSelf(unittest.TestCase):
+class TestFindMin(unittest.TestCase):
     def test_first(self):
         self.assertEqual(1, Solution().findMin(nums=[3, 4, 5, 1, 2]))
 
