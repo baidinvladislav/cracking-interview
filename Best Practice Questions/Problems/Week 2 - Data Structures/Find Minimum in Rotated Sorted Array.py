@@ -21,7 +21,7 @@ class Solution:
         # Binary search way
         while right >= left:
             # Find the mid element
-            mid = left + (right - left) / 2
+            mid = left + (right - left) // 2
             # if the mid element is greater than its next element then mid+1 element is the smallest
             # This point would be the point of change. From higher to lower value.
             if nums[mid] > nums[mid + 1]:

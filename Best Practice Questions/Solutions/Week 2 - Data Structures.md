@@ -376,43 +376,62 @@ def hasCycle(self, head: Optional[ListNode]) -> bool:
 ```
 
 ## Find Minimum in Rotated Sorted Array
-Дан массив чисел, вернуть новый массив содержащий перемножение всех элементов кроме iго элемента.
-Решение должно быть за линейное время и без операции деления.
+Найти минимальное число в развернутом отсортированном массиве.
 
-https://leetcode.com/problems/product-of-array-except-self/
+https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Накапливаем префикс каждого элемента в результирующем массиве.</li>
- <li>Умножаем элемента результирующего массива на постфикс, проходя циклом с конца к началу.</li>
+ <li>Используем модифицированную версию бинарного поиска.</li>
+ <li>Для решения необзодимо найти точку перегиба.</li>
+ <li>Находим центральный элемент массива.</li>
+ <li>Если центральный элемент массива больше чем первый элемент массива, то значит точка перегиба находится справа от центрального элемента.</li>
+ <li>Если центральный элемент массива меньше чем первый элемент массива, то значит точка перегиба находится слева от центрального элемента.</li>
+ <li>Прекращаем поиск, когда находим точку перегиба, для этого должно выполниться одно из двух условий: 1) центральный элемент больше чем последующий за ним элемент nums[mid] > nums[mid + 1] 2) центральный элемент меньше чем элемиент перед ним nums[mid - 1] > nums[mid].</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [1,2,3,4]
-Output: [24,12,8,6]
+Input: nums = [3,4,5,1,2]
+Output: 1
+Explanation: The original array was [1,2,3,4,5] rotated 3 times.
 
 Example 2:
-Input: nums = [-1,1,0,-3,3]
-Output: [0,0,9,0,0]
+Input: nums = [4,5,6,7,0,1,2]
+Output: 0
+Explanation: The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.
+
+Example 3:
+Input: nums = [11,13,15,17]
+Output: 11
+Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
 ```
 
 ```python3
-def productExceptSelf(nums):
-    result = []
+def findMin(self, nums):
+    if len(nums) == 1:
+        return nums[0]
 
-    prefix = 1
-    for i in range(len(nums)):
-        result.append(prefix)
-        prefix *= nums[i]
+    left = 0
+    right = len(nums) - 1
 
-    postfix = 1
-    for i in reversed(range(len(nums))):
-        result[i] *= postfix
-        postfix *= nums[i]
+    if nums[right] > nums[0]:
+        return nums[0]
 
-    return result
+    while right >= left:
+        mid = left + (right - left) / 2
+        
+        if nums[mid] > nums[mid + 1]:
+            return nums[mid + 1]
+
+        if nums[mid - 1] > nums[mid]:
+            return nums[mid]
+
+        if nums[mid] > nums[0]:
+            left = mid + 1
+        else:
+            right = mid - 1
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -421,12 +440,15 @@ def productExceptSelf(nums):
 import unittest
 
 
-class TestProductArrayExceptSelf(unittest.TestCase):
+class TestFindMin(unittest.TestCase):
     def test_first(self):
-        self.assertEqual([24, 12, 8, 6], Solution().productExceptSelf(nums=[1, 2, 3, 4]))
+        self.assertEqual(1, Solution().findMin(nums=[3, 4, 5, 1, 2]))
 
     def test_second(self):
-        self.assertEqual([0, 0, 9, 0, 0], Solution().productExceptSelf(nums=[-1, 1, 0, -3, 3]))
+        self.assertEqual(0, Solution().findMin(nums=[4, 5, 6, 7, 0, 1, 2]))
+
+    def test_third(self):
+        self.assertEqual(11, Solution().findMin(nums=[11, 13, 15, 17]))
 ```
 </blockquote></details>
 
