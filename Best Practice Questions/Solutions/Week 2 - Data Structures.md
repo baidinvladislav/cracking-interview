@@ -554,71 +554,76 @@ class TestNumIslands(unittest.TestCase):
 
 
 ## Reverse Linked List
-Для массива целых чисел nums вернуть все триплеты [nums[i], nums[j], nums[k]] такие, что i != j, i != k и j != k, и nums[i] + nums[j] + nums[k] == 0. Обратите внимание, что в наборе решений не должно быть повторяющихся триплетов.
+Развернуть связной список.
 
-https://leetcode.com/problems/3sum/
+https://leetcode.com/problems/reverse-linked-list/
 
-<details><summary>Решение:</summary><blockquote>
+
+<details><summary>Итеративное решение:</summary><blockquote>
 <ol>
- <li>Сортируем входной массив.</li>
- <li>Проходим циклом по массиву, пропуская дубликаты.</li>
- <li>Необходимо для каждого числа на итерации цикла найти два таких числа сумма которых будет равна отрицательному числу на итерации, для этого используем метод двух указателей.</li>
- <li>Если два числа дают в суммме отрицательное число, то добавить 3 числа (число итерации и два числа под указателями) в ответ.</li>
- <li>Если сумма меньше, то сдвинуть левый указатель к концу.</li>
- <li>Если сумма больше, то сдвинуть правый указатель к началу.</li>
- <li>Вернуть массив троек.</li>
+ <li>Итерируем список, меняя у текущего узла указатель на следующий узел на его предыдущий узел.</li>
+ <li>Поскольку у узлов нет ссылки на их предыдущий узел, то заранее сохраним предыдущий узел в памяти.</li>
+ <li>Также сохраняем следующий узел до того как мы изменим ссылки у текущего узла.</li>
+ <li>Возвращаем новый связной список.</li>
+</ol>
+</blockquote></details>
+
+
+<details><summary>Рекурсивное решение:</summary><blockquote>
+<ol>
+ <li>Рекурсивно посещаем каждый элемент в связанном списке, пока не достигнем последнего.</li>
+ <li>Этот последний элемент станет новым головой перевернутого связанного списка.</li>
+ <li>На пути возврата каждый узел добавляется в конец частично перевернутого списка.</li>
 </ol>
 </blockquote></details>
 
 
 ```
 Example 1:
-Input: nums = [-1,0,1,2,-1,-4]
-Output: [[-1,-1,2],[-1,0,1]]
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
 
 Example 2:
-Input: nums = []
-Output: []
+Input: head = [1,2]
+Output: [2,1]
 
 Example 3:
-Input: nums = [0]
+Input: head = []
 Output: []
 ```
 
 
 ```python3
+class Node:
+    def __init__(self, value, next=None):
+        self.value = value
+        self.next = next
+
+    def __repr__(self):
+        return str(self.value)
+
+
 class Solution:
-    def threeSum(self, nums):
-        nums.sort()
-        triplets = []
+    # Iterative Time: O(n), Space:O(1)
+    def reverseList_iter(self, head):
+        previous = None
+        current = head
+        while current:
+            temp_next = current.next
+            current.next = previous
+            previous = current
+            current = temp_next
+        return previous
 
-        for i in range(len(nums)):
-            if nums[i - 1] == nums[i]:
-                continue
+    # Recursive Time: O(n), Space:O(n)
+    def reverseList_rec(self, head):
+        if not head or not head.next:
+            return head
 
-            self.search_pair(nums, triplets, left=i + 1, target_sum=-nums[i])
-        return triplets
-
-    def search_pair(self, arr, triplets, left, target_sum):
-        right = len(arr) - 1
-        while left < right:
-            current_sum = arr[left] + arr[right]
-            if current_sum == target_sum:
-                triplets.append([-target_sum, arr[left], arr[right]])
-                left += 1
-                right -= 1
-
-                # skip duplicates
-                while left < right and arr[left] == arr[left - 1]:
-                    left += 1
-                while left < right and arr[right] == arr[right + 1]:
-                    right -= 1
-
-            elif current_sum < target_sum:
-                left += 1
-
-            elif current_sum > target_sum:
-                right -= 1
+        p = self.reverseList_rec(head.next)
+        head.next.next = head
+        head.next = None
+        return p
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -627,15 +632,30 @@ class Solution:
 import unittest
 
 
-class TestProductArrayExceptSelf(unittest.TestCase):
+class TestReverseLinkedList(unittest.TestCase):
     def test_first(self):
-        self.assertEqual([[-1, -1, 2], [-1, 0, 1]], Solution().threeSum(nums=[-1, 0, 1, 2, -1, -4]))
+        head = Node(1)
+        head.next = Node(2)
+        head.next.next = Node(3)
+        head.next.next.next = Node(4)
+        head.next.next.next.next = Node(5)
+
+        excepted_head = Node(5)
+        excepted_head.next = Node(4)
+        excepted_head.next.next = Node(3)
+        excepted_head.next.next.next = Node(2)
+        excepted_head.next.next.next.next = Node(1)
+        self.assertEqual(excepted_head, Solution().reverseList_rec(head=head))
+        self.assertEqual(excepted_head, Solution().reverseList_iter(head=head))
 
     def test_second(self):
-        self.assertEqual([], Solution().threeSum(nums=[]))
+        head = Node(1)
+        head.next = Node(2)
 
-    def test_third(self):
-        self.assertEqual([], Solution().threeSum(nums=[0]))
+        excepted_head = Node(2)
+        excepted_head.next = Node(1)
+        self.assertIsNone(Solution().reverseList_rec(head=head))
+        self.assertEqual(excepted_head, Solution().reverseList_iter(head=head))
 ```
 
 </blockquote></details>
