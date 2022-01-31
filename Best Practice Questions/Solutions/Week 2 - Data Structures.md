@@ -732,47 +732,54 @@ class TestMergeIntervals(unittest.TestCase):
 
 
 ## Longest Repeating Character Replacement
-Дан массив слов, сгруппировать анаграммы в массивах.
+Дана строка и число кол-во допустимых замен символов в строке.
+Вернуть длину строки с одинаковыми символами после перестановки k допустимых раз.
 
-https://leetcode.com/problems/group-anagrams/
+https://leetcode.com/problems/longest-repeating-character-replacement/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Иницализовать словарь с пустым листом в значении.</li>
- <li>Сортируем каждое слово.</li>
- <li>Преобразуем отсортированное слово в кортеж (т.к. он может быть ключом, потому что неизменяемый тип данных).</li>
- <li>Добавляем кортеж как ключ в словарь.</li>
- <li>Проходя циклом по входному массиву слов, смотрим если слово совпадает с ключом (кортежем) то добавляем это слово в массив под этим ключом.</li>
- <li>Вернуть значения наполненного словаря.</li>
+ <li>Итерируем строку, добавляя символ и его частоту в строке.</li>
+ <li>Проверяем условие, что если кол-во допустимых перестановок меньше чем разница длины окна и повторений символа в окне.</li>
+ <li>То сжимаем окно, вычитая частоту символа из словаря.</li>
+ <li>Обновляем длину окна, если она становится больше.</li>
 </ol>
 </blockquote></details>
 
 ```
-Example 1
-Input: strs = ["eat","tea","tan","ate","nat","bat"]
-Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+Example 1:
+Input: s = "ABAB", k = 2
+Output: 4
+Explanation: Replace the two 'A's with two 'B's or vice versa.
 
 Example 2:
-Input: strs = [""]
-Output: [[""]]
-
-Example 3:
-Input: strs = ["a"]
-Output: [["a"]]
+Input: s = "AABABBA", k = 1
+Output: 4
+Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
+The substring "BBBB" has the longest repeating letters, which is 4.
 ```
 
 ```python3
-from collections import defaultdict
+# Time Complexity: O(N)
+# Space Complexity: O(1) - because there are only 26 symbols in alphabet
+def characterReplacement(s: str, k: int) -> int:
+    dict_freq = {}
+    window_start = max_length = max_repeat = 0
 
+    for window_end in range(len(s)):
+        right_char = s[window_end]
+        if right_char not in dict_freq:
+            dict_freq[right_char] = 0
+        dict_freq[right_char] += 1
+        max_repeat = max(max_repeat, dict_freq[right_char])
 
-def groupAnagrams(strs):
-    if not strs:
-        return [[""]]
+        if k < window_end - window_start + 1 - max_repeat:
+            dict_freq[s[window_start]] -= 1
+            window_start += 1
 
-    hash_map = defaultdict(list)
-    for word in strs:
-        hash_map[tuple(sorted(word))].append(word)
-    return list(hash_map.values())
+        max_length = max(max_length, window_end - window_start + 1)
+
+    return max_length
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -781,16 +788,12 @@ def groupAnagrams(strs):
 import unittest
 
 
-class TestMaxProduct(unittest.TestCase):
+class TestCharacterReplacement(unittest.TestCase):
     def test_first(self):
-        output = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
-        self.assertEqual(output, Solution().groupAnagrams(strs=["eat", "tea", "tan", "ate", "nat", "bat"]))
+        self.assertEqual(4, Solution().characterReplacement(s="ABAB", k=2))
 
     def test_second(self):
-        self.assertEqual([[""]], Solution().groupAnagrams(strs=[""]))
-
-    def test_third(self):
-        self.assertEqual([["a"]], Solution().groupAnagrams(strs=["a"]))```
+        self.assertEqual(4, Solution().characterReplacement(s="AABABBA", k=1))
 ```
 </blockquote></details>
 
