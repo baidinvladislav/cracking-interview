@@ -662,56 +662,83 @@ class TestReverseLinkedList(unittest.TestCase):
 
 
 ## Pacific Atlantic Water Flow
-Дан массив интервалов, смержить все пересекающиеся интервалы и вернуть массив не пересекающихся интервалов.
+Дана матрица MxN, где в значения в ячейках - уровень воды.
+Матрица слева и сверху омывается Тихим океаном.
+Матрица справа и снизу омывается Атлантическим океаном.
+Вода из ячеек может перетекать в другие ячейки, если уровень соседних ячеек меньше или равен уровню воды текущей ячейки.
 
-https://leetcode.com/problems/merge-intervals/
+Вернуть координаты ячеек вода из которых может попасть сразу в оба океана.
+
+https://leetcode.com/problems/pacific-atlantic-water-flow/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Отсортировать интервалы по их началу.</li>
- <li>Берем за точку отсчета первый интервал из массива.</li>
- <li>Цикл по массиву со второго элемента.</li>
- <li>Если конец предыдущего интервала больше чем начало последующего, то интервалы пересекаются, берем за конец интервала больший конец двух интервалов.</li>
- <li>В случае, если интервалы не пересекаются, то добавляем интервал в результирующий массив и обновляем начало и конец интервала значениями данного интервала.</li>
- <li>После цикла нужно будет добавить последний интервал в результирующий массив.</li>
- <li>Вернуть результирующий массив.</li>
+ <li>BFS/DFS от клеток, которые граничат с Тихим океаном.</li>
+ <li>BFS/DFS от клеток, которые граничат с Атлантическим океаном.</li>
+ <li>Найти их пересечения.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
-Output: [[1,6],[8,10],[15,18]]
-Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+Input: heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]
+Output: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
 
 Example 2:
-Input: intervals = [[1,4],[4,5]]
-Output: [[1,5]]
-Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+Input: heights = [[2,1],[1,2]]
+Output: [[0,0],[0,1],[1,0],[1,1]]
 ```
 
 ```python3
-def merge(intervals):
-    if len(intervals) < 2:
-        return intervals
+from collections import deque
 
-    intervals.sort(key=lambda x: x[0])
-    merged_intervals = []
 
-    start = intervals[0][0]
-    end = intervals[0][1]
+def pacificAtlantic(self, heights):
+    # Check if input is empty
+    if not heights or not heights[0]:
+        return []
 
-    for i in range(1, len(intervals)):
-        interval = intervals[i]
-        if end >= interval[0]:
-            end = max(interval[1], end)
-        else:
-            merged_intervals.append([start, end])
-            start = interval[0]
-            end = interval[1]
+    num_rows, num_cols = len(heights), len(heights[0])
 
-    merged_intervals.append([start, end])
-    return merged_intervals
+    # Setup each queue with cells adjacent to their respective ocean
+    pacific_queue = deque()
+    atlantic_queue = deque()
+
+    for i in range(num_rows):
+        pacific_queue.append((i, 0))
+        atlantic_queue.append((i, num_cols - 1))
+    for i in range(num_cols):
+        pacific_queue.append((0, i))
+        atlantic_queue.append((num_rows - 1, i))
+
+    def bfs(queue):
+        reachable = set()
+        while queue:
+            (row, col) = queue.popleft()
+            # This cell is reachable, so mark it
+            reachable.add((row, col))
+            for (x, y) in [(1, 0), (0, 1), (-1, 0), (0, -1)]:  # Check all 4 directions
+                new_row, new_col = row + x, col + y
+                # Check if the new cell is within bounds
+                if new_row < 0 or new_row >= num_rows or new_col < 0 or new_col >= num_cols:
+                    continue
+                # Check that the new cell hasn't already been visited
+                if (new_row, new_col) in reachable:
+                    continue
+                # Check that the new cell has a higher or equal height,
+                # So that water can flow from the new cell to the old cell
+                if heights[new_row][new_col] < heights[row][col]:
+                    continue
+                # If we've gotten this far, that means the new cell is reachable
+                queue.append((new_row, new_col))
+        return reachable
+
+    # Perform a BFS for each ocean to find all cells accessible by each ocean
+    pacific_reachable = bfs(pacific_queue)
+    atlantic_reachable = bfs(atlantic_queue)
+
+    # Find all cells that can reach both oceans, and convert to list
+    return list(pacific_reachable.intersection(atlantic_reachable))
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -720,12 +747,15 @@ def merge(intervals):
 import unittest
 
 
-class TestMergeIntervals(unittest.TestCase):
+class TestPacificAtlantic(unittest.TestCase):
     def test_first(self):
-        self.assertEqual([[1, 6], [8, 10], [15, 18]], Solution().merge(intervals=[[1, 3], [2, 6], [8, 10], [15, 18]]))
+        output = [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]
+        self.assertEqual(output, Solution().pacificAtlantic(
+            heights=[[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]]))
 
     def test_second(self):
-        self.assertEqual([[1, 5]], Solution().merge(intervals=[[1, 4], [4, 5]]))
+        output = [[0, 0], [0, 1], [1, 0], [1, 1]]
+        self.assertEqual(output, Solution().pacificAtlantic(heights=[[2, 1], [1, 2]]))
 ```
 
 </blockquote></details>
