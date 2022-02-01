@@ -799,42 +799,65 @@ class TestCharacterReplacement(unittest.TestCase):
 
 
 ## Palindromic Substrings
-Дан массив чисел. Вернуть максимальную сумму смежного подмассива.
+Дана палиндром-строка, определить сколько подстрок в строке являются полиндромами. 
 
-https://leetcode.com/problems/maximum-product-subarray/
+https://leetcode.com/problems/palindromic-substrings/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Инициализируем текущий массив и максимальный массив первым элементом в массиве</li>
- <li>Идем циклом по массиву со второго элемента и обновляем текущий массив либо числом итерации либо число итерации + текущий массив</li>
- <li>Обновляем максимальный массив либо максимальным массивом либо текущим массивом</li>
+ <li>Для решения задчи нужно понимать, что есть такое палиндром.</li>
+ <li>Палиндромом могут счиаться строки, которые состоят из 1) одной буквы 2) одинаковых букв 3) из палиндрома и двух одинаковых букв по краям палиндрома</li>
+ <li>Для хранения информации о подстроках строим матрицу в которой по вертикали и горизонтали индексы символов, а координаты начало и конец подстроки.</li>
+ <li>Если подстрока является палиндромом, то помечаем по ее координатам в матрице строку, как 1, те что не являются палиндромами остаются 0.</li>
+ <li>Помечаем одиночные палидромы. Это подстроки из одной буквы.</li>
+ <li>Помечаем все подстроки из двух одинаковых символов.</li>
+ <li>Помечаем остальные палиндромы. Если подстрока палидрома палиндром и окружена с обоих сторон одинаковыми буквами, то подстрока - палиндром.</li>
+ <li>Вернуть счеткик палиндромов.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
-Output: 6
-Explanation: [4,-1,2,1] has the largest sum = 6.
+Input: s = "abc"
+Output: 3
+Explanation: Three palindromic strings: "a", "b", "c".
 
 Example 2:
-Input: nums = [1]
-Output: 1
-
-Example 3:
-Input: nums = [5,4,-1,7,8]
-Output: 23
+Input: s = "aaa"
+Output: 6
+Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 ```
 
 ```python3
-def maxSubArray(nums):
-    current_subarray = max_subarray = nums[0]
+def countSubstrings(self, s):
+    n = len(s)
+    res = 0
 
-    for i in range(1, len(nums)):
-        current_subarray = max(nums[i], current_subarray + nums[i])
-        max_subarray = max(current_subarray, max_subarray)
+    # create a matrix to store info about the substring
+    dp = [[0 for _ in range(n)] for _ in range(n)]
 
-    return max_subarray
+    # set single characters as palindromes
+    idx = 0
+    while idx < n:
+        dp[idx][idx] = 1
+        idx += 1
+        res += 1
+
+    for col in range(1, len(s)):
+        for row in range(col):
+
+            # every two chars are palindromes as well
+            if row == col - 1 and s[col] == s[row]:
+                dp[row][col] = 1
+                res += 1
+
+            # to determine if substring is a palindrome you should know
+            # a) if the inner substring is the palindrome and
+            # b) if the outer characters match
+            elif dp[row + 1][col - 1] == 1 and s[col] == s[row]:
+                dp[row][col] = 1
+                res += 1
+    return res
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -843,14 +866,11 @@ def maxSubArray(nums):
 import unittest
 
 
-class TestMaxProduct(unittest.TestCase):
+class TestPalindromicSubstrings(unittest.TestCase):
     def test_first(self):
-        self.assertEqual(6, Solution().maxSubArray(nums=[-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+        self.assertEqual(3, Solution().countSubstrings(s="abc"))
 
     def test_second(self):
-        self.assertEqual(1, Solution().maxSubArray(nums=[1]))
-
-    def test_third(self):
-        self.assertEqual(23, Solution().maxSubArray(nums=[5, 4, -1, 7, 8]))
+        self.assertEqual(6, Solution().countSubstrings(s="aaa"))
 ```
 </blockquote></details>
