@@ -234,109 +234,60 @@ class Solution(object):
 ```
 
 
-## Minimum Window Substring
-Даны две строки. Нужно найти окно в первой строке в котором будет полностью содержаться вторая строка независимо от перестановки строки паттерна. 
+## Maximum Depth of Binary Tree
+Дан рут, найти максимальную глубину дерева. 
 
-https://leetcode.com/problems/valid-anagram/
+https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Добавить все симваолы паттерна (второй строки) в словарь.</li>
- <li>Идем циклом по строке и если символ строки есть в словаре, то вычитаем единицу из его частоты, если его частота больше или равна 0, то засчитываем одно совпадение.</li>
- <li>Выполняем второй пункт до тех пор пока кол-во совпадений не будет равно кол-ву символов в строке паттерна.</li>
- <li>Если минимальная длина (изначально равная длина строки + 1) больше чем длина окна, то обновляем мин. длину длиной окна.</li>
- <li>Записываем индекс начала окна в начало подстроки.</li>
- <li>Увеличиваем индекс начала окна на 1.</li>
- <li>Проверяем есть ли начальный символ строки в словаре, если есть и его частота равна 0, то вычитаем одно совпадение..</li>
- <li>В любом случае добавляем единицу к частоте левого символа.</li>
+ <li>Подсчитать уровни либо DFS, либо BFS.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: s = "ADOBECODEBANC", t = "ABC"
-Output: "BANC"
-Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+Input: root = [3,9,20,null,null,15,7]
+Output: 3
 
 Example 2:
-Input: s = "a", t = "a"
-Output: "a"
-Explanation: The entire string s is the minimum window.
-
-Example 3:
-Input: s = "a", t = "aa"
-Output: ""
-Explanation: Both 'a's from t must be included in the window.
-Since the largest window of s only has one 'a', return empty string.
+Input: root = [1,null,2]
+Output: 2
 ```
 
 
 ```python3
-def find_substring(str1, pattern):
-    """
-    1. Insert pattern characters to Python dictionary.
-    2. Extend the window if the last window character in dictionary then decrement their frequency.
-    3. If after decrement last character frequency it will be equal 0. We got one match.
-    4. While number matches equal number character in pattern we shrink the window and update window start index.
-    """
-    window_start, matched, substr_start = 0, 0, 0
-    min_length = len(str1) + 1
-    char_frequency = {}
+class Solution(object):
+    # bfs
+    def maxDepth_bfs(self, root):
+        level = 0
+        if not root:
+            return level
 
-    for chr in pattern:
-        if chr not in char_frequency:
-            char_frequency[chr] = 0
-        char_frequency[chr] += 1
+        queue = deque()
+        queue.append(root)
+        while queue:
+            for _ in range(len(queue)):
+                node = queue.popleft()
 
-    # try to extend the range [window_start, window_end]
-    for window_end in range(len(str1)):
-        right_char = str1[window_end]
-        if right_char in char_frequency:
-            char_frequency[right_char] -= 1
-            if char_frequency[right_char] >= 0:  # Count every matching of a character
-                matched += 1
+                if node.left:
+                    queue.append(node.left)
 
-        # Shrink the window if we can, finish as soon as we remove a matched character
-        while matched == len(pattern):
-            if min_length > window_end - window_start + 1:
-                min_length = window_end - window_start + 1
-                substr_start = window_start
+                if node.right:
+                    queue.append(node.right)
+            level += 1
+        return level
 
-            left_char = str1[window_start]
-            window_start += 1
-            if left_char in char_frequency:
-                # Note that we could have redundant matching characters, therefore we'll decrement the
-                # matched count only when a useful occurrence of a matched character is going out of the window
-                if char_frequency[left_char] == 0:
-                    matched -= 1
-                char_frequency[left_char] += 1
-
-    if min_length > len(str1):
-        return ""
-
-    return str1[substr_start:substr_start + min_length]
+    # dfs
+    def maxDepth_dfs(self, root):
+        if root is None:
+            return 0
+        else:
+            left_height = self.maxDepth_dfs(root.left)
+            right_height = self.maxDepth_dfs(root.right)
+            return max(left_height, right_height) + 1
 ```
-
-<details><summary>Test cases</summary><blockquote>
-
-```python3
-import unittest
-
-
-class TestMinWindow(unittest.TestCase):
-    def test_first(self):
-        self.assertEqual("BANC", Solution().minWindow(s="ADOBECODEBANC", t="ABC"))
-
-    def test_second(self):
-        self.assertEqual("a", Solution().minWindow(s="a", t="a"))
-
-    def test_third(self):
-        self.assertEqual("", Solution().minWindow(s="a", t="aa"))
-```
-
-</blockquote></details>
-
 
 ## Linked List Cycle
 Дан связной список. Определить содержит ли список цикл.
