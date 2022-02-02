@@ -154,87 +154,84 @@ class Solution(object):
         return self.isSameTree_it(p.right, q.right) and self.isSameTree_it(p.left, q.left)
 ```
 
-## Remove Nth Node From End of List
-Дан связной список и число n. Удалить из списка узел под числом n.
+## Binary Tree Level Order Traversal
+Дан рут дерева, вернуть все уровни этого дерева.
 
-https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+https://leetcode.com/problems/binary-tree-level-order-traversal/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Ставим два указателя в начало списка.</li>
- <li>Перемещаем быстрый указатель на n узлов вперед.</li>
- <li>Если быстрый указатель вышел за пределы списка, то вернуть второй по счету узел.</li>
- <li>Двигаем два указателя пока быстрый указатель не дойдет до конца списка.</li>
- <li>Переопределяем соседа медленного указателя через один узел от него.</li>
- <li>Возвращаем новую голову связного списка.</li>
+ <li>Выходной список здесь называется уровнями.</li>
+ <li>Текущий уровень — это просто длина этого списка len(levels).</li>
+ <li>Сравните номер текущего уровня len(levels) с уровнем уровня узла.</li>
+ <li>Если вы все еще находитесь на предыдущем уровне - добавьте новый, добавив новый список в уровни.</li>
+ <li>Добавьте значение узла к последнему списку уровней.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: head = [1,2,3,4,5], n = 2
-Output: [1,2,3,5]
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[9,20],[15,7]]
 
 Example 2:
-Input: head = [1], n = 1
-Output: []
+Input: root = [1]
+Output: [[1]]
 
 Example 3:
-Input: head = [1,2], n = 1
-Output: [1]
+Input: root = []
+Output: []
 ```
 
 ```python3 
-def removeNthFromEnd(self, head, n):
-    fast = slow = head
-    for _ in range(n):
-        fast = fast.next
+class Solution(object):
+    # bfs
+    def levelOrder_bfs(self, root):
+        if not root:
+            return []
 
-    if not fast:
-        return head.next
+        values = []
+        queue = deque()
+        queue.append(root)
+        while queue:
+            cur_level = []
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                cur_level.append(node.val)
 
-    while fast.next:
-        fast = fast.next
-        slow = slow.next
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
 
-    slow.next = slow.next.next
-    return head
+            values.append(cur_level)
+
+        return values
+
+    # dfs
+    def levelOrder_dfs(self, root):
+        levels = []
+        if not root:
+            return levels
+
+        def helper(node, level):
+            # start the current level
+            if len(levels) == level:
+                levels.append([])
+
+            # append the current node value
+            levels[level].append(node.val)
+
+            # process child nodes for the next level
+            if node.left:
+                helper(node.left, level + 1)
+            if node.right:
+                helper(node.right, level + 1)
+
+        helper(root, 0)
+        return levels
 ```
-
-<details><summary>Test cases</summary><blockquote>
-
-```python3
-import unittest
-
-
-class TestRemoveNthFromEnd(unittest.TestCase):
-    def test_first(self):
-        head = Node(1)
-        head.next = Node(2)
-        head.next.next = Node(3)
-        head.next.next.next = Node(4)
-        head.next.next.next.next = Node(5)
-
-        excepted_head = Node(1)
-        excepted_head.next = Node(2)
-        excepted_head.next.next = Node(3)
-        excepted_head.next.next.next = Node(5)
-        self.assertEqual(excepted_head, Solution().removeNthFromEnd(head=head, n=2))
-
-    def test_second(self):
-        head = Node(1)
-        self.assertIsNone(Solution().removeNthFromEnd(head=head, n=1))
-
-    def test_third(self):
-        head = Node(1)
-        head.next = Node(2)
-
-        excepted_head = Node(1)
-        self.assertEqual(excepted_head, Solution().removeNthFromEnd(head=head, n=1))
-```
-
-</blockquote></details>
 
 
 ## Minimum Window Substring
