@@ -63,6 +63,7 @@ class Solution:
                 return [buffer[attempt], i]
 
         return [-1, -1]
+    
     # two passes
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         if not nums:
