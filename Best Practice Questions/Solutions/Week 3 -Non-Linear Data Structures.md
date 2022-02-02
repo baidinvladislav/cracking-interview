@@ -289,48 +289,63 @@ class Solution(object):
             return max(left_height, right_height) + 1
 ```
 
-## Linked List Cycle
-Дан связной список. Определить содержит ли список цикл.
+## Construct Binary Tree from Preorder and Inorder Traversal
+Создать дерево по массивам preorder и inorder.
 
-https://leetcode.com/problems/linked-list-cycle/
+https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Ставим медленный указатель и быстрый указатель в начало списка.</li>
- <li>Идем циклом по списку медленным указателем по узлу за шаг, а быстрым по два узла за шаг.</li>
- <li>Доходим быстрым указателем до конца, если быстрый указатель догнал медленный, значит в списке есть цикл, если прошли весь список, то цикла нет.</li>
+ <li>Создаем словарь в который заносим данные value:index из массива inorder, так сможем найти корень.</li>
+ <li>В preorderIndex отслеживаем элемент для построения корня.</li>
+ <li>Реализуем рекурсивную ф-ию, которая принимает диапозон inorder и создает бинарное дерево.</li>
+ <li>Если диапозон пуст, то None.</li>
+ <li>Инкрементируем preorderIndex.</li>
+ <li>Рекурсивно используем левую и правую часть массива inorder, чтобы создать левое и правое поддерево.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: head = [3,2,0,-4], pos = 1
-Output: true
-Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed)
+Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+Output: [3,9,20,null,null,15,7]
 
 Example 2:
-Input: head = [1,2], pos = 0
-Output: true
-Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
-
-Example 3:
-Input: head = [1], pos = -1
-Output: false
-Explanation: There is no cycle in the linked list.
+Input: preorder = [-1], inorder = [-1]
+Output: [-1]
 ```
 
 ```python3
-def hasCycle(self, head: Optional[ListNode]) -> bool:
-    slow = fast = head
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
 
-    while fast and fast.next:
-        slow = slow.next
-        fast = fast.next.next
+        def array_to_tree(left, right):
+            nonlocal preorder_index
+            # if there are no elements to construct the tree
+            if left > right: return None
 
-        if slow == fast:
-            return True
-    return False
+            # select the preorder_index element as the root and increment it
+            root_value = preorder[preorder_index]
+            root = TreeNode(root_value)
+
+            # increment root index
+            preorder_index += 1
+
+            # build left and right subtree
+            # excluding inorder_index_map[root_value] element because it's the root
+            root.left = array_to_tree(left, inorder_index_map[root_value] - 1)
+            root.right = array_to_tree(inorder_index_map[root_value] + 1, right)
+
+            return root
+
+        # build a hashmap to store value -> its index relations
+        preorder_index = 0
+        inorder_index_map = {}
+        for index, value in enumerate(inorder):
+            inorder_index_map[value] = index
+
+        return array_to_tree(0, len(preorder) - 1)
 ```
 
 ## Find Minimum in Rotated Sorted Array
