@@ -504,112 +504,91 @@ class Solution(object):
 ```
 
 
-## Reverse Linked List
-Развернуть связной список.
+## Course Schedule
+Определить можно ли пройти список курсов, если нужно проходить один курс после друого.
 
-https://leetcode.com/problems/reverse-linked-list/
+https://leetcode.com/problems/course-schedule/
 
 
 <details><summary>Итеративное решение:</summary><blockquote>
 <ol>
- <li>Итерируем список, меняя у текущего узла указатель на следующий узел на его предыдущий узел.</li>
- <li>Поскольку у узлов нет ссылки на их предыдущий узел, то заранее сохраним предыдущий узел в памяти.</li>
- <li>Также сохраняем следующий узел до того как мы изменим ссылки у текущего узла.</li>
- <li>Возвращаем новый связной список.</li>
-</ol>
-</blockquote></details>
-
-
-<details><summary>Рекурсивное решение:</summary><blockquote>
-<ol>
- <li>Рекурсивно посещаем каждый элемент в связанном списке, пока не достигнем последнего.</li>
- <li>Этот последний элемент станет новым головой перевернутого связанного списка.</li>
- <li>На пути возврата каждый узел добавляется в конец частично перевернутого списка.</li>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
 </ol>
 </blockquote></details>
 
 
 ```
 Example 1:
-Input: head = [1,2,3,4,5]
-Output: [5,4,3,2,1]
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
 
 Example 2:
-Input: head = [1,2]
-Output: [2,1]
-
-Example 3:
-Input: head = []
-Output: []
+Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+Output: false
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.
 ```
 
 
 ```python3
-class Node:
-    def __init__(self, value, next=None):
-        self.value = value
-        self.next = next
+# Approach 2: Postorder DFS (Depth-First Search)
+class Solution(object):
+    def canFinish(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        from collections import defaultdict
+        courseDict = defaultdict(list)
 
-    def __repr__(self):
-        return str(self.value)
+        for relation in prerequisites:
+            nextCourse, prevCourse = relation[0], relation[1]
+            courseDict[prevCourse].append(nextCourse)
+
+        checked = [False] * numCourses
+        path = [False] * numCourses
+
+        for currCourse in range(numCourses):
+            if self.isCyclic(currCourse, courseDict, checked, path):
+                return False
+        return True
 
 
-class Solution:
-    # Iterative Time: O(n), Space:O(1)
-    def reverseList_iter(self, head):
-        previous = None
-        current = head
-        while current:
-            temp_next = current.next
-            current.next = previous
-            previous = current
-            current = temp_next
-        return previous
+    def isCyclic(self, currCourse, courseDict, checked, path):
+        """   """
+        # 1). bottom-cases
+        if checked[currCourse]:
+            # this node has been checked, no cycle would be formed with this node.
+            return False
+        if path[currCourse]:
+            # came across a marked node in the path, cyclic !
+            return True
 
-    # Recursive Time: O(n), Space:O(n)
-    def reverseList_rec(self, head):
-        if not head or not head.next:
-            return head
+        # 2). postorder DFS on the children nodes
+        # mark the node in the path
+        path[currCourse] = True
 
-        p = self.reverseList_rec(head.next)
-        head.next.next = head
-        head.next = None
-        return p
+        ret = False
+        # postorder DFS, to visit all its children first.
+        for child in courseDict[currCourse]:
+            ret = self.isCyclic(child, courseDict, checked, path)
+            if ret: break
+
+        # 3). after the visits of children, we come back to process the node itself
+        # remove the node from the path
+        path[currCourse] = False
+
+        # Now that we've visited the nodes in the downstream,
+        #   we complete the check of this node.
+        checked[currCourse] = True
+        return ret
 ```
-
-<details><summary>Test cases</summary><blockquote>
-
-```python3
-import unittest
-
-
-class TestReverseLinkedList(unittest.TestCase):
-    def test_first(self):
-        head = Node(1)
-        head.next = Node(2)
-        head.next.next = Node(3)
-        head.next.next.next = Node(4)
-        head.next.next.next.next = Node(5)
-
-        excepted_head = Node(5)
-        excepted_head.next = Node(4)
-        excepted_head.next.next = Node(3)
-        excepted_head.next.next.next = Node(2)
-        excepted_head.next.next.next.next = Node(1)
-        self.assertEqual(excepted_head, Solution().reverseList_rec(head=head))
-        self.assertEqual(excepted_head, Solution().reverseList_iter(head=head))
-
-    def test_second(self):
-        head = Node(1)
-        head.next = Node(2)
-
-        excepted_head = Node(2)
-        excepted_head.next = Node(1)
-        self.assertIsNone(Solution().reverseList_rec(head=head))
-        self.assertEqual(excepted_head, Solution().reverseList_iter(head=head))
-```
-
-</blockquote></details>
 
 
 ## Pacific Atlantic Water Flow
