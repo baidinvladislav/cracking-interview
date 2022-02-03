@@ -806,3 +806,75 @@ class Solution:
         # Return top k frequent elements
         return unique[n - k:]
 ```
+
+
+
+## Non-overlapping Intervals
+Дан список интервалов. Вернуть число равное кол-ву интервалов после удаления которых список интервалов будет списком не пересекающихся интервалов. 
+
+https://leetcode.com/problems/non-overlapping-intervals/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li></li>
+ <li></li>
+ <li></li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: intervals = [[1,2],[2,3],[3,4],[1,3]]
+Output: 1
+Explanation: [1,3] can be removed and the rest of the intervals are non-overlapping.
+
+Example 2:
+Input: intervals = [[1,2],[1,2],[1,2]]
+Output: 2
+Explanation: You need to remove two [1,2] to make the rest of the intervals non-overlapping.
+
+Example 3:
+Input: intervals = [[1,2],[2,3]]
+Output: 0
+Explanation: You don't need to remove any of the intervals since they're already non-overlapping.
+```
+
+```python3
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=lambda x: x[1])
+        prev = float("-inf")
+        ans = 0
+        for i in intervals:
+            if i[0] >= prev:
+                prev = i[1]
+            else:
+                ans += 1
+        return ans
+
+```
+
+## Encode and Decode Strings (LeetCode Premium)
+
+
+https://leetcode.com/problems/top-k-frequent-elements/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li></li>
+ <li></li>
+ <li></li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+
+Example 2:
+Input: nums = [1], k = 1
+Output: [1]
+```
+
+```python3
