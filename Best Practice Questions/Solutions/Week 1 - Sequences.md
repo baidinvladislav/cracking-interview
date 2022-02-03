@@ -324,11 +324,13 @@ https://leetcode.com/problems/valid-parentheses/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Инициализировать словарь со скобками и пустой сткек.</li>
- <li>Идем циклом по входной строке.</li>
- <li>Если символ строке есть ключ в словаре скобок, то значит символ является открывающей скобкой, добавляем символ в стек.</li>
- <li>Если стек пуст или если из словаря по последнему элементу стека мы не получаем текущий элемент (нужная закрывающая скобка), значит скобочная последовательность не верная.</li>
- <li>Вернуть булево значение от пустого стека.</li>
+ <li>Создаем хеш-таблицу в которой под каждой открывающей скобкой храним закрывающую скобку такого же типа.</li>
+ <li>Инициализируем пустой стек.</li>
+ <li>Итерируем строку.</li>
+ <li>Если символ на итерации есть в как ключ в хеш-таблице, значит это открытвающая скобка, добавляем ее на верх стека.</li>
+ <li>Если нет символа в хеш-таблице, то проверяем пуст ли стек, если он пуст на этом этапе, то строка не валидна.</li>
+ <li>Если последний элемент стека не хранит значение текущего символа в хеш-таблице, то строка не валидна.</li>
+ <li>Вернуть булево значение, пустой ли стек.</li>
 </ol>
 
 </blockquote></details>
@@ -351,18 +353,22 @@ Output: false
 from collections import deque
 
 
-def isValid(s):
-    parentheses = {'(': ')', '{': '}', '[': ']'}
-    stack = deque()
+class Solution:
+    def isValid(self, s):
+        hash_map = {'(': ')', '[': ']', '{': '}', }
+        stack = deque()
 
-    for symbol in s:
-        if symbol in parentheses:
-            stack.append(symbol)
+        for char in s:
+            if char in hash_map:
+                stack.append(char)
+            else:
+                if not stack:
+                    return False
 
-        elif len(stack) == 0 or parentheses[stack.pop()] != symbol:
-            return False
-
-    return len(stack) == 0
+                last_el = stack.pop()
+                if hash_map[last_el] != char:
+                    return False
+        return not stack
 ```
 
 
@@ -440,6 +446,7 @@ class TestProductArrayExceptSelf(unittest.TestCase):
         self.assertEqual([0, 0, 9, 0, 0], Solution().productExceptSelf(nums=[-1, 1, 0, -3, 3]))
 ```
 </blockquote></details>
+
 
 ## Maximum Subarray
 Вернуть самую большую сумму подмассива.
