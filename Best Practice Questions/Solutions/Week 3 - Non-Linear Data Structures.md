@@ -591,104 +591,69 @@ class Solution(object):
 ```
 
 
-## Pacific Atlantic Water Flow
-Дана матрица MxN, где в значения в ячейках - уровень воды.
-Матрица слева и сверху омывается Тихим океаном.
-Матрица справа и снизу омывается Атлантическим океаном.
-Вода из ячеек может перетекать в другие ячейки, если уровень соседних ячеек меньше или равен уровню воды текущей ячейки.
+## Invert Binary Tree
+Дан рут бинарного дерева, нужно инвертировать (поменять местами) узлы дерева.
 
-Вернуть координаты ячеек вода из которых может попасть сразу в оба океана.
-
-https://leetcode.com/problems/pacific-atlantic-water-flow/
+https://leetcode.com/problems/invert-binary-tree/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>BFS/DFS от клеток, которые граничат с Тихим океаном.</li>
- <li>BFS/DFS от клеток, которые граничат с Атлантическим океаном.</li>
- <li>Найти их пересечения.</li>
+ <li>BFS/DFS по дереву.</li>
+ <li>Свапаем левый и правый узел у каждого узла.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]
-Output: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
+Input: root = [4,2,7,1,3,6,9]
+Output: [4,7,2,9,6,3,1]
 
 Example 2:
-Input: heights = [[2,1],[1,2]]
-Output: [[0,0],[0,1],[1,0],[1,1]]
+Input: root = [2,1,3]
+Output: [2,3,1]
+
+Example 3:
+Input: root = []
+Output: []
 ```
 
 ```python3
-from collections import deque
+class Solution:
 
+    # recursive
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return
 
-def pacificAtlantic(self, heights):
-    # Check if input is empty
-    if not heights or not heights[0]:
-        return []
+        right = self.invertTree(root.right)
+        left = self.invertTree(root.left)
 
-    num_rows, num_cols = len(heights), len(heights[0])
+        root.left = right
+        root.right = left
 
-    # Setup each queue with cells adjacent to their respective ocean
-    pacific_queue = deque()
-    atlantic_queue = deque()
+        return root
 
-    for i in range(num_rows):
-        pacific_queue.append((i, 0))
-        atlantic_queue.append((i, num_cols - 1))
-    for i in range(num_cols):
-        pacific_queue.append((0, i))
-        atlantic_queue.append((num_rows - 1, i))
+    # iterative
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
 
-    def bfs(queue):
-        reachable = set()
+        queue = deque()
+        queue.append(root)
         while queue:
-            (row, col) = queue.popleft()
-            # This cell is reachable, so mark it
-            reachable.add((row, col))
-            for (x, y) in [(1, 0), (0, 1), (-1, 0), (0, -1)]:  # Check all 4 directions
-                new_row, new_col = row + x, col + y
-                # Check if the new cell is within bounds
-                if new_row < 0 or new_row >= num_rows or new_col < 0 or new_col >= num_cols:
-                    continue
-                # Check that the new cell hasn't already been visited
-                if (new_row, new_col) in reachable:
-                    continue
-                # Check that the new cell has a higher or equal height,
-                # So that water can flow from the new cell to the old cell
-                if heights[new_row][new_col] < heights[row][col]:
-                    continue
-                # If we've gotten this far, that means the new cell is reachable
-                queue.append((new_row, new_col))
-        return reachable
+            current = queue.popleft()
+            temp = current.left
+            current.left = current.right
+            current.right = temp
 
-    # Perform a BFS for each ocean to find all cells accessible by each ocean
-    pacific_reachable = bfs(pacific_queue)
-    atlantic_reachable = bfs(atlantic_queue)
+            if current.left:
+                queue.append(current.left)
 
-    # Find all cells that can reach both oceans, and convert to list
-    return list(pacific_reachable.intersection(atlantic_reachable))
+            if current.right:
+                queue.append(current.right)
+
+        return root
 ```
-
-<details><summary>Test cases</summary><blockquote>
-
-```python3
-import unittest
-
-
-class TestPacificAtlantic(unittest.TestCase):
-    def test_first(self):
-        output = [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]
-        self.assertEqual(output, Solution().pacificAtlantic(
-            heights=[[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]]))
-
-    def test_second(self):
-        output = [[0, 0], [0, 1], [1, 0], [1, 1]]
-        self.assertEqual(output, Solution().pacificAtlantic(heights=[[2, 1], [1, 2]]))
-```
-
-</blockquote></details>
 
 
 ## Longest Repeating Character Replacement
