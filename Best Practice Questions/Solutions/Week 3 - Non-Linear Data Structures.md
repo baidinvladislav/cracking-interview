@@ -808,7 +808,6 @@ class Solution:
 ```
 
 
-
 ## Non-overlapping Intervals
 Дан список интервалов. Вернуть число равное кол-ву интервалов после удаления которых список интервалов будет списком не пересекающихся интервалов. 
 
@@ -853,6 +852,7 @@ class Solution:
         return ans
 
 ```
+
 
 ## Encode and Decode Strings (LeetCode Premium)
 Закодировать и раскодировать строки.
