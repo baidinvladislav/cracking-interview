@@ -656,71 +656,55 @@ class Solution:
 ```
 
 
-## Longest Repeating Character Replacement
-Дана строка и число кол-во допустимых замен символов в строке.
-Вернуть длину строки с одинаковыми символами после перестановки k допустимых раз.
+## Serialize and Deserialize Binary Tree
+Сериализировать и десериализировать бинарное дерево.
 
-https://leetcode.com/problems/longest-repeating-character-replacement/
+https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Итерируем строку, добавляя символ и его частоту в строке.</li>
- <li>Проверяем условие, что если кол-во допустимых перестановок меньше чем разница длины окна и повторений символа в окне.</li>
- <li>То сжимаем окно, вычитая частоту символа из словаря.</li>
- <li>Обновляем длину окна, если она становится больше.</li>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: s = "ABAB", k = 2
-Output: 4
-Explanation: Replace the two 'A's with two 'B's or vice versa.
+Input: root = [1,2,3,null,null,4,5]
+Output: [1,2,3,null,null,4,5]
 
 Example 2:
-Input: s = "AABABBA", k = 1
-Output: 4
-Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
-The substring "BBBB" has the longest repeating letters, which is 4.
+Input: root = []
+Output: []
 ```
 
 ```python3
-# Time Complexity: O(N)
-# Space Complexity: O(1) - because there are only 26 symbols in alphabet
-def characterReplacement(s: str, k: int) -> int:
-    dict_freq = {}
-    window_start = max_length = max_repeat = 0
+class Codec:
 
-    for window_end in range(len(s)):
-        right_char = s[window_end]
-        if right_char not in dict_freq:
-            dict_freq[right_char] = 0
-        dict_freq[right_char] += 1
-        max_repeat = max(max_repeat, dict_freq[right_char])
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        :type data: str
+        :rtype: TreeNode
+        """
 
-        if k < window_end - window_start + 1 - max_repeat:
-            dict_freq[s[window_start]] -= 1
-            window_start += 1
+        def rdeserialize(l):
+            """ a recursive helper function for deserialization."""
+            if l[0] == 'None':
+                l.pop(0)
+                return None
 
-        max_length = max(max_length, window_end - window_start + 1)
+            root = TreeNode(l[0])
+            l.pop(0)
+            root.left = rdeserialize(l)
+            root.right = rdeserialize(l)
+            return root
 
-    return max_length
+        data_list = data.split(',')
+        root = rdeserialize(data_list)
+        return root
 ```
-
-<details><summary>Test cases</summary><blockquote>
-
-```python3
-import unittest
-
-
-class TestCharacterReplacement(unittest.TestCase):
-    def test_first(self):
-        self.assertEqual(4, Solution().characterReplacement(s="ABAB", k=2))
-
-    def test_second(self):
-        self.assertEqual(4, Solution().characterReplacement(s="AABABBA", k=1))
-```
-</blockquote></details>
 
 
 ## Palindromic Substrings
