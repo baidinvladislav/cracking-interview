@@ -4,13 +4,14 @@
 + [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 + [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
 + [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
-+ 
-+ [Find Minimum in Rotated Sorted Array](#find-minimum-in-rotated-sorted-array)
-+ [Number of Islands](#number-of-islands)
-+ [Reverse Linked List](#reverse-linked-list)
-+ [Pacific Atlantic Water Flow](#pacific-atlantic-water-flow)
-+ [Longest Repeating Character Replacement](#longest-repeating-character-replacements)
-+ [Palindromic Substrings](#palindromic-substrings)
++ [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum)
++ [Clone Graph](#clone-graph)
++ [Course Schedule](#course-schedule)
++ [Invert Binary Tree](#invert-binary-tree)
++ [Serialize and Deserialize Binary Tree](#serialize-and-deserialize-binary-tree)
++ [Non-overlapping Intervals](#non-overlapping-intervals)
++ [Encode and Decode Strings (LeetCode Premium)](#encode-and-decode-strings-leetCode-premium))
+
 
 
 ## Validate Binary Search Tree
@@ -154,6 +155,7 @@ class Solution(object):
         return self.isSameTree_it(p.right, q.right) and self.isSameTree_it(p.left, q.left)
 ```
 
+
 ## Binary Tree Level Order Traversal
 Дан рут дерева, вернуть все уровни этого дерева.
 
@@ -289,6 +291,7 @@ class Solution(object):
             return max(left_height, right_height) + 1
 ```
 
+
 ## Construct Binary Tree from Preorder and Inorder Traversal
 Создать дерево по массивам preorder и inorder.
 
@@ -348,82 +351,53 @@ class Solution:
         return array_to_tree(0, len(preorder) - 1)
 ```
 
-## Find Minimum in Rotated Sorted Array
-Найти минимальное число в развернутом отсортированном массиве.
 
-https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+## Binary Tree Maximum Path Sum
+Дан рут бинарного дерева, найти путь с максильной суммой значений узлов.
+
+https://leetcode.com/problems/binary-tree-maximum-path-sum/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Используем модифицированную версию бинарного поиска.</li>
- <li>Для решения необзодимо найти точку перегиба.</li>
- <li>Находим центральный элемент массива.</li>
- <li>Если центральный элемент массива больше чем первый элемент массива, то значит точка перегиба находится справа от центрального элемента.</li>
- <li>Если центральный элемент массива меньше чем первый элемент массива, то значит точка перегиба находится слева от центрального элемента.</li>
- <li>Прекращаем поиск, когда находим точку перегиба, для этого должно выполниться одно из двух условий: 1) центральный элемент больше чем последующий за ним элемент nums[mid] > nums[mid + 1] 2) центральный элемент меньше чем элемиент перед ним nums[mid - 1] > nums[mid].</li>
+ <li>Определить какую сумму узлов представляет из себя каждый узел по пути из него.</li>
+ <li>Выбрать путь с максимальной суммой.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [3,4,5,1,2]
-Output: 1
-Explanation: The original array was [1,2,3,4,5] rotated 3 times.
+Input: root = [1,2,3]
+Output: 6
+Explanation: The optimal path is 2 -> 1 -> 3 with a path sum of 2 + 1 + 3 = 6.
 
 Example 2:
-Input: nums = [4,5,6,7,0,1,2]
-Output: 0
-Explanation: The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.
-
-Example 3:
-Input: nums = [11,13,15,17]
-Output: 11
-Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
+Input: root = [-10,9,20,null,null,15,7]
+Output: 42
+Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
 ```
 
 ```python3
-def findMin(self, nums):
-    if len(nums) == 1:
-        return nums[0]
+class Solution:
+    def maxPathSum(self, root):
+        def max_gain(node):
+            nonlocal max_sum
+            if not node:
+                return 0
+            # max sum on the left and right sub-trees of node
+            left_gain = max(max_gain(node.left), 0)
+            right_gain = max(max_gain(node.right), 0)
+            # the price to start a new path where `node` is a highest node
+            price_newpath = node.val + left_gain + right_gain
+            # update max_sum if it's better to start a new path
+            max_sum = max(max_sum, price_newpath)
+            # for recursion :
+            # return the max gain if continue the same path
+            return node.val + max(left_gain, right_gain)
 
-    left = 0
-    right = len(nums) - 1
-
-    if nums[right] > nums[0]:
-        return nums[0]
-
-    while right >= left:
-        mid = left + (right - left) / 2
-        
-        if nums[mid] > nums[mid + 1]:
-            return nums[mid + 1]
-
-        if nums[mid - 1] > nums[mid]:
-            return nums[mid]
-
-        if nums[mid] > nums[0]:
-            left = mid + 1
-        else:
-            right = mid - 1
+        max_sum = float('-inf')
+        max_gain(root)
+        return max_sum
 ```
-
-<details><summary>Test cases</summary><blockquote>
-
-```python3
-import unittest
-
-
-class TestFindMin(unittest.TestCase):
-    def test_first(self):
-        self.assertEqual(1, Solution().findMin(nums=[3, 4, 5, 1, 2]))
-
-    def test_second(self):
-        self.assertEqual(0, Solution().findMin(nums=[4, 5, 6, 7, 0, 1, 2]))
-
-    def test_third(self):
-        self.assertEqual(11, Solution().findMin(nums=[11, 13, 15, 17]))
-```
-</blockquote></details>
 
 
 ## Number of Islands
