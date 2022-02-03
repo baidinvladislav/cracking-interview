@@ -400,104 +400,108 @@ class Solution:
 ```
 
 
-## Number of Islands
-Дана сетка размером MxN. В сетке находятся находятся значение '0' и '1'. Где '0' - это вода и '1' - это суша.
-Вернуть кол-во островов на сетке.
+## Clone Graph
+Вернуть глубокую копию графа.
 
-https://leetcode.com/problems/number-of-islands/
+https://leetcode.com/problems/clone-graph/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Рассмотрим сетку как неориентированный граф, у которого ребра есть у смежных соседних вершин по горизонтали и вертикали со значением '1'.</li>
- <li>Линейно проходим по сетке, если в вершине значение '1', то ночинаем от этой вершины поиск в ширину.</li>
- <li>Добавляем такую вершину в очередь и устанавливаем для нее значение '0', помечая вершину как посещенную..</li>
- <li>Итеративно ищем соседей этой вершины у которых тоже значение '1', меняем на '0'.</li>
- <li>Повторяем пока в очереди есть вершины.</li>
- <li>Кол-во раз когда запускался поиск в ширину и будет равен кол-ву островое на сетке.</li>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: grid = [
-  ["1","1","1","1","0"],
-  ["1","1","0","1","0"],
-  ["1","1","0","0","0"],
-  ["0","0","0","0","0"]
-]
-Output: 1
+Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+Output: [[2,4],[1,3],[2,4],[1,3]]
+Explanation: There are 4 nodes in the graph.
+1st node (val = 1)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+2nd node (val = 2)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
+3rd node (val = 3)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
+4th node (val = 4)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
 
 Example 2:
-Input: grid = [
-  ["1","1","0","0","0"],
-  ["1","1","0","0","0"],
-  ["0","0","1","0","0"],
-  ["0","0","0","1","1"]
-]
-Output: 3
+Input: adjList = [[]]
+Output: [[]]
+Explanation: Note that the input contains one empty list. The graph consists of only one node with val = 1 and it does not have any neighbors.
+
+Example 3:
+Input: adjList = []
+Output: []
+Explanation: This an empty graph, it does not have any nodes.
 ```
 
 ```python3
-from collections import deque
+class Solution(object):
 
+    # recursive
+    def cloneGraph(self, node):
+        if not node:
+            return node
 
-def numIslands(self, grid):
-    rows = len(grid)
-    columns = len(grid[0])
-    nums_islands = 0
+        # Dictionary to save the visited node and it's respective clone
+        # as key and value respectively. This helps to avoid cycles.
+        visited = {}
 
-    for i in range(rows):
-        for j in range(columns):
-            if grid[i][j] == '1':
-                nums_islands += 1
-                grid[i][j] = '0'
-                neighbors = deque()
-                neighbors.append([i, j])
-                while neighbors:
-                    neighbor = neighbors.popleft()
-                    row, column = neighbor[0], neighbor[1]
-                    if row - 1 >= 0 and grid[row - 1][column] == '1':
-                        neighbors.append([row - 1, column])
-                        grid[row - 1][column] = '0'
-                    if row + 1 < rows and grid[row + 1][column] == '1':
-                        neighbors.append([row + 1, column])
-                        grid[row + 1][column] = '0'
-                    if column - 1 >= 0 and grid[row][column - 1] == '1':
-                        neighbors.append([row, column - 1])
-                        grid[row][column - 1] = '0'
-                    if column + 1 < columns and grid[row][column + 1] == '1':
-                        neighbors.append([row, column + 1])
-                        grid[row][column + 1] = '0'
-    return nums_islands
+        # Put the first node in the queue
+        queue = deque([node])
+        # Clone the node and put it in the visited dictionary.
+        visited[node] = Node(node.val, [])
+
+        # Start BFS traversal
+        while queue:
+            # Pop a node say "n" from the front of the queue.
+            n = queue.popleft()
+            # Iterate through all the neighbors of the node
+            for neighbor in n.neighbors:
+                if neighbor not in visited:
+                    # Clone the neighbor and put in the visited, if not present already
+                    visited[neighbor] = Node(neighbor.val, [])
+                    # Add the newly encountered node to the queue.
+                    queue.append(neighbor)
+                # Add the clone of the neighbor to the neighbors of the clone node "n".
+                visited[n].neighbors.append(visited[neighbor])
+
+        # Return the clone of the node from visited.
+        return visited[node]
+
+    # iterative
+    def cloneGraph(self, node):
+        if not node:
+            return node
+
+        # Dictionary to save the visited node and it's respective clone
+        # as key and value respectively. This helps to avoid cycles.
+        visited = {}
+
+        # Put the first node in the queue
+        queue = deque([node])
+        # Clone the node and put it in the visited dictionary.
+        visited[node] = Node(node.val, [])
+
+        # Start BFS traversal
+        while queue:
+            # Pop a node say "n" from the from the front of the queue.
+            n = queue.popleft()
+            # Iterate through all the neighbors of the node
+            for neighbor in n.neighbors:
+                if neighbor not in visited:
+                    # Clone the neighbor and put in the visited, if not present already
+                    visited[neighbor] = Node(neighbor.val, [])
+                    # Add the newly encountered node to the queue.
+                    queue.append(neighbor)
+                # Add the clone of the neighbor to the neighbors of the clone node "n".
+                visited[n].neighbors.append(visited[neighbor])
+
+        # Return the clone of the node from visited.
+        return visited[node]
 ```
-
-<details><summary>Test cases</summary><blockquote>
-
-```python3
-import unittest
-
-
-class TestNumIslands(unittest.TestCase):
-    def test_first(self):
-        grid = [
-            ["1", "1", "1", "1", "0"],
-            ["1", "1", "0", "1", "0"],
-            ["1", "1", "0", "0", "0"],
-            ["0", "0", "0", "0", "0"]
-        ]
-        self.assertEqual(1, Solution().numIslands(grid))
-
-    def test_second(self):
-        grid = [
-            ["1", "1", "0", "0", "0"],
-            ["1", "1", "0", "0", "0"],
-            ["0", "0", "1", "0", "0"],
-            ["0", "0", "0", "1", "1"]
-        ]
-        self.assertEqual(3, Solution().numIslands(grid))
-```
-
-</blockquote></details>
 
 
 ## Reverse Linked List
