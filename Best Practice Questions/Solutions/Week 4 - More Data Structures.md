@@ -80,74 +80,63 @@ class Solution:
 ```
 
 
-## Same Tree
-Даны два рута, определить что это одиинаковые деревья.
+## Insert Interval
+Дан список не перекрывающий интервалов, отсортированный по началу интервалов.
+Нужно вставить в список новый интервал и смержить все пересекающиеся интервалы. 
+Вернуть отсортированный массив непересекающихся интервалов. 
 
-https://leetcode.com/problems/same-tree/
+https://leetcode.com/problems/insert-interval/
 
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Создаем проверки.</li>
- <li>Рекурсивно или итеративно прогоняем все узлы через проверки.</li>
+ <li>В коде будем использовать счетчик, который инкерементируем по ходу работы кода, чтобы обработать все нужные интервалы.</li>
+ <li>Добавить в результитрующий массив все интервалы, которые идут до нового интервала.</li>
+ <li>Смержить новый интервала со всеми интервалами массива, которые перекрываются с ним.</li>
+ <li>Вставить смерженный с другими интервалами новый интервал в результирующий массив.</li>
+ <li>Добавить все остальные интервалы в результирующий массив.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: p = [1,2,3], q = [1,2,3]
-Output: true
+Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
+Output: [[1,5],[6,9]]
 
 Example 2:
-Input: p = [1,2], q = [1,null,2]
-Output: false
-
-Example 3:
-Input: p = [1,2,1], q = [1,1,2]
-Output: false
+Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+Output: [[1,2],[3,10],[12,16]]
+Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
 ```
 
 ```python
-class Solution(object):
-    # iterative
-    def isSameTree_it(self, p, q):
+class Solution:
+    def insert(self, intervals, newInterval):
+        start, end = 0, 1
+        counter = 0
+        merged_arr = []
 
-        def check(p, q):
-            if not p and not q:
-                return True
+        # add to result array all intervals that come before new interval
+        while counter < len(intervals) and intervals[counter][end] < newInterval[start]:
+            merged_arr.append(intervals[counter])
+            counter += 1
 
-            if not q or not p:
-                return False
+        # merge overlapping intervals with new interval
+        while counter < len(intervals) and newInterval[end] >= intervals[counter][start]:
+            newInterval[start] = min(intervals[counter][start], newInterval[start])
+            newInterval[end] = max(intervals[counter][end], newInterval[end])
+            counter += 1
 
-            if p.val != q.val:
-                return False
-            return True
+        # insert merged new interval with all overlapping intervals
+        merged_arr.append(newInterval)
 
-        deq = deque([(p, q), ])
-        while deq:
-            p, q = deq.popleft()
-            if not check(p, q):
-                return False
+        # insert other intervals into result array
+        while counter < len(intervals):
+            merged_arr.append(intervals[counter])
+            counter += 1
 
-            if p:
-                deq.append((p.left, q.left))
-                deq.append((p.right, q.right))
-
-        return True
-
-    # recursion
-    def isSameTree_rc(self, p, q):
-        if not p and not q:
-            return True
-
-        if not p or not q:
-            return False
-
-        if p.val != q.val:
-            return False
-
-        return self.isSameTree_it(p.right, q.right) and self.isSameTree_it(p.left, q.left)
+        return merged_arr
 ```
 
 
