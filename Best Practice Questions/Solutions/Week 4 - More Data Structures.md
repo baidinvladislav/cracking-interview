@@ -1,4 +1,4 @@
-# Week 3 - Non-Linear Data Structures
+# Week 4 - More Data Structures
 + [Merge k Sorted Lists](#merge-k-sorted-lists)
 + [Insert Interval](#insert-interval)
 + [Longest Consecutive Sequence](#longest-consecutive-sequence)
@@ -17,74 +17,66 @@
 
 
 
-## Validate Binary Search Tree
-Дан рут бинарного дерева. Определить является ли дерево бинарным деровом поиска.
-Бинарное дерево поиска - это дерево в котором:
-* в левом поддереве узла все значения меньше чем значения узла.
-* в правом поддереве узла все значения больше чем значения узла.
-* и левое, и правое поддеревья являются бинарными деревьями поиска.
+## Merge k Sorted Lists
+Смержить k связных списков из массива в один отсортированный связный список.
 
-https://leetcode.com/problems/validate-binary-search-tree/
+https://leetcode.com/problems/merge-k-sorted-lists/
 
 <details><summary>Решение:</summary><blockquote>
-
 <ol>
- <li>Сравниваем значение узла с его верхним и нижним пределами, если они доступны. Затем тот же шаг рекурсивно повторяется для левого и правого поддеревьев.</li>
- <li>Также работаем с итеративным решением.</li>
+ <li>Инициализируем голову и указатель узлом списка со значением 0.</li>
+ <li>Добавляем в кучу значения голов и сами головы всех списков из массива.</li>
+ <li>Пока куча не пуста получаем из нее значения и узел списков (куча сама сортирует).</li>
+ <li>К указателю из 1-го пункта цепляем, то что пришло из кучи.</li>
+ <li>Переставляем указатель вперед на один узел.</li>
+ <li>Переставляем узел из пункта 3 вперед на один узел.</li>
+ <li>Если у узла есть последующие узлы, то добавляем их значения и сами узлы в кучу.</li>
+ <li>После цикла вернуть последующий от головы узел, потому что голова равняется значению 0, см 1-ый пункт.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [2,1,3]
-Output: true
+Input: lists = [[1,4,5],[1,3,4],[2,6]]
+Output: [1,1,2,3,4,4,5,6]
+Explanation: The linked-lists are:
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+merging them into one sorted list:
+1->1->2->3->4->4->5->6
 
 Example 2:
-Input: root = [5,1,4,null,null,3,6]
-Output: false
-Explanation: The root node's value is 5 but its right child's value is 4.
+Input: lists = []
+Output: []
+
+Example 3:
+Input: lists = [[]]
+Output: []
 ```
 
 ```python
+from heapq import *
+
+
 class Solution:
-    # recursive
-    def isValidBST_rec(self, root: TreeNode) -> bool:
-
-        def validate(node, low=-math.inf, high=math.inf):
-            # Empty trees are valid BSTs.
-            if not node:
-                return True
-
-            # The current node's value must be between low and high.
-            if node.val <= low or node.val >= high:
-                return False
-
-            # The left and right subtree must also be valid.
-            return validate(node.right, node.val, high) and validate(node.left, low, node.val)
-
-        return validate(root)
-
-    # iterative
-    def isValidBST_it(self, root: TreeNode) -> bool:
-        if not root:
-            return True
-
-        queue = deque([(root, float('-inf'), float('inf'))])
-        while queue:
-            root, lower, upper = queue.popleft()
-
-            if not root:
-                continue
-
-            val = root.val
-            if val <= lower or val >= upper:
-                return False
-
-            queue.append((root.right, val, upper))
-            queue.append((root.left, lower, val))
-        return True
-
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        head = point = ListNode(0)
+        q = []
+        for l in lists:
+            if l:
+                heappush(q, (l.val, id(l), l))
+        while q:
+            val, nodeId, node = heappop(q)
+            point.next = node  # use node directly instead of creating a new node
+            point = point.next
+            node = node.next
+            if node:
+                heappush(q, (node.val, id(node), node))
+        return head.next
 ```
 
 
