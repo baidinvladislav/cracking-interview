@@ -140,83 +140,74 @@ class Solution:
 ```
 
 
-## Binary Tree Level Order Traversal
+## Longest Consecutive Sequence
 Дан рут дерева, вернуть все уровни этого дерева.
 
-https://leetcode.com/problems/binary-tree-level-order-traversal/
+https://leetcode.com/problems/longest-consecutive-sequence/
 
-<details><summary>Решение:</summary><blockquote>
+<details><summary>Брутфорс O(n^3) решение:</summary><blockquote>
 <ol>
- <li>Выходной список здесь называется уровнями.</li>
- <li>Текущий уровень — это просто длина этого списка len(levels).</li>
- <li>Сравните номер текущего уровня len(levels) с уровнем уровня узла.</li>
- <li>Если вы все еще находитесь на предыдущем уровне - добавьте новый, добавив новый список в уровни.</li>
- <li>Добавьте значение узла к последнему списку уровней.</li>
+ <li>Иниц. результирующую переменную как 0.</li>
+ <li>Итерируем входной массив и пока текущее число + 1 в массиве увеличиваем временную результирующую переменную.</li>
+ <li>Обновляем результирующую перемнную, если она меньше чем временная результирующая переменная.</li>
+</ol>
+
+
+<details><summary>Оптимизированное O(n) решение:</summary><blockquote>
+<ol>
+ <li>Переводим входной массив во множество.</li>
+ <li>Итерируем множество, если во множестве нет числа равное итерируемому - 1, так мы убедимся, что число не входит более длинную последовательность.</li>
+ <li>Обновляем результирующую перемнную, если она меньше чем временная результирующая переменная.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [3,9,20,null,null,15,7]
-Output: [[3],[9,20],[15,7]]
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
 
 Example 2:
-Input: root = [1]
-Output: [[1]]
-
-Example 3:
-Input: root = []
-Output: []
+Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
 ```
 
 ```python3 
-class Solution(object):
-    # bfs
-    def levelOrder_bfs(self, root):
-        if not root:
-            return []
+class Solution:
+    # brute-force O(n^3)
+    def longestConsecutive(self, nums):
+        longest_streak = 0
 
-        values = []
-        queue = deque()
-        queue.append(root)
-        while queue:
-            cur_level = []
-            for _ in range(len(queue)):
-                node = queue.popleft()
-                cur_level.append(node.val)
+        for num in nums:
+            current_num = num
+            current_streak = 1
 
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
+            while current_num + 1 in nums:
+                current_num += 1
+                current_streak += 1
 
-            values.append(cur_level)
+            longest_streak = max(longest_streak, current_streak)
 
-        return values
+        return longest_streak
 
-    # dfs
-    def levelOrder_dfs(self, root):
-        levels = []
-        if not root:
-            return levels
+    # optimized O(n)
+    def longestConsecutive(self, nums):
+        longest_streak = 0
+        num_set = set(nums)
 
-        def helper(node, level):
-            # start the current level
-            if len(levels) == level:
-                levels.append([])
+        for num in num_set:
+            if num - 1 not in num_set:
+                current_num = num
+                current_streak = 1
 
-            # append the current node value
-            levels[level].append(node.val)
+                while current_num + 1 in num_set:
+                    current_num += 1
+                    current_streak += 1
 
-            # process child nodes for the next level
-            if node.left:
-                helper(node.left, level + 1)
-            if node.right:
-                helper(node.right, level + 1)
+                longest_streak = max(longest_streak, current_streak)
 
-        helper(root, 0)
-        return levels
+        return longest_streak
 ```
 
 
