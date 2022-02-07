@@ -289,63 +289,100 @@ trie.search("app")
 ```
 
 
-## Construct Binary Tree from Preorder and Inorder Traversal
-Создать дерево по массивам preorder и inorder.
+## Design Add and Search Words Data Structure
+Разработать структуру данных для добавления слов и поиска по добавленным словам.
 
-https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+Методы:
+* addWord(word) -> null
+* search(word) -> boolean
+
+https://leetcode.com/problems/design-add-and-search-words-data-structure/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Создаем словарь в который заносим данные value:index из массива inorder, так сможем найти корень.</li>
- <li>В preorderIndex отслеживаем элемент для построения корня.</li>
- <li>Реализуем рекурсивную ф-ию, которая принимает диапозон inorder и создает бинарное дерево.</li>
- <li>Если диапозон пуст, то None.</li>
- <li>Инкрементируем preorderIndex.</li>
- <li>Рекурсивно используем левую и правую часть массива inorder, чтобы создать левое и правое поддерево.</li>
+ <li>В структуре данных Trie каждый путь представляет список узлов из символов слова.</li>
+ <li>Операция добавления слов в структуру заключается в выполнении проверки на наличие вставляемого узал, если он есть, то спускаемся на один шаг пути вниз, если его нет, то добавляем узел в список и спускаемся на один узел ниже.</li>
+ <li>Операция поиска при отсутствии символа '.' во входной строке заключается в прохождении всего пути из символов входного слова, если на пути все символы, то слово есть в структуре.</li>
+ <li>При наличии символа '.' во входной строке мы должны будем исследовать все возможные варианты на каждом пути.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
-Output: [3,9,20,null,null,15,7]
+Input
+["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
+[[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+Output
+[null,null,null,null,false,true,true,true]
 
-Example 2:
-Input: preorder = [-1], inorder = [-1]
-Output: [-1]
+Explanation
+WordDictionary wordDictionary = new WordDictionary();
+wordDictionary.addWord("bad");
+wordDictionary.addWord("dad");
+wordDictionary.addWord("mad");
+wordDictionary.search("pad"); // return False
+wordDictionary.search("bad"); // return True
+wordDictionary.search(".ad"); // return True
+wordDictionary.search("b.."); // return True
 ```
 
 ```python3
-class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+class WordDictionary:
 
-        def array_to_tree(left, right):
-            nonlocal preorder_index
-            # if there are no elements to construct the tree
-            if left > right: return None
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.trie = {}
 
-            # select the preorder_index element as the root and increment it
-            root_value = preorder[preorder_index]
-            root = TreeNode(root_value)
+    def addWord(self, word: str) -> None:
+        """
+        Adds a word into the data structure.
+        """
+        node = self.trie
 
-            # increment root index
-            preorder_index += 1
+        for ch in word:
+            if not ch in node:
+                node[ch] = {}
+            node = node[ch]
+        node['$'] = True
 
-            # build left and right subtree
-            # excluding inorder_index_map[root_value] element because it's the root
-            root.left = array_to_tree(left, inorder_index_map[root_value] - 1)
-            root.right = array_to_tree(inorder_index_map[root_value] + 1, right)
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the data structure.
+        A word could contain the dot character '.' to represent any letter.
+        """
+        def search_in_node(word, node) -> bool:
+            for i, ch in enumerate(word):
+                if not ch in node:
+                    # if the current character is '.'
+                    # check all possible nodes at this level
+                    if ch == '.':
+                        for x in node:
+                            if x != '$' and search_in_node(word[i + 1:], node[x]):
+                                return True
+                    # if no nodes lead to answer
+                    # or the current character != '.'
+                    return False
+                # if the character is found
+                # go down to the next level in trie
+                else:
+                    node = node[ch]
+            return '$' in node
 
-            return root
+        return search_in_node(word, self.trie)
 
-        # build a hashmap to store value -> its index relations
-        preorder_index = 0
-        inorder_index_map = {}
-        for index, value in enumerate(inorder):
-            inorder_index_map[value] = index
 
-        return array_to_tree(0, len(preorder) - 1)
+wordDictionary = WordDictionary()
+wordDictionary.addWord("bad")
+wordDictionary.addWord("dad")
+wordDictionary.addWord("mad")
+wordDictionary.search("pad")
+wordDictionary.search("bad")
+wordDictionary.search(".ad")
+wordDictionary.search("b..")
+
 ```
 
 
