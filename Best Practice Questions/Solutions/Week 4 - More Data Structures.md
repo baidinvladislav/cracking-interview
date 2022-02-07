@@ -210,59 +210,82 @@ class Solution:
 ```
 
 
-## Maximum Depth of Binary Tree
-Дан рут, найти максимальную глубину дерева. 
+## Implement Trie (Prefix Tree)
+Реализовать структуру данных Trie (префиксное дерево).
+Доступные методы: 
+* Операция вставки слова -> null
+* Поиск слова в структуре -> boolean
+* Поиск префикса в добавленном в структуру слове -> boolean
 
-https://leetcode.com/problems/maximum-depth-of-binary-tree/
+https://leetcode.com/problems/implement-trie-prefix-tree/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Подсчитать уровни либо DFS, либо BFS.</li>
+ <li>Для хранения данных в Trie возьмем словарь.</li>
+ <li>Операция вставки слова в структуру заключается в добавлении каждого нового символа слова в значение ключа предыдущего символа: {'c': {'o': {'d': {'e': {'-': 'True'}}}}}.</li>
+ <li>Операция поиска заклчюается в проверке вхождения всех символов искомого слова в ключи словаря (узлов Trie), если слово после вставки будет находиться в другом слове, то на этом уровне ставится указатель окончания поддслова.</li>
+ <li>Операция поиска префикса похожа на операцию поиска слова, с тем отличием, что отдает истину в случае совпадения не всех символов в слове.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [3,9,20,null,null,15,7]
-Output: 3
+Input
+["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
+[[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+Output
+[null, null, true, false, true, null, true]
 
-Example 2:
-Input: root = [1,null,2]
-Output: 2
+Explanation
+Trie trie = new Trie();
+trie.insert("apple");
+trie.search("apple");   // return True
+trie.search("app");     // return False
+trie.startsWith("app"); // return True
+trie.insert("app");
+trie.search("app");     // return True
 ```
 
 
 ```python3
-class Solution(object):
-    # bfs
-    def maxDepth_bfs(self, root):
-        level = 0
-        if not root:
-            return level
+class Trie(object):
 
-        queue = deque()
-        queue.append(root)
-        while queue:
-            for _ in range(len(queue)):
-                node = queue.popleft()
+    def __init__(self):
+        self.trie = {}
 
-                if node.left:
-                    queue.append(node.left)
+    def insert(self, word):
+        t = self.trie
+        for c in word:
+            if c not in t:
+                t[c] = {}
+            t = t[c]
+        t["-"] = True
 
-                if node.right:
-                    queue.append(node.right)
-            level += 1
-        return level
+    def search(self, word):
+        t = self.trie
+        for c in word:
+            if c not in t:
+                return False
+            t = t[c]
+        return "-" in t
 
-    # dfs
-    def maxDepth_dfs(self, root):
-        if root is None:
-            return 0
-        else:
-            left_height = self.maxDepth_dfs(root.left)
-            right_height = self.maxDepth_dfs(root.right)
-            return max(left_height, right_height) + 1
+    def startsWith(self, prefix):
+        t = self.trie
+        for c in prefix:
+            if c not in t:
+                return False
+            t = t[c]
+        return True
+
+
+trie = Trie()
+trie.insert("apple")
+trie.search("apple")
+trie.search("app")
+trie.startsWith("app")
+trie.insert("app")
+trie.search("app")
 ```
 
 
