@@ -558,68 +558,70 @@ class Solution:
 ```
 
 
-## Invert Binary Tree
-Дан рут бинарного дерева, нужно инвертировать (поменять местами) узлы дерева.
+## Find Median from Data Stream
+Реализовать класс для добавления чисел и поиска медианы добавленных чисел.
 
-https://leetcode.com/problems/invert-binary-tree/
+
+https://leetcode.com/problems/find-median-from-data-stream/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>BFS/DFS по дереву.</li>
- <li>Свапаем левый и правый узел у каждого узла.</li>
+ <li>Создадим две кучи small - для хранения меньшей половины чисел и large для хранения бОльшей половины чисел.</li>
+ <li>Балансируем две кучи, соблюдая условие, что длина кучи с большей половины чисел равен или больше на 1 чем размер кучи с меньшей половины чисел.</li>
+ <li>Если длина куч равна, то добавляем элемент в кучу с large, предварительно прогнав число через кучу small убедившись, что оно самое бОльшое в куче small.</li>
+ <li>Если длина куч не равна то добавляем элемент в кучу с small, предварительно прогнав число через кучу large, получив меньшее число из large.</li>
+ <li>Если список чисел нечетен - медианой будет первый элемент кучи с меньшей половиной элементов.</li>
+ <li>Если список чисел четен медианой будет первый элемент кучи с меньшей половиной элементов + последний элемент кучи с бОльшими числами // 2.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [4,2,7,1,3,6,9]
-Output: [4,7,2,9,6,3,1]
+Input
+["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+[[], [1], [2], [], [3], []]
+Output
+[null, null, null, 1.5, null, 2.0]
 
-Example 2:
-Input: root = [2,1,3]
-Output: [2,3,1]
-
-Example 3:
-Input: root = []
-Output: []
+Explanation
+MedianFinder medianFinder = new MedianFinder();
+medianFinder.addNum(1);    // arr = [1]
+medianFinder.addNum(2);    // arr = [1, 2]
+medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+medianFinder.addNum(3);    // arr[1, 2, 3]
+medianFinder.findMedian(); // return 2.0
 ```
 
 ```python3
-class Solution:
+from heapq import *
 
-    # recursive
-    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        if not root:
-            return
 
-        right = self.invertTree(root.right)
-        left = self.invertTree(root.left)
+# two balanced heaps
+class MedianFinder:
+    def __init__(self):
+        self.small = []  # the smaller half of the list, max heap (invert min-heap)
+        self.large = []  # the larger half of the list, min heap
 
-        root.left = right
-        root.right = left
+    def addNum(self, num):
+        if len(self.small) == len(self.large):
+            heappush(self.large, -heappushpop(self.small, -num))
+        else:
+            heappush(self.small, -heappushpop(self.large, num))
 
-        return root
+    def findMedian(self):
+        if len(self.small) == len(self.large):
+            return float(self.large[0] - self.small[0]) / 2.0
+        else:
+            return float(self.large[0])
 
-    # iterative
-    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        if not root:
-            return None
 
-        queue = deque()
-        queue.append(root)
-        while queue:
-            current = queue.popleft()
-            temp = current.left
-            current.left = current.right
-            current.right = temp
+medianFinder = MedianFinder()
+medianFinder.addNum(1)
+medianFinder.addNum(2)
+medianFinder.findMedian()
+medianFinder.addNum(3)
+medianFinder.findMedian()
 
-            if current.left:
-                queue.append(current.left)
-
-            if current.right:
-                queue.append(current.right)
-
-        return root
 ```
 
 
