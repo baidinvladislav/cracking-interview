@@ -386,7 +386,7 @@ wordDictionary.search("b..")
 ```
 
 
-## Binary Tree Maximum Path Sum
+## Word Search II
 Дан рут бинарного дерева, найти путь с максильной суммой значений узлов.
 
 https://leetcode.com/problems/binary-tree-maximum-path-sum/
@@ -434,107 +434,57 @@ class Solution:
 ```
 
 
-## Clone Graph
-Вернуть глубокую копию графа.
+## Kth Smallest Element in a BST
+Дан рут бинарного дерева и число k.
+Вернуть k-th элемент в порядке возрастания.
 
-https://leetcode.com/problems/clone-graph/
+https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
- <li></li>
- <li></li>
- <li></li>
- <li></li>
+ <li>Пройти дерево DFS inorder, чтобы собрать отсортированный по возрастанию массив</li>
+ <li>Вернуть k - 1 индекс из массива</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
-Output: [[2,4],[1,3],[2,4],[1,3]]
-Explanation: There are 4 nodes in the graph.
-1st node (val = 1)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
-2nd node (val = 2)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
-3rd node (val = 3)'s neighbors are 2nd node (val = 2) and 4th node (val = 4).
-4th node (val = 4)'s neighbors are 1st node (val = 1) and 3rd node (val = 3).
+Input: root = [3,1,4,null,2], k = 1
+Output: 1
 
 Example 2:
-Input: adjList = [[]]
-Output: [[]]
-Explanation: Note that the input contains one empty list. The graph consists of only one node with val = 1 and it does not have any neighbors.
-
-Example 3:
-Input: adjList = []
-Output: []
-Explanation: This an empty graph, it does not have any nodes.
+Input: root = [5,3,6,2,4,null,null,1], k = 3
+Output: 3
 ```
 
 ```python3
-class Solution(object):
+class Solution:
+    # my
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        def dfs(node, values):
+            if not node:
+                return
 
-    # recursive
-    def cloneGraph(self, node):
-        if not node:
-            return node
+            dfs(node.left, values)
+            values.append(node.val)
+            dfs(node.right, values)
 
-        # Dictionary to save the visited node and it's respective clone
-        # as key and value respectively. This helps to avoid cycles.
-        visited = {}
+        values = []
+        dfs(root, values)
+        return values[k + 1]
 
-        # Put the first node in the queue
-        queue = deque([node])
-        # Clone the node and put it in the visited dictionary.
-        visited[node] = Node(node.val, [])
+    # leetcode one line solution
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
 
-        # Start BFS traversal
-        while queue:
-            # Pop a node say "n" from the front of the queue.
-            n = queue.popleft()
-            # Iterate through all the neighbors of the node
-            for neighbor in n.neighbors:
-                if neighbor not in visited:
-                    # Clone the neighbor and put in the visited, if not present already
-                    visited[neighbor] = Node(neighbor.val, [])
-                    # Add the newly encountered node to the queue.
-                    queue.append(neighbor)
-                # Add the clone of the neighbor to the neighbors of the clone node "n".
-                visited[n].neighbors.append(visited[neighbor])
+        def inorder(r):
+            return inorder(r.left) + [r.val] + inorder(r.right) if r else []
 
-        # Return the clone of the node from visited.
-        return visited[node]
-
-    # iterative
-    def cloneGraph(self, node):
-        if not node:
-            return node
-
-        # Dictionary to save the visited node and it's respective clone
-        # as key and value respectively. This helps to avoid cycles.
-        visited = {}
-
-        # Put the first node in the queue
-        queue = deque([node])
-        # Clone the node and put it in the visited dictionary.
-        visited[node] = Node(node.val, [])
-
-        # Start BFS traversal
-        while queue:
-            # Pop a node say "n" from the from the front of the queue.
-            n = queue.popleft()
-            # Iterate through all the neighbors of the node
-            for neighbor in n.neighbors:
-                if neighbor not in visited:
-                    # Clone the neighbor and put in the visited, if not present already
-                    visited[neighbor] = Node(neighbor.val, [])
-                    # Add the newly encountered node to the queue.
-                    queue.append(neighbor)
-                # Add the clone of the neighbor to the neighbors of the clone node "n".
-                visited[n].neighbors.append(visited[neighbor])
-
-        # Return the clone of the node from visited.
-        return visited[node]
+        return inorder(root)[k - 1]
 ```
 
 
