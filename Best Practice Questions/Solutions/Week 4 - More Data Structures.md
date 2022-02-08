@@ -488,17 +488,19 @@ class Solution:
 ```
 
 
-## Course Schedule
-Определить можно ли пройти список курсов, если нужно проходить один курс после друого.
+## Lowest Common Ancestor of a Binary Search Tree
+Дан рут бинарного деревеа поиска и две вершины.
+Вернуть наименьшего общего предка двух вершин p и q.
 
-https://leetcode.com/problems/course-schedule/
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 
 
 <details><summary>Итеративное решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
- <li></li>
+ <li>Обходим дерево с корня. Используем как DFS так BFS.</li>
+ <li>Если обе вершины p и q меньше чем вершина на итерации, то продолжаем поиск в левом поддереве.</li>
+ <li>Если обе вершины p и q больше чем вершина на итерации, то продолжаем поиск в правом поддереве.</li>
+ <li>Если пункт 2 и пункт 3 неверен, то текущая вершина и есть наименьший общий родитель двух вершин p и q.</li>
  <li></li>
 </ol>
 </blockquote></details>
@@ -506,72 +508,53 @@ https://leetcode.com/problems/course-schedule/
 
 ```
 Example 1:
-Input: numCourses = 2, prerequisites = [[1,0]]
-Output: true
-Explanation: There are a total of 2 courses to take. 
-To take course 1 you should have finished course 0. So it is possible.
+Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+Output: 6
+Explanation: The LCA of nodes 2 and 8 is 6.
 
 Example 2:
-Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
-Output: false
-Explanation: There are a total of 2 courses to take. 
-To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.
+Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
+Output: 2
+Explanation: The LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition.
+
+Example 3:
+Input: root = [2,1], p = 2, q = 1
+Output: 2
 ```
 
 
 ```python3
-# Approach 2: Postorder DFS (Depth-First Search)
-class Solution(object):
-    def canFinish(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: bool
-        """
-        from collections import defaultdict
-        courseDict = defaultdict(list)
+class Solution:
+    # recursive
+    def lowestCommonAncestor(self, root, p, q):
+        # If both p and q are greater than parent
+        if p.val > root.val and q.val > root.val:
+            return self.lowestCommonAncestor(root.right, p, q)
 
-        for relation in prerequisites:
-            nextCourse, prevCourse = relation[0], relation[1]
-            courseDict[prevCourse].append(nextCourse)
+        # If both p and q are lesser than parent
+        elif p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor(root.left, p, q)
 
-        checked = [False] * numCourses
-        path = [False] * numCourses
+        # We have found the split point, i.e. the LCA node.
+        else:
+            return root
 
-        for currCourse in range(numCourses):
-            if self.isCyclic(currCourse, courseDict, checked, path):
-                return False
-        return True
+    # iterative
+    def lowestCommonAncestor(self, root, p, q):
+        node = root
+        while node:
+            # Value of current node or parent node.
+            parent_val = node.val
 
-
-    def isCyclic(self, currCourse, courseDict, checked, path):
-        """   """
-        # 1). bottom-cases
-        if checked[currCourse]:
-            # this node has been checked, no cycle would be formed with this node.
-            return False
-        if path[currCourse]:
-            # came across a marked node in the path, cyclic !
-            return True
-
-        # 2). postorder DFS on the children nodes
-        # mark the node in the path
-        path[currCourse] = True
-
-        ret = False
-        # postorder DFS, to visit all its children first.
-        for child in courseDict[currCourse]:
-            ret = self.isCyclic(child, courseDict, checked, path)
-            if ret: break
-
-        # 3). after the visits of children, we come back to process the node itself
-        # remove the node from the path
-        path[currCourse] = False
-
-        # Now that we've visited the nodes in the downstream,
-        #   we complete the check of this node.
-        checked[currCourse] = True
-        return ret
+            if p.val > parent_val and q.val > parent_val:
+                # If both p and q are greater than parent
+                node = node.right
+            elif p.val < parent_val and q.val < parent_val:
+                # If both p and q are lesser than parent
+                node = node.left
+            else:
+                # We have found the split point, i.e. the LCA node.
+                return node
 ```
 
 
