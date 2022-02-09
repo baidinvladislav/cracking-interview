@@ -625,54 +625,57 @@ medianFinder.findMedian()
 ```
 
 
-## Serialize and Deserialize Binary Tree
-Сериализировать и десериализировать бинарное дерево.
+## Subtree of Another Tree
+Дан root дерева и subroot поддерева, вернуть True, если поддерево входит в дерево.
 
-https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+https://leetcode.com/problems/subtree-of-another-tree/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
- <li></li>
- <li></li>
+ <li>Рекурсивно идем по дереву начиная с корня, пока не найдем поддерево в дереве.</li>
+ <li>Если наткнулись на корень поддерева, то рекурсивно сравниваем вершины дерева и поддерева.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [1,2,3,null,null,4,5]
-Output: [1,2,3,null,null,4,5]
+Input: root = [3,4,5,1,2], subRoot = [4,1,2]
+Output: true
 
 Example 2:
-Input: root = []
-Output: []
+Input: root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
+Output: false
 ```
 
 ```python3
-class Codec:
+class Solution:
+    def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
+        if not s:
+            return False
 
-    def deserialize(self, data):
-        """Decodes your encoded data to tree.
-        :type data: str
-        :rtype: TreeNode
-        """
+        if self.isSameTree(s, t):
+            return True
 
-        def rdeserialize(l):
-            """ a recursive helper function for deserialization."""
-            if l[0] == 'None':
-                l.pop(0)
-                return None
+        return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
 
-            root = TreeNode(l[0])
-            l.pop(0)
-            root.left = rdeserialize(l)
-            root.right = rdeserialize(l)
-            return root
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
+        if p and q:
+            return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
 
-        data_list = data.split(',')
-        root = rdeserialize(data_list)
-        return root
+        return p is q
+
+
+root = TreeNode(3)
+root.left = TreeNode(4)
+root.right = TreeNode(5)
+root.left.left = TreeNode(1)
+root.left.right = TreeNode(2)
+
+subRoot = TreeNode(4)
+subRoot.left = TreeNode(1)
+subRoot.right = TreeNode(2)
+
+print(Solution().isSubtree(root, subRoot))
 ```
 
 
