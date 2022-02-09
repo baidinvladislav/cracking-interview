@@ -736,49 +736,40 @@ class Solution:
 ```
 
 
-## Non-overlapping Intervals
-Дан список интервалов. Вернуть число равное кол-ву интервалов после удаления которых список интервалов будет списком не пересекающихся интервалов. 
+## Meeting Rooms (LeetCode Premium)
+Дан список интервалов. 
+Определить есть ли в нем пересекающиеся интервалы. 
 
-https://leetcode.com/problems/non-overlapping-intervals/
+https://leetcode.com/problems/meeting-rooms/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
- <li></li>
+ <li>Отсортировать интервалы по их началу.</li>
+ <li>Пройти циклом по входному двумерному массиву интервалов, чтобы найти пересекающиеся интервалы.</li>
+ <li>Если найден хоть одна пара пересекающихся интервалов, то вернем False, иначе True.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: intervals = [[1,2],[2,3],[3,4],[1,3]]
-Output: 1
-Explanation: [1,3] can be removed and the rest of the intervals are non-overlapping.
+Input: intervals = [[0,30],[5,10],[15,20]]
+Output: false
 
 Example 2:
-Input: intervals = [[1,2],[1,2],[1,2]]
-Output: 2
-Explanation: You need to remove two [1,2] to make the rest of the intervals non-overlapping.
-
-Example 3:
-Input: intervals = [[1,2],[2,3]]
-Output: 0
-Explanation: You don't need to remove any of the intervals since they're already non-overlapping.
+Input: intervals = [[7,10],[2,4]]
+Output: true
 ```
 
 ```python3
 class Solution:
-    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key=lambda x: x[1])
-        prev = float("-inf")
-        ans = 0
-        for i in intervals:
-            if i[0] >= prev:
-                prev = i[1]
-            else:
-                ans += 1
-        return ans
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        intervals.sort(key=lambda x: x[0])
+        start, end = 0, 1
 
+        for i in range(1, len(intervals)):
+            if intervals[i - 1][end] > intervals[i][start]:
+                return False
+        return True
 ```
 
 
