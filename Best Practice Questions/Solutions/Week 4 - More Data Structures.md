@@ -679,103 +679,60 @@ print(Solution().isSubtree(root, subRoot))
 ```
 
 
-## Top K Frequent Elements
-Дан массив чисел и число k, вернуть k самых частовстречаемых чисел в массиве. 
+## Alien Dictionary (LeetCode Premium)
 
-https://leetcode.com/problems/top-k-frequent-elements/
+
+## Graph Valid Tree (LeetCode Premium)
+Дан граф, определить является ли он деревом. 
+
+https://leetcode.com/problems/graph-valid-tree/submissions/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
- <li></li>
+ <li>Если во входном массиве указаны ребра не для всех вершин, то сразу False.</li>
+ <li>В задаче используется не удобное представление графа, преоброзуем двумерный массив в список смежности.</li>
+ <li>BFS по списку смежности, добавляем посещенные вершины во множество visited.</li>
+ <li>Если кол-во просмотретнных вершин ровно кол-ву вершин во множестве просмотренных вершин, то True, иначе False.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [1,1,1,2,2,3], k = 2
-Output: [1,2]
+Input: n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]
+Output: true
 
 Example 2:
-Input: nums = [1], k = 1
-Output: [1]
+Input: n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]
+Output: false
 ```
 
 ```python3
-# Approach 1: Heap
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # O(1) time
-        if k == len(nums):
-            return nums
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
 
-        # 1. build hash map : character and how often it appears
-        # O(N) time
-        count = Counter(nums)
-        # 2-3. build heap of top k frequent elements and
-        # convert it into an output array
-        # O(N log k) time
-        return heapq.nlargest(k, count.keys(), key=count.get)
+        if len(edges) != n - 1:
+            return False
 
+        # Create an adjacency list.
+        adj_list = [[] for _ in range(n)]
+        for A, B in edges:
+            adj_list[A].append(B)
+            adj_list[B].append(A)
 
-# Approach 2: Quickselect (Hoare's selection algorithm)
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count = Counter(nums)
-        unique = list(count.keys())
+        # We still need a seen set to prevent our code from infinite
+        # looping if there *is* cycles (and on the trivial cycles!)
+        seen = {0}
+        queue = deque([0])
 
-        def partition(left, right, pivot_index) -> int:
-            pivot_frequency = count[unique[pivot_index]]
-            # 1. move pivot to end
-            unique[pivot_index], unique[right] = unique[right], unique[pivot_index]
+        while queue:
+            node = queue.popleft()
+            for neighbour in adj_list[node]:
+                if neighbour in seen:
+                    continue
+                seen.add(neighbour)
+                queue.append(neighbour)
 
-            # 2. move all less frequent elements to the left
-            store_index = left
-            for i in range(left, right):
-                if count[unique[i]] < pivot_frequency:
-                    unique[store_index], unique[i] = unique[i], unique[store_index]
-                    store_index += 1
-
-            # 3. move pivot to its final place
-            unique[right], unique[store_index] = unique[store_index], unique[right]
-
-            return store_index
-
-        def quickselect(left, right, k_smallest) -> None:
-            """
-            Sort a list within left..right till kth less frequent element
-            takes its place.
-            """
-            # base case: the list contains only one element
-            if left == right:
-                return
-
-            # select a random pivot_index
-            pivot_index = random.randint(left, right)
-
-            # find the pivot position in a sorted list
-            pivot_index = partition(left, right, pivot_index)
-
-            # if the pivot is in its final sorted position
-            if k_smallest == pivot_index:
-                return
-                # go left
-            elif k_smallest < pivot_index:
-                quickselect(left, pivot_index - 1, k_smallest)
-            # go right
-            else:
-                quickselect(pivot_index + 1, right, k_smallest)
-
-        n = len(unique)
-        # kth top frequent element is (n - k)th less frequent.
-        # Do a partial sort: from less frequent to the most frequent, till
-        # (n - k)th less frequent element takes its place (n - k) in a sorted array.
-        # All element on the left are less frequent.
-        # All the elements on the right are more frequent.
-        quickselect(0, n - 1, n - k)
-        # Return top k frequent elements
-        return unique[n - k:]
+        return len(seen) == n
 ```
 
 
