@@ -679,10 +679,10 @@ print(Solution().isSubtree(root, subRoot))
 ```
 
 
-## Alien Dictionary (LeetCode Premium)
+## Alien Dictionary
 
 
-## Graph Valid Tree (LeetCode Premium)
+## Graph Valid Tree
 Дан граф, определить является ли он деревом. 
 
 https://leetcode.com/problems/graph-valid-tree/submissions/
@@ -736,7 +736,7 @@ class Solution:
 ```
 
 
-## Meeting Rooms (LeetCode Premium)
+## Meeting Rooms
 Дан список интервалов. 
 Определить есть ли в нем пересекающиеся интервалы. 
 
@@ -773,7 +773,7 @@ class Solution:
 ```
 
 
-## Meeting Rooms II (LeetCode Premium)
+## Meeting Rooms II
 Дан двумерный массив с интервалами встреч, определить сколько комнат потребуется для проведения всех встреч.
 
 https://leetcode.com/problems/meeting-rooms-ii/
@@ -824,7 +824,7 @@ class Solution:
 print(Solution().minMeetingRooms(intervals=[[0, 30], [5, 10], [15, 20]]))
 ```
 
-## Number of Connected Components in an Undirected Graph (LeetCode Premium)
+## Number of Connected Components in an Undirected Graph
 Дано число вершин и двумерный массив ребер.
 Определить сколько связанных комнонентов в графе.
 
