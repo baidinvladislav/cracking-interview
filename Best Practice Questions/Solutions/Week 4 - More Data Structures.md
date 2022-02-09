@@ -773,78 +773,55 @@ class Solution:
 ```
 
 
-## Encode and Decode Strings (LeetCode Premium)
-Закодировать и раскодировать строки.
+## Meeting Rooms II (LeetCode Premium)
+Дан двумерный массив с интервалами встреч, определить сколько комнат потребуется для проведения всех встреч.
 
-https://leetcode.com/problems/encode-and-decode-strings/
+https://leetcode.com/problems/meeting-rooms-ii/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
- <li></li>
+ <li>Сортируем встречи в массиве по их началу.</li>
+ <li>Инициализируем мин-кучу и добавляем в нее конец первой встречи.</li>
+ <li>При итериации по встречаем обращаемся в куче и смотрим есть ли у нас свободные комнаты. Комната свободна, если самое маленькое число в куче меньше чем начало встречи на текущей итерации</li>
+ <li>Если комната свободна, то извлекаем элемент из кучи и заново добавляем, но уже с окончанием текущей встречи.</li>
+ <li>Если свободных комнат нет, то добавляем новую комнату (новый элемент в кучу) представляющий конец текущей на итерации встречи.</li>
+ <li>После завершения цикла по двумерному массиву, длина кучи и будет равна кол-ву необходимых комнат для всех встреч.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: dummy_input = ["Hello","World"]
-Output: ["Hello","World"]
-Explanation:
-Machine 1:
-Codec encoder = new Codec();
-String msg = encoder.encode(strs);
-Machine 1 ---msg---> Machine 2
-
-Machine 2:
-Codec decoder = new Codec();
-String[] strs = decoder.decode(msg);
+Input: intervals = [[0,30],[5,10],[15,20]]
+Output: 2
 
 Example 2:
-Input: dummy_input = [""]
-Output: [""]
+Input: intervals = [[7,10],[2,4]]
+Output: 1
 ```
 
 ```python3
-class Codec:
-    def len_to_str(self, x):
-        """
-        Encodes length of string to bytes string
-        """
-        x = len(x)
-        bytes = [chr(x >> (i * 8) & 0xff) for i in range(4)]
-        bytes.reverse()
-        bytes_str = ''.join(bytes)
-        return bytes_str
+import heapq
+from typing import List
 
-    def encode(self, strs):
-        """Encodes a list of strings to a single string.
-        :type strs: List[str]
-        :rtype: str
-        """
-        # encode here is a workaround to fix BE CodecDriver error
-        return ''.join(self.len_to_str(x) + x.encode('utf-8') for x in strs)
 
-    def str_to_int(self, bytes_str):
-        """
-        Decodes bytes string to integer.
-        """
-        result = 0
-        for ch in bytes_str:
-            result = result * 256 + ord(ch)
-        return result
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
 
-    def decode(self, s):
-        """Decodes a single string to a list of strings.
-        :type s: str
-        :rtype: List[str]
-        """
-        i, n = 0, len(s)
-        output = []
-        while i < n:
-            length = self.str_to_int(s[i: i + 4])
-            i += 4
-            output.append(s[i: i + length])
-            i += length
-        return output
+        free_rooms = []
+        intervals.sort(key=lambda x: x[0])
+        heapq.heappush(free_rooms, intervals[0][1])
+
+        for interval in intervals[1:]:
+            if free_rooms[0] <= interval[0]:
+                heapq.heappop(free_rooms)
+
+            heapq.heappush(free_rooms, interval[1])
+        return len(free_rooms)
+
+
+print(Solution().minMeetingRooms(intervals=[[0, 30], [5, 10], [15, 20]]))
 ```
+
+## Number of Connected Components in an Undirected Graph (LeetCode Premium)
