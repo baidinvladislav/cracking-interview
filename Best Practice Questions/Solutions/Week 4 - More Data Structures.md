@@ -9,11 +9,11 @@
 + [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree)
 + [Find Median from Data Stream](#find-median-from-data-stream)
 + [Subtree of Another Tree](#subtree-of-another-tree)
-+ [Alien Dictionary (LeetCode Premium)](#alien-dictionary-(leetCode-premium))
-+ [Graph Valid Tree (LeetCode Premium)](#graph-valid-tree-(leetCode-premium))
-+ [Meeting Rooms (LeetCode Premium)](#meeting-rooms-(leetCode-premium))
-+ [Meeting Rooms II (LeetCode Premium)](#meeting-rooms-II-(leetCode-premium))
-+ [Number of Connected Components in an Undirected Graph (LeetCode Premium)](#number-of-connected-components-in-an-undirected-graph-(leetCode-premium))
++ [Alien Dictionary](#alien-dictionary)
++ [Graph Valid Tree](#graph-valid-tree)
++ [Meeting Rooms](#meeting-rooms)
++ [Meeting Rooms II](#meeting-rooms-II)
++ [Number of Connected Components in an Undirected Graph](#number-of-connected-components-in-an-undirected-graph)
 
 
 
@@ -825,3 +825,32 @@ print(Solution().minMeetingRooms(intervals=[[0, 30], [5, 10], [15, 20]]))
 ```
 
 ## Number of Connected Components in an Undirected Graph (LeetCode Premium)
+Дано число вершин и двумерный массив ребер.
+Определить сколько связанных комнонентов в графе.
+
+https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
+ <li></li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: n = 5, edges = [[0,1],[1,2],[3,4]]
+Output: 2
+
+Example 2:
+Input: n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]
+Output: 1
+```
+
+```python3
+
+```
