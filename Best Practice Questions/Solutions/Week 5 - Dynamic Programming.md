@@ -1,5 +1,5 @@
 # Week 5 - Dynamic Programming
-+ [Jump Game](#jump-game)
++ [Jump-Game](#jump-game)
 + [Unique Paths](#unique-paths)
 + [Climbing Stairs](#climbing-stairs)
 + [Decode Ways](#decode-ways)
@@ -11,7 +11,7 @@
 + [Combination Sum IV](#combination-sum-iv)
 
 
-## Jump Game
+## Jump-Game
 Смержить k связных списков из массива в один отсортированный связный список.
 
 https://leetcode.com/problems/merge-k-sorted-lists/
