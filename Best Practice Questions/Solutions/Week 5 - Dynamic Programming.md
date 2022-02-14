@@ -421,56 +421,59 @@ class Solution:
 
 
 ## House Robber II
-Дан рут бинарного дерева и число k.
-Вернуть k-th элемент в порядке возрастания.
+Дан массив чисел, представляющий дома на улице, которую хочет ограбить грабитель.
+Индекс массива == дом, число в массиве под индексом == кол-во денег в доме.
+Какую максимальную прибыль может украсть грабитель, при условии, что нельзя грабить соседние дома.
+В данной задаче первый и последний дом являются соседними (дома стоят по кругу).
 
-https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+https://leetcode.com/problems/house-robber-ii/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
+ <li>Необходимо сравнить максимальное кол-во денег из двух срезов.</li>
+ <li>Сначала вычислим кол-во макс. денег с первого по предпоследний дом.</li>
+ <li>Затем вычислим кол-во макс. денег со второго по последний дом.</li>
+ <li>Вернем макс. значение полученное из двух срезов входного массива.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [3,1,4,null,2], k = 1
-Output: 1
+Input: nums = [2,3,2]
+Output: 3
+Explanation: You cannot rob house 1 (money = 2) and then rob house 3 (money = 2), because they are adjacent houses.
 
 Example 2:
-Input: root = [5,3,6,2,4,null,null,1], k = 3
+Input: nums = [1,2,3,1]
+Output: 4
+Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
+
+Example 3:
+Input: nums = [1,2,3]
 Output: 3
 ```
 
 ```python3
 class Solution:
-    # my
-    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        def dfs(node, values):
-            if not node:
-                return
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 0 or nums is None:
+            return 0
 
-            dfs(node.left, values)
-            values.append(node.val)
-            dfs(node.right, values)
+        if len(nums) == 1:
+            return nums[0]
 
-        values = []
-        dfs(root, values)
-        return values[k + 1]
+        return max(self.rob_simple(nums[:-1]), self.rob_simple(nums[1:]))
 
-    # leetcode one line solution
-    def kthSmallest(self, root, k):
-        """
-        :type root: TreeNode
-        :type k: int
-        :rtype: int
-        """
+    def rob_simple(self, nums: List[int]) -> int:
+        t1 = 0
+        t2 = 0
+        for current in nums:
+            temp = t1
+            t1 = max(current + t2, t1)
+            t2 = temp
 
-        def inorder(r):
-            return inorder(r.left) + [r.val] + inorder(r.right) if r else []
-
-        return inorder(root)[k - 1]
+        return t1
 ```
 
 
