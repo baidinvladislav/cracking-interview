@@ -130,65 +130,57 @@ class Solution:
 
 
 ## Climbing Stairs
-Дан рут дерева, вернуть все уровни этого дерева.
+Вы поднимаетесь по лестнице. Требуется n шагов, чтобы добраться до вершины. 
+Каждый раз вы можете подняться на 1 или 2 ступеньки. 
+Сколькими различными способами вы можете подняться на вершину? 
 
-https://leetcode.com/problems/longest-consecutive-sequence/
+https://leetcode.com/problems/climbing-stairs/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
- <li></li>
+ <li>Инициализируем пустую таблицу динамического программирования размером n + 1.</li>
+ <li>Заполняем в таблице базовые случаи.</li>
+ <li>На основе базовых случаев вычисляем последующие значения в таблице динамического программирования.</li>
+ <li>Возвращаем максимальное значение из полученной таблицы динамического программирования.</li>
 </ol>
 </blockquote></details>
 
 
 ```
 Example 1:
-Input: nums = [100,4,200,1,3,2]
-Output: 4
-Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+Input: n = 2
+Output: 2
+Explanation: There are two ways to climb to the top.
+1. 1 step + 1 step
+2. 2 steps
 
 Example 2:
-Input: nums = [0,3,7,2,5,8,4,6,0,1]
-Output: 9
+Input: n = 3
+Output: 3
+Explanation: There are three ways to climb to the top.
+1. 1 step + 1 step + 1 step
+2. 1 step + 2 steps
+3. 2 steps + 1 step
 ```
 
 ```python
+# Approach 3: Dynamic Programming
 class Solution:
-    # brute-force O(n^3)
-    def longestConsecutive(self, nums):
-        longest_streak = 0
+    def climbStairs(self, n):
+        if n == 1:
+            return 1
 
-        for num in nums:
-            current_num = num
-            current_streak = 1
+        # create dp table
+        dp_table = [0 for _ in range(n + 1)]
 
-            while current_num + 1 in nums:
-                current_num += 1
-                current_streak += 1
+        # fill db table with base cases
+        dp_table[1] = 1
+        dp_table[2] = 2
 
-            longest_streak = max(longest_streak, current_streak)
+        for i in range(3, n + 1):
+            dp_table[i] = dp_table[i - 1] + dp_table[i - 2]
 
-        return longest_streak
-
-    # optimized O(n)
-    def longestConsecutive(self, nums):
-        longest_streak = 0
-        num_set = set(nums)
-
-        for num in num_set:
-            if num - 1 not in num_set:
-                current_num = num
-                current_streak = 1
-
-                while current_num + 1 in num_set:
-                    current_num += 1
-                    current_streak += 1
-
-                longest_streak = max(longest_streak, current_streak)
-
-        return longest_streak
+        return max(dp_table)
 ```
 
 
