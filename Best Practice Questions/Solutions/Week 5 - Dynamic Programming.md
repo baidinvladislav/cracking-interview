@@ -369,50 +369,54 @@ wordDictionary.search("b..")
 
 
 ## House Robber
-Дан рут бинарного дерева, найти путь с максильной суммой значений узлов.
+Дан массив чисел, представляющий дома на улице, которую хочет ограбить грабитель.
+Индекс массива == дом, число в массиве под индексом == кол-во денег в доме.
+Какую максимальную прибыль может украсть грабитель, при условии, что нельзя грабить соседние дома.
 
-https://leetcode.com/problems/binary-tree-maximum-path-sum/
+https://leetcode.com/problems/house-robber/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>.</li>
- <li>.</li>
+ <li>Инициализируем пустой массив размером с входным массивом домов (создаем таблицу DP).</li>
+ <li>Заполняем таблицу DP базовыми случаями.</li>
+ <li>Итеративно на основе базовых случаев из таблицы DP заполняем все остальные случаи.</li>
+ <li>Возвращаем максимальное значение из таблицы DP.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [1,2,3]
-Output: 6
-Explanation: The optimal path is 2 -> 1 -> 3 with a path sum of 2 + 1 + 3 = 6.
+Input: nums = [1,2,3,1]
+Output: 4
+Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
 
 Example 2:
-Input: root = [-10,9,20,null,null,15,7]
-Output: 42
-Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
+Input: nums = [2,7,9,3,1]
+Output: 12
+Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
+Total amount you can rob = 2 + 9 + 1 = 12.
 ```
 
 ```python3
 class Solution:
-    def maxPathSum(self, root):
-        def max_gain(node):
-            nonlocal max_sum
-            if not node:
-                return 0
-            # max sum on the left and right sub-trees of node
-            left_gain = max(max_gain(node.left), 0)
-            right_gain = max(max_gain(node.right), 0)
-            # the price to start a new path where `node` is a highest node
-            price_newpath = node.val + left_gain + right_gain
-            # update max_sum if it's better to start a new path
-            max_sum = max(max_sum, price_newpath)
-            # for recursion :
-            # return the max gain if continue the same path
-            return node.val + max(left_gain, right_gain)
+    def rob(self, nums: List[int]) -> int:
+        # Special handling for empty case.
+        if not nums:
+            return 0
+        
+        maxRobbedAmount = [None for _ in range(len(nums) + 1)]
+        n = len(nums)
 
-        max_sum = float('-inf')
-        max_gain(root)
-        return max_sum
+        # Base case initialization.
+        maxRobbedAmount[n], maxRobbedAmount[n - 1] = 0, nums[n - 1]
+
+        # DP table calculations.
+        for i in range(n - 2, -1, -1):
+            # Same as recursive solution.
+            maxRobbedAmount[i] = max(maxRobbedAmount[i + 1], maxRobbedAmount[i + 2] + nums[i])
+
+        return max(maxRobbedAmount)
 ```
 
 
