@@ -12,60 +12,57 @@
 
 
 ## Jump-Game
-Смержить k связных списков из массива в один отсортированный связный список.
+Дан массив чисел. Изначально мы находимся на первом элементе массива, 
+каждое число в массиве представляет макс.длину прыжка с этой позиции.
+Вернуть True, если мы сможем допрыгать до конца массива, False, если не можем. 
 
-https://leetcode.com/problems/merge-k-sorted-lists/
+https://leetcode.com/problems/jump-game/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Инициализируем пустую таблицу ДП.</li>
+ <li>Добавляем в таблицу ДП базовый случай.</li>
+ <li>Итеравтивно заполняем таблицу от базового случая.</li>
+ <li>Если во время итерации dp[i] = 0, значит, мы не можем двигаться дальше вернем False.</li>
+ <li>Если во время итерации dp[i] >= length - 1, вернем True.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: lists = [[1,4,5],[1,3,4],[2,6]]
-Output: [1,1,2,3,4,4,5,6]
-Explanation: The linked-lists are:
-[
-  1->4->5,
-  1->3->4,
-  2->6
-]
-merging them into one sorted list:
-1->1->2->3->4->4->5->6
+Input: nums = [2,3,1,1,4]
+Output: true
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
 
 Example 2:
-Input: lists = []
-Output: []
-
-Example 3:
-Input: lists = [[]]
-Output: []
+Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
 ```
 
 ```python
-from heapq import *
-
-
 class Solution:
-    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
-        head = point = ListNode(0)
-        q = []
-        for l in lists:
-            if l:
-                heappush(q, (l.val, id(l), l))
-        while q:
-            val, nodeId, node = heappop(q)
-            point.next = node  # use node directly instead of creating a new node
-            point = point.next
-            node = node.next
-            if node:
-                heappush(q, (node.val, id(node), node))
-        return head.next
+    def canJump(self, nums):
+        length = len(nums)
+        dp = [0] * length
+
+        dp[0] = nums[0]
+
+        for i in range(1, length - 1):
+            if dp[i - 1] < i:
+                return False
+
+            dp[i] = max(i + nums[i], dp[i - 1])
+
+            if dp[i] >= length - 1:
+                return True
+
+        return dp[length - 2] >= length - 1
+
+
+# print(Solution().canJump(nums=[2, 3, 1, 1, 4]))  # True
+print(Solution().canJump(nums=[3, 2, 1, 0, 4]))  # False
 ```
 
 
