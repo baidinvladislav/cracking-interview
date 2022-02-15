@@ -67,62 +67,50 @@ print(Solution().canJump(nums=[3, 2, 1, 0, 4]))  # False
 
 
 ## Unique Paths
-Дан список не перекрывающий интервалов, отсортированный по началу интервалов.
-Нужно вставить в список новый интервал и смержить все пересекающиеся интервалы. 
-Вернуть отсортированный массив непересекающихся интервалов. 
+Дана сетка m x n. В левом верхнем углу находится робот.
+В левом нижнем углу выход. Робот может двигаться либо вправо, либо вниз на каждом шагу.
+Вернуть кол-во уникальных путей по которым можно добраться из точки инициалиазации робота 
+до точки выхода.
 
-https://leetcode.com/problems/insert-interval/
+https://leetcode.com/problems/unique-paths/
 
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Создаем таблицу ДП, изначально заполненную единицами, где dp[m][n] == кол-во путей до [m][n].</li>
+ <li>Итеративно заполняем все ячейки внутри таблицы ДП.</li>
+ <li>Возвращаем сумму путей для двух предшествующих выходу ячеек.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: intervals = [[1,3],[6,9]], newInterval = [2,5]
-Output: [[1,5],[6,9]]
+Input: m = 3, n = 7
+Output: 28
 
 Example 2:
-Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
-Output: [[1,2],[3,10],[12,16]]
-Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
+Input: m = 3, n = 2
+Output: 3
+Explanation: From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
+1. Right -> Down -> Down
+2. Down -> Down -> Right
+3. Down -> Right -> Down
 ```
 
 ```python
 class Solution:
-    def insert(self, intervals, newInterval):
-        start, end = 0, 1
-        counter = 0
-        merged_arr = []
+    def uniquePaths(self, m: int, n: int) -> int:
+        d = [[1] * n for _ in range(m)]
 
-        # add to result array all intervals that come before new interval
-        while counter < len(intervals) and intervals[counter][end] < newInterval[start]:
-            merged_arr.append(intervals[counter])
-            counter += 1
+        for col in range(1, m):
+            for row in range(1, n):
+                d[col][row] = d[col - 1][row] + d[col][row - 1]
 
-        # merge overlapping intervals with new interval
-        while counter < len(intervals) and newInterval[end] >= intervals[counter][start]:
-            newInterval[start] = min(intervals[counter][start], newInterval[start])
-            newInterval[end] = max(intervals[counter][end], newInterval[end])
-            counter += 1
+        return d[m - 1][n - 1]
 
-        # insert merged new interval with all overlapping intervals
-        merged_arr.append(newInterval)
 
-        # insert other intervals into result array
-        while counter < len(intervals):
-            merged_arr.append(intervals[counter])
-            counter += 1
-
-        return merged_arr
+print(Solution().uniquePaths(m=3, n=7))
 ```
 
 
