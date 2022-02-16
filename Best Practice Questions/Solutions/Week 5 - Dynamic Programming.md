@@ -396,8 +396,7 @@ class Solution:
 Найти наибольшую возрастающую последовательность.
 Вернуть длину такой последовательности.
 
-https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
-
+https://leetcode.com/problems/longest-increasing-subsequence/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
@@ -412,53 +411,36 @@ https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 
 ```
 Example 1:
-Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
-Output: 6
-Explanation: The LCA of nodes 2 and 8 is 6.
+Input: nums = [10,9,2,5,3,7,101,18]
+Output: 4
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
 
 Example 2:
-Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
-Output: 2
-Explanation: The LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition.
+Input: nums = [0,1,0,3,2,3]
+Output: 4
 
 Example 3:
-Input: root = [2,1], p = 2, q = 1
-Output: 2
+Input: nums = [7,7,7,7,7,7,7]
+Output: 1
 ```
 
 
 ```python3
+from typing import List
+
+
 class Solution:
-    # recursive
-    def lowestCommonAncestor(self, root, p, q):
-        # If both p and q are greater than parent
-        if p.val > root.val and q.val > root.val:
-            return self.lowestCommonAncestor(root.right, p, q)
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [1] * len(nums)
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
 
-        # If both p and q are lesser than parent
-        elif p.val < root.val and q.val < root.val:
-            return self.lowestCommonAncestor(root.left, p, q)
+        return max(dp)
 
-        # We have found the split point, i.e. the LCA node.
-        else:
-            return root
 
-    # iterative
-    def lowestCommonAncestor(self, root, p, q):
-        node = root
-        while node:
-            # Value of current node or parent node.
-            parent_val = node.val
-
-            if p.val > parent_val and q.val > parent_val:
-                # If both p and q are greater than parent
-                node = node.right
-            elif p.val < parent_val and q.val < parent_val:
-                # If both p and q are lesser than parent
-                node = node.left
-            else:
-                # We have found the split point, i.e. the LCA node.
-                return node
+print(Solution().lengthOfLIS(nums=[10, 9, 2, 5, 3, 7, 101, 18]))
 ```
 
 
