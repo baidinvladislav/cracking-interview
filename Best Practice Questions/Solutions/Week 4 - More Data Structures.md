@@ -387,50 +387,102 @@ wordDictionary.search("b..")
 
 
 ## Word Search II
-Дан рут бинарного дерева, найти путь с максильной суммой значений узлов.
+Дана сетка с буквами и массив слов.
+Вернуть слова, которые есть на сетке букв.
 
-https://leetcode.com/problems/binary-tree-maximum-path-sum/
+https://leetcode.com/problems/word-search-ii/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Определить какую сумму узлов представляет из себя каждый узел по пути из него.</li>
- <li>Выбрать путь с максимальной суммой.</li>
+ <li>Заполняем префиксное дерево словами из массива.</li>
+ <li>Исследуем сетку из слов в каждом направлении.</li>
+ <li>Наполняем массив найденными словами.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [1,2,3]
-Output: 6
-Explanation: The optimal path is 2 -> 1 -> 3 with a path sum of 2 + 1 + 3 = 6.
+Input: board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], words = ["oath","pea","eat","rain"]
+Output: ["eat","oath"]
 
 Example 2:
-Input: root = [-10,9,20,null,null,15,7]
-Output: 42
-Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
+Input: board = [["a","b"],["c","d"]], words = ["abcb"]
+Output: []
 ```
 
 ```python3
-class Solution:
-    def maxPathSum(self, root):
-        def max_gain(node):
-            nonlocal max_sum
-            if not node:
-                return 0
-            # max sum on the left and right sub-trees of node
-            left_gain = max(max_gain(node.left), 0)
-            right_gain = max(max_gain(node.right), 0)
-            # the price to start a new path where `node` is a highest node
-            price_newpath = node.val + left_gain + right_gain
-            # update max_sum if it's better to start a new path
-            max_sum = max(max_sum, price_newpath)
-            # for recursion :
-            # return the max gain if continue the same path
-            return node.val + max(left_gain, right_gain)
+from typing import List
 
-        max_sum = float('-inf')
-        max_gain(root)
-        return max_sum
+
+class Solution:
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        WORD_KEY = '$'
+
+        trie = {}
+        for word in words:
+            node = trie
+            for letter in word:
+                # retrieve the next node; If not found, create a empty node.
+                node = node.setdefault(letter, {})
+            # mark the existence of a word in trie node
+            node[WORD_KEY] = word
+
+        rowNum = len(board)
+        colNum = len(board[0])
+
+        matchedWords = []
+
+        def backtracking(row, col, parent):
+
+            letter = board[row][col]
+            currNode = parent[letter]
+
+            # check if we find a match of word
+            word_match = currNode.pop(WORD_KEY, False)
+            if word_match:
+                # also we removed the matched word to avoid duplicates,
+                #   as well as avoiding using set() for results.
+                matchedWords.append(word_match)
+
+            # Before the EXPLORATION, mark the cell as visited 
+            board[row][col] = '#'
+
+            # Explore the neighbors in 4 directions, i.e. up, right, down, left
+            for (rowOffset, colOffset) in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
+                newRow, newCol = row + rowOffset, col + colOffset
+                if newRow < 0 or newRow >= rowNum or newCol < 0 or newCol >= colNum:
+                    continue
+                if not board[newRow][newCol] in currNode:
+                    continue
+                backtracking(newRow, newCol, currNode)
+
+            # End of EXPLORATION, we restore the cell
+            board[row][col] = letter
+
+            # Optimization: incrementally remove the matched leaf node in Trie.
+            if not currNode:
+                parent.pop(letter)
+
+        for row in range(rowNum):
+            for col in range(colNum):
+                # starting from each of the cells
+                if board[row][col] in trie:
+                    backtracking(row, col, trie)
+
+        return matchedWords
+
+
+board = [
+    ["o", "a", "a", "n"],
+    ["e", "t", "a", "e"],
+    ["i", "h", "k", "r"],
+    ["i", "f", "l", "v"]
+]
+
+words = ["oath", "pea", "eat", "rain"]
+
+
+print(Solution().findWords(board, words))
 ```
 
 
