@@ -511,54 +511,57 @@ print(Solution().coinChange(coins=[1, 2, 5], amount=11))
 
 
 ## Combination Sum IV
-Дан root дерева и subroot поддерева, вернуть True, если поддерево входит в дерево.
+Дан массив уникальных чисел и число-таргет.
+Вернуть кол-во комбинаций сумм для достижения таргета из чисел массива.
 
-https://leetcode.com/problems/subtree-of-another-tree/
+https://leetcode.com/problems/combination-sum-iv/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>.</li>
- <li>.</li>
+ <li>Иниц. таблицу ДП.</li>
+ <li>Заполняем кол-во комбинаций от 0 до таргета.</li>
+ <li>Вернем кол-во комбинаций от 0 для таргета.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: root = [3,4,5,1,2], subRoot = [4,1,2]
-Output: true
+Input: nums = [1,2,3], target = 4
+Output: 7
+Explanation:
+The possible combination ways are:
+(1, 1, 1, 1)
+(1, 1, 2)
+(1, 2, 1)
+(1, 3)
+(2, 1, 1)
+(2, 2)
+(3, 1)
+Note that different sequences are counted as different combinations.
 
 Example 2:
-Input: root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
-Output: false
+Input: nums = [9], target = 3
+Output: 0
 ```
 
 ```python3
+from typing import List
+
+
 class Solution:
-    def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
-        if not s:
-            return False
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        dp = [0 for _ in range(target + 1)]
+        dp[0] = 1
 
-        if self.isSameTree(s, t):
-            return True
-
-        return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
-
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        if p and q:
-            return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
-
-        return p is q
+        for comb_sum in range(target + 1):
+            for num in nums:
+                if comb_sum - num >= 0:
+                    dp[comb_sum] += dp[comb_sum - num]
+                else:
+                    break
+        return dp[target]
 
 
-root = TreeNode(3)
-root.left = TreeNode(4)
-root.right = TreeNode(5)
-root.left.left = TreeNode(1)
-root.left.right = TreeNode(2)
-
-subRoot = TreeNode(4)
-subRoot.left = TreeNode(1)
-subRoot.right = TreeNode(2)
-
-print(Solution().isSubtree(root, subRoot))
+print(Solution().combinationSum4(nums=[1, 2, 3], target=4))
 ```
