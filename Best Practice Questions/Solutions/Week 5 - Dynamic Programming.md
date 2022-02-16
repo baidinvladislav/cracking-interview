@@ -445,69 +445,68 @@ print(Solution().lengthOfLIS(nums=[10, 9, 2, 5, 3, 7, 101, 18]))
 
 
 ## Coin Change
-Реализовать класс для добавления чисел и поиска медианы добавленных чисел.
+Дан массив чисел представляющий монеты разного номинала, а также число представляющее 
+сумму денег. Вернуть кол-во монет для получения данной суммы денег из данных монет.
 
 
-https://leetcode.com/problems/find-median-from-data-stream/
+https://leetcode.com/problems/coin-change/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Иниц. таблицу ДП в которой храним кол-во монет для достижения суммы каждого индекса.</li>
+ <li>Итерируем кол-во денег до таргета включительно.</li>
+ <li>Итерируем данные нам монеты.</li>
+ <li>Проверяем, что монета меньше или равна нужному нам кол-ву денег.</li>
+ <li>Если да, то вычисляем сколько монет нужно для данной суммы.</li>
+ <li>Вернем кол-во монет для искомого кол-во денег.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input
-["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
-[[], [1], [2], [], [3], []]
-Output
-[null, null, null, 1.5, null, 2.0]
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
 
-Explanation
-MedianFinder medianFinder = new MedianFinder();
-medianFinder.addNum(1);    // arr = [1]
-medianFinder.addNum(2);    // arr = [1, 2]
-medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
-medianFinder.addNum(3);    // arr[1, 2, 3]
-medianFinder.findMedian(); // return 2.0
+Example 2:
+Input: coins = [2], amount = 3
+Output: -1
+
+Example 3:
+Input: coins = [1], amount = 0
+Output: 0
 ```
 
 ```python3
-from heapq import *
+from typing import List
 
 
-# two balanced heaps
-class MedianFinder:
-    def __init__(self):
-        self.small = []  # the smaller half of the list, max heap (invert min-heap)
-        self.large = []  # the larger half of the list, min heap
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        # Values in this array equal the number of coins needed to achieve the cost of the index
+        minCoins = [amount + 1] * (amount + 1)
+        minCoins[0] = 0
 
-    def addNum(self, num):
-        if len(self.small) == len(self.large):
-            heappush(self.large, -heappushpop(self.small, -num))
-        else:
-            heappush(self.small, -heappushpop(self.large, num))
+        # Loop through every needed amount
+        for i in range(amount + 1):
+            # Loop through every coin value
+            for coin in coins:
+                # Check that the coin is not bigger than the current amount
+                if coin <= i:
+                    # minCoins[i]: number of coins needed to make amount i
+                    # minCoins[i-coin]: number of coins needed to make the amount before adding 
+                    #                   the current coin to it (+1 to add the current coin)
+                    minCoins[i] = min(minCoins[i], minCoins[i - coin] + 1)
 
-    def findMedian(self):
-        if len(self.small) == len(self.large):
-            return float(self.large[0] - self.small[0]) / 2.0
-        else:
-            return float(self.large[0])
+        # Check if any combination of coins was found to create the amount
+        if minCoins[amount] == amount + 1:
+            return -1
+
+        # Return the optimal number of coins to create the amount
+        return minCoins[amount]
 
 
-medianFinder = MedianFinder()
-medianFinder.addNum(1)
-medianFinder.addNum(2)
-medianFinder.findMedian()
-medianFinder.addNum(3)
-medianFinder.findMedian()
-
+print(Solution().coinChange(coins=[1, 2, 5], amount=11))
 ```
 
 
