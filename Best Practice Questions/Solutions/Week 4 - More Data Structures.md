@@ -954,12 +954,10 @@ https://leetcode.com/problems/number-of-connected-components-in-an-undirected-gr
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li></li>
- <li></li>
- <li></li>
- <li></li>
- <li></li>
- <li></li>
+ <li>Создать массив размером с кол-во вершин для отслежиания посещенных вершин.</li>
+ <li>Создать список смежности для удобного хранения графа.</li>
+ <li>В цикле вызываем обход в глубину, после каждого обхода инкерментируем счетчик связных компонентов.</li>
+ <li>Вернуть счетчик.</li>
 </ol>
 </blockquote></details>
 
