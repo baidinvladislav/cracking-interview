@@ -38,3 +38,6 @@ class Solution:
             return ""
         # Otherwise, convert the ordering we found into a string and return it.
         return "".join(output)
+
+
+print(Solution().alienOrder(words=["wrt", "wrf", "er", "ett", "rftt"]))
