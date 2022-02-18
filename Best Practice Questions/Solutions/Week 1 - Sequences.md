@@ -476,24 +476,15 @@ Output: 23
 ```
 
 ```python3
-def maxProduct(nums):
-    answer = nums[0]
-    product = 0
-    for i in range(len(nums)):
-        if product == 0:
-            product = nums[i]
-        else:
-            product *= nums[i]
-        answer = max(answer, product)
+class Solution:
+    def maxSubArray(self, nums):
+        current_subarray = max_subarray = nums[0]
 
-    product = 0
-    for i in range(len(nums) - 1, -1, -1):
-        if product == 0:
-            product = nums[i]
-        else:
-            product *= nums[i]
-        answer = max(answer, product)
-    return answer
+        for i in range(1, len(nums)):
+            current_subarray = max(nums[i], current_subarray + nums[i])
+            max_subarray = max(current_subarray, max_subarray)
+
+        return max_subarray
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -504,10 +495,10 @@ import unittest
 
 class TestMaxProduct(unittest.TestCase):
     def test_first(self):
-        self.assertEqual(6, Solution().maxProduct(nums=[2, 3, -2, 4]))
+        self.assertEqual(6, Solution().maxSubArray(nums=[-2,1,-3,4,-1,2,1,-5,4]))
 
     def test_second(self):
-        self.assertEqual(0, Solution().maxProduct(nums=[-2, 0, -1]))
+        self.assertEqual(1, Solution().maxSubArray(nums=[1]))
 ```
 
 </blockquote></details>
