@@ -17,6 +17,7 @@ class Solution:
                 last_el = stack.pop()
                 if hash_map[last_el] != char:
                     return False
+
         return not stack
 
 
