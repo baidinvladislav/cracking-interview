@@ -14,7 +14,6 @@ class Solution:
                 buffer[num] = i
             else:
                 return [buffer[attempt], i]
-
         return [-1, -1]
 
 
