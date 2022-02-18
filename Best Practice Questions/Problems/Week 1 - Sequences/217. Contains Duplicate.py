@@ -5,6 +5,7 @@ from typing import List
 class Solution:
     def containsDuplicate_additional_memory(self, nums: List[int]) -> bool:
         buffer = {}
+
         for num in nums:
             if num not in buffer:
                 buffer[num] = 1
