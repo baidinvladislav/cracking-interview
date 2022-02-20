@@ -1,36 +1,32 @@
 import unittest
+from typing import List
 
 
 class Solution:
-    def threeSum(self, nums):
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
-        triplets = []
-
+        res = []
         for i in range(len(nums)):
-            if nums[i - 1] == nums[i]:
-                continue
-            self.searchPair(target=-nums[i], nums=nums, left=i + 1, triplets=triplets)
-        return triplets
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i - 1] != nums[i]:
+                self.twoSumII(nums, i, res)
+        return res
 
-    def searchPair(self, target, nums, left, triplets):
-        right = len(nums) - 1
-
+    def twoSumII(self, nums: List[int], i: int, res: List[List[int]]):
+        left, right = i + 1, len(nums) - 1
         while left < right:
-            current_sum = nums[left] + nums[right]
-            if current_sum == target:
-                triplets.append([-target, nums[left], nums[right]])
+            sum = nums[i] + nums[left] + nums[right]
+            if sum < 0:
+                left += 1
+            elif sum > 0:
+                right -= 1
+            else:
+                res.append([nums[i], nums[left], nums[right]])
                 left += 1
                 right -= 1
-
                 while left < right and nums[left] == nums[left - 1]:
                     left += 1
-                while left < right and nums[right] == nums[right + 1]:
-                    right -= 1
-
-            elif current_sum > target:
-                right -= 1
-            elif current_sum < target:
-                left += 1
 
 
 class TestProductArrayExceptSelf(unittest.TestCase):

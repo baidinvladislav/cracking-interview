@@ -512,12 +512,14 @@ https://leetcode.com/problems/3sum/
 <details><summary>Решение:</summary><blockquote>
 <ol>
  <li>Сортируем входной массив.</li>
- <li>Проходим циклом по массиву, пропуская дубликаты.</li>
- <li>Необходимо для каждого числа на итерации цикла найти два таких числа сумма которых будет равна отрицательному числу на итерации, для этого используем метод двух указателей.</li>
- <li>Если два числа дают в суммме отрицательное число, то добавить 3 числа (число итерации и два числа под указателями) в ответ.</li>
- <li>Если сумма меньше, то сдвинуть левый указатель к концу.</li>
- <li>Если сумма больше, то сдвинуть правый указатель к началу.</li>
- <li>Вернуть массив троек.</li>
+ <li>Инициализируем пустой массив для сбора "троек".</li> 
+ <li>Итерируем входной уже отсортированный массив.</li>
+ <li>Если элемент из массива на итерации больше 0, то выходим из цикла, потому что нам нужны только отрицательные числа, которые находятся в левой части массива.</li>
+ <li>Если это первая итерация или если это не дубликат, то вызываем ф-ию поиска пар.</li>
+ <li>Левый указатель i + 1, правый длина входного массива - 1, считаем сумму трех чисел, если она равна 0, то добавляем в массив "троек" после чего пропускаем дубликаты левым указателем.</li>
+ <li>Если текущая сумма меньше чем 0, то сдвигаем левый указатель к концу на один шаг.</li>
+ <li>Если текущая сумма больше чем 0, то сдвигаем правый указатель к началу на один шаг.</li>
+ <li>Вернуть заполненый массив "троек".</li>
 </ol>
 </blockquote></details>
 
@@ -538,38 +540,34 @@ Output: []
 
 
 ```python3
+from typing import List
+
+
 class Solution:
-    def threeSum(self, nums):
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
-        triplets = []
-
+        res = []
         for i in range(len(nums)):
-            if nums[i - 1] == nums[i]:
-                continue
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i - 1] != nums[i]:
+                self.twoSumII(nums, i, res)
+        return res
 
-            self.search_pair(nums, triplets, left=i + 1, target_sum=-nums[i])
-        return triplets
-
-    def search_pair(self, arr, triplets, left, target_sum):
-        right = len(arr) - 1
+    def twoSumII(self, nums: List[int], i: int, res: List[List[int]]):
+        left, right = i + 1, len(nums) - 1
         while left < right:
-            current_sum = arr[left] + arr[right]
-            if current_sum == target_sum:
-                triplets.append([-target_sum, arr[left], arr[right]])
+            sum = nums[i] + nums[left] + nums[right]
+            if sum < 0:
+                left += 1
+            elif sum > 0:
+                right -= 1
+            else:
+                res.append([nums[i], nums[left], nums[right]])
                 left += 1
                 right -= 1
-
-                # skip duplicates
-                while left < right and arr[left] == arr[left - 1]:
+                while left < right and nums[left] == nums[left - 1]:
                     left += 1
-                while left < right and arr[right] == arr[right + 1]:
-                    right -= 1
-
-            elif current_sum < target_sum:
-                left += 1
-
-            elif current_sum > target_sum:
-                right -= 1
 ```
 
 <details><summary>Test cases</summary><blockquote>
