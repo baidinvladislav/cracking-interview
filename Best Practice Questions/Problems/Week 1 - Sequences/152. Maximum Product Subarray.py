@@ -25,7 +25,7 @@ class Solution:
 
 class TestMaxProduct(unittest.TestCase):
     def test_first(self):
-        self.assertEqual(6, Solution().maxProduct(nums=[2, 3, -2, 4]))
+        self.assertEqual(6, Solution().maxProduct(nums=[2, -5, 3, 1, -4, 0, -10, 2, 8]))
 
     def test_second(self):
         self.assertEqual(0, Solution().maxProduct(nums=[-2, 0, -1]))

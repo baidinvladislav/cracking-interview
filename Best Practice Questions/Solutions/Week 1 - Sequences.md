@@ -732,36 +732,44 @@ https://leetcode.com/problems/maximum-product-subarray/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Инициализируем текущий массив и максимальный массив первым элементом в массиве</li>
- <li>Идем циклом по массиву со второго элемента и обновляем текущий массив либо числом итерации либо число итерации + текущий массив</li>
- <li>Обновляем максимальный массив либо максимальным массивом либо текущим массивом</li>
+ <li>Переменная max_so_far нужна для хранения максимальной суммы позитивных чисел.</li>
+ <li>Переменная min_so_far нужна для хранения максимальной суммы негативных чисел.</li>
+ <li>Вернем максимальный результат.</li>
 </ol>
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Input: nums = [2,3,-2,4]
 Output: 6
-Explanation: [4,-1,2,1] has the largest sum = 6.
+Explanation: [2,3] has the largest product 6.
 
 Example 2:
-Input: nums = [1]
-Output: 1
-
-Example 3:
-Input: nums = [5,4,-1,7,8]
-Output: 23
+Input: nums = [-2,0,-1]
+Output: 0
+Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 ```
 
 ```python3
-def maxSubArray(nums):
-    current_subarray = max_subarray = nums[0]
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        if len(nums) == 0:
+            return 0
 
-    for i in range(1, len(nums)):
-        current_subarray = max(nums[i], current_subarray + nums[i])
-        max_subarray = max(current_subarray, max_subarray)
+        max_so_far = nums[0]
+        min_so_far = nums[0]
+        result = max_so_far
 
-    return max_subarray
+        for i in range(1, len(nums)):
+            curr = nums[i]
+            temp_max = max(curr, max_so_far * curr, min_so_far * curr)
+            min_so_far = min(curr, max_so_far * curr, min_so_far * curr)
+
+            max_so_far = temp_max
+
+            result = max(max_so_far, result)
+
+        return result
 ```
 
 <details><summary>Test cases</summary><blockquote>
@@ -772,13 +780,13 @@ import unittest
 
 class TestMaxProduct(unittest.TestCase):
     def test_first(self):
-        self.assertEqual(6, Solution().maxSubArray(nums=[-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+        self.assertEqual(6, Solution().maxProduct(nums=[-2, 1, -3, 4, -1, 2, 1, -5, 4]))
 
     def test_second(self):
-        self.assertEqual(1, Solution().maxSubArray(nums=[1]))
+        self.assertEqual(1, Solution().maxProduct(nums=[1]))
 
     def test_third(self):
-        self.assertEqual(23, Solution().maxSubArray(nums=[5, 4, -1, 7, 8]))
+        self.assertEqual(23, Solution().maxProduct(nums=[5, 4, -1, 7, 8]))
 ```
 </blockquote></details>
 
