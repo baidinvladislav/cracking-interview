@@ -28,22 +28,21 @@ class BrutForceSolution:
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         ascii_array = [0] * 128
-        left = right = 0
-
+        window_start = window_end = 0
         result = 0
-        while right < len(s):
-            last_character = s[right]
-            index = ord(last_character)
-            ascii_array[index] += 1
+        while window_end < len(s):
+            last_symbol = s[window_end]
+            symbol_unicode = ord(last_symbol)
+            ascii_array[symbol_unicode] += 1
 
-            while ascii_array[ord(last_character)] > 1:
-                first_character = s[left]
-                index = ord(first_character)
-                ascii_array[index] -= 1
-                left += 1
+            while ascii_array[ord(last_symbol)] > 1:
+                first_symbol = s[window_start]
+                symbol_unicode = ord(first_symbol)
+                ascii_array[symbol_unicode] -= 1
+                window_start += 1
 
-            result = max(result, right - left + 1)
-            right += 1
+            result = max(result, window_end - window_start + 1)
+            window_end += 1
         return result
 
 
