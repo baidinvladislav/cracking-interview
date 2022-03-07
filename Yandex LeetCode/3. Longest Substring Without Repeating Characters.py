@@ -33,12 +33,14 @@ class Solution:
 
         result = 0
         while right < len(s):
-            r = s[right]
-            chars[ord(r)] += 1
+            last_character = s[right]
+            index = ord(last_character)
+            chars[index] += 1
 
-            while chars[ord(r)] > 1:
-                l = s[left]
-                chars[ord(l)] -= 1
+            while chars[ord(last_character)] > 1:
+                first_character = s[left]
+                index = ord(first_character)
+                chars[index] -= 1
                 left += 1
 
             result = max(result, right - left + 1)
