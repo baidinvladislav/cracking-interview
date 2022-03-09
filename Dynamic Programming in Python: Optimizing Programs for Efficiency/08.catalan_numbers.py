@@ -23,6 +23,7 @@ def catalan_memo(n, memo):
     return memo[n]
 
 
+# additional
 def catalan_memo_helper(n):
     memo = {}
     return catalan_memo(n, memo)
