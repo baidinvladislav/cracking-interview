@@ -3,6 +3,21 @@ class Solution:
     # Time Complexity: O(T)
     # Space Complexity: O(T)
     def isSubsequence(self, s: str, t: str) -> bool:
+        if not s:
+            return True
+        if not t:
+            return False
+
+        if s[0] == t[0]:
+            s = s[1:]
+        t = t[1:]
+
+        return self.isSubsequence(s, t)
+
+    # Approach 2: Two-Pointers
+    # Time Complexity: O(T)
+    # Space Complexity: O(1)
+    def isSubsequence(self, s: str, t: str) -> bool:
         left = 0
         right = 0
         while True:
