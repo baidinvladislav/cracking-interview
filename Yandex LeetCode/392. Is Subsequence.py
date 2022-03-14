@@ -11,7 +11,6 @@ class Solution:
         if s[0] == t[0]:
             s = s[1:]
         t = t[1:]
-
         return self.isSubsequence(s, t)
 
     # Approach 2: Two-Pointers
