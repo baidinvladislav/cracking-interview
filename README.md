@@ -1,7 +1,5 @@
 Created on August 24.08.21.
 
-Repository keeps my resolved coding problems.
-
 * "Algorithms" contains popular algorithms to work with data structures.
 * "Best Practice Questions" the best questions from real tech interviews from article by https://techinterviewhandbook.org/best-practice-questions/.
 * "Cracking Coding Interview Book Problems" contains my resolved problems from book for preparation to coding interview authored by Gayle Laakmann McDowell.
