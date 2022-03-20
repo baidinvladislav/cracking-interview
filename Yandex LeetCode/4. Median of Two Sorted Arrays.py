@@ -40,8 +40,9 @@ class Solution:
             )
         # even
         else:
-            return (self.find(nums1, 0, last_idx1, nums2, 0, last_idx2, length // 2) +
-                    self.find(nums1, 0, last_idx1, nums2, 0, last_idx2, length // 2 - 1)) / 2.0
+            a = self.find(nums1, 0, last_idx1, nums2, 0, last_idx2, length // 2)
+            b = self.find(nums1, 0, last_idx1, nums2, 0, last_idx2, length // 2 - 1)
+            return a + b / 2.0
 
 
 print(Solution().findMedianSortedArrays(nums1=[1, 2], nums2=[3, 4]))
