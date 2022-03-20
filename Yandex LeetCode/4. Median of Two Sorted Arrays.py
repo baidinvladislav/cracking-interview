@@ -13,14 +13,22 @@ class Solution:
         ma, mb = array1[ia], array2[ib]
         if (ia - first_idx1) + (ib - first_idx2) < length_half:
             if ma > mb:
-                return self.find(array1, first_idx1, last_idx1, array2, ib + 1, last_idx2, length_half - (ib - first_idx2) - 1)
+                return self.find(
+                    array1, first_idx1, last_idx1, array2, ib + 1, last_idx2, length_half - (ib - first_idx2) - 1
+                )
             else:
-                return self.find(array1, ia + 1, last_idx1, array2, first_idx2, last_idx2, length_half - (ia - first_idx1) - 1)
+                return self.find(
+                    array1, ia + 1, last_idx1, array2, first_idx2, last_idx2, length_half - (ia - first_idx1) - 1
+                )
         else:
             if ma > mb:
-                return self.find(array1, first_idx1, ia - 1, array2, first_idx2, last_idx2, length_half)
+                return self.find(
+                    array1, first_idx1, ia - 1, array2, first_idx2, last_idx2, length_half
+                )
             else:
-                return self.find(array1, first_idx1, last_idx1, array2, first_idx2, ib - 1, length_half)
+                return self.find(
+                    array1, first_idx1, last_idx1, array2, first_idx2, ib - 1, length_half
+                )
 
     def findMedianSortedArrays(self, nums1, nums2):
         length = len(nums1) + len(nums2)
