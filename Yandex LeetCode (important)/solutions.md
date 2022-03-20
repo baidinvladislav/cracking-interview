@@ -25,7 +25,7 @@
 + [716. Max Stack](#max-stack)
 + [849. Maximize Distance to Closest Person](#maximize-distance-to-closest-person)
 + [1450. Number of Students Doing Homework at a Given Time](#number-of-students-doing-homework-at-a-given-time)
-+ [1493. Longest Subarray of 1's After Deleting One Element](#longest-subarray-of-1's-after-deleting-one-element)
++ [1493. Longest Subarray of 1 After Deleting One Element](#longest-subarray-of-1-after-deleting-one-element)
 
 
 ## Longest Substring Without Repeating Characters
