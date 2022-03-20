@@ -10,7 +10,7 @@
 + [125. Valid Palindrome](#valid-palindrome)
 + [146. LRU Cache](#lru-cache)
 + [159. Longest Substring with At Most Two Distinct Characters](#longest-substring-with-at-most-two-distinct-characters)
-+ [167. Two Sum II - Input Array Is Sorted](#two-sum-ii-input-array-is-sorted)
++ [167. Two Sum II Input Array Is Sorted](#two-sum-ii-input-array-is-sorted)
 + [200. Number of Islands](#number-of-islands)
 + [206. Reverse Linked List](#reverse-linked-list)
 + [228. Summary Ranges](#summary-ranges)
@@ -50,7 +50,7 @@
 
 ## Longest Substring with At Most Two Distinct Characters
 
-## Two Sum II - Input Array Is Sorted
+## Two Sum II Input Array Is Sorted
 
 ## Number of Islands
 
