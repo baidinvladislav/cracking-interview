@@ -78,6 +78,6 @@
 
 ## Maximize Distance to Closest Person
 
-##  Number of Students Doing Homework at a Given Time
+## Number of Students Doing Homework at a Given Time
 
-##  Longest Subarray of 1's After Deleting One Element
+## Longest Subarray of 1's After Deleting One Element
