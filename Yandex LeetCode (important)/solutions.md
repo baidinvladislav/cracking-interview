@@ -18,7 +18,7 @@
 + [283. Move Zeroes](#move-zeroes)
 + [356. Line Reflection](#line-reflection)
 + [362. Design Hit Counter](#design-hit-counter)
-+ [380. Insert Delete GetRandom O(1)](#insert-delete-getrandom-O(1))
++ [380. Insert Delete Getrandom](#insert-delete-getrandom)
 + [392. Is Subsequence](#is-subsequence)
 + [443. String Compression](#string-compression)
 + [567. Permutation in String](#permutation-in-string)
@@ -66,7 +66,7 @@
 
 ## Design Hit Counter
 
-## Insert Delete GetRandom O(1)
+## Insert Delete Getrandom
 
 ## Is Subsequence
 
