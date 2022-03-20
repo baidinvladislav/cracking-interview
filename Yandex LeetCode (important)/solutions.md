@@ -1,5 +1,5 @@
 # LeetCode Yandex Track
-+ [3. Longest Substring Without Repeating Characters](#3.-longest-substring-without-repeating-characters)
++ [3. Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
 + [4. Median of Two Sorted Arrays](#contains-duplicate)
 + [20. Valid Parentheses](#best-time-to-buy-and-sell-stock)
 + [21. Merge Two Sorted Lists](#valid-anagram)
@@ -28,4 +28,4 @@
 + [1493. Longest Subarray of 1's After Deleting One Element](#earch-in-rotated-sorted-array)
 
 
-## 3. Longest Substring Without Repeating Characters
+## Longest Substring Without Repeating Characters
