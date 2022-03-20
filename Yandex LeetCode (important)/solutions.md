@@ -1,10 +1,10 @@
 # LeetCode Yandex Track
 + [3. Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
-+ [4. Median of Two Sorted Arrays](#contains-duplicate)
-+ [20. Valid Parentheses](#best-time-to-buy-and-sell-stock)
-+ [21. Merge Two Sorted Lists](#valid-anagram)
-+ [23. Merge k Sorted Lists](#valid-parentheses)
-+ [49. Group Anagrams](#product-of-array-except-self)
++ [4. Median of Two Sorted Arrays](#median-of-two-sorted-arrays)
++ [20. Valid Parentheses](#valid-parentheses)
++ [21. Merge Two Sorted Lists](#merge-two-sorte-lists)
++ [23. Merge k Sorted Lists](#merge-k-sorted-lists)
++ [49. Group Anagrams](#group-anagrams)
 + [56. Merge Intervals](#maximum-subarray)
 + [98. Validate Binary Search Tree](#3sum)
 + [125. Valid Palindrome](#merge-intervals)
@@ -29,3 +29,13 @@
 
 
 ## Longest Substring Without Repeating Characters
+
+## Median of Two Sorted Arrays
+
+## Valid Parentheses
+
+## Merge Two Sorted Lists
+
+## Merge k Sorted Lists
+
+## Group Anagrams
