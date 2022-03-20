@@ -2,7 +2,7 @@
 + [3. Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
 + [4. Median of Two Sorted Arrays](#median-of-two-sorted-arrays)
 + [20. Valid Parentheses](#valid-parentheses)
-+ [21. Merge Two Sorted Lists](#merge-two-sorte-lists)
++ [21. Merge Two Sorted Lists](#merge-two-sorted-lists)
 + [23. Merge k Sorted Lists](#merge-k-sorted-lists)
 + [49. Group Anagrams](#group-anagrams)
 + [56. Merge Intervals](#maximum-subarray)
