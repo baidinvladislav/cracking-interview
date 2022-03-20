@@ -80,4 +80,4 @@
 
 ## Number of Students Doing Homework at a Given Time
 
-## Longest Subarray of 1's After Deleting One Element
+## Longest Subarray of 1 After Deleting One Element
