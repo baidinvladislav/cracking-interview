@@ -33,15 +33,39 @@ class Solution:
                 array1=nums1,
                 first_idx1=0,
                 last_idx1=last_idx1,
+
                 array2=nums2,
                 first_idx2=0,
                 last_idx2=last_idx2,
+
                 length_half=length // 2
             )
         # even
         else:
-            a = self.find(nums1, 0, last_idx1, nums2, 0, last_idx2, length // 2)
-            b = self.find(nums1, 0, last_idx1, nums2, 0, last_idx2, length // 2 - 1)
+            a = self.find(
+                array1=nums1,
+                first_idx1=0,
+                last_idx1=last_idx1,
+
+                array2=nums2,
+                first_idx2=0,
+                last_idx2=last_idx2,
+
+                length_half=length // 2
+            )
+
+            b = self.find(
+                array1=nums1,
+                first_idx1=0,
+                last_idx1=last_idx1,
+
+                array2=nums2,
+                first_idx2=0,
+                last_idx2=last_idx2,
+
+                length_half=length // 2 - 1
+            )
+
             return a + b / 2.0
 
 
