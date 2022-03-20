@@ -29,3 +29,11 @@ class Solution:
 
             elif bleftmax > arightmin:
                 start = a_part + 1
+
+
+def main():
+    print(Solution().findMedianSortedArrays(nums1=[1, 3], nums2=[2]))
+    print(Solution().findMedianSortedArrays(nums1=[1, 2], nums2=[3, 4]))
+
+
+main()
