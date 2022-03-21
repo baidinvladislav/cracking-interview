@@ -9,17 +9,17 @@ class Solution:
         while end < len(nums):
             # increase end pointer because two neighboring integers are extends range
             while end + 1 < len(nums) and nums[end] + 1 == nums[end + 1]:
-                end = end + 1
+                end += 1
 
             # if pointers stand not the same integer
             if nums[start] != nums[end]:
-                result.append(f"{str(nums[start])}->{str(nums[end])}")
+                result.append(f'{nums[start]}->{nums[end]}')
             # if pointers stand the same integer
             else:
-                result.append(str(nums[start]))
+                result.append(f'{nums[start]}')
 
             # slide end pointer
-            end = end + 1
+            end += 1
             # set pointers to the same integer
             start = end
         return result
