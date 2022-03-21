@@ -3,23 +3,31 @@ from typing import List
 
 class Solution:
     def summaryRanges(self, nums: List[int]) -> List[str]:
-        start, end = 0, 0
         result = []
-        while start < len(nums) and end < len(nums):
-            if end + 1 < len(nums) and nums[end] + 1 == nums[end + 1]:
+        start = end = 0
+
+        while end < len(nums):
+            # increase end pointer because two neighboring integers are extends range
+            while end + 1 < len(nums) and nums[end] + 1 == nums[end + 1]:
                 end = end + 1
 
+            # if pointers stand not the same integer
+            if nums[start] != nums[end]:
+                result.append(f"{str(nums[start])}->{str(nums[end])}")
+            # if pointers stand the same integer
             else:
-                if start == end:
-                    result.append(str(nums[start]))
-                    start = start + 1
-                    end = end + 1
-                else:
-                    result.append(str(nums[start]) + '->' + str(nums[end]))
-                    start = end + 1
-                    end = end + 1
+                result.append(str(nums[start]))
 
+            # slide end pointer
+            end = end + 1
+            # set pointers to the same integer
+            start = end
         return result
 
 
-print(Solution().summaryRanges(nums=[0, 1, 2, 4, 5, 7]))
+def main():
+    print(Solution().summaryRanges(nums=[0, 1, 2, 4, 5, 7]))
+    print(Solution().summaryRanges(nums=[0, 2, 3, 4, 6, 8, 9]))
+
+
+main()
