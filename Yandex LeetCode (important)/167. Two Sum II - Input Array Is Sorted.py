@@ -14,6 +14,8 @@ from typing import List
 
 
 class Solution:
+    # Time complexity : O(n)
+    # Space complexity : O(1)
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         """
         Two pointer approach.
