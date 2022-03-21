@@ -71,6 +71,8 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
 ```python
 class Solution:
+    # Time complexity : O(n log n)
+    # Space complexity : O(n log n)
     def merge(self, intervals):
         if len(intervals) < 2:
             return intervals

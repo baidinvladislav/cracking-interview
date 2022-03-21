@@ -1,4 +1,6 @@
 class Solution:
+    # Time complexity : O(n log n)
+    # Space complexity : O(n log n)
     def merge(self, intervals):
         if len(intervals) < 2:
             return intervals
