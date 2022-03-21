@@ -41,70 +41,53 @@
 ## Group Anagrams
 
 ## Merge Intervals
-Дан неотсортированный массив чисел, вернуть индексы двух чисел сумма которых равна таргету.
+Дан массив интервалов, смержить пересекающиеся интервалы.
 
-https://leetcode.com/problems/two-sum/
+https://leetcode.com/problems/merge-intervals/
 
 <details><summary>Решение:</summary><blockquote>
-
 <ol>
- <li>Идем по циклу, трекая порядковый номер итерации.</li>
- <li>Вычисляем попытку (target - nums[i]).</li>
- <li>Если попытки нет в словаре, то добавляем в словарь число текущей итерации.</li>
- <li>Если попытка в словаре, то вернуть индекс попытки из словаря (buffer[num]) и порядковый номер итерации цикла.</li>
+ <li>Отсортировать интервалы по их началу.</li>
+ <li>Берем за точку отсчета первый интервал из массива.</li>
+ <li>Цикл по массиву со второго элемента.</li>
+ <li>Если конец предыдущего интервала больше или равен чем начало последующего, то интервалы пересекаются, берем за конец интервала больший конец двух интервалов.</li>
+ <li>В случае, если интервалы не пересекаются, то добавляем интервал в результирующий массив и обновляем начало и конец интервала значениями данного интервала.</li>
+ <li>После цикла нужно будет добавить последний интервал в результирующий массив.</li>
+ <li>Вернуть результирующий массив.</li>
 </ol>
-
 </blockquote></details>
 
 ```
 Example 1:
-Input: nums = [2,7,11,15], target = 9
-Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
 
 Example 2:
-Input: nums = [3,2,4], target = 6
-Output: [1,2]
-
-Example 3:
-Input: nums = [3,3], target = 6
-Output: [0,1]
+Input: intervals = [[1,4],[4,5]]
+Output: [[1,5]]
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 ```
 
 ```python
-from typing import List
-
-
 class Solution:
-    # one pass
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        if not nums:
-            return [-1, -1]
+    def merge(self, intervals):
+        if len(intervals) < 2:
+            return intervals
 
-        buffer = {}
-        for i, num in enumerate(nums):
-            attempt = target - num
-            if attempt not in buffer:
-                buffer[num] = i
+        merged_intervals = []
+        intervals.sort(key=lambda x: x[0])
+
+        start, end = intervals[0][0], intervals[0][1]
+        for i in range(1, len(intervals)):
+            if intervals[i][0] <= end:
+                end = max(end, intervals[i][1])
             else:
-                return [buffer[attempt], i]
-
-        return [-1, -1]
-    
-    # two passes
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        if not nums:
-            return [-1, -1]
-        
-        buffer = {}
-        for i in range(len(nums)):
-            buffer[nums[i]] = i
-            
-        for i in range(len(nums)):
-            attempt = target - nums[i]
-            if attempt in buffer and buffer[attempt] != i:
-                return [i, buffer[attempt]]
-        return [-1, -1]
+                merged_intervals.append([start, end])
+                start = intervals[i][0]
+                end = intervals[i][1]
+        merged_intervals.append([start, end])
+        return merged_intervals
 ```
 
 
