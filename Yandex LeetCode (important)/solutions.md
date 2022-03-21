@@ -72,8 +72,8 @@ from typing import List
 
 
 class Solution:
-    # Time complexity : O(n log n)
-    # Space complexity : O(n log n)
+    # Time complexity: O(n log n)
+    # Space complexity: O(n log n)
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         intervals.sort(key=lambda x: x[0])
 
@@ -133,8 +133,8 @@ from typing import List
 
 
 class Solution:
-    # Time complexity : O(n)
-    # Space complexity : O(1)
+    # Time complexity: O(n)
+    # Space complexity: O(1)
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         left, right = 0, len(numbers) - 1
         while left < right:
@@ -195,6 +195,8 @@ from typing import List
 
 
 class Solution:
+    # Time complexity: O(n)
+    # Space complexity: O(n)
     def summaryRanges(self, nums: List[int]) -> List[str]:
         result = []
         start = end = 0

@@ -2,6 +2,8 @@ from typing import List
 
 
 class Solution:
+    # Time complexity: O(n)
+    # Space complexity: O(n)
     def summaryRanges(self, nums: List[int]) -> List[str]:
         result = []
         start = end = 0
