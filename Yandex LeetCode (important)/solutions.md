@@ -238,69 +238,69 @@ class Solution:
 
 
 ## Move Zeroes
-Дан отсортированный массив уникальных чисел. 
-Свернуть в диапозоны последовательные числа.
+Дан массив nums, переместите все 0 в его конец, сохраняя порядок ненулевых элементов.
+Обратите внимание, что вы должны сделать это на месте, не создавая копию массива.
 
-https://leetcode.com/problems/summary-ranges/
+https://leetcode.com/problems/move-zeroes/
 
-<details><summary>Решение:</summary><blockquote>
+<details><summary>Решение 1:</summary><blockquote>
 <ol>
- <li>Используем два указателя 'start' и 'end'. При инициализации указатели установлены в начало входного массива.</li>
- <li>До тех пор пока два соседних числа в массиве имеют между собой разницу ровно в 1, сдвигаем указатель 'end' вправо на один элемент.</li>
- <li>Если указатели стоят на разных числах (сдвигался указатель 'end'), то добавляем в результирующий массив диапозон чисел от 'start' до 'end'.</li>
- <li>В другом случае добавляем в результирующий массив только начало диапозона.</li>
- <li>В конце каждой итерации сдвигаем указатель 'end' на один элемент и ставим 'start' на это же число.</li>
- <li>Возвращаем результирующий массив.</li>
+ <li>Инициализируем переменную для "хранения индекса последнего не нулевого элемента".</li>
+ <li>Итерируем массив, если элемент на итерации не 0, то перезаписываем число под индексом последнего не нулевого элемента элементом на текущей итерации, а также инкрементируем переменную для хранения такого индекса.</li>
+ <li>Вторым проходом вставляем 0 на индексы которые находятся между индексом последнего не нулевого элемента и конечным индексом массива включительно.</li>
 </ol>
 </blockquote></details>
 
+
+<details><summary>Решение 2:</summary><blockquote>
+<ol>
+ <li>Инициализируем медленный и быстрый указатель начальным элементом массива.</li>
+ <li>Медленный указатель остается вначале, быстрый итерирует массив.</li>
+ <li>Если на итерации число не равно 0, то свапаем числа под медленным и быстрым указателями, а также инкрементируем медленный указатель.</li>
+</ol>
+</blockquote></details>
+
+
 ```
 Example 1:
-Input: nums = [0,1,2,4,5,7]
-Output: ["0->2","4->5","7"]
-Explanation: The ranges are:
-[0,2] --> "0->2"
-[4,5] --> "4->5"
-[7,7] --> "7"
+Input: nums = [0,1,0,3,12]
+Output: [1,3,12,0,0]
 
 Example 2:
-Input: nums = [0,2,3,4,6,8,9]
-Output: ["0","2->4","6","8->9"]
-Explanation: The ranges are:
-[0,0] --> "0"
-[2,4] --> "2->4"
-[6,6] --> "6"
-[8,9] --> "8->9"
+Input: nums = [0]
+Output: [0]
 ```
 
 ```python
-from typing import List
-
-
 class Solution:
-    # Time complexity: O(n)
-    # Space complexity: O(n)
-    def summaryRanges(self, nums: List[int]) -> List[str]:
-        result = []
-        start = end = 0
+    # Approach #2 (Space Optimal, Operation Sub-Optimal)
+    # Space Complexity: O(1)
+    # Time Complexity: O(n)
+    def moveZeroes(self, nums):
+        lastNonZeroFoundAt = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[lastNonZeroFoundAt] = nums[i]
+                lastNonZeroFoundAt += 1
 
-        while end < len(nums):
-            # increase end pointer because two neighboring integers are extends range
-            while end + 1 < len(nums) and nums[end] + 1 == nums[end + 1]:
-                end = end + 1
+        for i in range(lastNonZeroFoundAt, len(nums)):
+            nums[i] = 0
 
-            # if pointers stand not the same integer
-            if nums[start] != nums[end]:
-                result.append(f"{str(nums[start])}->{str(nums[end])}")
-            # if pointers stand the same integer
-            else:
-                result.append(str(nums[start]))
+    # Approach #3 (Optimal)
+    # Space Complexity: O(1)
+    # Time Complexity: O(n)
+    def moveZeroes(self, nums):
+        """
+        1. if the number is 0 then we only increment the pointer named "second".
+        2. if the number is not 0 we swap the number of pointers.
+        3. then we increment both pointers.
+        """
+        first = 0
+        for second in range(len(nums)):
+            if nums[second] != 0:
+                nums[first], nums[second] = nums[second], nums[first]
+                first += 1
 
-            # slide end pointer
-            end = end + 1
-            # set pointers to the same integer
-            start = end
-        return result
 ```
 
 
