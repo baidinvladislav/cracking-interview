@@ -173,23 +173,49 @@ https://leetcode.com/problems/valid-parentheses/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Создаем хеш-таблицу в которой под каждой открывающей скобкой храним закрывающую скобку такого же типа.</li>
+ <li>Инициализируем пустой стек.</li>
+ <li>Итерируем строку.</li>
+ <li>Если символ на итерации есть в как ключ в хеш-таблице, значит это открытвающая скобка, добавляем ее на верх стека.</li>
+ <li>Если нет символа в хеш-таблице, то проверяем пуст ли стек, если он пуст на этом этапе, то строка не валидна.</li>
+ <li>Если последний элемент стека не хранит значение текущего символа в хеш-таблице, то строка не валидна.</li>
+ <li>Вернуть булево значение, пустой ли стек.</li>
 </ol>
-</blockquote></details>
 
 ```
 Example 1:
-
+Input: s = "()"
+Output: true
 
 Example 2:
+Input: s = "()[]{}"
+Output: true
 
+Example 3:
+Input: s = "(]"
+Output: false
 ```
 
 ```python
+from collections import deque
+
+
+class Solution:
+    def isValid(self, s):
+        d = {'(': ')', '{': '}', '[': ']'}
+        stack = deque()
+
+        for char in s:
+            if char in d:
+                stack.append(char)
+            else:
+                if not stack:
+                    return False
+
+                if d[stack.pop()] != char:
+                    return False
+
+        return not stack
 
 ```
 
