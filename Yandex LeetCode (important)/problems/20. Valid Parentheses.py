@@ -1,4 +1,6 @@
 class Solution:
+    # time complexity : O(n)
+    # space complexity : O(n)
     def isValid(self, s):
         hash_map = {")": "(", "}": "{", "]": "["}
         # stack to keep track of opening brackets
@@ -21,3 +23,12 @@ class Solution:
         # in the end, if the stack is empty, then we have a valid expression
         # the stack won't be empty for cases like ((()
         return not stack
+
+
+def main():
+    print(Solution().isValid(s="()"))
+    print(Solution().isValid(s="()[]{}"))
+    print(Solution().isValid(s="(]"))
+
+
+main()
