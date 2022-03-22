@@ -55,6 +55,17 @@ https://leetcode.com/problems/longest-substring-without-repeating-characters/
 </blockquote></details>
 
 
+<details><summary>"Optimiezed Sliding Window" решение:</summary><blockquote>
+<ol>
+ <li>Иниц. словарь и резул. переменную и границы окна.</li>
+ <li>Если символ под индексом конца окна в словаре, то обновляем индекс начала окна бОльшим значением из индекса символа в словаре или индексом начала окна.</li>
+ <li>Обновляем резул. переменную, если длина окна увеличилась.</li>
+ <li>Инкрементируем индекс символа под указателем конца окна.</li>
+ <li>Возвращаем результирующую переменную.</li>
+</ol>
+</blockquote></details>
+
+
 ```
 Example 1:
 Input: s = "abcabcbb"
@@ -122,6 +133,27 @@ class Solution:
 
             result = max(result, window_end - window_start + 1)
             window_end += 1
+        return result
+
+
+
+# Time complexity: O(n). Index j will iterate n times.
+# Space complexity: O(m). m is the size of the charset.
+class OptimizedWindowSlidingSolution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        n = len(s)
+        result = 0
+        hash_map = {}
+
+        window_start = 0
+        for window_end in range(n):
+            cur_char = s[window_end]
+            if cur_char in hash_map:
+                window_start = max(hash_map[cur_char], window_start)
+
+            result = max(result, window_end - window_start + 1)
+            hash_map[cur_char] = window_end + 1
+
         return result
 
 ```

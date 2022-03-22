@@ -28,7 +28,7 @@ class BrutForceSolution:
 
 # Time: O(2n) = O(n)
 # Space: O(min(n,m))
-class Solution:
+class WindowSlidingSolution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         ascii_array = [0] * 128
         window_start = window_end = 0
@@ -51,18 +51,41 @@ class Solution:
         return result
 
 
+# Time complexity: O(n). Index j will iterate n times.
+# Space complexity: O(m). m is the size of the charset.
+class OptimizedWindowSlidingSolution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        n = len(s)
+        result = 0
+        hash_map = {}
+
+        window_start = 0
+        for window_end in range(n):
+            cur_char = s[window_end]
+            if cur_char in hash_map:
+                window_start = max(hash_map[cur_char], window_start)
+
+            result = max(result, window_end - window_start + 1)
+            hash_map[cur_char] = window_end + 1
+
+        return result
+
+
 class TestProductArrayExceptSelf(unittest.TestCase):
     def test_first(self):
-        self.assertEqual(3, Solution().lengthOfLongestSubstring(s="abcabcbb"))
         self.assertEqual(3, BrutForceSolution().lengthOfLongestSubstring(s="abcabcbb"))
+        self.assertEqual(3, WindowSlidingSolution().lengthOfLongestSubstring(s="abcabcbb"))
+        self.assertEqual(3, OptimizedWindowSlidingSolution().lengthOfLongestSubstring(s="abcabcbb"))
 
     def test_second(self):
-        self.assertEqual(1, Solution().lengthOfLongestSubstring(s="bbbbb"))
         self.assertEqual(1, BrutForceSolution().lengthOfLongestSubstring(s="bbbbb"))
+        self.assertEqual(1, WindowSlidingSolution().lengthOfLongestSubstring(s="bbbbb"))
+        self.assertEqual(1, OptimizedWindowSlidingSolution().lengthOfLongestSubstring(s="bbbbb"))
 
     def test_third(self):
-        self.assertEqual(3, Solution().lengthOfLongestSubstring(s="pwwkew"))
         self.assertEqual(3, BrutForceSolution().lengthOfLongestSubstring(s="pwwkew"))
+        self.assertEqual(3, WindowSlidingSolution().lengthOfLongestSubstring(s="pwwkew"))
+        self.assertEqual(3, OptimizedWindowSlidingSolution().lengthOfLongestSubstring(s="pwwkew"))
 
 
 if __name__ == "__main__":
