@@ -30,15 +30,21 @@
 
 ## Longest Substring Without Repeating Characters
 
+
 ## Median of Two Sorted Arrays
+
 
 ## Valid Parentheses
 
+
 ## Merge Two Sorted Lists
+
 
 ## Merge k Sorted Lists
 
+
 ## Group Anagrams
+
 
 ## Merge Intervals
 Дан массив интервалов, смержить пересекающиеся интервалы.
@@ -89,11 +95,15 @@ class Solution:
 
 ## Validate Binary Search Tree
 
+
 ## Valid Palindrome
+
 
 ## LRU Cache
 
+
 ## Longest Substring with At Most Two Distinct Characters
+
 
 ## Two Sum II Input Array Is Sorted
 Дан отсортированный массив и число таргет. Найти два числа в массиве, сумма которых равна таргету. 
@@ -150,9 +160,12 @@ class Solution:
                 left += 1
 ```
 
+
 ## Number of Islands
 
+
 ## Reverse Linked List
+
 
 ## Summary Ranges
 Дан отсортированный массив уникальных чисел. 
@@ -223,24 +236,99 @@ class Solution:
 
 ## Lowest Common Ancestor of a Binary Tree
 
+
 ## Move Zeroes
+Дан отсортированный массив уникальных чисел. 
+Свернуть в диапозоны последовательные числа.
+
+https://leetcode.com/problems/summary-ranges/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем два указателя 'start' и 'end'. При инициализации указатели установлены в начало входного массива.</li>
+ <li>До тех пор пока два соседних числа в массиве имеют между собой разницу ровно в 1, сдвигаем указатель 'end' вправо на один элемент.</li>
+ <li>Если указатели стоят на разных числах (сдвигался указатель 'end'), то добавляем в результирующий массив диапозон чисел от 'start' до 'end'.</li>
+ <li>В другом случае добавляем в результирующий массив только начало диапозона.</li>
+ <li>В конце каждой итерации сдвигаем указатель 'end' на один элемент и ставим 'start' на это же число.</li>
+ <li>Возвращаем результирующий массив.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: nums = [0,1,2,4,5,7]
+Output: ["0->2","4->5","7"]
+Explanation: The ranges are:
+[0,2] --> "0->2"
+[4,5] --> "4->5"
+[7,7] --> "7"
+
+Example 2:
+Input: nums = [0,2,3,4,6,8,9]
+Output: ["0","2->4","6","8->9"]
+Explanation: The ranges are:
+[0,0] --> "0"
+[2,4] --> "2->4"
+[6,6] --> "6"
+[8,9] --> "8->9"
+```
+
+```python
+from typing import List
+
+
+class Solution:
+    # Time complexity: O(n)
+    # Space complexity: O(n)
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        result = []
+        start = end = 0
+
+        while end < len(nums):
+            # increase end pointer because two neighboring integers are extends range
+            while end + 1 < len(nums) and nums[end] + 1 == nums[end + 1]:
+                end = end + 1
+
+            # if pointers stand not the same integer
+            if nums[start] != nums[end]:
+                result.append(f"{str(nums[start])}->{str(nums[end])}")
+            # if pointers stand the same integer
+            else:
+                result.append(str(nums[start]))
+
+            # slide end pointer
+            end = end + 1
+            # set pointers to the same integer
+            start = end
+        return result
+```
+
 
 ## Line Reflection
 
+
 ## Design Hit Counter
+
 
 ## Insert Delete Getrandom
 
+
 ## Is Subsequence
+
 
 ## String Compression
 
+
 ## Permutation in String
+
 
 ## Max Stack
 
+
 ## Maximize Distance to Closest Person
 
+
 ## Number of Students Doing Homework at a Given Time
+
 
 ## Longest Subarray of 1 After Deleting One Element
