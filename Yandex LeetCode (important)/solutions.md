@@ -163,6 +163,35 @@ class OptimizedWindowSlidingSolution:
 
 
 ## Valid Parentheses
+Дана строка, содержащую только символы '(', ')', '{', '}', '[' и ']', определить, валидна ли входная строка. 
+Входная строка действительна, если: 
+
+Открытые скобки должны быть закрыты однотипными скобками. 
+Открытые скобки должны быть закрыты в правильном порядке.
+
+https://leetcode.com/problems/valid-parentheses/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+
+
+Example 2:
+
+```
+
+```python
+
+```
 
 
 ## Merge Two Sorted Lists
@@ -218,6 +247,7 @@ class Solution:
             else:
                 merged[-1][1] = max(merged[-1][1], interval[1])
         return merged
+
 ```
 
 
