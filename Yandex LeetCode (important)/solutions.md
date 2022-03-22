@@ -29,6 +29,102 @@
 
 
 ## Longest Substring Without Repeating Characters
+Дана строка, вернуть длину наибольшей подстроки, содержащую только уникальные символы.
+
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+<details><summary>"Brute-Force" решение:</summary><blockquote>
+<ol>
+ <li>Используя вложенный цикл, генерируем все возможные подстроки для каждого символа строки.</li>
+ <li>Передаем строку, начальный индекс подстроки и конечный индекс подстроки в ф-ию проверки на уникальность символов в подстроке.</li>
+ <li>Если подстрока содержит только уникальные символы, то обновляем результирующую переменную в случае, если текущая подстрока длинее чем предыдущая.</li>
+ <li>Возвращаем результирующую переменную.</li>
+</ol>
+</blockquote></details>
+
+
+<details><summary>"Sliding Window" решение:</summary><blockquote>
+<ol>
+ <li>Иниц. массив юникода со 128 нулями, начало окна и конец окна нулями, результирующую переменную также нулём.</li>
+ <li>Пока конец окна не дойдет до конца массива, переводим символ под укзателем конца окна в цифровое представление юникода и увеличиваем по этому индексу значение в юникод массиве.</li>
+ <li>Пока значение в массива юникода под индексом конца окна больше 1, уменьшаем число под индексом начала окна в массиве юникода и сдвигаем начало окна ближе к концу массива.</li>
+ <li>Обновляем результирующую переменную, если длина окна больше чем была в переменной.</li>
+ <li>Сдвигаем конец окна ближе к концу массива.</li>
+ <li>Возвращаем результирующую перменную.</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+
+Example 2:
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+
+Example 3:
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+```
+
+
+```python
+# Time: O(n**3)
+# Space: O(min(n,m))
+class BrutForceSolution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        n = len(s)
+        result = 0
+        for i in range(n):
+            for j in range(i, n):
+                if self.check(s, i, j):
+                    result = max(result, j - i + 1)
+        return result
+
+    def check(self, string, start, end):
+        ascii_array = [0] * 128
+
+        for i in range(start, end + 1):
+            char = string[i]
+            # The ord() function returns the number
+            # representing the unicode code of a specified character.
+            ascii_array[ord(char)] += 1
+            if ascii_array[ord(char)] > 1:
+                return False
+        return True
+
+
+# Time: O(2n) = O(n)
+# Space: O(min(n,m))
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        ascii_array = [0] * 128
+        window_start = window_end = 0
+        result = 0
+        while window_end < len(s):
+            last_symbol = s[window_end]
+            # The ord() function returns the number
+            # representing the unicode code of a specified character.
+            symbol_unicode = ord(last_symbol)
+            ascii_array[symbol_unicode] += 1
+
+            while ascii_array[ord(last_symbol)] > 1:
+                first_symbol = s[window_start]
+                symbol_unicode = ord(first_symbol)
+                ascii_array[symbol_unicode] -= 1
+                window_start += 1
+
+            result = max(result, window_end - window_start + 1)
+            window_end += 1
+        return result
+
+```
 
 
 ## Median of Two Sorted Arrays
