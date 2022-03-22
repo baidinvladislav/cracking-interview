@@ -55,7 +55,7 @@ https://leetcode.com/problems/longest-substring-without-repeating-characters/
 </blockquote></details>
 
 
-<details><summary>"Optimiezed Sliding Window" решение:</summary><blockquote>
+<details><summary>"Optimized Sliding Window" решение:</summary><blockquote>
 <ol>
  <li>Иниц. словарь и резул. переменную и границы окна.</li>
  <li>Если символ под индексом конца окна в словаре, то обновляем индекс начала окна бОльшим значением из индекса символа в словаре или индексом начала окна.</li>
