@@ -5,22 +5,25 @@ import unittest
 # Space: O(min(n,m))
 class BrutForceSolution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        def check(start, end):
-            chars = [0] * 128
-            for i in range(start, end + 1):
-                c = s[i]
-                chars[ord(c)] += 1
-                if chars[ord(c)] > 1:
-                    return False
-            return True
-
         n = len(s)
         result = 0
         for i in range(n):
             for j in range(i, n):
-                if check(i, j):
+                if self.check(s, i, j):
                     result = max(result, j - i + 1)
         return result
+
+    def check(self, string, start, end):
+        ascii_array = [0] * 128
+
+        for i in range(start, end + 1):
+            char = string[i]
+            # The ord() function returns the number
+            # representing the unicode code of a specified character.
+            ascii_array[ord(char)] += 1
+            if ascii_array[ord(char)] > 1:
+                return False
+        return True
 
 
 # Time: O(2n) = O(n)
@@ -32,6 +35,8 @@ class Solution:
         result = 0
         while window_end < len(s):
             last_symbol = s[window_end]
+            # The ord() function returns the number
+            # representing the unicode code of a specified character.
             symbol_unicode = ord(last_symbol)
             ascii_array[symbol_unicode] += 1
 
