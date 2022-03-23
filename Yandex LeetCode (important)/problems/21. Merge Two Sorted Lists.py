@@ -13,13 +13,15 @@ class Solution:
     # Time complexity: O(n + m)
     # Space complexity: O(n + m)
     def mergeTwoLists(self, l1, l2):
+        # base cases
         if l1 is None:
             return l2
 
-        elif l2 is None:
+        if l2 is None:
             return l1
 
-        elif l1.val < l2.val:
+        # recursion body
+        if l1.val < l2.val:
             l1.next = self.mergeTwoLists(l1.next, l2)
             return l1
 
