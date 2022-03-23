@@ -37,15 +37,6 @@ lRUCache.get(3)  # return 3
 lRUCache.get(4)  # return 4
 
 
-# Definition of DLinkedNode
-class DLinkedNode:
-    def __init__(self):
-        self.key = 0
-        self.value = 0
-        self.prev = None
-        self.next = None
-
-
 # Approach 2: Hashmap + DoubleLinkedList
 # Time complexity: O(1)
 # Space complexity: O(capacity)
