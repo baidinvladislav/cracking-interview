@@ -74,7 +74,7 @@ class LRUCache:
             return n.val
         return -1
 
-    def set(self, key, value):
+    def put(self, key, value):
         if key in self.dic:
             self._remove(self.dic[key])
         n = Node(key, value)
