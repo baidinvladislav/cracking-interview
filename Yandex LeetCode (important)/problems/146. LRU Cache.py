@@ -50,6 +50,18 @@ class DLinkedNode:
 # Time complexity: O(1)
 # Space complexity: O(capacity)
 class LRUCache:
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.cache = {}
+        self.size = 0
+        self.capacity = capacity
+        self.head, self.tail = DLinkedNode(), DLinkedNode()
+
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
     def _add_node(self, node):
         """
         Always add the new node right after head.
@@ -84,18 +96,6 @@ class LRUCache:
         res = self.tail.prev
         self._remove_node(res)
         return res
-
-    def __init__(self, capacity):
-        """
-        :type capacity: int
-        """
-        self.cache = {}
-        self.size = 0
-        self.capacity = capacity
-        self.head, self.tail = DLinkedNode(), DLinkedNode()
-
-        self.head.next = self.tail
-        self.tail.prev = self.head
 
     def get(self, key):
         """
