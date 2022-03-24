@@ -360,6 +360,114 @@ class Solution:
 
 
 ## LRU Cache
+Реализовать класс для работы с кешом по приципу LRU (Least Recently Used).
+* LRUCache(int capacity) Инициализация класса кэша LRU с положительным размером.
+* int get(int key) Возвращает значение ключа, если ключ существует, иначе возвращает -1.
+* void put(int key, int value) Обновить значение ключа, если он существует. 
+В противном случае добавьте пару ключ-значение в кеш. Если количество свободного места недостаточно для вставки нового элемента, удалите последний использованный ключ. (который дольше всех не был затронут).
+
+Методы get и put должны выполняться с временной сложностью O(1).
+
+https://leetcode.com/problems/lru-cache/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Для выполнения требований по временной сложности методов используем хеш-таблицу и двусвязной список. Хэш таблица будет иметь вид: {key1: Node(key1, value1), key2: Node(key2, value2)}</li>
+ <li>Метод get(key): если ключ есть в хэш-таблице, то получить узел связного списка по переданному ключу, удалить узел из связного списка, добавить узел в конец связного списка, вернуть значение узла связного списка, если ключа нет в хэш-таблице вернуть -1.</li>
+ <li>Метод put(key, value): если ключ уже находится в хэш-таблице, то удалить узел из связного списка, при этом удалять ключ узла из хэш-таблицы необязательно. Создать узел с полученными значениями key и value вставить узел в конец связного списка, вставить узел в хэш-таблицу по переданному ключу. Если длина хэш-таблицы превышает размер кеша переданный при инициализации, то удалить узел с начала связного списка и удалить ключ по которому находится узел в хэш-таблице.</li>
+ <li>Метод _add_to_llist(self, node): добавляет узел в конец двусвязного списка.</li>
+ <li>Метод _remove_from_llist: удаляет узел из двусвязного списка.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+Output
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+
+Explanation
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // cache is {1=1}
+lRUCache.put(2, 2); // cache is {1=1, 2=2}
+lRUCache.get(1);    // return 1
+lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+lRUCache.get(2);    // returns -1 (not found)
+lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+lRUCache.get(1);    // return -1 (not found)
+lRUCache.get(3);    // return 3
+lRUCache.get(4);    // return 4
+```
+
+```python
+# Approach 2: Hashmap + DoubleLinkedList
+# Time complexity: O(1)
+# Space complexity: O(capacity)
+class Node:
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+        self.prev = None
+        self.next = None
+
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.map = {}
+        self.head = Node('#', '#')
+        self.tail = Node('#', '#')
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def get(self, key):
+        if key in self.map:
+            node = self.map[key]
+            self._remove_from_llist(node)
+            self._add_to_llist(node)
+            return node.value
+        return -1
+
+    def put(self, key, value):
+        if key in self.map:
+            self._remove_from_llist(self.map[key])
+
+        node = Node(key, value)
+        self._add_to_llist(node)
+        self.map[key] = node
+        if len(self.map) > self.capacity:
+            node = self.head.next
+            self._remove_from_llist(node)
+            del self.map[node.key]
+
+    def _add_to_llist(self, node):
+        p = self.tail.prev
+        p.next = node
+        self.tail.prev = node
+        node.prev = p
+        node.next = self.tail
+
+    def _remove_from_llist(self, node):
+        prev = node.prev
+        next = node.next
+        prev.next = next
+        next.prev = prev
+
+
+lRUCache = LRUCache(2)
+lRUCache.put(1, 1)  # cache is {1=1}
+lRUCache.put(2, 2)  # cache is {1=1, 2=2}
+lRUCache.get(1)  # return 1
+lRUCache.put(3, 3)  # LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+lRUCache.get(2)  # returns -1 (not found)                   123
+lRUCache.put(4, 4)  # LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+lRUCache.get(1)  # return -1 (not found)
+lRUCache.get(3)  # return 3
+lRUCache.get(4)  # return 4
+
+```
 
 
 ## Longest Substring with At Most Two Distinct Characters
