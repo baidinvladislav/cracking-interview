@@ -400,6 +400,48 @@ class Solution:
 
 
 ## Valid Palindrome
+Дана строка s, вернуть true, если это палиндром, или false.
+В строке могут содержаться буквы разного регистра, а также не только буквенно-цифровые символы.
+
+https://leetcode.com/problems/valid-palindrome/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Отфильтровать все буквенно-цифровые символы.</li>
+ <li>Привести отфильтрованные символы к нижнему регистру.</li>
+ <li>Привести отфильтрованные символы нижнего регистра к списку.</li>
+ <li>Сравнить два среза [:], [::-1] списка из предыдущего пункта.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+
+Input: s = "A man, a plan, a canal: Panama"
+Output: true
+Explanation: "amanaplanacanalpanama" is a palindrome.
+
+Example 2:
+Input: s = "race a car"
+Output: false
+Explanation: "raceacar" is not a palindrome.
+
+Example 3:
+Input: s = " "
+Output: true
+Explanation: s is an empty string "" after removing non-alphanumeric characters.
+Since an empty string reads the same forward and backward, it is a palindrome.
+```
+
+```python3
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        filtered_symbols = filter(lambda symbol: symbol.isalnum(), s)
+        lo_low_case = map(lambda symbol: symbol.lower(), filtered_symbols)
+        to_list = list(lo_low_case)
+        return to_list == to_list[::-1]
+
+```
 
 
 ## LRU Cache
