@@ -57,7 +57,6 @@ class LRUCache:
         self.head.next = self.tail
         self.tail.prev = self.head
 
-    # O(1)
     def get(self, key):
         if key in self.map:
             node = self.map[key]
@@ -66,7 +65,6 @@ class LRUCache:
             return node.value
         return -1
 
-    # O(1)
     def put(self, key, value):
         if key in self.map:
             self._remove_from_llist(self.map[key])
