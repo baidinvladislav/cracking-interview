@@ -336,6 +336,8 @@ Output: [["a"]]
 from collections import defaultdict
 
 
+# Time Complexity: O(NK log K). Where N is the length of strs, and K is the maximum length of a string in strs.
+# Space Complexity: O(NK)
 def groupAnagrams(strs):
     if not strs:
         return [[""]]
