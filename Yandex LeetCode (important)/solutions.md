@@ -848,6 +848,49 @@ class Solution:
 
 
 ## Number of Students Doing Homework at a Given Time
+Даны массивы чисел, первый это начало работы студента, второй конец работы студента, также дано число, характеризуещее конкетный час.
+Вернуть кол-во студентов за работой в конкетный час.
+
+https://leetcode.com/problems/number-of-students-doing-homework-at-a-given-time/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Идем циклом по длине любого из массивов так как они одинаковой длины.</li>
+ <li>Если переданное число больше или равно времени начала работы, а также меньше или равно завершению времени работ студента, то увеличиваем счетчик студентов.</li>
+ <li>Возвращаем счетчик студентов.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: startTime = [1,2,3], endTime = [3,2,7], queryTime = 4
+Output: 1
+Explanation: We have 3 students where:
+The first student started doing homework at time 1 and finished at time 3 and wasn't doing anything at time 4.
+The second student started doing homework at time 2 and finished at time 2 and also wasn't doing anything at time 4.
+The third student started doing homework at time 3 and finished at time 7 and was the only student doing homework at time 4.
+
+Example 2:
+Input: startTime = [4], endTime = [4], queryTime = 4
+Output: 1
+Explanation: The only student was doing their homework at the queryTime.
+```
+
+```python
+from typing import List
+
+
+class Solution:
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def busyStudent(self, startTime: List[int], endTime: List[int], queryTime: int) -> int:
+        students = 0
+        for i in range(len(endTime)):
+            if startTime[i] <= queryTime <= endTime[i]:
+                students += 1
+        return students
+
+```
 
 
 ## Longest Subarray of 1 After Deleting One Element
