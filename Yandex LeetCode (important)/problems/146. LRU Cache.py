@@ -44,51 +44,50 @@ class Node:
     def __init__(self, key, value):
         self.key = key
         self.value = value
-        self.prev = None
-        self.next = None
+        self.next = self.prev = None
 
 
 class LRUCache:
     def __init__(self, capacity):
         self.capacity = capacity
         self.map = {}
-        self.head = Node('#', '#')
-        self.tail = Node('#', '#')
+        self.head = Node('head', 'head')
+        self.tail = Node('tail', 'tail')
         self.head.next = self.tail
         self.tail.prev = self.head
 
     def get(self, key):
         if key in self.map:
             node = self.map[key]
-            self._remove_from_llist(node)
-            self._add_to_llist(node)
+            self._remove_node(node)
+            self._add_node(node)
             return node.value
         return -1
 
     def put(self, key, value):
         if key in self.map:
-            self._remove_from_llist(self.map[key])
+            self._remove_node(self.map[key])
 
         node = Node(key, value)
-        self._add_to_llist(node)
+        self._add_node(node)
         self.map[key] = node
+
         if len(self.map) > self.capacity:
-            node = self.head.next
-            self._remove_from_llist(node)
-            del self.map[node.key]
+            deleted_node = self.head.next
+            self._remove_node(deleted_node)
+            del self.map[deleted_node.key]
 
-    def _add_to_llist(self, node):
-        p = self.tail.prev
-        p.next = node
-        self.tail.prev = node
-        node.prev = p
+    def _add_node(self, node):
+        prev_node = self.tail.prev
+        prev_node.next = node
+        node.prev = prev_node
         node.next = self.tail
+        self.tail.prev = node
 
-    def _remove_from_llist(self, node):
-        prev = node.prev
-        next = node.next
-        prev.next = next
-        next.prev = prev
+    def _remove_node(self, node):
+        prev_node = node.prev
+        prev_node.next = node.next
+        node.next.prev = prev_node
 
 
 lRUCache = LRUCache(2)
