@@ -303,6 +303,49 @@ class Solution:
 
 
 ## Group Anagrams
+Дан массив слов, сгруппировать анаграммы в массивах.
+
+https://leetcode.com/problems/group-anagrams/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Иницализовать словарь с пустым листом в значении.</li>
+ <li>Сортируем каждое слово.</li>
+ <li>Преобразуем отсортированное слово в кортеж (т.к. он может быть ключом, потому что неизменяемый тип данных).</li>
+ <li>Добавляем кортеж как ключ в словарь.</li>
+ <li>Проходя циклом по входному массиву слов, смотрим если слово совпадает с ключом (кортежем) то добавляем это слово в массив под этим ключом.</li>
+ <li>Вернуть значения наполненного словаря.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+Example 2:
+Input: strs = [""]
+Output: [[""]]
+
+Example 3:
+Input: strs = ["a"]
+Output: [["a"]]
+```
+
+```python3
+from collections import defaultdict
+
+
+def groupAnagrams(strs):
+    if not strs:
+        return [[""]]
+
+    hash_map = defaultdict(list)
+    for word in strs:
+        hash_map[tuple(sorted(word))].append(word)
+    return list(hash_map.values())
+
+```
 
 
 ## Merge Intervals
