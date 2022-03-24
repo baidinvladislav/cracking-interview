@@ -7,11 +7,6 @@ Given a string s, return true if it is a palindrome, or false otherwise.
 """
 
 
-# 1. Отделить все буквенно-цифровые символы
-# 2. Привести все символы к нижнему регистру
-# 3. Сравнить два среза [:], [::-1]
-
-
 class Solution:
     def isPalindrome(self, s: str) -> bool:
         filtered_symbols = filter(lambda ch: ch.isalnum(), s)
