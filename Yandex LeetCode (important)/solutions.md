@@ -533,6 +533,73 @@ class Solution:
 
 
 ## Reverse Linked List
+Развернуть связной список.
+
+https://leetcode.com/problems/reverse-linked-list/
+
+<details><summary>Итеративное решение:</summary><blockquote>
+<ol>
+ <li>Сохранить в памяти следующий узел от текущего.</li>
+ <li>Изменить следующий узел на предыдущий.</li>
+ <li>Предыдущим узлом сохранить текущий узел.</li>
+ <li>Текущим узлом назначить узел из пункта 1.</li>
+ <li>После итерации вернуть предудущий узел.</li>
+</ol>
+</blockquote></details>
+
+
+<details><summary>Рекурсивное решение:</summary><blockquote>
+<ol>
+ <li>Рекурсивно посещаем каждый элемент в связанном списке, пока не достигнем последнего.</li>
+ <li>Этот последний элемент станет новым головой перевернутого связанного списка.</li>
+ <li>На пути возврата каждый узел добавляется в конец частично перевернутого списка.</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+
+Example 2:
+Input: head = [1,2]
+Output: [2,1]
+
+Example 3:
+Input: head = []
+Output: []
+```
+
+
+```python3
+class Solution:
+    # iterative
+    # Time complexity: O(n). Assume that nn is the list's length, the time complexity is O(n).
+    # Space complexity: O(1).
+    def reverseList(self, head):
+        prev = None
+        current = head
+        while current:
+            tempNext = current.next
+            current.next = prev
+            prev = current
+            current = tempNext
+        return prev
+    
+    # recursive
+    # Time complexity: O(n).
+    # Space complexity: O(n).
+    def reverseList_rec(self, head):
+        if not head or not head.next:
+            return head
+
+        p = self.reverseList_rec(head.next)
+        head.next.next = head
+        head.next = None
+        return p
+
+```
 
 
 ## Summary Ranges

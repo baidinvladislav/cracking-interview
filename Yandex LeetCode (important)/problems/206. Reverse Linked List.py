@@ -20,11 +20,12 @@ class Solution:
         4. move on the next node
         """
         prev = None
-        while head:
-            next = head.next
-            head.next = prev
-            prev = head
-            head = next
+        current = head
+        while current:
+            tempNext = current.next
+            current.next = prev
+            prev = current
+            current = tempNext
         return prev
 
     # Recursive
