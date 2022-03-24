@@ -437,6 +437,8 @@ Since an empty string reads the same forward and backward, it is a palindrome.
 
 ```python3
 class Solution:
+    # Time complexity: O(n)
+    # Space complexity: O(n)
     def isPalindrome(self, s: str) -> bool:
         filtered_symbols = filter(lambda symbol: symbol.isalnum(), s)
         lo_low_case = map(lambda symbol: symbol.lower(), filtered_symbols)
