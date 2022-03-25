@@ -9,21 +9,16 @@ Both the left and right subtrees must also be binary search trees.
 """
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
-
+import math
 from typing import Optional
 
 from Algorithms.leetcode_tree import buildTree, TreeNode
 
 
+# Approach 1: More clearly two steps recursive
+# Time complexity: O(N)
+# Space complexity: O(N)
 class Solution:
-
     def dfs(self, node, values):
         if not node:
             return
@@ -53,3 +48,20 @@ class Solution:
 root_arr = [5, 1, 4, None, None, 3, 6]
 root = buildTree(root_arr)
 print(Solution().isValidBST(root))
+
+
+# Approach 2: Recursive Traversal with Valid Range
+# Time complexity: O(N) since we visit each node exactly once.
+# Space complexity: O(N) since we keep up to the entire tree.
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        def validate(node, low=-math.inf, high=math.inf):
+            if not node:
+                return True
+
+            if node.val <= low or node.val >= high:
+                return False
+
+            return validate(node.right, node.val, high) and validate(node.left, low, node.val)
+
+        return validate(root)

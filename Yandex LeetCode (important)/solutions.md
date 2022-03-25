@@ -399,6 +399,101 @@ class Solution:
 
 
 ## Validate Binary Search Tree
+Дан рут бинарного дерева. Определить является ли дерево бинарным деровом поиска.
+Бинарное дерево поиска - это дерево в котором:
+* в левом поддереве узла все значения меньше чем значения узла.
+* в правом поддереве узла все значения больше чем значения узла.
+* и левое, и правое поддеревья являются бинарными деревьями поиска.
+
+https://leetcode.com/problems/validate-binary-search-tree/
+
+<details><summary>Лаконичная рекурсия:</summary><blockquote>
+<ol>
+ <li>Во вложенную рекурсивную ф-ию передаем корень дерева.</li>
+ <li>В ф-ии указатели нижнего предела и верхнего берем изначально за инфинитивы (- и +).</li>
+ <li>В теле рекурсии возвращаем False, если текущего узла меньше или равно чем нижний указатель ИЛИ если значение текущего узла больше или равно верхнего указателя.</li>
+</ol>
+</blockquote></details>
+
+
+<details><summary>Более читаемая рекурсия:</summary><blockquote>
+<ol>
+ <li>Одним методом собираем преордером значения массива.</li>
+ <li>Вторым методом проверяем, что все числа в массиве отсортированы по возрастанию</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input: root = [2,1,3]
+Output: true
+
+Example 2:
+Input: root = [5,1,4,null,null,3,6]
+Output: false
+Explanation: The root node's value is 5 but its right child's value is 4.
+```
+
+```python3
+import math
+from typing import Optional
+
+from Algorithms.leetcode_tree import buildTree, TreeNode
+
+
+# Approach 1: More clearly two steps recursive
+# Time complexity: O(N)
+# Space complexity: O(N)
+class Solution:
+    def dfs(self, node, values):
+        if not node:
+            return
+
+        self.dfs(node.left, values)
+        values.append(node.val)
+        self.dfs(node.right, values)
+
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        values = []
+        self.dfs(root, values)
+
+        i = 0
+        j = 1
+
+        while j != len(values):
+            if values[i] >= values[j]:
+                return False
+
+            i += 1
+            j += 1
+
+        return True
+
+
+# root_arr = [2, 1, 3]
+root_arr = [5, 1, 4, None, None, 3, 6]
+root = buildTree(root_arr)
+print(Solution().isValidBST(root))
+
+
+# Approach 2: Recursive Traversal with Valid Range
+# Time complexity: O(N) since we visit each node exactly once.
+# Space complexity: O(N) since we keep up to the entire tree.
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        def validate(node, low=-math.inf, high=math.inf):
+            if not node:
+                return True
+
+            if node.val <= low or node.val >= high:
+                return False
+
+            return validate(node.right, node.val, high) and validate(node.left, low, node.val)
+
+        return validate(root)
+
+```
 
 
 ## Valid Palindrome
