@@ -456,7 +456,7 @@ class Solution:
         return to_list == to_list[::-1]
     
     # Time complexity: O(n)
-    # Space complexity: O(n)
+    # Space complexity: O(1)
     def isPalindrome(self, s: str) -> bool:
         left, right = 0, len(s) - 1
         while left < right:
