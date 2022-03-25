@@ -886,6 +886,72 @@ class Solution:
 
 
 ## Lowest Common Ancestor of a Binary Tree
+Дан корень бинарного дерева и две вершины, найти наименьший общий предок двух вершин.
+
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Начните обход дерева с корневого узла.</li>
+ <li>Текущий узел является одной из двух искомых вершин, мы пометим переменную mid как True и продолжим поиск другого узла в левой и правой ветвях.</li>
+ <li>Если либо левая, либо правая ветвь возвращает True, это означает, что один из двух узлов был найден ниже по этой ветке.</li>
+ <li>Если в какой-либо момент обхода любые два из трех флагов слева, справа или посередине становятся истинными, это означает, что мы нашли наименьшего общего предка для узлов p и q.</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+Explanation: The LCA of nodes 5 and 1 is 3.
+
+Example 2:
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+Output: 5
+Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
+
+Example 3:
+Input: root = [1,2], p = 1, q = 2
+Output: 1
+```
+
+```python
+# Approach 1: Recursive Approach
+# Time Complexity: O(N)
+# Space Complexity: O(N)
+class Solution:
+    def __init__(self):
+        # Variable to store LCA node.
+        self.ans = None
+
+    def lowestCommonAncestor(self, root, p, q):
+        def recurse_tree(current_node):
+            # If reached the end of a branch, return False.
+            if not current_node:
+                return False
+
+            # Left Recursion
+            left = recurse_tree(current_node.left)
+
+            # Right Recursion
+            right = recurse_tree(current_node.right)
+
+            # If the current node is one of p or q
+            mid = current_node.val == p.val or current_node.val == q.val
+
+            # If any two of the three flags left, right or mid become True.
+            if mid + left + right >= 2:
+                self.ans = current_node
+
+            # Return True if either of the three bool values is True.
+            return mid or left or right
+
+        # Traverse the tree
+        recurse_tree(root)
+        return self.ans
+
+```
 
 
 ## Move Zeroes
