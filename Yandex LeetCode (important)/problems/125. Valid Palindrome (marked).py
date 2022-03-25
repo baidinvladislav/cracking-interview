@@ -10,11 +10,11 @@ Given a string s, return true if it is a palindrome, or false otherwise.
 class Solution:
     # Time complexity: O(n)
     # Space complexity: O(n)
-    # def isPalindrome(self, s: str) -> bool:
-    #     filtered_symbols = filter(lambda ch: ch.isalnum(), s)
-    #     low_case = map(lambda ch: ch.lower(), filtered_symbols)
-    #     result_list = list(low_case)
-    #     return result_list == result_list[::-1]
+    def isPalindrome(self, s: str) -> bool:
+        filtered_symbols = filter(lambda ch: ch.isalnum(), s)
+        low_case = map(lambda ch: ch.lower(), filtered_symbols)
+        result_list = list(low_case)
+        return result_list == result_list[::-1]
 
     # Time complexity: O(n)
     # Space complexity: O(n)

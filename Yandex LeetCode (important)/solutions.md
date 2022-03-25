@@ -407,12 +407,22 @@ class Solution:
 
 https://leetcode.com/problems/valid-palindrome/
 
-<details><summary>Решение:</summary><blockquote>
+<details><summary>Решение t: O(n), s: O(n):</summary><blockquote>
 <ol>
  <li>Отфильтровать все буквенно-цифровые символы.</li>
  <li>Привести отфильтрованные символы к нижнему регистру.</li>
  <li>Привести отфильтрованные символы нижнего регистра к списку.</li>
  <li>Сравнить два среза [:], [::-1] списка из предыдущего пункта.</li>
+</ol>
+</blockquote></details>
+
+
+<details><summary>Решение t: O(n), s: O(1):</summary><blockquote>
+<ol>
+ <li>Используем на строке два указателя: один на вначале, второй в конце.</li>
+ <li>Сдвигаем два указателя навстречу друг другу.</li>
+ <li>Если указатели сошлись в центре, то строка палиндром, иначе нет.</li>
+ <li>Прим: указатель чей символ не является алго-цифровым делает шаг в одиночку.</li>
 </ol>
 </blockquote></details>
 
@@ -444,6 +454,25 @@ class Solution:
         lo_low_case = map(lambda symbol: symbol.lower(), filtered_symbols)
         to_list = list(lo_low_case)
         return to_list == to_list[::-1]
+    
+    # Time complexity: O(n)
+    # Space complexity: O(n)
+    def isPalindrome(self, s: str) -> bool:
+        left, right = 0, len(s) - 1
+        while left < right:
+            while left < right and not s[left].isalnum():
+                left += 1
+
+            while left < right and not s[right].isalnum():
+                right -= 1
+
+            if s[left].lower() != s[right].lower():
+                return False
+
+            left += 1
+            right -= 1
+
+        return True
 
 ```
 
