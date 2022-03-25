@@ -62,6 +62,9 @@ class Solution:
             if node.val <= low or node.val >= high:
                 return False
 
-            return validate(node.right, node.val, high) and validate(node.left, low, node.val)
+            left_subtree = validate(node=node.left, low=low, high=node.val)
+            right_subtree = validate(node=node.right, low=node.val, high=high)
+
+            return left_subtree and right_subtree
 
         return validate(root)
