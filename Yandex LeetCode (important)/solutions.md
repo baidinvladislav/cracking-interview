@@ -687,6 +687,56 @@ lRUCache.get(4)  # return 4
 
 
 ## Longest Substring with At Most Two Distinct Characters
+Дана строка, найти в ней самую большую подстроку, которая содержит не больше двух уникальных символов.
+
+https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Добавляем символы строки и их частоту в хеш-мап.</li>
+ <li>Пока длина хеш-мапы больше 2, сжиаем окно.</li>
+ <li>Сжатие окна происходит за счет уменьшения значений частоты символов и последующим удалением сивола из хеш-мапы.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: s = "eceba"
+Output: 3
+Explanation: The substring is "ece" which its length is 3.
+
+Example 2:
+Input: s = "ccaabbb"
+Output: 5
+Explanation: The substring is "aabbb" which its length is 5.
+```
+
+```python
+class Solution:
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def lengthOfLongestSubstringTwoDistinct(self, s: 'str') -> 'int':
+        window_start = 0
+        max_length = float('-inf')
+        hash_map = {}
+
+        for window_end in range(len(s)):
+            if s[window_end] not in hash_map:
+                hash_map[s[window_end]] = 0
+            hash_map[s[window_end]] += 1
+
+            while len(hash_map) > 2:
+                hash_map[s[window_start]] -= 1
+                if hash_map[s[window_start]] == 0:
+                    del hash_map[s[window_start]]
+                window_start += 1
+            max_length = max(max_length, window_end - window_start + 1)
+        return max_length
+
+
+print(Solution().lengthOfLongestSubstringTwoDistinct(s="ccaabbb"))
+
+```
 
 
 ## Two Sum II Input Array Is Sorted
