@@ -1037,7 +1037,65 @@ class Solution:
 
 
 ## Permutation in String
+Даны две строки s1 и s2, вернуть true, если s2 содержит перестановку s1, или false в противном случае.
+Другими словами, вернуть true, если одна из перестановок s1 является подстрокой s2.
 
+https://leetcode.com/problems/permutation-in-string/
+
+<details><summary>Решение Sliding Window:</summary><blockquote>
+<ol>
+ <li>Сохранить все символы s1 в хеш-мап.</li>
+ <li>Увеличиваем размер окна, если символ под указателем конца окна в хеш-мапе, то отнимаем один повтор.</li>
+ <li>Если повторы символа равны 0, то значит есть совпадение этого символа.</li>
+ <li>Если совпадения символов равно длине s1, вернем True.</li>
+ <li>Если кол-во итераций больше чем сиволом в строке s1, то сжимаем окно.</li>
+ <li>Отнимаем одно совпадение, если оно уже было учтено.</li>
+ <li>Увеличиваем повтор символа на 1 в хеш-мапе.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: s1 = "ab", s2 = "eidbaooo"
+Output: true
+Explanation: s2 contains one permutation of s1 ("ba").
+
+Example 2:
+Input: s1 = "ab", s2 = "eidboaoo"
+Output: false
+```
+
+```python
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        window_start, matched, frequency_map = 0, 0, {}
+
+        for ch in s1:
+            if ch not in frequency_map:
+                frequency_map[ch] = 0
+            frequency_map[ch] += 1
+
+        for window_end in range(len(s2)):
+            right_char = s2[window_end]
+            if right_char in frequency_map:
+                frequency_map[right_char] -= 1
+                if frequency_map[right_char] == 0:
+                    matched += 1
+
+            if matched == len(frequency_map):
+                return True
+
+            if window_end >= len(s1) - 1:
+                left_char = s2[window_start]
+                if left_char in frequency_map:
+                    if frequency_map[left_char] == 0:
+                        matched -= 1
+                    frequency_map[left_char] += 1
+                window_start += 1
+
+        return False
+
+```
 
 ## Max Stack
 
