@@ -1,4 +1,6 @@
 class Solution:
+    # Time Complexity: O(n)
+    # Space Complexity: O(n(s1))
     def checkInclusion(self, s1: str, s2: str) -> bool:
         window_start, matched, frequency_map = 0, 0, {}
 
