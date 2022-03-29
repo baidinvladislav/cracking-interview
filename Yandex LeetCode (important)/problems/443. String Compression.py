@@ -2,26 +2,27 @@ from typing import List
 
 
 class Solution:
-    # https://www.youtube.com/watch?v=IhJgguNiYYk
     def compress(self, chars: List[str]) -> int:
-        i = 0
-        to = 0
+        first_pointer = result = 0
 
-        while i < len(chars):
-            j = i
-            while j < len(chars) and chars[j] == chars[i]:
-                j += 1
+        while first_pointer < len(chars):
+            second_pointer = first_pointer
+            while second_pointer < len(chars) and chars[second_pointer] == chars[first_pointer]:
+                second_pointer += 1
 
-            num = j - i
-            chars[to] = chars[i]
-            to += 1
-            if num > 1:
-                for digit in str(num):
-                    chars[to] = digit
-                    to += 1
-            i = j
-        chars = chars[:to]
-        return to
+            diff = second_pointer - first_pointer
+            chars[result] = chars[first_pointer]
+            result += 1
+            if diff > 1:
+                for digit in str(diff):
+                    chars[result] = digit
+                    result += 1
+
+            first_pointer = second_pointer
+
+        # you also can return a string result
+        chars = ''.join(chars[:result])
+        return result
 
 
 print(Solution().compress(chars=["a", "a", "b", "b", "c", "c", "c"]))
