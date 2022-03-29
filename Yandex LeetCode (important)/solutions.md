@@ -1084,6 +1084,68 @@ class Solution:
 
 
 ## String Compression
+Сжать массив символов за O(1) по памяти. Вернуть длину сжатой строки
+
+https://leetcode.com/problems/string-compression/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем два указателя. Один для итерации по входному массиву, другой для подсчета одинаковых символов внутри массива.</li>
+ <li>Инкрементируем указатель подсчета одинаковых символов, если символы под обоими указателями равны.</li>
+ <li>Через разницу между индексами указателей вычисляем кол-во повторов каждого символа.</li>
+ <li>Вставляем в массив символ под первым указателем и инкрементируем результирующую переменную.</li>
+ <li>Если разница больше единицы, то итерируемся по разнице между указателями, вставляем в массив кол-во повторов и инкрементируем результат.</li>
+ <li>Выравниваем указатели относительно друг друга в конце каждой итерации.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: chars = ["a","a","b","b","c","c","c"]
+Output: Return 6, and the first 6 characters of the input array should be: ["a","2","b","2","c","3"]
+Explanation: The groups are "aa", "bb", and "ccc". This compresses to "a2b2c3".
+
+Example 2:
+Input: chars = ["a"]
+Output: Return 1, and the first character of the input array should be: ["a"]
+Explanation: The only group is "a", which remains uncompressed since it's a single character.
+
+Example 3:
+Input: chars = ["a","b","b","b","b","b","b","b","b","b","b","b","b"]
+Output: Return 4, and the first 4 characters of the input array should be: ["a","b","1","2"].
+Explanation: The groups are "a" and "bbbbbbbbbbbb". This compresses to "ab12".
+```
+
+```python
+from typing import List
+
+
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        first_pointer = result = 0
+
+        while first_pointer < len(chars):
+            second_pointer = first_pointer
+            while second_pointer < len(chars) and chars[second_pointer] == chars[first_pointer]:
+                second_pointer += 1
+
+            diff = second_pointer - first_pointer
+            chars[result] = chars[first_pointer]
+            result += 1
+            if diff > 1:
+                # multiple characters like 10, 12, etc
+                for digit in str(diff):
+                    chars[result] = digit
+                    result += 1
+
+            first_pointer = second_pointer
+
+        # you also can return a string result
+        chars = ''.join(chars[:result])
+        
+        return result
+
+```
 
 
 ## Permutation in String
@@ -1148,6 +1210,7 @@ class Solution:
         return False
 
 ```
+
 
 ## Max Stack
 
