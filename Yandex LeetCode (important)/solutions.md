@@ -1129,9 +1129,10 @@ class Solution:
             while second_pointer < len(chars) and chars[second_pointer] == chars[first_pointer]:
                 second_pointer += 1
 
-            diff = second_pointer - first_pointer
             chars[result] = chars[first_pointer]
             result += 1
+
+            diff = second_pointer - first_pointer
             if diff > 1:
                 # multiple characters like 10, 12, etc
                 for digit in str(diff):
@@ -1142,7 +1143,7 @@ class Solution:
 
         # you also can return a string result
         chars = ''.join(chars[:result])
-        
+
         return result
 
 ```
