@@ -14,6 +14,7 @@ class Solution:
             chars[result] = chars[first_pointer]
             result += 1
             if diff > 1:
+                # multiple characters like 10, 12, etc
                 for digit in str(diff):
                     chars[result] = digit
                     result += 1
@@ -22,6 +23,7 @@ class Solution:
 
         # you also can return a string result
         chars = ''.join(chars[:result])
+
         return result
 
 
