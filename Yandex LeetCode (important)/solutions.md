@@ -1125,8 +1125,7 @@ class Solution:
     # Time Complexity: O(T)
     # Space Complexity: O(1)
     def isSubsequence(self, s: str, t: str) -> bool:
-        left = 0
-        right = 0
+        left = right = 0
         while True:
             if left == len(s):
                 return True
