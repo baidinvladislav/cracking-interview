@@ -1081,6 +1081,64 @@ class Solution:
 
 
 ## Is Subsequence
+Даны две строки, определить что первая строка является подпоследовательностью второй строки.
+
+https://leetcode.com/problems/is-subsequence/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем два указателя, первый для первой строки, второй для второй, изначально ставим указатели в начало строк.</li>
+ <li>Если символы одинаковы, сдвигаем оба указателя, в другом случае только указатель второй строки.</li>
+ <li>Если мы дошли до конца первой строки первым указателем, то строка является подпоследовательностью второй строки.</li>
+ <li>Если мы дошли до конца второй строки вторым указателем, то первая строка не является подпоследовательностью второй строки.</li>
+ <li>Проверки 3 и 4 пункта должны проходить вначале итерации, а уже потом можно инкрементировать указатели.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: s = "abc", t = "ahbgdc"
+Output: true
+
+Example 2:
+Input: s = "axc", t = "ahbgdc"
+Output: false
+```
+
+```python
+class Solution:
+    # Approach 1: Divide and Conquer with Greedy
+    # Time Complexity: O(T)
+    # Space Complexity: O(T)
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if not s:
+            return True
+        if not t:
+            return False
+
+        if s[0] == t[0]:
+            s = s[1:]
+        t = t[1:]
+        return self.isSubsequence(s, t)
+
+    # Approach 2: Two-Pointers
+    # Time Complexity: O(T)
+    # Space Complexity: O(1)
+    def isSubsequence(self, s: str, t: str) -> bool:
+        left = 0
+        right = 0
+        while True:
+            if left == len(s):
+                return True
+            if right == len(t):
+                return False
+
+            if s[left] == t[right]:
+                left += 1
+            right += 1
+
+```
+
 
 
 ## String Compression
