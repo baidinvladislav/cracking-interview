@@ -796,6 +796,68 @@ class Solution:
 
 
 ## Number of Islands
+Дана сетка размером MxN. В сетке находятся находятся значение '0' и '1'. Где '0' - это вода и '1' - это суша.
+Вернуть кол-во островов на сетке.
+
+https://leetcode.com/problems/number-of-islands/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Рассмотрим сетку как неориентированный граф, у которого ребра есть у смежных соседних вершин по горизонтали и вертикали со значением '1'.</li>
+ <li>Линейно проходим по сетке, если в вершине значение '1', то начинаем от этой вершины поиск в глубину.</li>
+ <li>На каждом рекурсивном обходе устанавливаем для узла значение '0', тем самым помечая вершину как посещенную.</li>
+ <li>Рекурсивно обходим соседей этой вершины у которых тоже значение '1', меняем на '0'.</li>
+ <li>Повторяем пока не упремся в базовые случаи: индексы вышли за границы сетки, узел не равен "1".</li>
+ <li>Кол-во раз когда запускался поиск в глубину и будет равен кол-ву островое на сетке.</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input: grid = [
+  ["1","1","1","1","0"],
+  ["1","1","0","1","0"],
+  ["1","1","0","0","0"],
+  ["0","0","0","0","0"]
+]
+Output: 1
+
+Example 2:
+Input: grid = [
+  ["1","1","0","0","0"],
+  ["1","1","0","0","0"],
+  ["0","0","1","0","0"],
+  ["0","0","0","1","1"]
+]
+Output: 3
+```
+
+```python3
+class Solution:
+    def numIslands(self, grid):
+        if not grid:
+            return 0
+
+        count = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '1':
+                    self.dfs(grid, i, j)
+                    count += 1
+        return count
+
+    def dfs(self, grid, i, j):
+        if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[0]) or grid[i][j] != '1':
+            return
+
+        grid[i][j] = '#'
+        self.dfs(grid, i + 1, j)
+        self.dfs(grid, i - 1, j)
+        self.dfs(grid, i, j + 1)
+        self.dfs(grid, i, j - 1)
+
+```
 
 
 ## Reverse Linked List
@@ -1137,7 +1199,6 @@ class Solution:
             right += 1
 
 ```
-
 
 
 ## String Compression
