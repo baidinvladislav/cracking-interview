@@ -8,7 +8,12 @@ class Solution:
         maxx, _ = max(points, key=lambda x: x[0])
         rx = (minx + maxx) / 2
 
-        return all((2 * rx - x, y) in points for x, y in points)
+        result = []
+        for x, y in points:
+            is_occurrencied = (2 * rx - x, y) in points
+            result.append(is_occurrencied)
+
+        return all(result)
 
 
 def main():
