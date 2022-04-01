@@ -7,21 +7,19 @@ class Solution:
         points = set(map(tuple, points))
 
         # find max and min on x
-        minx, _ = min(points, key=lambda x: x[0])
-        maxx, _ = max(points, key=lambda x: x[0])
+        point_min_x = min(points, key=lambda x: x[0])
+        point_max_x = max(points, key=lambda x: x[0])
 
         # calculate a line between min x and max x
-        rx = (minx + maxx) / 2
+        middle_line = (point_min_x[0] + point_max_x[0]) / 2
 
-        result = []
         for x, y in points:
             # create a mirror point
-            point = (2 * rx - x, y)
+            mirror_point = (2 * middle_line - x, y)
             # check that a mirror point in the points
-            result.append(point in points)
-
-        # return True if we have all mirrors points otherwise False
-        return all(result)
+            if mirror_point not in points:
+                return False
+        return True
 
 
 def main():

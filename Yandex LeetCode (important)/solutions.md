@@ -1134,6 +1134,56 @@ class Solution:
 
 
 ## Line Reflection
+Даны точки на графике, определить можно ли провести такую линию между точками, чтобы точки оказались отражением друг друга.
+
+https://leetcode.com/problems/line-reflection/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Избавляемся от дубликатов точек.</li>
+ <li>Ищем точки с бОльшим и меньшим значением по оси Х.</li>
+ <li>Если такая линия и есть, то она должна проходить между между точками из пред. пункта.</li>
+ <li>Для каждой точки вычисляем ее отражение и проверяем есть ли такая точка в нашем исходном массиве точек.</li>
+ <li>Вернуть True, если все точки имеют свое отражение, иначе вернуть False.</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input: points = [[1,1],[-1,1]]
+Output: true
+Explanation: We can choose the line x = 0.
+
+Example 2:
+Input: points = [[1,1],[-1,-1]]
+Output: false
+Explanation: We can't choose a line.
+```
+
+
+```python
+class Solution:
+    def isReflected(self, points: List[List[int]]) -> bool:
+        # remove duplicates
+        points = set(map(tuple, points))
+
+        # find max and min on x
+        point_min_x = min(points, key=lambda x: x[0])
+        point_max_x = max(points, key=lambda x: x[0])
+
+        # calculate a line between min x and max x
+        middle_line = (point_min_x[0] + point_max_x[0]) / 2
+
+        for x, y in points:
+            # create a mirror point
+            mirror_point = (2 * middle_line - x, y)
+            # check that a mirror point in the points
+            if mirror_point not in points:
+                return False
+        return True
+
+```
 
 
 ## Design Hit Counter
