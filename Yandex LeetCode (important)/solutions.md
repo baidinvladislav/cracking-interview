@@ -1493,3 +1493,55 @@ class Solution:
 
 
 ## Longest Subarray of 1 After Deleting One Element
+Дан бинарный массив. Найти наиболее длинную последовательность единиц после удаления одного элемента.
+Вернуть длину этой последовательности.
+
+https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Оба указателя начинают с первого элемента.</li>
+ <li>Если end натыкается на 1, то увеличиваем счетчик единиц.</li>
+ <li>Если размер окна - кол-во единиц больше 1 т.е. появляется второй ноль в окне.</li>
+ <li>Проверка на то что под стартом стоит единица, если это так то уменьшить счетчик единиц.</li>
+ <li>Увеличить переменную начала окна.</li>
+ <li>На каждой итерации обновлять результирующую переменную.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: nums = [1,1,0,1]
+Output: 3
+Explanation: After deleting the number in position 2, [1,1,1] contains 3 numbers with value of 1's.
+
+Example 2:
+Input: nums = [0,1,1,1,0,1,1,0,1]
+Output: 5
+Explanation: After deleting the number in position 4, [0,1,1,1,1,1,0,1] longest subarray with value of 1's is [1,1,1,1,1].
+
+Example 3:
+Input: nums = [1,1,1]
+Output: 2
+Explanation: You must delete one element.
+```
+
+```python
+class Solution:
+    def longestSubarray(self, nums: List[int]) -> int:
+        ones, window_start, max_length = 0, 0, 0
+
+        for window_end in range(len(nums)):
+            if nums[window_end] == 1:
+                ones += 1
+
+            if window_end - window_start + 1 - ones > 1:
+                if nums[window_start] == 1:
+                    ones -= 1
+                window_start += 1
+
+            max_length = max(max_length, window_end - window_start)
+
+        return max_length
+
+```
