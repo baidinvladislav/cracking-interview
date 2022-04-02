@@ -1385,6 +1385,65 @@ class Solution:
 
 
 ## Maximize Distance to Closest Person
+Дан бинарный массив, найти индекс с 0, находящийся на бОльшем расстоянии от единиц.
+
+https://leetcode.com/problems/maximize-distance-to-closest-person/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Создаем генератор, который будет отдавать следующий индекс единицы из массива.</li>
+ <li>Используем два указателя: prev - отслеживает последнюю единицу слева, изначально None, future - отслеживает следующую единицу справа, изначально индекс первой единицы.</li>
+ <li>Итерируем входящий массив, если элемент на итерации равен единице, обновляем указатель prev на текущий индекс.</li>
+ <li>Если элемент равен 0, то сдвигаем future до тех пор пока его нет и мы не вышли за текущую итерацию.</li>
+ <li>Записываем с какого указателя меньше расстояние до ближайщей единицы для текущего индекса.</li>
+ <li>Обновляем результат как максимум между текущуим результатом и пунктом 5.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input: seats = [1,0,0,0,1,0,1]
+Output: 2
+Explanation: 
+If Alex sits in the second open seat (i.e. seats[2]), then the closest person has distance 2.
+If Alex sits in any other open seat, the closest person has distance 1.
+Thus, the maximum distance to the closest person is 2.
+
+Example 2:
+Input: seats = [1,0,0,0]
+Output: 3
+Explanation: 
+If Alex sits in the last seat (i.e. seats[3]), the closest person is 3 seats away.
+This is the maximum distance possible, so the answer is 3.
+
+Example 3:
+Input: seats = [0,1]
+Output: 1
+```
+
+
+```python
+class Solution:
+    def maxDistToClosest(self, seats):
+        reserved = (i for i, seat in enumerate(seats) if seat == 1)
+        prev = None
+        future = next(reserved)
+        result = 0
+
+        for i, seat in enumerate(seats):
+            if seat:
+                prev = i
+            else:
+                while future is not None and future < i:
+                    future = next(reserved, None)
+
+                left = float('inf') if prev is None else i - prev
+                right = float('inf') if future is None else future - i
+                result = max(result, min(left, right))
+
+        return result
+
+```
 
 
 ## Number of Students Doing Homework at a Given Time
