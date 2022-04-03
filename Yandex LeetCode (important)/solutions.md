@@ -1382,6 +1382,69 @@ class Solution:
 
 
 ## Max Stack
+Создать структуру данных с поддержкой операций стэка и поддержкой поиска максимального элемента.
+
+https://leetcode.com/problems/max-stack/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>В конструкторе класса определяем хранилище.</li>
+ <li>push(x) - добавляем элемент x в конец массива.</li>
+ <li>top() - получаем последний элемент из хранилища.</li>
+ <li>peekMax() - используем ф-ию max() для поиска максимального элемента по массиву.</li>
+ <li>popMax() - получаем значение из peekMax, проходим по массиву и удаляем элемент из храналища.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input
+["MaxStack", "push", "push", "push", "top", "popMax", "top", "peekMax", "pop", "top"]
+[[], [5], [1], [5], [], [], [], [], [], []]
+Output
+[null, null, null, null, 5, 5, 1, 5, 1, 5]
+
+Explanation
+MaxStack stk = new MaxStack();
+stk.push(5);   // [5] the top of the stack and the maximum number is 5.
+stk.push(1);   // [5, 1] the top of the stack is 1, but the maximum is 5.
+stk.push(5);   // [5, 1, 5] the top of the stack is 5, which is also the maximum, because it is the top most one.
+stk.top();     // return 5, [5, 1, 5] the stack did not change.
+stk.popMax();  // return 5, [5, 1] the stack is changed now, and the top is different from the max.
+stk.top();     // return 1, [5, 1] the stack did not change.
+stk.peekMax(); // return 5, [5, 1] the stack did not change.
+stk.pop();     // return 1, [5] the top of the stack and the max element is now 5.
+stk.top();     // return 5, [5] the stack did not change.
+```
+
+
+```python
+class MaxStack:
+
+    def __init__(self):
+        self.stack = []
+
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+
+    def pop(self) -> int:
+        return self.stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def peekMax(self) -> int:
+        return max(self.stack)
+
+    def popMax(self) -> int:
+        val = self.peekMax()
+        for i in range(-1, -len(self.stack) - 1, -1):
+            if self.stack[i] == val:
+                del self.stack[i]
+                break
+        return val
+
+```
 
 
 ## Maximize Distance to Closest Person

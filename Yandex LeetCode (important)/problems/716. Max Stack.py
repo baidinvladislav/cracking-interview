@@ -1,20 +1,36 @@
-class MaxStack(object):
+class MaxStack:
+
     def __init__(self):
-        self.storage = []
+        self.stack = []
 
-    def push(self, x):
-        self.storage.append(x)
+    def push(self, x: int) -> None:
+        self.stack.append(x)
 
-    def pop(self):
-        return self.storage.pop()
+    def pop(self) -> int:
+        return self.stack.pop()
 
-    def top(self):
-        return self.storage[-1]
+    def top(self) -> int:
+        return self.stack[-1]
 
-    def peekMax(self):
-        return max(self.storage)
+    def peekMax(self) -> int:
+        return max(self.stack)
 
     def popMax(self) -> int:
-        max_val = self.peekMax()
-        max_idx = max([i for i, v in enumerate(self.storage) if v == max_val])
-        return self.storage.pop(max_idx)
+        val = self.peekMax()
+        for i in range(-1, -len(self.stack) - 1, -1):
+            if self.stack[i] == val:
+                del self.stack[i]
+                break
+        return val
+
+
+stk = MaxStack()
+stk.push(5)
+stk.push(1)
+stk.push(5)
+stk.top()
+stk.popMax()
+stk.top()
+stk.peekMax()
+stk.pop()
+stk.top()
