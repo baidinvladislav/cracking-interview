@@ -300,6 +300,66 @@ class Solution:
 
 
 ## Merge k Sorted Lists
+Смержить k связных списков из массива в один отсортированный связный список.
+
+https://leetcode.com/problems/merge-k-sorted-lists/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Инициализируем голову и указатель узлом списка со значением 0.</li>
+ <li>Добавляем в кучу значения голов и сами головы всех списков из массива.</li>
+ <li>Пока куча не пуста получаем из нее значения и узел списков (куча сама сортирует).</li>
+ <li>К указателю из 1-го пункта цепляем, то что пришло из кучи.</li>
+ <li>Переставляем указатель вперед на один узел.</li>
+ <li>Переставляем узел из пункта 3 вперед на один узел.</li>
+ <li>Если у узла есть последующие узлы, то добавляем их значения и сами узлы в кучу.</li>
+ <li>После цикла вернуть последующий от головы узел, потому что голова равняется значению 0, см 1-ый пункт.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: lists = [[1,4,5],[1,3,4],[2,6]]
+Output: [1,1,2,3,4,4,5,6]
+Explanation: The linked-lists are:
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+merging them into one sorted list:
+1->1->2->3->4->4->5->6
+
+Example 2:
+Input: lists = []
+Output: []
+
+Example 3:
+Input: lists = [[]]
+Output: []
+```
+
+```python
+from heapq import *
+
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        head = point = ListNode(0)
+        q = []
+        for l in lists:
+            if l:
+                heappush(q, (l.val, id(l), l))
+        while q:
+            val, nodeId, node = heappop(q)
+            point.next = node  # use node directly instead of creating a new node
+            point = point.next
+            node = node.next
+            if node:
+                heappush(q, (node.val, id(node), node))
+        return head.next
+```
 
 
 ## Group Anagrams
