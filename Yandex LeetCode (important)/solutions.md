@@ -1190,6 +1190,74 @@ class Solution:
 
 
 ## Insert Delete Getrandom
+Разработать структуру данных, для вставки и удаления за О(1).
+Функцию генерации случайных элементов можно взять из встроенного модуля random.
+
+https://leetcode.com/problems/insert-delete-getrandom-o1/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Метод init: инициализируем пустую хеш-мапу и пустой массив.</li>
+ <li>Метод insert: вставляем значение в хеш-мап как ключ, а его значением будет последний индекс массива + 1 на момент вставки, затем вставить значение в конец массива.</li>
+ <li>Метод remove: если значение есть в хеш-мап, то узнаем индекс значения в массиве, на индекс удаляемого значения записываем последнее значение массива, удаляется последнее значение из массива (для избежания дублей), обновляется индекс последнего значения в хеш-мапе, наконец удаляется ключ удаляемого значения из хеш-мапы.</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input
+["RandomizedSet", "insert", "remove", "insert", "getRandom", "remove", "insert", "getRandom"]
+[[], [1], [2], [2], [], [1], [2], []]
+Output
+[null, true, false, true, 2, true, false, 2]
+
+Explanation
+RandomizedSet randomizedSet = new RandomizedSet();
+randomizedSet.insert(1); // Inserts 1 to the set. Returns true as 1 was inserted successfully.
+randomizedSet.remove(2); // Returns false as 2 does not exist in the set.
+randomizedSet.insert(2); // Inserts 2 to the set, returns true. Set now contains [1,2].
+randomizedSet.getRandom(); // getRandom() should return either 1 or 2 randomly.
+randomizedSet.remove(1); // Removes 1 from the set, returns true. Set now contains [2].
+randomizedSet.insert(2); // 2 was already in the set, so return false.
+randomizedSet.getRandom(); // Since 2 is the only number in the set, getRandom() will always return 2.
+```
+
+
+```python
+import random
+
+
+class RandomizedSet:
+
+    def __init__(self):
+        self.hashmap = {}
+        self.array = []
+
+    def insert(self, val: int) -> bool:
+        if val not in self.hashmap:
+            self.hashmap[val] = len(self.array)
+            self.array.append(val)
+            return True
+
+        return False
+
+    def remove(self, val: int) -> bool:
+        if val in self.hashmap:
+            idx = self.hashmap[val]
+            last_value = self.array[-1]
+            self.array[idx] = last_value
+            self.array.pop()
+            self.hashmap[last_value] = idx
+            del self.hashmap[val]
+            return True
+
+        return False
+
+    def getRandom(self) -> int:
+        return random.choice(self.array)
+
+```
 
 
 ## Is Subsequence
