@@ -1187,6 +1187,60 @@ class Solution:
 
 
 ## Design Hit Counter
+.
+
+https://leetcode.com/problems/design-hit-counter/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Метод init: инициализируем пустую хеш-мапу.</li>
+ <li>Метод hit: считаем удары на каждой секунде.</li>
+ <li>Метод getHits: за начало берем разницу между временем - 300 (5 мин), суммируем кол-во ударов на каждой секунде.</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input
+["HitCounter", "hit", "hit", "hit", "getHits", "hit", "getHits", "getHits"]
+[[], [1], [2], [3], [4], [300], [300], [301]]
+Output
+[null, null, null, null, 3, null, 4, 3]
+
+Explanation
+HitCounter hitCounter = new HitCounter();
+hitCounter.hit(1);       // hit at timestamp 1.
+hitCounter.hit(2);       // hit at timestamp 2.
+hitCounter.hit(3);       // hit at timestamp 3.
+hitCounter.getHits(4);   // get hits at timestamp 4, return 3.
+hitCounter.hit(300);     // hit at timestamp 300.
+hitCounter.getHits(300); // get hits at timestamp 300, return 4.
+hitCounter.getHits(301); // get hits at timestamp 301, return 3.
+```
+
+
+```python
+class HitCounter:
+
+    def __init__(self):
+        self.hits = {}
+
+    def hit(self, timestamp: int) -> None:
+        if timestamp not in self.hits:
+            self.hits[timestamp] = 0
+        self.hits[timestamp] += 1
+
+    def getHits(self, timestamp: int) -> int:
+        begin = timestamp - 300
+        count = 0
+
+        for i in range(begin + 1, timestamp + 1):
+            if i in self.hits:
+                count += self.hits[i]
+        return count
+
+```
 
 
 ## Insert Delete Getrandom
