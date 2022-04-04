@@ -1187,7 +1187,7 @@ class Solution:
 
 
 ## Design Hit Counter
-.
+Разработатать класс для подсчета ударов.
 
 https://leetcode.com/problems/design-hit-counter/
 
