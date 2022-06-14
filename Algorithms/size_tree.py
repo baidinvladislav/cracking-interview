@@ -12,7 +12,7 @@ class Node:
 
 # Computes the number of nodes in tree
 def size(node):
-    if node is None:
+    if not node:
         return 0
     else:
         return size(node.left) + 1 + size(node.right)
