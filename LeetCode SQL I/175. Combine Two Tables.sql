@@ -1,4 +1,4 @@
-# Just is a left join
+# just is a left join
 # https://leetcode.com/problems/combine-two-tables/
 
 
