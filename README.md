@@ -7,6 +7,7 @@ Created on August 24.08.21.
 * "Dynamic Programming in Python" — code from course https://www.educative.io/courses/dynamic-programming-in-python/.
 * "Grokking the Coding Interview" — problems from course https://www.educative.io/courses/grokking-the-coding-interview/.
 * "LeetCode Problems" — resolved problems from https://leetcode.com/ site.
+* "LeetCode SQL I" — LeetCode SQL study plan https://leetcode.com/study-plan/sql/.
 * "Sortings" — popular sorting algorithms implemented myself from scratch.
 * "Yandex Contest" — problems from previous interviews at Yandex https://contest.yandex.ru/.
 * "Yandex Interview" — problems from habr article https://habr.com/ru/post/550088/.
