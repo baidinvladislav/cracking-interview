@@ -9,6 +9,7 @@ Created on August 24.08.21.
 * "LeetCode Problems" — resolved problems from https://leetcode.com/ site.
 * "LeetCode SQL I" — LeetCode SQL study plan https://leetcode.com/study-plan/sql/.
 * "Sortings" — popular sorting algorithms implemented myself from scratch.
+* "Top 40 SQL" — The most popular SQL problems https://artoftesting.com/sql-queries-for-interview.
 * "Yandex Contest" — problems from previous interviews at Yandex https://contest.yandex.ru/.
 * "Yandex Interview" — problems from habr article https://habr.com/ru/post/550088/.
 * "Yandex Blitz" — problems from habr arcticle https://habr.com/ru/company/yandex/blog/340784/.
