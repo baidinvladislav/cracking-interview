@@ -1,6 +1,6 @@
 *Created on August 24.08.21*
 
-* "[Algorithms](https://cdn.icon-icons.com/icons2/2963/PNG/512/macos_big_sur_folder_icon_186046.png)" — popular algorithms to work with data structures.
+* "![Algorithms](https://cdn.icon-icons.com/icons2/2963/PNG/512/macos_big_sur_folder_icon_186046.png)" — popular algorithms to work with data structures.
 * "Apple LeetCode" — problems faced at interviews at Apple
 * "Best Practice Questions" — the best questions from real tech interviews from [article](https://techinterviewhandbook.org/best-practice-questions/).
 * "Cracking the Coding Interview" — resolved problems from [book](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/) for preparation to coding interview authored by Gayle Laakmann McDowell.
