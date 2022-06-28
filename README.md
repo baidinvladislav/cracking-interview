@@ -2,7 +2,7 @@
 
 * "Algorithms" — popular algorithms to work with data structures.
 * "Apple LeetCode" — problems faced at interviews at Apple
-* "[Best Practice Questions](https://techinterviewhandbook.org/best-practice-questions/)" — the best questions from real tech interviews from article by https://techinterviewhandbook.org/best-practice-questions/.
+* "Best Practice Questions" — the best questions from real tech interviews from [article](https://techinterviewhandbook.org/best-practice-questions/) by .
 * "Cracking the Coding Interview" — resolved problems from book for preparation to coding interview authored by Gayle Laakmann McDowell https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/.
 * "Data Structures" — popular data structures implemented myself from scratch.
 * "Dynamic Programming in Python" — code from course https://www.educative.io/courses/dynamic-programming-in-python/.
