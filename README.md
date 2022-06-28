@@ -1,4 +1,7 @@
+<p>The repository stores my technical preparation.</p>
 *Created on August 24.08.21*
+
+<h3>Content:</h3>
 
 * :open_file_folder: Algorithms: popular algorithms to work with data structures.
 * :open_file_folder: Apple LeetCode: problems faced at interviews at Apple.
