@@ -19,4 +19,4 @@
 * :open_file_folder: Yandex LeetCode: problems faced at interviews at Yandex according to [LeetCode](https://leetcode.com/company/yandex/).
 * :open_file_folder: Yatalks Conference: problems from [YouTube video](https://www.youtube.com/watch?v=3ZHbMra4NRc/).
 
-*Was created on August 24.08.21*
+*Was created on 24 August 2021*
