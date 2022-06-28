@@ -1,6 +1,4 @@
-*Created on August 24.08.21*
-
-<p>The repository stores my technical preparation.</p>
+<h2>The repository stores my technical preparation.</h2>
 
 <h3>Content:</h3>
 
@@ -20,3 +18,5 @@
 * :open_file_folder: Yandex Blitz: problems from [habr arcticle](https://habr.com/ru/company/yandex/blog/340784/).
 * :open_file_folder: Yandex LeetCode: problems faced at interviews at Yandex over the past six months (~11.2021-04.2022), [according to LeetCode](https://leetcode.com/company/yandex/).
 * :open_file_folder: Yatalks Conference: problems from [YouTube video](https://www.youtube.com/watch?v=3ZHbMra4NRc/).
+
+*Was created on August 24.08.21*
