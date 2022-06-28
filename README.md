@@ -2,7 +2,7 @@
 
 * :file_folder: "Algorithms" — popular algorithms to work with data structures.
 * :open_file_folder: "Apple LeetCode" — problems faced at interviews at Apple
-* :open_file_folder: "Best Practice Questions" — the best questions from real tech interviews from [article](https://techinterviewhandbook.org/best-practice-questions/).
+* :material-folder: "Best Practice Questions" — the best questions from real tech interviews from [article](https://techinterviewhandbook.org/best-practice-questions/).
 * :material-folder: "Cracking the Coding Interview" — resolved problems from [book](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/) for preparation to coding interview authored by Gayle Laakmann McDowell.
 * "Data Structures" — popular data structures implemented myself from scratch.
 * "[Dynamic Programming in Python](https://www.educative.io/courses/dynamic-programming-in-python/)" — code from course.
