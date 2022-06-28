@@ -1,4 +1,4 @@
-*Created on August 24.08.21.*
+*Created on August 24.08.21*
 
 * "Algorithms" — popular algorithms to work with data structures.
 * "Apple LeetCode" — problems faced at interviews at Apple
