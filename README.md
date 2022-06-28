@@ -1,6 +1,7 @@
 Created on August 24.08.21.
 
 * "Algorithms" — popular algorithms to work with data structures.
+* "Apple LeetCode" — problems faced at interviews at Yandex over the past six months (~11.2021-04.2022), according to LeetCode 
 * "Best Practice Questions" — the best questions from real tech interviews from article by https://techinterviewhandbook.org/best-practice-questions/.
 * "Cracking the Coding Interview" — resolved problems from book for preparation to coding interview authored by Gayle Laakmann McDowell https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/.
 * "Data Structures" — popular data structures implemented myself from scratch.
