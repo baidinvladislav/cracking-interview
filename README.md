@@ -9,6 +9,7 @@
 * :open_file_folder: Data Structures: popular data structures implemented myself from scratch.
 * :open_file_folder: Dynamic Programming in Python: problems from [Dynamic Programming in Python](https://www.educative.io/courses/dynamic-programming-in-python/) course.
 * :open_file_folder: Grokking the Coding Interview: problems from [Grokking the Coding Interview](https://www.educative.io/courses/grokking-the-coding-interview/) course.
+* :open_file_folder: Interview Cake Course: problems from [Interview Cake Course](https://www.interviewcake.com/table-of-contents) course.
 * :open_file_folder: LeetCode Problems: resolved problems from [LeetCode](https://leetcode.com/) site.
 * :open_file_folder: LeetCode SQL I: LeetCode SQL [study plan](https://leetcode.com/study-plan/sql/).
 * :open_file_folder: Sortings: popular sorting algorithms implemented myself from scratch.
