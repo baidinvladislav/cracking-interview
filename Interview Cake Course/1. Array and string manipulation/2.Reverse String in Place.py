@@ -1,6 +1,8 @@
 import unittest
 
 
+# Time complexity: O(n)
+# Space complexity: O(1)
 def reverse(list_of_chars):
     start, end = 0, len(list_of_chars) - 1
     while start < end:

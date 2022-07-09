@@ -1,6 +1,8 @@
 import unittest
 
 
+# Time complexity: O(nlgn)
+# Space complexity: O(n)
 def merge_ranges(meetings):
     """
     Merge them if first one has `end` greater than `start` of second one.
