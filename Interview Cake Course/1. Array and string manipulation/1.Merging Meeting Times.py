@@ -1,22 +1,14 @@
-def merge_ranges(intervals):
-    intervals.sort(key=lambda x: x[0])
+def merge_ranges(meetings):
+    meetings.sort(key=lambda x: x[0])
+    merged_intervals = [meetings[0]]
 
-    start = intervals[0][0]
-    end = intervals[0][1]
-
-    result = []
-    for i in range(1, len(intervals)):
-        interval = intervals[i]
-        if end >= interval[0]:
-            end = max(end, interval[1])
+    for (current_start, current_end) in meetings[1:]:
+        last_merged_start, last_merged_end = merged_intervals[-1]
+        if last_merged_end >= current_start:
+            merged_intervals[-1] = last_merged_start, max(last_merged_end, current_end)
         else:
-            result.append((start, end))
-            start = interval[0]
-            end = interval[1]
-
-    result.append((start, end))
-
-    return result
+            merged_intervals.append((current_start, current_end))
+    return merged_intervals
 
 
 expected = [(0, 1), (3, 8), (9, 12)]
