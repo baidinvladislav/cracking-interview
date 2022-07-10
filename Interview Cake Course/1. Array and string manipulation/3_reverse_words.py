@@ -1,6 +1,8 @@
 import unittest
 
 
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def reverse_words(message):
     # reverse whole array
     reverse_characters(message, 0, len(message) - 1)
