@@ -1,6 +1,8 @@
 import unittest
 
 
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def get_max_profit(stock_prices):
     min_price = stock_prices[0]
     max_profit = stock_prices[1] - stock_prices[0]

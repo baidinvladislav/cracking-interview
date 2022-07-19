@@ -1,6 +1,8 @@
 import unittest
 
 
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def highest_product_of_3(list_of_ints):
 
     if len(list_of_ints) < 3:

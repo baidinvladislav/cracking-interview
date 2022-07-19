@@ -1,6 +1,8 @@
 import unittest
 
 
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def get_products_of_all_ints_except_at_index(int_list):
     if len(int_list) < 2:
         raise IndexError('Getting the product of numbers at other '
