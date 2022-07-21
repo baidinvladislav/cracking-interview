@@ -28,6 +28,38 @@ def reverse_characters(message, left_index, right_index):
         right_index -= 1
 
 
+# ----------21_07_22---------- #
+def reverse_words_21_07_22(words):
+    left, right = 0, len(words) - 1
+    while left < right:
+        words[left], words[right] = words[right], words[left]
+
+        left += 1
+        right -= 1
+
+    slow, fast = 0, 1
+    while fast != len(words) + 1:
+        if fast == len(words) or words[fast] == ' ':
+            word = words[slow:fast]
+            words[slow:fast] = reverse_word(word)
+            slow = fast + 1
+
+        fast += 1
+
+    return words
+
+
+def reverse_word(word):
+    left, right = 0, len(word) - 1
+    while left < right:
+        word[left], word[right] = word[right], word[left]
+
+        left += 1
+        right -= 1
+
+    return word
+
+
 class Test(unittest.TestCase):
 
     def test_one_word(self):
