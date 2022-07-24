@@ -3,6 +3,8 @@ from collections import deque
 
 
 # my own
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 def is_balanced(tree_root):
     q = deque()
     q.append((tree_root, 0))
@@ -20,11 +22,18 @@ def is_balanced(tree_root):
         if not node.left and not node.right:
             depths.append(depth)
 
-    depths.sort()
-    return depths[-1] - depths[0] < 2
+    # you can do with sorting but it'll take O(n*lgn) time
+    max_depth, min_depth = float('-inf'), float('inf')
+    for d in depths:
+        max_depth = max(max_depth, d)
+        min_depth = min(min_depth, d)
+
+    return max_depth - min_depth < 2
 
 
 # their
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 def is_balanced(tree_root):
     if tree_root is None:
         return True
