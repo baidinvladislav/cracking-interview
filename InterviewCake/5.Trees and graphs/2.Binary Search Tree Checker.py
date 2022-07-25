@@ -2,6 +2,8 @@ import unittest
 
 
 # my own
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 def is_binary_search_tree(root):
     def in_order(node):
         if not node:
@@ -14,11 +16,38 @@ def is_binary_search_tree(root):
     values = []
     in_order(root)
 
-    # note: it'll take O(n)
     for i in range(1, len(values)):
         if values[i - 1] > values[i]:
             return False
 
+    return True
+
+
+# their
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def is_binary_search_tree(root):
+    # Start at the root, with an arbitrarily low lower bound
+    # and an arbitrarily high upper bound
+    node_and_bounds_stack = [(root, float('-inf'), float('inf'))]
+
+    # Depth-first traversal
+    while len(node_and_bounds_stack):
+        node, lower_bound, upper_bound = node_and_bounds_stack.pop()
+
+        # If this node is invalid, we return false right away
+        if (node.value <= lower_bound) or (node.value >= upper_bound):
+            return False
+
+        if node.left:
+            # This node must be less than the current node
+            node_and_bounds_stack.append((node.left, lower_bound, node.value))
+        if node.right:
+            # This node must be greater than the current node
+            node_and_bounds_stack.append((node.right, node.value, upper_bound))
+
+    # If none of the nodes were invalid, return true
+    # (at this point we have checked all nodes)
     return True
 
 
