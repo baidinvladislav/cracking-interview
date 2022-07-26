@@ -22,8 +22,7 @@ def is_binary_search_tree(root):
 
     return True
 
-
-# their
+# their iterative
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def is_binary_search_tree(root):
@@ -35,20 +34,21 @@ def is_binary_search_tree(root):
     while len(node_and_bounds_stack):
         node, lower_bound, upper_bound = node_and_bounds_stack.pop()
 
-        # If this node is invalid, we return false right away
-        if (node.value <= lower_bound) or (node.value >= upper_bound):
-            return False
 
-        if node.left:
-            # This node must be less than the current node
-            node_and_bounds_stack.append((node.left, lower_bound, node.value))
-        if node.right:
-            # This node must be greater than the current node
-            node_and_bounds_stack.append((node.right, node.value, upper_bound))
+# their recursive
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def is_binary_search_tree(node, lower_bound=float('-inf'), upper_bound=float('inf')):
+    if not node:
+        return True
 
-    # If none of the nodes were invalid, return true
-    # (at this point we have checked all nodes)
-    return True
+    if node.value >= upper_bound or node.value <= lower_bound:
+        return False
+
+    left = is_binary_search_tree(node=node.left, lower_bound=lower_bound, upper_bound=node.value)
+    right = is_binary_search_tree(node=node.right, lower_bound=node.value, upper_bound=upper_bound)
+
+    return all([left, right])
 
 
 class Test(unittest.TestCase):
@@ -67,6 +67,9 @@ class Test(unittest.TestCase):
         def insert_right(self, value):
             self.right = Test.BinaryTreeNode(value)
             return self.right
+
+        def __str__(self):
+            return f'{self.value}'
 
     def test_valid_full_tree(self):
         tree = Test.BinaryTreeNode(50)
