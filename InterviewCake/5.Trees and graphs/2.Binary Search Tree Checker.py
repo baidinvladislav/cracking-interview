@@ -22,31 +22,40 @@ def is_binary_search_tree(root):
 
     return True
 
+
 # their iterative
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def is_binary_search_tree(root):
-    # Start at the root, with an arbitrarily low lower bound
-    # and an arbitrarily high upper bound
-    node_and_bounds_stack = [(root, float('-inf'), float('inf'))]
+    stack = [(root, float('-inf'), float('inf'))]
 
-    # Depth-first traversal
-    while len(node_and_bounds_stack):
-        node, lower_bound, upper_bound = node_and_bounds_stack.pop()
+    while stack:
+        node, left_child, right_child = stack.pop()
+
+        if node.value <= left_child or node.value >= right_child:
+            return False
+
+        if node.left:
+            stack.append((node.left, node.value, right_child))
+
+        if node.right:
+            stack.append((node.right, left_child, node.value))
+
+    return True
 
 
-# their recursive
+# their recursive + own recursive
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def is_binary_search_tree(node, lower_bound=float('-inf'), upper_bound=float('inf')):
     if not node:
         return True
 
-    if node.value >= upper_bound or node.value <= lower_bound:
+    if not node.value <= upper_bound or not node.value >= lower_bound:
         return False
 
-    left = is_binary_search_tree(node=node.left, lower_bound=lower_bound, upper_bound=node.value)
-    right = is_binary_search_tree(node=node.right, lower_bound=node.value, upper_bound=upper_bound)
+    left = is_binary_search_tree(node.left, lower_bound, node.value)
+    right = is_binary_search_tree(node.right, node.value, upper_bound)
 
     return all([left, right])
 
