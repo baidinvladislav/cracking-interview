@@ -42,14 +42,14 @@ def toString(List):
 # 1. String
 # 2. Starting index of the string
 # 3. Ending index of the string.
-def permute(a, l, r):
-    if l == r:
-        print(toString(a))
+def permute(string, left, right):
+    if left == right:
+        print(toString(string))
     else:
-        for i in range(l, r):
-            a[l], a[i] = a[i], a[l]
-            permute(a, l + 1, r)
-            a[l], a[i] = a[i], a[l]  # backtrack
+        for i in range(left, right):
+            string[left], string[i] = string[i], string[left]
+            permute(string, left + 1, right)
+            string[left], string[i] = string[i], string[left]  # backtrack
 
 
 # Driver program to test the above function
