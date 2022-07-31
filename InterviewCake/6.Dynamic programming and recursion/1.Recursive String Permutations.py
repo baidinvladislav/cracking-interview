@@ -55,8 +55,8 @@ def permute(string, left, right):
 # Driver program to test the above function
 string = "ABC"
 n = len(string)
-a = list(string)
-permute(a, 0, n)
+string_array = list(string)
+permute(string_array, 0, n)
 
 
 class Test(unittest.TestCase):
