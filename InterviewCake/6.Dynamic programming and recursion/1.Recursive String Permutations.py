@@ -1,6 +1,27 @@
 import unittest
 
 
+# my own solution
+class Solution:
+    def get_permutations(self, string):
+        self.permuts = []
+        self.backtrack(list(string), 0, len(string))
+        return self.permuts
+
+    def backtrack(self, string, start, end):
+        if start == end:
+            self.permuts.append(string)
+        else:
+            for i in range(start, end):
+                string[start], string[i] = string[i], string[start]
+                self.backtrack(string, start + 1, end)
+                string[start], string[i] = string[i], string[start]
+
+
+result = Solution().get_permutations('ABC')
+print(result)
+
+
 # InterviewCake solution
 def get_permutations(string):
     # Base case
