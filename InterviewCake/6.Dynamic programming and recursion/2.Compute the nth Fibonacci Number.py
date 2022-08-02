@@ -3,11 +3,8 @@ import unittest
 
 # my own solution
 def fib(n):
-    if not n:
-        return 0
-
-    if n == 1:
-        return 1
+    if n in [0, 1]:
+        return n
 
     return fib(n - 2) + fib(n - 1)
 
