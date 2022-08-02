@@ -2,6 +2,7 @@ import unittest
 
 
 # my own solution
+# I couldn't populate the `self.permits` array correctly
 class Solution:
     def get_permutations(self, string):
         self.permuts = []
