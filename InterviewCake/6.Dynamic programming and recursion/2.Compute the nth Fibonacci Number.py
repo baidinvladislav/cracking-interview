@@ -1,6 +1,24 @@
 import unittest
 
 
+# my bottom-up solution
+def fib(n):
+    if n < 0:
+        raise ValueError('error')
+
+    if n in [0, 1]:
+        return n
+
+    prev_prev, prev = 0, 1
+    current = prev_prev + prev
+    for i in range(2, n + 1):
+        current = prev_prev + prev
+        prev_prev = prev
+        prev = current
+
+    return current
+
+
 # my memoization solution
 # Time Complexity: O(n)
 # Space Complexity: O(n)
