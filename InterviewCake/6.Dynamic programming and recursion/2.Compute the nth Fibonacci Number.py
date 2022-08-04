@@ -1,6 +1,26 @@
 import unittest
 
 
+# my memoization solution
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+class Solution:
+    def __init__(self):
+        self.memo = {}
+
+    def fib(self, n):
+        if n in [0, 1]:
+            return n
+
+        if n in self.memo:
+            return n
+
+        result = self.fib(n - 2) + self.fib(n - 1)
+        self.memo[n] = result
+
+        return result
+
+
 # my own recursive solution
 # Time Complexity: O(2^n)
 # Space Complexity: O(2^n)
