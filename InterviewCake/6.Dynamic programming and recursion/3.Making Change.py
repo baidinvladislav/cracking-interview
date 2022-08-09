@@ -24,8 +24,7 @@ class Change(object):
     def __init__(self):
         self.memo = {}
 
-    def change_possibilities_top_down(self, amount_left, denominations,
-                                      current_index=0):
+    def change_possibilities_top_down(self, amount_left, denominations, current_index=0):
         # Check our memo and short-circuit if we've already solved this one
         memo_key = str((amount_left, current_index))
         if memo_key in self.memo:
