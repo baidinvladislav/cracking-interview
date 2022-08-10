@@ -29,14 +29,12 @@ def max_duffel_bag_value(cake_tuples, weight_capacity):
                 # minus the cake's weight. We find the max value at that
                 # integer capacity in our list max_values_at_capacities
                 max_value_using_cake = (
-                    cake_value
-                    + max_values_at_capacities[current_capacity - cake_weight]
+                    cake_value + max_values_at_capacities[current_capacity - cake_weight]
                 )
 
                 # Now we see if it's worth taking the cake. how does the
                 # value with the cake compare to the current_max_value?
-                current_max_value = max(max_value_using_cake,
-                                        current_max_value)
+                current_max_value = max(max_value_using_cake, current_max_value)
 
         # Add each capacity's max value to our list so we can use them
         # when calculating all the remaining capacities
