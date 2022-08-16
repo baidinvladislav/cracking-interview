@@ -16,10 +16,25 @@ def fit_knapsack(values, weights, capacity):
             # base case: row or column equal 0
             if row == 0 or column == 0:
                 table[row][column] = 0
+
+            # если площадь предмета меньше площади столбца,
+            # максимизируем значение суммарной ценности
             elif weights[row - 1] <= column:
-                table[row][column] = max(values[row - 1] + table[row - 1][column - weights[row - 1]], table[row - 1][column])
+                current_item = values[row - 1]
+
+                prev_cell = table[row - 1][column - weights[row - 1]]
+                prev_call_same_area = table[row - 1][column]
+
+                # write into the table
+                table[row][column] = max(current_item + prev_cell, prev_call_same_area)
+
+            # если площадь предмета больше площади столбца,
+            # забираем значение ячейки из предыдущей строки
             else:
-                table[row][column] = table[row - 1][column]
+                prev_call_same_area = table[row - 1][column]
+
+                # write into the table
+                table[row][column] = prev_call_same_area
 
     return table[-1][-1]
 
