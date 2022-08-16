@@ -1,62 +1,6 @@
 import unittest
 
 
-def fit_knapsack(values, weights, capacity):
-    # table size
-    n = len(values)
-
-    # init table every cell equal 0
-    table = [[0 for a in range(capacity + 1)] for i in range(n + 1)]
-
-    # fit the table:
-    # every row
-    for row in range(n + 1):
-        # every column
-        for column in range(capacity + 1):
-            # base case: row or column equal 0
-            if row == 0 or column == 0:
-                table[row][column] = 0
-
-            # если площадь предмета меньше площади столбца,
-            # максимизируем значение суммарной ценности
-            elif weights[row - 1] <= column:
-                current_item = values[row - 1]
-
-                prev_cell = table[row - 1][column - weights[row - 1]]
-                prev_call_same_area = table[row - 1][column]
-
-                # write into the table
-                table[row][column] = max(current_item + prev_cell, prev_call_same_area)
-
-            # если площадь предмета больше площади столбца,
-            # забираем значение ячейки из предыдущей строки
-            else:
-                prev_call_same_area = table[row - 1][column]
-
-                # write into the table
-                table[row][column] = prev_call_same_area
-
-    return table[-1][-1]
-
-
-print(fit_knapsack([4, 5], [4, 5], 12))
-
-
-# https://youtu.be/jlCJqgSgXI4
-def knapsack(values, weights, k, lookup=None):
-    lookup = {} if not lookup else lookup
-    if k in lookup:
-        return lookup[k]
-
-    max_value = 0
-    for i in range(len(values)):
-        if weights[i] <= k:
-            max_value = max(max_value, values[i] + knapsack(values, weights, k - weights[i], lookup))
-
-    lookup[k] = max_value
-    return lookup[k]
-
-
 # their DP solution
 # Time Complexity: O(n * k)
 # Space Complexity: O(k)
@@ -101,9 +45,6 @@ def max_duffel_bag_value(cake_tuples, weight_capacity):
         max_values_at_capacities[current_capacity] = current_max_value
 
     return max_values_at_capacities[weight_capacity]
-
-
-print(knapsack(values=[4, 5], weights=[4, 5], k=12))
 
 
 class Test(unittest.TestCase):
