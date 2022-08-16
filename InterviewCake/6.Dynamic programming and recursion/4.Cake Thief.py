@@ -1,7 +1,7 @@
 import unittest
 
 
-def f(values, weight, capacity):
+def fit_knapsack(values, weights, capacity):
     # table size
     n = len(values)
 
@@ -16,15 +16,15 @@ def f(values, weight, capacity):
             # base case: row or column equal 0
             if row == 0 or column == 0:
                 table[row][column] = 0
-            elif weight[row - 1] <= column:
-                table[row][column] = max(values[row - 1] + table[row - 1][column - weight[row - 1]], table[row - 1][column])
+            elif weights[row - 1] <= column:
+                table[row][column] = max(values[row - 1] + table[row - 1][column - weights[row - 1]], table[row - 1][column])
             else:
                 table[row][column] = table[row - 1][column]
 
     return table[-1][-1]
 
 
-print(f([4, 4], [5, 5], 12))
+print(fit_knapsack([4, 5], [4, 5], 12))
 
 
 # https://youtu.be/jlCJqgSgXI4
