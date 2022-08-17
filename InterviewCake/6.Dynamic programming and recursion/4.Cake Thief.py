@@ -1,6 +1,39 @@
 import unittest
 
 
+# my solution based on their solution
+# Time Complexity: O(n * k)
+# Space Complexity: O(k)
+def fit_knapsack(cake_tuples, weight_capacity):
+    # create dp array to store calculated results
+    dp_arr = [0] * (weight_capacity + 1)
+
+    # loop through all bag capacities from 0 to input capacity
+    for current_capacity in range(weight_capacity + 1):
+        # reset after every capacity
+        current_max_value = 0
+        # loop through every item
+        for weight, value in cake_tuples:
+            # edge case, we have infinitive value in our bag
+            if weight == 0 and value > 0:
+                return float('inf')
+
+            # if we have place for current item
+            if weight <= current_capacity:
+                # get index bag whose calculated value we can add to current value
+                bag_idx = current_capacity - weight
+                # calculate current value plus calculated value on previous iteration
+                max_value_with_that_cake = value + dp_arr[bag_idx]
+                # compare value with added item and without it
+                current_max_value = max(current_max_value, max_value_with_that_cake)
+
+        # save result for every bag
+        dp_arr[current_capacity] = current_max_value
+
+    # return target bag value
+    return dp_arr[weight_capacity]
+
+
 # their DP solution
 # Time Complexity: O(n * k)
 # Space Complexity: O(k)
