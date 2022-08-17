@@ -14,7 +14,6 @@ def max_duffel_bag_value(cake_tuples, weight_capacity):
         # Set a variable to hold the max monetary value so far
         # for current_capacity
         current_max_value = 0
-
         for cake_weight, cake_value in cake_tuples:
             # If a cake weighs 0 and has a positive value the value of
             # our duffel bag is infinite!
@@ -25,7 +24,6 @@ def max_duffel_bag_value(cake_tuples, weight_capacity):
             # current weight capacity it's possible taking the cake
             # would get a better value
             if cake_weight <= current_capacity:
-
                 # So we check: should we use the cake or not?
                 # If we use the cake, the most kilograms we can include in
                 # addition to the cake we're adding is the current capacity
