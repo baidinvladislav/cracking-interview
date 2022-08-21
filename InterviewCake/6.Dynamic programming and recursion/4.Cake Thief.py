@@ -9,7 +9,7 @@ def fit_knapsack(cake_tuples, weight_capacity):
     dp_arr = [0] * (weight_capacity + 1)
 
     # loop through all bag capacities from 0 to input capacity
-    for current_capacity in range(weight_capacity + 1):
+    for current_capacity in range(len(dp_arr)):
         # reset after every capacity
         current_max_value = 0
         # loop through every item
@@ -21,9 +21,9 @@ def fit_knapsack(cake_tuples, weight_capacity):
             # if we have place for current item
             if weight <= current_capacity:
                 # get index bag whose calculated value we can add to current value
-                bag_idx = current_capacity - weight
+                additional_bag_idx = current_capacity - weight
                 # calculate current value plus calculated value on previous iteration
-                max_value_with_that_cake = value + dp_arr[bag_idx]
+                max_value_with_that_cake = value + dp_arr[additional_bag_idx]
                 # compare value with added item and without it
                 current_max_value = max(current_max_value, max_value_with_that_cake)
 
