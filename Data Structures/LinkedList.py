@@ -1,3 +1,28 @@
+"""
+Worst Case:
+    * space: O(n)
+    * prepend: O(1)
+    * append: O(1)
+    * lookup: O(n)
+    * insert: O(n)
+    * delete: O(n)
+
+Strengths:
+    * Fast operations on the ends. Adding elements at either end of a linked list is O(1).
+    Removing the first element is also O(1).
+
+    * Flexible size. There's no need to specify how many elements you're going to store ahead of time.
+    You can keep adding elements as long as there's enough space on the machine.
+
+Weaknesses:
+    * Costly lookups. To access or edit an item in a linked list, you have to take O(i) time
+    to walk from the head of the list to the iith item.
+
+Uses:
+    * Stacks and queues only need fast operations on the ends, so linked lists are ideal.
+"""
+
+
 class Node:
 
     def __init__(self, data):
