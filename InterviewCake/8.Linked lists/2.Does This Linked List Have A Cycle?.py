@@ -5,9 +5,6 @@ import unittest
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def contains_cycle(first_node):
-    if not first_node:
-        return False
-
     slow = fast = first_node
     while fast and fast.next:
         slow = slow.next
