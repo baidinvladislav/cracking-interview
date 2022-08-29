@@ -1,6 +1,9 @@
 import os
 
 
+# their solution
+# Time complexity: O(n)
+# Space complexity: O(1)
 def find_duplicate_files(starting_directory):
     files_seen_already = {}
     stack = [starting_directory]
