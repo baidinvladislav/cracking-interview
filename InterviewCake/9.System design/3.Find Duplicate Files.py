@@ -21,8 +21,13 @@ def find_duplicate_files(starting_directory):
         # If it's a file
         else:
             # Get its contents
-            with open(current_path) as file:
-                file_contents = file.read()
+            try:
+                with open(current_path) as file:
+                    file_contents = file.read()
+                    print('Can read file!')
+            except UnicodeDecodeError as err:
+                print(f'Impossible to open this file: {err}')
+                continue
 
             # Get its last edited time
             current_last_edited_time = os.path.getmtime(current_path)
@@ -48,3 +53,6 @@ def find_duplicate_files(starting_directory):
                 files_seen_already[file_contents] = (current_last_edited_time, current_path)
 
     return duplicates
+
+
+find_duplicate_files('/Users/baydin/Documents')
