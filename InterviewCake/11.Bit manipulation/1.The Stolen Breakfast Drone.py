@@ -1,6 +1,16 @@
 import unittest
 
 
+# my code
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def find_unique_delivery_id(delivery_ids):
+    unique_id = 0
+    for delivery_id in delivery_ids:
+        unique_id ^= delivery_id
+    return unique_id
+
+
 # their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
