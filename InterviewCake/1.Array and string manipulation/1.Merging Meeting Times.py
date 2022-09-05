@@ -1,7 +1,28 @@
 import unittest
 
 
-# Time complexity: O(nlgn)
+# my code
+# time: O(n log n) - because of sorting
+# space: O(n) - in worse case will save all items
+def merge_ranges(meetings):
+    meetings.sort(key=lambda x: x[0])
+    result = []
+    start, end = meetings[0][0], meetings[0][1]
+    for new_start, new_end in meetings[1:]:
+        if end >= new_start:
+            end = max(end, new_end)
+        else:
+            result.append((start, end))
+
+            start = new_start
+            end = new_end
+
+    result.append((start, end))
+    return result
+
+
+# their solution
+# Time complexity: O(n lg n)
 # Space complexity: O(n)
 def merge_ranges(meetings):
     """
