@@ -2,8 +2,8 @@ import unittest
 
 
 # my code
-# Time complexity: O(n)
-# Space complexity: O(1)
+# Time complexity: O(n) - looping through array
+# Space complexity: O(1) - nothing to store
 def reverse(list_of_chars):
     left, right = 0, len(list_of_chars) - 1
     while left < right:
