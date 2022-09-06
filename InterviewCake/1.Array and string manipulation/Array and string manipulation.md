@@ -58,7 +58,44 @@ def merge_ranges(meetings):
 
 
 ## Reverse String in Place
+Дан массив элементов, представленных строками.
+Вернуть массив в обратном порядке (развернуть массив).
 
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Используем два указателя, один идет по строке с начала массива, другой с конца массива.</li>
+ <li>Свапаем элементы под указателями, пока указатели не встретятся в середине.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: ['A', 'B', 'C', 'D', 'E']
+Output: ['E', 'D', 'C', 'B', 'A']
+
+Example 2:
+Input: []
+Output: []
+
+Example 3:
+Input: ['A']
+Output: ['A']
+```
+
+```python
+
+def reverse(list_of_chars):
+    left, right = 0, len(list_of_chars) - 1
+    while left < right:
+        list_of_chars[left], list_of_chars[right] = list_of_chars[right], list_of_chars[left]
+
+        left += 1
+        right -= 1
+
+    return list_of_chars
+```
 
 ## Reverse Words
 
