@@ -98,6 +98,54 @@ def reverse(list_of_chars):
 ```
 
 ## Reverse Words
+Дан массив элементов, представленных символами, которые образуют слова.
+Вернуть массив в обратном порядке, сохранить читаемость слов.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Используем два указателя, один идет по строке с начала массива, другой с конца массива.</li>
+ <li>Сначала развернем массив и получим отзеркаленный порядок элементов.</li>
+ <li>Воспользуемся той же ф-ии, но уже развернем часть массива (каждое слово).</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: ['t', 'h', 'i', 'e', 'f', ' ', 'c', 'a', 'k', 'e']
+Output: ['c', 'a', 'k', 'e', ' ', 't', 'h', 'i', 'e', 'f']
+
+Example 2:
+Input: ['o', 'n', 'e', ' ', 'a', 'n', 'o', 't', 'h', 'e', 'r', ' ', 'g', 'e', 't']
+Output: ['g', 'e', 't', ' ', 'a', 'n', 'o', 't', 'h', 'e', 'r', ' ', 'o', 'n', 'e']
+
+Example 3:
+Input: ['r', 'a', 't', ' ', 't', 'h', 'e', ' ', 'a', 't', 'e', ' ', 'c', 'a', 't', ' ', 't', 'h', 'e']
+Output: ['t', 'h', 'e', ' ', 'c', 'a', 't', ' ', 'a', 't', 'e', ' ', 't', 'h', 'e', ' ', 'r', 'a', 't']
+```
+
+```python
+def reverse_words(array):
+    swap(0, len(array) - 1, array)
+
+    j = 0
+    for i in range(len(array) + 1):
+        if i == len(array) or array[i] == ' ':
+            swap(j, i - 1, array)
+            j = i + 1
+
+    print(array)
+
+
+def swap(start_idx, end_idx, array):
+    while start_idx < end_idx:
+        array[start_idx], array[end_idx] = array[end_idx], array[start_idx]
+
+        start_idx += 1
+        end_idx -= 1
+
+```
 
 
 ## Merge Sorted Arrays

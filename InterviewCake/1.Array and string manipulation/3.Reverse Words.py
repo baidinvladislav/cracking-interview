@@ -1,63 +1,62 @@
 import unittest
 
 
+# my code
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def reverse_words(array):
+    swap(0, len(array) - 1, array)
+
+    j = 0
+    for i in range(len(array) + 1):
+        if i == len(array) or array[i] == ' ':
+            swap(j, i - 1, array)
+            j = i + 1
+
+    print(array)
+
+
+def swap(start_idx, end_idx, array):
+    while start_idx < end_idx:
+        array[start_idx], array[end_idx] = array[end_idx], array[start_idx]
+
+        start_idx += 1
+        end_idx -= 1
+
+
+# their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def reverse_words(message):
-    # reverse whole array
+    # First we reverse all the characters in the entire message
     reverse_characters(message, 0, len(message) - 1)
 
-    # track word's start
+    # This gives us the right word order
+    # but with each word backward
+
+    # Now we'll make the words forward again
+    # by reversing each word's characters
+
+    # We hold the index of the *start* of the current word
+    # as we look for the *end* of the current word
     current_word_start_index = 0
     for i in range(len(message) + 1):
-        # found the end of the current word!
+        # Found the end of the current word!
         if (i == len(message)) or (message[i] == ' '):
-            # reverse word
-            current_word_end_index = i - 1
-            reverse_characters(message, current_word_start_index, current_word_end_index)
+            reverse_characters(message, current_word_start_index, i - 1)
+            # If we haven't exhausted the message our
             # next word's start is one character ahead
             current_word_start_index = i + 1
 
 
 def reverse_characters(message, left_index, right_index):
-    # walk towards the middle, from both sides
+    # Walk towards the middle, from both sides
     while left_index < right_index:
-        # swap the left char and right char
-        message[left_index], message[right_index] = message[right_index], message[left_index]
+        # Swap the left char and right char
+        message[left_index], message[right_index] = \
+            message[right_index], message[left_index]
         left_index += 1
         right_index -= 1
-
-
-# ----------21_07_22---------- #
-def reverse_words_21_07_22(words):
-    left, right = 0, len(words) - 1
-    while left < right:
-        words[left], words[right] = words[right], words[left]
-
-        left += 1
-        right -= 1
-
-    slow, fast = 0, 1
-    while fast != len(words) + 1:
-        if fast == len(words) or words[fast] == ' ':
-            word = words[slow:fast]
-            words[slow:fast] = reverse_word(word)
-            slow = fast + 1
-
-        fast += 1
-
-    return words
-
-
-def reverse_word(word):
-    left, right = 0, len(word) - 1
-    while left < right:
-        word[left], word[right] = word[right], word[left]
-
-        left += 1
-        right -= 1
-
-    return word
 
 
 class Test(unittest.TestCase):
