@@ -1,6 +1,21 @@
 import unittest
 
 
+# my code
+# Time complexity: O(n)
+# Space complexity: O(1)
+def reverse(list_of_chars):
+    left, right = 0, len(list_of_chars) - 1
+    while left < right:
+        list_of_chars[left], list_of_chars[right] = list_of_chars[right], list_of_chars[left]
+
+        left += 1
+        right -= 1
+
+    return list_of_chars
+
+
+# their solution
 # Time complexity: O(n)
 # Space complexity: O(1)
 def reverse(list_of_chars):
