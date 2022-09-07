@@ -150,6 +150,65 @@ def swap(start_idx, end_idx, array):
 
 
 ## Merge Sorted Arrays
+Дан массив элементов, представленных символами, которые образуют слова.
+Вернуть массив в обратном порядке, сохранить читаемость слов.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Создать результирующий массив размером суммой двух входных массивов.</li>
+ <li>Инициализировать счетчики текущих индексов для 3 массивов (два входящий и один результрирующий).</li>
+ <li>Инвариант цикла: пока не заполнили весь результирующий массив.</li>
+ <li>На каждой итерации проверяем что не дошли до конца входных массивов.</li>
+ <li>Если первый массив не исчерпан и либо второй массив испчерпан или нужно добавить в результирующий массив элемент из первого массива, добавить элемент из первого массива, увеличить счетчик индекса первого массива.</li>
+ <li>Иначе добавить элемент из второго массива, увеличить счетчик индекса второго массива.</li>
+ <li>На каждой итерации увеличить текущий индекс результирующего массива.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: [], []
+Output: []
+
+Example 2:
+Input: [], [1, 2, 3]
+Output: [1, 2, 3]
+
+Example 3:
+Input: [5, 6, 7], []
+Output: [5, 6, 7]
+
+Example 4:
+Input: [2, 4, 6], [1, 3, 7]
+Output: [1, 2, 3, 4, 6, 7]
+
+Example 5:
+Input: [2, 4, 6, 8], [1, 7]
+Output: [1, 2, 4, 6, 7, 8]
+```
+
+```python
+def merge_lists(my_list, alices_list):
+    result = [None] * (len(my_list) + len(alices_list))
+    current_my_list_idx = current_alices_list_idx = current_result_idx = 0
+    while current_result_idx < len(result):
+        is_my_list_exhausted = current_my_list_idx == len(my_list)
+        is_alices_list_exhausted = current_alices_list_idx == len(alices_list)
+        if not is_my_list_exhausted and \
+                (is_alices_list_exhausted or my_list[current_my_list_idx] < alices_list[current_alices_list_idx]):
+            result[current_result_idx] = my_list[current_my_list_idx]
+            current_my_list_idx += 1
+        else:
+            result[current_result_idx] = alices_list[current_alices_list_idx]
+            current_alices_list_idx += 1
+
+        current_result_idx += 1
+
+    return result
+
+```
 
 
 ## Cafe Order Checker
