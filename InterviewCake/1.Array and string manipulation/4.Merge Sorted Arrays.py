@@ -1,6 +1,33 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def merge_lists(my_list, alices_list):
+    result = [None] * (len(my_list) + len(alices_list))
+    result_ixd = idx_1 = idx_2 = 0
+
+    while result_ixd < len(result):
+        is_finished_1 = idx_1 == len(my_list)
+        is_finished_2 = idx_2 == len(alices_list)
+
+        if not is_finished_1 and (is_finished_2 or my_list[idx_1] < alices_list[idx_2]):
+            result[result_ixd] = my_list[idx_1]
+            idx_1 += 1
+
+        else:
+            result[result_ixd] = alices_list[idx_2]
+            idx_2 += 1
+
+        result_ixd += 1
+
+    return result
+
+
+# their solution
+# Time Complexity: O(n)
+# Space Complexity: O(n)
 def merge_lists(my_list, alices_list):
     result = [None] * (len(my_list) + len(alices_list))
     current_my_list_idx = current_alices_list_idx = current_result_idx = 0
