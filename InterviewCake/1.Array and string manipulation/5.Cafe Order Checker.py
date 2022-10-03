@@ -1,3 +1,24 @@
+# my iterative solution
+# Time complexity: O(n)
+# Space complexity: O(1)
+def is_first_come_first_served(take_out_orders, dine_in_orders, served_orders):
+    take_out_counter = dine_in_counter = 0
+    for order in served_orders:
+        if take_out_counter <= len(take_out_orders) - 1 and order == take_out_orders[take_out_counter]:
+            take_out_counter += 1
+
+        elif dine_in_counter <= len(dine_in_orders) - 1 and order == dine_in_orders[dine_in_counter]:
+            dine_in_counter += 1
+
+        else:
+            return False
+
+    if take_out_counter != len(take_out_orders) or dine_in_counter != len(dine_in_orders):
+        return False
+
+    return True
+
+
 # my recursive solution
 # Time complexity: O(n)
 # Space complexity: O(n)
