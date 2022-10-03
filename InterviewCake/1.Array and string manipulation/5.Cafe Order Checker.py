@@ -1,3 +1,30 @@
+# my recursive solution
+# Time complexity: O(n)
+# Space complexity: O(n)
+def is_first_come_first_served(
+        take_out_orders, dine_in_orders, served_orders,
+        first_counter=0, second_counter=0, third_counter=0,
+):
+    if len(served_orders) - 1 == third_counter:
+        return True
+
+    if first_counter < len(take_out_orders) and served_orders[third_counter] == take_out_orders[first_counter]:
+        first_counter += 1
+
+    elif second_counter < len(dine_in_orders) and served_orders[third_counter] == dine_in_orders[second_counter]:
+        second_counter += 1
+
+    else:
+        return False
+
+    third_counter += 1
+
+    return is_first_come_first_served(
+        take_out_orders, dine_in_orders, served_orders,
+        first_counter, second_counter, third_counter
+    )
+
+
 # their third solution (iterative)
 # Time complexity: O(n)
 # Space complexity: O(1)
