@@ -57,6 +57,66 @@ def get_max_profit(stock_prices):
 
 
 ## Highest Product of 3
+Найти максимальное произведение из трех чисел массива.
+
+<details><summary>Решение за линию:</summary><blockquote>
+
+<ol>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+<details><summary>Брутфорс решение:</summary><blockquote>
+
+<ol>
+ <li>Тройной цикл.</li>
+ <li>Перемножаем все рядом стоящие тройки чисел массива, ослеживая их максимум.</li>
+</ol>
+
+</blockquote></details>
+
+
+```
+Example 1:
+Input: [1, 2, 3, 4]
+Output: 24
+
+Example 2:
+Input: [6, 1, 3, 5, 7, 8, 2]
+Output: 336
+
+Example 3:
+Input: [-5, 4, 8, 2, 3]
+Output: 96
+
+Example 4:
+Input: [-10, 1, 3, 2, -10]
+Output: 300
+
+Example 5:
+Input: [-5, -1, -3, -2]
+Output: -6
+```
+
+```python
+
+
+
+# my brute force solution
+# Time Complexity: O(n**3)
+# Space Complexity: O(1)
+def highest_product_of_3(list_of_ints):
+    result = float('-inf')
+    for i in range(len(list_of_ints)):
+        for j in range(i + 1, len(list_of_ints)):
+            for y in range(j + 1, len(list_of_ints)):
+                current_result = list_of_ints[i] * list_of_ints[j] * list_of_ints[y]
+                result = max(result, current_result)
+    return result
+
+```
 
 
 ## Product of All Other Numbers

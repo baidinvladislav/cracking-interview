@@ -1,6 +1,20 @@
 import unittest
 
 
+# my brute force solution
+# Time Complexity: O(n**3)
+# Space Complexity: O(1)
+def highest_product_of_3(list_of_ints):
+    result = float('-inf')
+    for i in range(len(list_of_ints)):
+        for j in range(i + 1, len(list_of_ints)):
+            for y in range(j + 1, len(list_of_ints)):
+                current_result = list_of_ints[i] * list_of_ints[j] * list_of_ints[y]
+                result = max(result, current_result)
+    return result
+
+
+# their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def highest_product_of_3(list_of_ints):
@@ -29,19 +43,25 @@ def highest_product_of_3(list_of_ints):
         # It's either the current highest,
         # or the current times the highest product of two
         # or the current times the lowest product of two
-        highest_product_of_3 = max(highest_product_of_3,
-                                   current * highest_product_of_2,
-                                   current * lowest_product_of_2)
+        highest_product_of_3 = max(
+            highest_product_of_3,
+            current * highest_product_of_2,
+            current * lowest_product_of_2
+        )
 
         # Do we have a new highest product of two?
-        highest_product_of_2 = max(highest_product_of_2,
-                                   current * highest,
-                                   current * lowest)
+        highest_product_of_2 = max(
+            highest_product_of_2,
+            current * highest,
+            current * lowest
+        )
 
         # Do we have a new lowest product of two?
-        lowest_product_of_2 = min(lowest_product_of_2,
-                                  current * highest,
-                                  current * lowest)
+        lowest_product_of_2 = min(
+            lowest_product_of_2,
+            current * highest,
+            current * lowest
+        )
 
         # Do we have a new highest?
         highest = max(highest, current)
