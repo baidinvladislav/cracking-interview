@@ -1,6 +1,21 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def get_max_profit(stock_prices):
+    min_price = float('inf')
+    max_profit = 0
+
+    for price in stock_prices:
+        min_price = min(min_price, price)
+        current_profit = price - min_price
+        max_profit = max(max_profit, current_profit)
+
+    return max_profit
+
+
 # their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
