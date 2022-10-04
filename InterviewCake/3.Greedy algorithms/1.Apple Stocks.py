@@ -1,6 +1,7 @@
 import unittest
 
 
+# their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def get_max_profit(stock_prices):
