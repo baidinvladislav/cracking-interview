@@ -62,8 +62,14 @@ def get_max_profit(stock_prices):
 <details><summary>Решение за линию:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
+ <li>Для решения задачи за линию, нужно ослеживать 5 перемнных (highest_product_of_3, highest_product_of_2, highest, lowest_product_of_2, lowest) во время прохода по массиву.</li>
+ <li>Инициализируем переменные как: highest_product_of_3=произведение первых трех чисел, highest_product_of_2=произведение первых двух чисел, highest=максимум из первых двух чисел, lowest_product_of_2=произведение первых двух чисел, lowest=минимум из первых двух чисел.</li>
+ <li>По мере прохода по массиву обновляем highest_product_of_3=максимум из (highest_product_of_3 OR current * highest_product_of_2 OR current * lowest_product_of_2).</li>
+ <li>По мере прохода по массиву обновляем highest_product_of_2=максимум из (highest_product_of_2 OR current * highest OR current * lowest).</li>
+ <li>По мере прохода по массиву обновляем lowest_product_of_2=минимум из (lowest_product_of_2 OR current * highest OR current * lowest).</li>
+ <li>По мере прохода по массиву обновляем highest=максимум из (highest, current).</li>
+ <li>По мере прохода по массиву обновляем lowest=минимум из (lowest, current).</li>
+ <li>Вернуть highest_product_of_3.</li>
 </ol>
 
 </blockquote></details>
@@ -101,7 +107,44 @@ Output: -6
 ```
 
 ```python
+# their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def highest_product_of_3(list_of_ints):
+    if len(list_of_ints) < 3:
+        raise ValueError('Less than 3 items!')
+    
+    highest = max(list_of_ints[0], list_of_ints[1])
+    lowest = min(list_of_ints[0], list_of_ints[1])
+    highest_product_of_2 = list_of_ints[0] * list_of_ints[1]
+    lowest_product_of_2 = list_of_ints[0] * list_of_ints[1]
+    highest_product_of_3 = list_of_ints[0] * list_of_ints[1] * list_of_ints[2]
 
+    for i in range(2, len(list_of_ints)):
+            current = list_of_ints[i]
+
+    highest_product_of_3 = max(
+        highest_product_of_3,
+        current * highest_product_of_2,
+        current * lowest_product_of_2
+    )
+
+    highest_product_of_2 = max(
+        highest_product_of_2,
+        current * highest,
+        current * lowest
+    )
+
+    lowest_product_of_2 = min(
+        lowest_product_of_2,
+        current * highest,
+        current * lowest
+    )
+
+    highest = max(highest, current)
+    lowest = min(lowest, current)
+
+    return highest_product_of_3
 
 
 # my brute force solution
