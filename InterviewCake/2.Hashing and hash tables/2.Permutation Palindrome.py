@@ -1,6 +1,22 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def has_palindrome_permutation(the_string):
+    s = set()
+
+    for char in the_string:
+        if char not in s:
+            s.add(char)
+        else:
+            s.remove(char)
+
+    return len(s) <= 1
+
+
+# their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def has_palindrome_permutation(the_string):
