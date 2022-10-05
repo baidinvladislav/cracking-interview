@@ -230,7 +230,6 @@ def get_products_of_all_ints_except_at_index(int_list):
 
 
 ## Cafe Order Checker
-## Cafe Order Checker
 Дано три массива, последний является очередью заказов из двух массивов.
 Вернуть True, если заказы были обработаны FIFO, в противном случае вернуть False.
 
@@ -409,3 +408,42 @@ def is_first_come_first_served(take_out_orders, dine_in_orders, served_orders):
 
 
 ## In-Place Shuffle
+Дан массив чисел, нужно изменить его порядок случайным образом.
+Без использования дополнительной памяти.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Итерируемся по входному массиву.</li>
+ <li>Получаем случайный индекс рамках [номер итерации:последний индекс в массиве].</li>
+ <li>Свапаем элемент под текущим индексом с элементом под случайным индексом.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: [1, 2, 3]
+Output: [1, 3, 2]
+
+Example 2:
+Input: [1, 2, 3, 4, 5]
+Output: [1, 4, 3, 2, 5]
+
+Example 3:
+Input: [1, 2, 3, 4, 5]
+Output: [1, 2, 3, 4, 5]
+```
+
+```python
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def shuffle(the_list):
+    import random
+    
+    for i in range(len(the_list) - 1):
+        random_idx = random.randrange(i, len(the_list) - 1)
+        the_list[i], the_list[random_idx] = the_list[random_idx], the_list[i]
+
+```

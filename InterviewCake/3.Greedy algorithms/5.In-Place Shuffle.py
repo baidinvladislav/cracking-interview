@@ -1,6 +1,18 @@
 import random
 
 
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def shuffle(the_list):
+    for i in range(len(the_list) - 1):
+        random_idx = random.randrange(i, len(the_list) - 1)
+        the_list[i], the_list[random_idx] = the_list[random_idx], the_list[i]
+
+
+# their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def get_random(floor, ceiling):
     return random.randrange(floor, ceiling + 1)
 
