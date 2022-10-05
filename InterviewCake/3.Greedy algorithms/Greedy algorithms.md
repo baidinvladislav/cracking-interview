@@ -165,6 +165,68 @@ def highest_product_of_3(list_of_ints):
 
 
 ## Product of All Other Numbers
+Найти максимальное произведение из трех чисел массива.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Создать массив размером со входной массив.</li>
+ <li>Записать в созданный массив умножение всех префиксов числа.</li>
+ <li>Перемножить с конца все постфиксы с префиками в результирующем массиве.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: [1, 2, 3]
+Output: [6, 3, 2]
+
+Example 2:
+Input: [8, 2, 4, 3, 1, 5]
+Output: [120, 480, 240, 320, 960, 192]
+
+Example 3:
+Input: [6, 2, 0, 3]
+Output: [0, 0, 36, 0]
+
+Example 4:
+Input: [4, 0, 9, 1, 0]
+Output: [0, 0, 0, 0, 0]
+
+Example 5:
+Input: [-3, 8, 4]
+Output: [32, -12, -24]
+
+Example 6:
+Input: [-7, -1, -4, -2]
+Output: [-8, -56, -14, -28]
+```
+
+```python
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def get_products_of_all_ints_except_at_index(int_list):
+    n = len(int_list)
+    if n < 2:
+        raise Exception
+
+    result = [None] * n
+
+    tmp = 1
+    for i in range(n):
+        result[i] = tmp
+        tmp *= int_list[i]
+
+    tmp = 1
+    for i in range(n - 1, -1, -1):
+        result[i] *= tmp
+        tmp *= int_list[i]
+
+    return result
+
+```
 
 
 ## Cafe Order Checker
