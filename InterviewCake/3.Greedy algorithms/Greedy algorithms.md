@@ -230,6 +230,182 @@ def get_products_of_all_ints_except_at_index(int_list):
 
 
 ## Cafe Order Checker
+## Cafe Order Checker
+Дано три массива, последний является очередью заказов из двух массивов.
+Вернуть True, если заказы были обработаны FIFO, в противном случае вернуть False.
+
+
+<details><summary>Рекурсивное решение #1:</summary><blockquote>
+
+<ol>
+ <li>Базовый случай: итоговый массив заказов пуст.</li>
+ <li>Рекурсия: если следующий обслуженный заказ был в массиве “на вынос”, продвинуться по массиву общих заказов, продвинуться по массиву заказов “на вынос”.</li>
+ <li>Рекурсия: если следующий обслуженный заказ был в массиве “на месте”, продвинуться по массиву общих заказов, продвинуться по массиву заказов “на месте”.</li>
+ <li>Вернуть False, если заказ не совпадает ни с одним массивом заказов, т.к. эта ситуация противоречит FIFO.</li>
+</ol>
+
+</blockquote></details>
+
+
+<details><summary>Рекурсивное решение #2:</summary><blockquote>
+
+<ol>
+ <li>Принцип тот же, но из-за слайсинга мы получаем квадратичное время, использум индексы, вместо слайсов, тем самым уменьшаем затраты по времени до линейного.</li>
+</ol>
+
+</blockquote></details>
+
+
+<details><summary>Итеративное решение:</summary><blockquote>
+
+<ol>
+ <li>Пройти по массиву всех заказов.</li>
+ <li>Если массив “на вынос” не исчерпан и первым находится заказ из общего массива заказов, то инкрементируем счетчик индекса массива “на вынос”.</li>
+ <li>Если массив “на месте” не исчерпан и первым находится заказ из общего массива заказов, то инкрементируем счетчик индекса массива “на месте”.</li>
+ <li>Вернуть False, если заказ следуюзщий на обработку из общего массива заказов, не содержится ни в одном из массивов заказов.</li>
+ <li>Вернуть True, если цикл прошел до конца весь массив итоговых заказов.</li>
+</ol>
+
+</blockquote></details>
+
+
+```
+Example 1:
+Input: [1, 4, 5], [2, 3, 6], [1, 2, 3, 4, 5, 6]
+Output: True
+
+Example 2:
+Input: [1, 5], [2, 3, 6], [1, 2, 6, 3, 5]
+Output: False
+
+Example 3:
+Input: [], [2, 3, 6], [2, 3, 6]
+Output: True
+
+Example 4:
+Input: [1, 5], [2, 3, 6], [1, 6, 3, 5]
+Output: False
+
+Example 5:
+Input: [1, 5], [2, 3, 6], [1, 2, 3, 5, 6, 8]
+Output: False
+
+Example 6:
+Input: [1, 9], [7, 8], [1, 7, 8]
+Output: False
+
+Example 7:
+Input: [55, 9], [7, 8], [1, 7, 8, 9]
+Output: False
+
+Example 8:
+Input: [27, 12, 18], [55, 31, 8], [55, 31, 8, 27, 12, 18]
+Output: True
+```
+
+```python
+# their third solution (iterative)
+# Time complexity: O(n)
+# Space complexity: O(1)
+def is_first_come_first_served(take_out_orders, dine_in_orders, served_orders):
+    take_out_orders_index = 0
+    dine_in_orders_index = 0
+    take_out_orders_max_index = len(take_out_orders) - 1
+    dine_in_orders_max_index = len(dine_in_orders) - 1
+
+    for order in served_orders:
+        # If we still have orders in take_out_orders
+        # and the current order in take_out_orders is the same
+        # as the current order in served_orders
+        if take_out_orders_index <= take_out_orders_max_index and order == take_out_orders[take_out_orders_index]:
+            take_out_orders_index += 1
+
+        # If we still have orders in dine_in_orders
+        # and the current order in dine_in_orders is the same
+        # as the current order in served_orders
+        elif dine_in_orders_index <= dine_in_orders_max_index and order == dine_in_orders[dine_in_orders_index]:
+            dine_in_orders_index += 1
+
+        # If the current order in served_orders doesn't match the current
+        # order in take_out_orders or dine_in_orders, then we're not serving first-come,
+        # first-served.
+        else:
+            return False
+
+    # Check for any extra orders at the end of take_out_orders or dine_in_orders
+    if dine_in_orders_index != len(dine_in_orders) or take_out_orders_index != len(take_out_orders):
+        return False
+
+    # All orders in served_orders have been "accounted for"
+    # so we're serving first-come, first-served!
+    return True
+
+
+# their second solution (recursive) without slicing so O(n) time instead of O(n^2)
+# Time complexity: O(n)
+# Space complexity: O(n)
+def is_first_come_first_served(take_out_orders, dine_in_orders, served_orders,
+                               take_out_orders_index=0, dine_in_orders_index=0,
+                               served_orders_index=0):
+    # Base case we've hit the end of served_orders
+    if served_orders_index == len(served_orders):
+        return True
+
+    # If we still have orders in take_out_orders
+    # and the current order in take_out_orders is the same
+    # as the current order in served_orders
+    if ((take_out_orders_index < len(take_out_orders)) and
+            take_out_orders[take_out_orders_index] == served_orders[served_orders_index]):
+        take_out_orders_index += 1
+
+    # If we still have orders in dine_in_orders
+    # and the current order in dine_in_orders is the same
+    # as the current order in served_orders
+    elif ((dine_in_orders_index < len(dine_in_orders)) and
+          dine_in_orders[dine_in_orders_index] == served_orders[served_orders_index]):
+        dine_in_orders_index += 1
+
+    # If the current order in served_orders doesn't match
+    # the current order in take_out_orders or dine_in_orders, then we're not
+    # serving in first-come, first-served order.
+    else:
+        return False
+
+    # The current order in served_orders has now been "accounted for"
+    # so move on to the next one
+    served_orders_index += 1
+    return is_first_come_first_served(
+        take_out_orders, dine_in_orders, served_orders,
+        take_out_orders_index, dine_in_orders_index, served_orders_index)
+
+
+# their first solution (recursive)
+# Time complexity: O(n^2)
+# Space complexity: O(n^2)
+def is_first_come_first_served(take_out_orders, dine_in_orders, served_orders):
+    # Base case
+    if len(served_orders) == 0:
+        return True
+
+    # If the first order in served_orders is the same as the
+    # first order in take_out_orders
+    # (making sure first that we have an order in take_out_orders)
+    if len(take_out_orders) and take_out_orders[0] == served_orders[0]:
+        # Take the first order off take_out_orders and served_orders and recurse
+        return is_first_come_first_served(take_out_orders[1:], dine_in_orders, served_orders[1:])
+
+    # If the first order in served_orders is the same as the first
+    # in dine_in_orders
+    elif len(dine_in_orders) and dine_in_orders[0] == served_orders[0]:
+        # Take the first order off dine_in_orders and served_orders and recurse
+        return is_first_come_first_served(take_out_orders, dine_in_orders[1:], served_orders[1:])
+
+    # First order in served_orders doesn't match the first in
+    # take_out_orders or dine_in_orders, so we know it's not first-come, first-served
+    else:
+        return False
+
+```
 
 
 ## In-Place Shuffle
