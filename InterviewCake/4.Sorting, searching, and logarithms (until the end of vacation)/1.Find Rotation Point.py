@@ -1,6 +1,26 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(lg n)
+# Space Complexity: O(1)
+def find_rotation_point(words):
+    first_element = words[0]
+    start, end = 0, len(words) - 1
+
+    while start < end:
+        middle = (start + end) // 2
+
+        if words[middle] > first_element:
+            start = middle
+        elif words[middle] < first_element:
+            end = middle
+
+        if middle + 1 == end:
+            return end
+
+
+# their solution
 # Time Complexity: O(lg n)
 # Space Complexity: O(1)
 def find_rotation_point(words):
