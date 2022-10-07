@@ -1,6 +1,7 @@
 # Sorting, searching, and logarithms
 + [Find Rotation Point](#find-rotation-point)
 + [Find Repeat, Space Edition](#find-repeat-space-edition)
++ [Top Scores](#top-scores)
 
 
 ## Find Rotation Point
@@ -134,5 +135,72 @@ def find_repeat(numbers):
     # Floor and ceiling have converged
     # We found a number that repeats!
     return floor
+
+```
+
+
+## Top Scores
+Дан неотсортированный массив чисел и максимальное число, которое может быть в массиве.
+Отсортировать массив за время лучшее чем O(n * lg n).
+Массив может содержать дубликаты.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Используем "Сортировку подсчётом".</li>
+ <li>Создать массив размером с самое максимальное число, которое может быть во входном массиве.</li>
+ <li>Индексы созданного массива означают числа входного массива, значения - кол-во появлений числа во входном массиве.</li>
+ <li>Итерируем с конца созданный массив, добавляем индексы массивы как числа в результирующий массив, если значение индекса != 0.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1: 
+Input: [], 100
+Output: []
+
+Example 2:
+Input: [55], 100
+Output: [55]
+
+Example 3:
+Input: [30, 60], 100
+Output: [60, 30]
+
+Example 4:
+Input: [37, 89, 41, 65, 91, 53], 100
+Output: [91, 89, 65, 53, 41, 37]
+
+Example 5:
+Input: [20, 10, 30, 30, 10, 20], 100
+Output: [30, 30, 20, 20, 10, 10]
+```
+
+```python
+# their solution
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def sort_scores(unsorted_scores, highest_possible_score):
+    # List of 0s at indices 0..highest_possible_score
+    score_counts = [0] * (highest_possible_score + 1)
+
+    # Populate score_counts
+    for score in unsorted_scores:
+        score_counts[score] += 1
+
+    # Populate the final sorted list
+    sorted_scores = []
+
+    # For each item in score_counts
+    for score in range(len(score_counts) - 1, -1, -1):
+        count = score_counts[score]
+
+        # For the number of times the item occurs
+        for time in range(count):
+            # Add it to the sorted list
+            sorted_scores.append(score)
+
+    return sorted_scores
 
 ```
