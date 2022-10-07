@@ -1,6 +1,9 @@
 import unittest
 
 
+# their solution
+# Time Complexity: O(n lg n)
+# Space Complexity: O(1)
 def find_repeat(numbers):
     floor = 1
     ceiling = len(numbers) - 1
