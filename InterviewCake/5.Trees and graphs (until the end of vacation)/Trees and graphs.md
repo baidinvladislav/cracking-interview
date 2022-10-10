@@ -46,6 +46,39 @@ def is_balanced(tree_root):
 
 
 ## Binary Search Tree Checker
+Определить что дерево является бинарным деревом поиска.
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Обойти рекурсивно дерево, сохраняя значения узлов в массив.</li>
+ <li>Проверить массив на несовпадение порядка значений.</li>
+</ol>
+
+</blockquote></details>
+
+```python
+# my own
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def is_binary_search_tree(root):
+    def in_order(node):
+        if not node:
+            return
+
+        in_order(node.left)
+        values.append(node.value)
+        in_order(node.right)
+
+    values = []
+    in_order(root)
+
+    for i in range(1, len(values)):
+        if values[i - 1] > values[i]:
+            return False
+
+    return True
+
+```
 
 
 ## 2nd Largest Item in a Binary Search Tree
