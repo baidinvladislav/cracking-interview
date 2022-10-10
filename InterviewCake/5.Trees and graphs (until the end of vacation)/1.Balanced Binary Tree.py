@@ -2,7 +2,31 @@ import unittest
 from collections import deque
 
 
-# my own
+# my own 10.10.22
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def is_balanced(tree_root):
+    queue = deque()
+    queue.append((tree_root, 1))
+
+    min_leaf, max_leaf = float('inf'), float('-inf')
+    while queue:
+        node, level = queue.popleft()
+
+        if node.left:
+            queue.append((node.left, level + 1))
+
+        if node.right:
+            queue.append((node.right, level + 1))
+
+        if not node.left and not node.right:
+            max_leaf = max(max_leaf, level)
+            min_leaf = min(min_leaf, level)
+
+    return max_leaf - min_leaf <= 1
+
+
+# my own 24.09.22
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def is_balanced(tree_root):
