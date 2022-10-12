@@ -82,3 +82,32 @@ def is_binary_search_tree(root):
 
 
 ## 2nd Largest Item in a Binary Search Tree
+Вернуть 2ой второй наибольший элемент.
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Обойти дерево in-order, получить отсортированный массив.</li>
+ <li>Вернуть второй с конца элемент массива.</li>
+</ol>
+
+</blockquote></details>
+
+```python
+# my own solution
+# Time Complexity: O(n)
+# Space Complexity: O(n**n)
+def find_second_largest(root_node):
+    def dfs(node):
+        if not node:
+            return
+
+        dfs(node.left)
+        values.append(node.value)
+        dfs(node.right)
+
+    values = []
+    dfs(root_node)
+
+    return values[-2]
+
+```

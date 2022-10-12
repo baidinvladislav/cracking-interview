@@ -3,7 +3,7 @@ import unittest
 
 # my own solution
 # Time Complexity: O(n)
-# Space Complexity: O(n)
+# Space Complexity: O(n**n)
 def find_second_largest(root_node):
     def dfs(node):
         if not node:
