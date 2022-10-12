@@ -92,6 +92,16 @@ def is_binary_search_tree(root):
 
 </blockquote></details>
 
+<details><summary>Решение из курса:</summary><blockquote>
+<ol>
+ <li>Если у текущего узла при обходе нет правого узла и есть левый узел, то продолжить обход слева.</li>
+ <li>Если у текущего узла есть правый узел и этого правого узла нет ни левого, ни правого узла, то вернуть текущий узел.</li>
+ <li>Рекурсия по правой стороне дерева.</li>
+</ol>
+
+</blockquote></details>
+
+
 ```python
 # my own solution
 # Time Complexity: O(n)
@@ -109,5 +119,35 @@ def find_second_largest(root_node):
     dfs(root_node)
 
     return values[-2]
+
+
+# their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def find_largest(root_node):
+    current = root_node
+    while current:
+        if not current.right:
+            return current.value
+        current = current.right
+
+
+def find_second_largest(root_node):
+    if not root_node or not root_node.left and not root_node.right:
+        raise ValueError('Tree must have at least 2 nodes')
+
+    current = root_node
+    while current:
+        # Case: current is largest and has a left subtree
+        # 2nd largest is the largest in that subtree
+        if current.left and not current.right:
+            return find_largest(current.left)
+
+        # Case: current is parent of largest, and largest has no children,
+        # so current is 2nd largest
+        if current.right and not current.right.left and not current.right.right:
+            return current.value
+
+        current = current.right
 
 ```
