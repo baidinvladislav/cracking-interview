@@ -151,3 +151,49 @@ def find_second_largest(root_node):
         current = current.right
 
 ```
+
+
+## MeshMessage
+Найти наименьший путь от вершины до вершины ненаправленного, невзвешенного и оцикличного графа.
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Поиск в ширину.</li>
+ <li>Отслеживаем из какой вершину в какую идем.</li>
+ <li>Формируем путь.</li>
+</ol>
+
+</blockquote></details>
+
+
+```python
+# my code based on their solution
+# time: O(N(vertexes) + M(edges))
+# space: O(N)
+def get_path(graph, start_node, end_node):
+    queue = deque([start_node])
+    visited = {start_node}
+    path = {start_node: None}
+    while queue:
+        node = queue.popleft()
+
+        if node == end_node:
+            # we found node then reconstruct the path
+            reversed_shortest_path = []
+            current_node = end_node
+            while current_node:
+                reversed_shortest_path.append(current_node)
+                current_node = path[current_node]
+            reversed_shortest_path.reverse()
+
+            return reversed_shortest_path
+
+        for neighbour in graph[node]:
+            if neighbour not in visited:
+                queue.append(neighbour)
+                visited.add(node)
+                path[neighbour] = node
+
+    return None
+
+```
