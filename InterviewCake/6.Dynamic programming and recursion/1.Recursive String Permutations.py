@@ -1,6 +1,25 @@
 import unittest
 
 
+# cracking the coding interview solution
+def generate_permutations(text):
+    if len(text) == 1:
+        return [text]
+
+    results = []
+    first = text[0]
+    remainder = text[1:]
+
+    words = generate_permutations(remainder)
+    for word in words:
+        for i in range(len(word) + 1):
+            # insert first char at each index/position of word
+            s = word[:i] + first + word[i:]
+            results.append(s)
+
+    return results
+
+
 # InterviewCake solution
 def get_permutations(string):
     # Base case
