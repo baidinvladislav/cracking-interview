@@ -3,6 +3,13 @@ import unittest
 
 # cracking the coding interview solution
 def generate_permutations(text):
+    """
+    1. Base case: len(nums) equal 1
+    2. Separate first element from remainder
+    3. Generate all possible subarrays based on remainder
+    4. Looping through every subarray
+    5. Insert first element inside every subarray in every possible place
+    """
     if len(text) == 1:
         return [text]
 
