@@ -1,28 +1,6 @@
 import unittest
 
 
-# my own solution
-# I couldn't populate the `self.permits` array correctly
-class Solution:
-    def get_permutations(self, string):
-        self.permuts = []
-        self.backtrack(list(string), 0, len(string))
-        return self.permuts
-
-    def backtrack(self, string, start, end):
-        if start == end:
-            self.permuts.append(string)
-        else:
-            for i in range(start, end):
-                string[start], string[i] = string[i], string[start]
-                self.backtrack(string, start + 1, end)
-                string[start], string[i] = string[i], string[start]
-
-
-result = Solution().get_permutations('ABC')
-print(result)
-
-
 # InterviewCake solution
 def get_permutations(string):
     # Base case
@@ -48,37 +26,6 @@ def get_permutations(string):
             permutations.add(permutation)
 
     return permutations
-
-
-# GeeksforGeeks solution
-
-# Python program to print all permutations with
-# duplicates allowed
-
-def toString(List):
-    return ''.join(List)
-
-
-# Function to print permutations of string
-# This function takes three parameters:
-# 1. String
-# 2. Starting index of the string
-# 3. Ending index of the string.
-def permute(string, left, right):
-    if left == right:
-        print(toString(string))
-    else:
-        for i in range(left, right):
-            string[left], string[i] = string[i], string[left]
-            permute(string, left + 1, right)
-            string[left], string[i] = string[i], string[left]  # backtrack
-
-
-# Driver program to test the above function
-string = "ABC"
-n = len(string)
-string_array = list(string)
-permute(string_array, 0, n)
 
 
 class Test(unittest.TestCase):
