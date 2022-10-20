@@ -6,6 +6,25 @@
 """
 
 
+def f(nums1, nums2):
+    d = {}
+    res = []
+    for num in nums1:
+        if num not in d:
+            d[num] = 0
+        d[num] += 1
+
+    for num in nums2:
+        if num in d:
+            d[num] -= 1
+            res.append(num)
+
+            if num[d] == 0:
+                del num[d]
+
+    return res
+
+
 class Solution:
     def find_intersections(self, l1, l2):
         result = []
