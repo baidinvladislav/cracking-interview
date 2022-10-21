@@ -62,6 +62,51 @@ def generate_permutations(text):
 
 
 ## Compute the nth Fibonacci Number
+Вычислить n-ое значение последовательности ряда Фибоначчи.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>БС: если n-ое значение ряда == 0 или 1, вернуть n-ое значение ряда.</li>
+ <li>Рекурсивно пройти формулу Фибоначчи fib = (n - 1) + (n - 2).</li>
+ <li>Добавить мемоизацию, добавив словарь для хранения проделанных вычислений.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 1
+Output: 1
+
+Example 2:
+Input: 5
+Output: 5
+
+Example 3:
+Input: 10
+Output: 55
+
+```
+
+```python
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+class Solution:
+    memo = {}
+    def fib(self, n):
+        if n in [0 ,1]:
+            return n
+        
+        if n in self.memo:
+            return self.memo[n]
+        
+        result = self.fib(n - 1) + self.fib(n - 2)
+        self.memo[n] = result
+        
+        return result
+
+```
 
 
 ## Making Change
