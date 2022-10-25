@@ -110,6 +110,69 @@ class Solution:
 
 
 ## Making Change
+Дано число и массив с наминалами монет.
+Вернуть количество комбинаций монет данной суммы.
+
+<details><summary>Простое рекурсивное решение:</summary><blockquote>
+
+<ol>
+ <li>БС №1: если оставшаяся сумма == 0 используем монетку и засчитываем обход рекурсии за 1 комбинацию монеток.</li>
+ <li>БС №2: если оставшаяся сумма < 0 из-за текущей монетки мы вышли рамки нашей суммы, вернуть 0, НЕ засчитываем обход рекурсии за комбинацию монеток.</li>
+ <li>БС №3: индекс монетки равен длине массива, мы исчерпали возможные монетки на этом вызове, вернуть 0, НЕ засчитывать обход рекурсии за комбинацию монеток.</li>
+ <li>Тело рекурсии: пока сумма не исчерпана вызываем ф-ию рекурсивно, передавая в нее новый индекс монетки ,считаем комбинации, уменьшаем текущую сумму.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: (4, (1, 2, 3))
+Output: 4
+
+Example 2:
+Input: (0, (1, 2))
+Output: 1
+
+Example 3:
+Input: (1, ())
+Output: 0
+
+Example 4:
+Input: (5, (25, 50))
+Output: 0
+
+Example 5:
+Input: (50, (5, 10))
+Output: 6
+
+Example 6:
+Input: (100, (1, 5, 10, 25, 50))
+Output: 292
+
+```
+
+```python
+# Time Complexity: O(n^^2)
+# Space Complexity: O(n)
+def change_possibilities(amount_left, denominations, current_index=0):
+    if amount_left == 0:
+        return 1
+    
+    if amount_left < 0:
+        return 0
+        
+    if current_index == len(denominations):
+        return 0
+        
+    current_coin = denominations[current_index]
+    ways = 0
+    while amount_left >= 0:
+        ways += change_possibilities(amount_left, denominations, current_index + 1)
+        amount_left -= current_coin
+    
+    return ways
+
+```
 
 
 ## Cake Thief
