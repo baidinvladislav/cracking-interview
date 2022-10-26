@@ -152,6 +152,7 @@ Output: 292
 ```
 
 ```python
+# Simple recursion
 # Time Complexity: O(n^^2)
 # Space Complexity: O(n)
 def change_possibilities(amount_left, denominations, current_index=0):
@@ -171,6 +172,32 @@ def change_possibilities(amount_left, denominations, current_index=0):
         amount_left -= current_coin
     
     return ways
+
+
+# Memoization
+# Time Complexity: O(n(amount_left) + m(len(denominations)))
+# Space Complexity: O(n(amount_left) + m(len(denominations)))
+def change_possibilities(amount_left, denominations, current_index=0, memo={}):
+    if (amount_left, current_index) in memo:
+        return memo[(amount_left, current_index)]
+
+    if amount_left == 0: 
+        return 1
+
+    if amount_left < 0: 
+        return 0
+
+    if current_index == len(denominations): 
+        return 0
+
+    combinations = 0
+    current_coin = denominations[current_index]
+    while amount_left >= 0:
+        combinations += change_possibilities(amount_left, denominations, current_index + 1, memo)
+        amount_left -= current_coin
+
+    memo[(amount_left, current_index)] = combinations
+    return combinations
 
 ```
 

@@ -16,61 +16,35 @@ def change_possibilities_bottom_up(amount, denominations):
     return ways_of_doing_n_cents[amount]
 
 
-# their memoization solution
-# Time Complexity:
-# Space Complexity:
-class Change(object):
+# my code based on their memoization solution
+# Time Complexity: O(n(amount_left) + m(len(denominations)))
+# Space Complexity: O(n(amount_left) + m(len(denominations)))
+def change_possibilities(amount_left, denominations, current_index=0, memo={}):
+    if (amount_left, current_index) in memo:
+        return memo[(amount_left, current_index)]
 
-    def __init__(self):
-        self.memo = {}
+    if amount_left == 0:
+        return 1
 
-    def change_possibilities_top_down(self, amount_left, denominations, current_index=0):
-        # Check our memo and short-circuit if we've already solved this one
-        memo_key = str((amount_left, current_index))
-        if memo_key in self.memo:
-            print("grabbing memo[%s]" % memo_key)
-            return self.memo[memo_key]
+    if amount_left < 0:
+        return 0
 
-        # Base cases:
-        # We hit the amount spot on. yes!
-        if amount_left == 0:
-            return 1
+    if current_index == len(denominations):
+        return 0
 
-        # We overshot the amount left (used too many coins)
-        if amount_left < 0:
-            return 0
+    combinations = 0
+    current_coin = denominations[current_index]
+    while amount_left >= 0:
+        combinations += change_possibilities(amount_left, denominations, current_index + 1, memo)
+        amount_left -= current_coin
 
-        # We're out of denominations
-        if current_index == len(denominations):
-            return 0
-
-        print("checking ways to make %i with %s" % (
-            amount_left,
-            denominations[current_index:],
-        ))
-
-        # Choose a current coin
-        current_coin = denominations[current_index]
-
-        # See how many possibilities we can get
-        # for each number of times to use current_coin
-        num_possibilities = 0
-        while amount_left >= 0:
-            num_possibilities += self.change_possibilities_top_down(
-                amount_left,
-                denominations,
-                current_index + 1,
-            )
-            amount_left -= current_coin
-
-        # Save the answer in our memo so we don't compute it again
-        self.memo[memo_key] = num_possibilities
-        return num_possibilities
+    memo[(amount_left, current_index)] = combinations
+    return combinations
 
 
 # their recursive solution
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n^^2)
+# Space Complexity: O(n)
 def change_possibilities_top_down(amount_left, denominations, current_index=0):
     # Base cases:
     # We hit the amount spot on. yes!
