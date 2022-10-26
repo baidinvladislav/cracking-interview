@@ -175,8 +175,8 @@ def change_possibilities(amount_left, denominations, current_index=0):
 
 
 # Memoization
-# Time Complexity: O(n(amount_left) + m(len(denominations)))
-# Space Complexity: O(n(amount_left) + m(len(denominations)))
+# Time Complexity: O(n(amount_left) * m(len(denominations)))
+# Space Complexity: O(n(amount_left) * m(len(denominations)))
 def change_possibilities(amount_left, denominations, current_index=0, memo={}):
     if (amount_left, current_index) in memo:
         return memo[(amount_left, current_index)]
@@ -198,6 +198,24 @@ def change_possibilities(amount_left, denominations, current_index=0, memo={}):
 
     memo[(amount_left, current_index)] = combinations
     return combinations
+
+
+# their bottom-up solution
+# Time Complexity: O(n * m)
+# Space Complexity: O(n)
+def change_possibilities_bottom_up(amount, denominations):
+    ways_of_doing_n_cents = [0] * (amount + 1)
+    ways_of_doing_n_cents[0] = 1
+
+    for coin in denominations:
+
+        for higher_amount in range(coin, amount + 1):
+            higher_amount_remainder = higher_amount - coin
+            ways_of_doing_n_cents[higher_amount] += (
+                ways_of_doing_n_cents[higher_amount_remainder]
+            )
+
+    return ways_of_doing_n_cents[amount]
 
 ```
 

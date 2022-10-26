@@ -1,6 +1,6 @@
 # their bottom-up solution
-# Time Complexity:
-# Space Complexity:
+# Time Complexity: O(n * m)
+# Space Complexity: O(n)
 def change_possibilities_bottom_up(amount, denominations):
     ways_of_doing_n_cents = [0] * (amount + 1)
     ways_of_doing_n_cents[0] = 1
@@ -17,8 +17,8 @@ def change_possibilities_bottom_up(amount, denominations):
 
 
 # my code based on their memoization solution
-# Time Complexity: O(n(amount_left) + m(len(denominations)))
-# Space Complexity: O(n(amount_left) + m(len(denominations)))
+# Time Complexity: O(n(amount_left) * m(len(denominations)))
+# Space Complexity: O(n(amount_left) * m(len(denominations)))
 def change_possibilities(amount_left, denominations, current_index=0, memo={}):
     if (amount_left, current_index) in memo:
         return memo[(amount_left, current_index)]
