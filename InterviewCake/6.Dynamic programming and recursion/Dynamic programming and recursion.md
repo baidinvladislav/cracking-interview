@@ -274,3 +274,44 @@ def max_duffel_bag_value(cakes, capacity):
     return bags[capacity]
 
 ```
+
+
+## Balanced Binary Tree
+Дано дерево, определить, что разница между любыми его листьями не более 1.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Обойти дерево в ширину.</li>
+ <li>Если нет правого и нет левого дочернего узла, значит мы нашли лист дерева, отслеживаем максимально удаленный лист от дерева и максимально ближний лист дерева.</li>
+ <li>Если разница между самым дальним и самым ближнем листом не более 1, то вернуть True, иначе False.</li>
+</ol>
+
+</blockquote></details>
+
+```python
+# my code
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def is_balanced(tree_root):
+    from collections import deque
+    
+    queue = deque()
+    queue.append((tree_root, 1))
+
+    min_leaf, max_leaf = float('inf'), float('-inf')
+    while queue:
+        node, level = queue.popleft()
+
+        if node.left:
+            queue.append((node.left, level + 1))
+
+        if node.right:
+            queue.append((node.right, level + 1))
+
+        if not node.left and not node.right:
+            min_leaf, max_leaf = min(min_leaf, level), max(max_leaf, level)
+
+    return max_leaf - min_leaf <= 1
+
+```
