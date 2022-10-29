@@ -4,6 +4,24 @@ import unittest
 # my solution based on their solution
 # Time Complexity: O(n * k)
 # Space Complexity: O(k)
+def max_duffel_bag_value(cakes, capacity):
+    bags = [0] * (capacity + 1)
+
+    for capacity in range(len(bags)):
+        current_max = 0
+        for weight, value in cakes:
+            if capacity >= weight:
+                additional_bag = capacity - weight
+                current_max = max(current_max, value + bags[additional_bag])
+
+        bags[capacity] = current_max
+
+    return bags[capacity]
+
+
+# my solution based on their solution
+# Time Complexity: O(n * k)
+# Space Complexity: O(k)
 def fit_knapsack(cake_tuples, weight_capacity):
     # create dp array to store calculated results
     dp_arr = [0] * (weight_capacity + 1)

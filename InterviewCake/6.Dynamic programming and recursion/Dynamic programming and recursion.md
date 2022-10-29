@@ -221,3 +221,56 @@ def change_possibilities_bottom_up(amount, denominations):
 
 
 ## Cake Thief
+Даны торты (вес, ценность) и вместимость рюкзака, вернуть максимальную ценность, которую можно уложить в рюкзак, не превысив его вместимость.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Аллоцируем массив с ячейками для рюкзака и его подрюкзаков.</li>
+ <li>Итерируемся по массиву с рюкзаками.</li>
+ <li>Для каждого рюкзака итерируемся по массиву тортов.</li>
+ <li>Если вес торта меньше или равен вместимости рюкзака (торт вместился), то вычисляем индекс необходимого подрюкзака (вместимость рюкзака - вес текущего торта), который мы можем уложить вместе с текущим рюкзаком (заполняем оставшееся место рюкзака).</li>
+ <li>Берем максимум от текущего максимума и от суммы: текущий рюкзак + доступный подрюкзак.</li>
+ <li>Вернуть элемент под последним индексом из массива рюкзаков.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: [(4, 4), (5, 5)]
+Output: 9
+
+Example 2:
+Input: [(4, 4), (5, 5)], 12
+Output: 12
+
+Example 3:
+Input: [(2, 3), (3, 6), (5, 1), (6, 1), (7, 1), (8, 1)]
+Output: 7
+
+Example 4:
+Input: [(51, 52), (50, 50)], 100)
+Output: 100
+
+```
+
+```python
+# my solution based on their solution
+# Time Complexity: O(n * k)
+# Space Complexity: O(k)
+def max_duffel_bag_value(cakes, capacity):
+    bags = [0] * (capacity + 1)
+
+    for capacity in range(len(bags)):
+        current_max = 0
+        for weight, value in cakes:
+            if capacity >= weight:
+                additional_bag = capacity - weight
+                current_max = max(current_max, value + bags[additional_bag])
+
+        bags[capacity] = current_max
+
+    return bags[capacity]
+
+```
