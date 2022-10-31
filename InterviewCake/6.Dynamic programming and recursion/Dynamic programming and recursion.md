@@ -3,6 +3,9 @@
 + [Compute the nth Fibonacci Number](#compute-the-nth-fibonacci-number)
 + [Making Change](#making-change)
 + [Cake Thief](#cake-thief)
++ [Balanced Binary Tree](#balanced-binary-tree)
++ [Binary Search Tree Checker](#binary-search-tree-checker)
++ [2nd Largest Item in a Binary Search Tree](#2nd-largest-item-in-a-binary-search-tree)
 
 
 ## Recursive String Permutations
