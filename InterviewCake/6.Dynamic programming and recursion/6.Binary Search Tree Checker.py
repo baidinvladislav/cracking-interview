@@ -1,9 +1,25 @@
 import unittest
 
 
-# my code with more space
+# their solution without space
 # Time Complexity: O(n)
 # Space Complexity: O(n)
+def is_binary_search_tree(root, lower_bound=-float('inf'), upper_bound=float('inf')):
+    if not root:
+        return True
+
+    if root.value >= upper_bound or root.value <= lower_bound:
+        return False
+
+    left_is_valid = is_binary_search_tree(root.left, lower_bound, root.value)
+    right_is_valid = is_binary_search_tree(root.right, root.value, upper_bound)
+
+    return left_is_valid and right_is_valid
+
+
+# my code with more space
+# Time Complexity: O(n)
+# Space Complexity: O(n**2)
 def is_binary_search_tree(root):
     def dfs(node, values):
         if not node:
