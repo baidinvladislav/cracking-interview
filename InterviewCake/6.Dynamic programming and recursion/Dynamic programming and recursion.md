@@ -320,7 +320,7 @@ def is_balanced(tree_root):
 ## Binary Search Tree Checker
 Дано дерево, вернуть True, если оно явлется бинарным деревом поиска, иначе вернуть False.
 
-<details><summary>Решение:</summary><blockquote>
+<details><summary>Решение c аллоциованием массива:</summary><blockquote>
 
 <ol>
  <li>Обойти дерево в in-order порядке и записать все значения узлов в массив.</li>
@@ -330,10 +330,21 @@ def is_balanced(tree_root):
 
 </blockquote></details>
 
+<details><summary>Решение без массива:</summary><blockquote>
+
+<ol>
+ <li>Обойти дерево и трекать верхний диапозон и нижний диапазон, изначально бесконечность и -бесконечность.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+
 ```python
 # my code with more space
 # Time Complexity: O(n)
-# Space Complexity: O(n)
+# Space Complexity: O(n**2)
 def is_binary_search_tree(root):
     def dfs(node, values):
         if not node:
