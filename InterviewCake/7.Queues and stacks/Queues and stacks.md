@@ -73,3 +73,38 @@ class MaxStack(object):
 
 
 ## Implement A Queue With Two Stacks
+Реализовать очередь через два стека.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>При enqueue все элементы складываем в стек #1.</li>
+ <li>При dequeue все элементы перекладываем в стек #2 и возвращаем элемент со стека #2.</li>
+</ol>
+
+</blockquote></details>
+
+
+```python
+# my code based on their solution
+# Time Complexity: O(1)
+# Space Complexity: O(m)
+class QueueTwoStacks(object):
+
+    # Implement the enqueue and dequeue methods
+    def __init__(self):
+        self.stack_in = []
+        self.stack_out = []
+
+    def enqueue(self, item):
+        self.stack_in.append(item)
+
+    def dequeue(self):
+        if len(self.stack_out) == 0:
+            while len(self.stack_in) > 0:
+                item = self.stack_in.pop()
+                self.stack_out.append(item)
+
+        return self.stack_out.pop()
+
+```

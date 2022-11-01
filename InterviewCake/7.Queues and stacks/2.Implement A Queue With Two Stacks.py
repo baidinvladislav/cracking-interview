@@ -1,6 +1,31 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(1)
+# Space Complexity: O(m)
+class QueueTwoStacks(object):
+
+    # Implement the enqueue and dequeue methods
+    def __init__(self):
+        self.stack_in = []
+        self.stack_out = []
+
+    def enqueue(self, item):
+        self.stack_in.append(item)
+
+    def dequeue(self):
+        if len(self.stack_out) == 0:
+            while len(self.stack_in) > 0:
+                item = self.stack_in.pop()
+                self.stack_out.append(item)
+
+        return self.stack_out.pop()
+
+
+# their solution
+# Time Complexity: O(1)
+# Space Complexity: O(m)
 class QueueTwoStacks(object):
 
     def __init__(self):
