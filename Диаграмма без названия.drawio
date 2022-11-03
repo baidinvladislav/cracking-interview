@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-11-03T09:45:24.552Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="PMGq4dMx3zXXwwQ9PGHk" version="20.5.1" type="github">
+<mxfile host="app.diagrams.net" modified="2022-11-03T09:50:02.064Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="VWGke0X2kkLQeZPBZm1U" version="20.5.1" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
     <mxGraphModel dx="1398" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
@@ -640,6 +640,9 @@
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-265" value="POST /diets" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1140" y="535" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WvGkUx12fN6-GQ40ByEk-266" value="1. Создать все таблицы в БД&lt;br&gt;2. Создать вьюхи для обработки эндпоинтов&lt;br&gt;3, Прописать логику работы с БД во вьюхах" style="text;html=1;resizable=0;autosize=1;align=left;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="275" y="440" width="280" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
