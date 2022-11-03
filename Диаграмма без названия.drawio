@@ -1,62 +1,62 @@
-<mxfile host="app.diagrams.net" modified="2022-11-02T20:02:23.959Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="R7ayB7UpkWWGFq4snEHr" version="20.5.1" type="github">
+<mxfile host="app.diagrams.net" modified="2022-11-03T09:07:07.323Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="jBwggXwBZ3le-I87IIQa" version="20.5.1" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
-    <mxGraphModel dx="780" dy="605" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+    <mxGraphModel dx="1638" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="WvGkUx12fN6-GQ40ByEk-1" value="Тренер" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
-          <mxGeometry x="265" y="420" width="160" height="120" as="geometry" />
+          <mxGeometry x="350" y="560" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-2" value="id&#xa;имя&#xa;фамилия" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-1">
           <mxGeometry y="30" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-3" value="Клиент" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
-          <mxGeometry x="450" y="420" width="160" height="120" as="geometry" />
+          <mxGeometry x="535" y="560" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-4" value="id&#xa;тренер_ id&#xa;имя&#xa;фамилия&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-3">
           <mxGeometry y="30" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-8" value="Неделя" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
-          <mxGeometry x="700" y="600" width="160" height="120" as="geometry" />
+          <mxGeometry x="785" y="740" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-9" value="id&#xa;клиент_id&#xa;&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-8">
           <mxGeometry y="30" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-22" value=" Клиент / неделя" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
-          <mxGeometry x="510" y="600" width="160" height="140" as="geometry" />
+          <mxGeometry x="595" y="740" width="160" height="140" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-23" value="id&#xa;клиент_id&#xa;неделя_id&#xa;белки&#xa;жиры&#xa;угдеводы" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-22">
           <mxGeometry y="30" width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-32" value="Тренировка" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
-          <mxGeometry x="870" y="790" width="160" height="120" as="geometry" />
+          <mxGeometry x="870" y="910" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-33" value="id&#xa;название&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-32">
           <mxGeometry y="30" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-40" value="1.Тренер создает клиентов" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="255" y="380" width="180" height="30" as="geometry" />
+          <mxGeometry x="340" y="680" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-48" value="2. Тренер связывает клиента и неделю" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="500" y="570" width="250" height="30" as="geometry" />
+          <mxGeometry x="585" y="710" width="250" height="30" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-49" value="3. Тренер добавляет тренировки со связанными упражнениями" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="860" y="760" width="390" height="30" as="geometry" />
+          <mxGeometry x="860" y="880" width="390" height="30" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-50" value="Тренировка / упражнение" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1050" y="790" width="180" height="120" as="geometry" />
+          <mxGeometry x="1050" y="910" width="180" height="120" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-51" value="id&#xa;тренировка_id&#xa;упражнение_id" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-50">
           <mxGeometry y="30" width="180" height="90" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-59" value="Упражнение" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1250" y="790" width="160" height="120" as="geometry" />
+          <mxGeometry x="1250" y="910" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-60" value="id&#xa;название&#xa;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-59">
           <mxGeometry y="30" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-75" value="Тренера" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="265" y="10" width="215" height="150" as="geometry" />
+          <mxGeometry x="220" y="140" width="215" height="150" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-76" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-75">
           <mxGeometry y="30" width="215" height="40" as="geometry" />
@@ -113,7 +113,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-106" value="Клиенты" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="510" y="10" width="310" height="150" as="geometry" />
+          <mxGeometry x="465" y="140" width="310" height="150" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-107" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-106">
           <mxGeometry y="30" width="310" height="40" as="geometry" />
@@ -185,7 +185,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-131" value="Тренеровочные недели" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="850" y="10" width="310" height="150" as="geometry" />
+          <mxGeometry x="805" y="140" width="310" height="150" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-132" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-131">
           <mxGeometry y="30" width="310" height="40" as="geometry" />
@@ -257,7 +257,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-147" value="Тренировки" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1195" y="10" width="215" height="350" as="geometry" />
+          <mxGeometry x="1150" y="140" width="215" height="350" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-148" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-147">
           <mxGeometry y="30" width="215" height="40" as="geometry" />
@@ -404,7 +404,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-166" value="Тренировки / Упражнения" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1450" y="10" width="275" height="150" as="geometry" />
+          <mxGeometry x="1400" y="140" width="275" height="150" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-167" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-166">
           <mxGeometry y="30" width="275" height="40" as="geometry" />
@@ -461,7 +461,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-179" value="Упражнения" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fontStyle=1;align=center;" vertex="1" parent="1">
-          <mxGeometry x="1750" y="10" width="130" height="150" as="geometry" />
+          <mxGeometry x="1705" y="140" width="130" height="150" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-180" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="WvGkUx12fN6-GQ40ByEk-179">
           <mxGeometry y="30" width="130" height="40" as="geometry" />
@@ -503,16 +503,34 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-198" value="1.Зарегался тренер Боря" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="255" y="160" width="170" height="30" as="geometry" />
+          <mxGeometry x="210" y="290" width="170" height="30" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-199" value="2.Создал себе двух клиентов" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="500" y="160" width="190" height="30" as="geometry" />
+          <mxGeometry x="455" y="290" width="190" height="30" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-200" value="3.Создал обоим клиентам по тренировочной неделе" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="845" y="160" width="320" height="30" as="geometry" />
+          <mxGeometry x="800" y="290" width="320" height="30" as="geometry" />
         </mxCell>
         <mxCell id="WvGkUx12fN6-GQ40ByEk-221" value="4.Добавил тренировки для неделей своим клиентам" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="1190" y="360" width="320" height="30" as="geometry" />
+          <mxGeometry x="1150" y="500" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WvGkUx12fN6-GQ40ByEk-222" value="5.Добавил упражнения в тренировки" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="290" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WvGkUx12fN6-GQ40ByEk-223" value="6.Таблица с упражнениями будет хранить упражнения тренера, &lt;br&gt;а также дефолтные упражнения из открытых источников" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1705" y="295" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="WvGkUx12fN6-GQ40ByEk-224" value="/auth" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="110" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WvGkUx12fN6-GQ40ByEk-225" value="GET /clients" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="465" y="70" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WvGkUx12fN6-GQ40ByEk-226" value="POST /clients" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="465" y="110" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="WvGkUx12fN6-GQ40ByEk-227" value="GET /clients/{client_id}" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="470" y="90" width="140" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
