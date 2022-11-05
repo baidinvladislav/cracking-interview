@@ -1,6 +1,7 @@
 # Queues and stacks
 + [Largest Stack](#largest-stack)
 + [Implement A Queue With Two Stacks](#implement-a-queue-with-two-stacks)
++ [Parenthesis Matching](#parenthesis-matching)
 
 
 ## Largest Stack
@@ -106,5 +107,55 @@ class QueueTwoStacks(object):
                 self.stack_out.append(item)
 
         return self.stack_out.pop()
+
+```
+
+
+## Parenthesis Matching
+Дана строка со скобками.
+Дан индекс одной из открывающих скобок, вернуть индекс соответствующей ей закрывающей скобки.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Итерируем строку, начиная со следующего элемента после входящей открытвающей скобки.</li>
+ <li>Храним в переменной количество встречающихся открывающихся скобок, инкрементируем счетчик по мере прохода строки.</li>
+ <li>Если натыкаемся на закрывающую скобку, а также наш счетчик раве 0, то вернуть индекс текущего элемента.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: '((((()))))'
+Output: 2
+
+Example 2:
+Input: '()()((()()))'
+Output: 5
+
+Example 3:
+Input: '()(()'
+Output: 2
+```
+
+```python
+# their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def get_closing_paren(sentence, opening_paren_index):
+    counter = 0
+    for i in range(opening_paren_index + 1, len(sentence)):
+        char = sentence[i]
+
+        if char == '(':
+            counter += 1
+        elif char == ')':
+            if counter == 0:
+                return i
+
+            counter -= 1
+
+    raise
 
 ```
