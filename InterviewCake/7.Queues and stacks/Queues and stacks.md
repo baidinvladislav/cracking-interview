@@ -159,3 +159,76 @@ def get_closing_paren(sentence, opening_paren_index):
     raise
 
 ```
+
+
+## Bracket Validator
+Определить валидность скобок в строке.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Итеририем строку.</li>
+ <li>Если скобка открывающая, то добавить в стек.</li>
+ <li>Если закрывающаяся и матчится с последним элементом в стеке, то удалить открывающую скобку из стека.</li>
+ <li>Если стэк после итерации пуст, то вернуть True, иначе вернуть False.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: '()'
+Output: True
+
+Example 2:
+Input: '([]{[]})[]{{}()}'
+Output: True
+
+Example 3:
+Input: '([)]'
+Output: False
+
+Example 4:
+Input: '([][]}'
+Output: False
+
+Example 5:
+Input: '[[]()'
+Output: False
+
+Example 6:
+Input: '[[]]())'
+Output: False
+
+Example 7:
+Input: ''
+Output: True
+```
+
+```python
+# their solution
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def is_valid(code):
+    d = {
+        '(': ')',
+        '{': '}',
+        '[': ']'
+    }
+
+    stack = []
+    for char in code:
+        if char in d:
+            stack.append(char)
+        else:
+            if not stack:
+                return False
+            else:
+                last = stack.pop()
+                if not char == d[last]:
+                    return False
+
+    return len(stack) == 0
+
+```
