@@ -31,6 +31,35 @@ def delete_node(node_to_delete):
 
 
 ## Does This Linked List Have A Cycle?
+Дан связной список, определить есть ли в нем цикл.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Используем два указателя, изначльно оба на голове списка.</li>
+ <li>На каждой итерации переставляем медленный указатель на один узел, быстрый указатель на два узла.</li>
+ <li>Если указатели встретились, то в списке есть цикл, иначе цикла нет.</li>
+</ol>
+
+</blockquote></details>
+
+
+```python
+# their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def contains_cycle(first_node):
+    slow = fast = first_node
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            return True
+
+    return False
+
+```
 
 
 ## Reverse A Linked List
