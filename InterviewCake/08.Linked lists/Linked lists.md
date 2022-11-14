@@ -63,3 +63,64 @@ def contains_cycle(first_node):
 
 
 ## Reverse A Linked List
+Дан узел, удалить узел из связного списка.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Удалить не выйдет, т.к. нет указателя на предыдущий относительного удаляемого узел.</li>
+ <li>Можно удалить последующий за удаляемым узлом узел, предварительно скопировав значение след. узла в уздаляемый.</li>
+ <li>Способ не позволяет удалить последний узел списка.</li>
+</ol>
+
+</blockquote></details>
+
+
+```python
+def delete_node(node_to_delete):
+    next_node = node_to_delete.next
+    if next_node:
+        node_to_delete.value = next_node.value
+        node_to_delete.next = next_node.next
+    else:
+        raise Exception('Can not delete the last node with this technique')
+
+```
+
+
+## Does This Linked List Have A Cycle?
+Развернуть связной список.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Итерируем список.</li>
+ <li>На каждой итерации сохраняем указатель на следующий, для перехода на него в конце итерации.</li>
+ <li>Перезаписвываем указатель со следующего на прошедший.</li>
+ <li>Проходим к след. узлу.</li>
+ <li>Вернуть прошедший.</li>
+</ol>
+
+</blockquote></details>
+
+
+```python
+# my solution based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def reverse(head_of_list):
+    prev = next = None
+    cur = head_of_list
+    while cur:
+        # moved pointers
+        next = cur.next
+        cur.next = prev
+        
+        # traverse linked list
+        prev = cur
+        cur = next
+
+    return prev
+
+```
+

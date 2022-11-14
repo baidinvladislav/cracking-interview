@@ -1,6 +1,24 @@
 import unittest
 
 
+# my solution based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def reverse(head_of_list):
+    prev = next = None
+    cur = head_of_list
+    while cur:
+        # moved pointers
+        next = cur.next
+        cur.next = prev
+
+        # traverse linked list
+        prev = cur
+        cur = next
+
+    return prev
+
+
 # their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
