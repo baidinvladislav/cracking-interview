@@ -112,7 +112,7 @@ def reverse(head_of_list):
     prev = next = None
     cur = head_of_list
     while cur:
-        # moved pointers
+        # move pointers
         next = cur.next
         cur.next = prev
         
