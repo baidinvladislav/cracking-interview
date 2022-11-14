@@ -2,6 +2,7 @@
 + [Delete Node](#delete-node)
 + [Does This Linked List Have A Cycle?](#does-this-linked-list-have-a-cycle?)
 + [Reverse A Linked List](#reverse-a-linked-list)
++ [Kth to Last Node in a Singly-Linked List](#kth-to-last-node-in-a-singly-linked-list)
 
 
 ## Delete Node
@@ -124,3 +125,68 @@ def reverse(head_of_list):
 
 ```
 
+
+## Kth to Last Node in a Singly-Linked List
+Дан связной список и число k, вернуть узел, который находится по счету k с конца.
+
+<details><summary>Решение в два прохода:</summary><blockquote>
+
+<ol>
+ <li>За первый проход дойти до конца и узнать длину списка.</li>
+ <li>Вторым проходом мы будем знать где нужно остановиться: длина списка - k.</li>
+</ol>
+
+</blockquote></details>
+
+<details><summary>Решение в один прохода:</summary><blockquote>
+
+<ol>
+ <li>Используем два указателя: левый и правый, при инициализации оба на голове списка.</li>
+ <li>Сдвигаем правый указатель на k - 1 узлов относительно головы списка.</li>
+ <li>Шагаем левым и правым указателем до конца, когда правый дойдет до конца, левый будет стоять на k по счету с конца узле.</li>
+</ol>
+
+</blockquote></details>
+
+```python
+# my two passes solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def kth_to_last_node(k, head):
+    if k == 0:
+        raise
+
+    counter = 0
+    head_copy = head
+    while head_copy:
+        counter += 1
+        head_copy = head_copy.next
+
+    if k > counter:
+        raise
+
+    for _ in range(counter - k):
+        head = head.next
+
+    return head
+
+
+# their one pass solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def kth_to_last_node(k, head):
+    if k == 0:
+        raise
+
+    left = right = head
+
+    for _ in range(k - 1):
+        right = right.next
+
+    while right.next:
+        left = left.next
+        right = right.next
+
+    return left
+
+```
