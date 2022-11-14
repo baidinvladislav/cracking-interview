@@ -138,7 +138,7 @@ def reverse(head_of_list):
 
 </blockquote></details>
 
-<details><summary>Решение в один прохода:</summary><blockquote>
+<details><summary>Решение в один проход:</summary><blockquote>
 
 <ol>
  <li>Используем два указателя: левый и правый, при инициализации оба на голове списка.</li>
