@@ -14,4 +14,10 @@ class Solution:
         pass
 
 
-print(Solution().f(l=[1, 4, 5, 2, 3, 9, 8, 11, 0]))
+def test():
+    assert Solution().f([1, 4, 5, 2, 3, 9, 8, 11, 0]) == "0-5,8-9,11"
+    assert Solution().f([1, 4, 3, 2]) == "1-4"
+    assert Solution().f([1, 4]) == "1,4"
+
+
+test()
