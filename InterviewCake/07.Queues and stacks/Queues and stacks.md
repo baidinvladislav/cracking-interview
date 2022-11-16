@@ -2,6 +2,7 @@
 + [Largest Stack](#largest-stack)
 + [Implement A Queue With Two Stacks](#implement-a-queue-with-two-stacks)
 + [Parenthesis Matching](#parenthesis-matching)
++ [Bracket Validator](#bracket-validator)
 
 
 ## Largest Stack
