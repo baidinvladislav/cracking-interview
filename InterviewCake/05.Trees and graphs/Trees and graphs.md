@@ -2,6 +2,7 @@
 + [Balanced Binary Tree](#balanced-binary-tree)
 + [Binary Search Tree Checker](#binary-search-tree-checker)
 + [2nd Largest Item in a Binary Search Tree](#2nd-largest-item-in-a-binary-search-tree)
++ [Graph Coloring](#graph-coloring)
 + [MeshMessage](#meshmessage)
 
 
@@ -199,5 +200,40 @@ def get_path(graph, start_node, end_node):
                 path[neighbour] = node
 
     return None
+
+```
+
+
+## Graph Coloring
+Дан граф и цвета. Раскрасить граф цветами, чтобы не было соседних вершин одного цвета.
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Пройти по каждому узлу.</li>
+ <li>Для каждого узла вычисляем занятые его соседями цвета.</li>
+ <li>Раскрашиваем узел в цвет, которого нет во множестве занятых соседями цветов.</li>
+</ol>
+
+</blockquote></details>
+
+
+```python
+# their solution
+# Time Complexity: O(N + M) where N is the number of nodes and M is the number of edges.
+# Space Complexity: O(D) where D is max graph degree
+def color_graph(graph, colors):
+    for node in graph:
+        if node in node.neighbors:
+            raise Exception('Legal coloring impossible for node with loop: %s' % node.label)
+
+        # Get the node's neighbors' colors, as a set so we
+        # can check if a color is illegal in constant time
+        occupied_colors = set([neighbor.color for neighbor in node.neighbors if neighbor.color])
+
+        # Assign the first legal color
+        for color in colors:
+            if color not in occupied_colors:
+                node.color = color
+                break
 
 ```
