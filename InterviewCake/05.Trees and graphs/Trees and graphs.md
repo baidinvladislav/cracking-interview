@@ -2,6 +2,7 @@
 + [Balanced Binary Tree](#balanced-binary-tree)
 + [Binary Search Tree Checker](#binary-search-tree-checker)
 + [2nd Largest Item in a Binary Search Tree](#2nd-largest-item-in-a-binary-search-tree)
++ [MeshMessage](#meshmessage)
 
 
 ## Balanced Binary Tree
