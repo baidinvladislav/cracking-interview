@@ -3,6 +3,8 @@
 + [Find in Ordered Set](#find-in-ordered-set)
 + [Inplace Shuffle](#inplace-shuffle)
 + [Simulate 5-sided die](#simulate-5-sided-die)
++ [Simulate 7-sided die](#simulate-7-sided-die)
++ [Two Egg Problem](#two-egg-problem)
 
 
 ## Which Appears Twice
