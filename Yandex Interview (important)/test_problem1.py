@@ -27,14 +27,13 @@ def f(nums1, nums2):
 
 # Time Complexity: O(n)
 # Space Complexity: O(n * m)
-def letter_count(arr):
-    d = {}
-    for item in arr:
-        d[item] = d.get(item, 0) + 1
-    return d
-
-
 def solution(arr1, arr2):
+    def letter_count(arr):
+        d = {}
+        for item in arr:
+            d[item] = d.get(item, 0) + 1
+        return d
+
     d1 = letter_count(arr1)
     d2 = letter_count(arr2)
 
