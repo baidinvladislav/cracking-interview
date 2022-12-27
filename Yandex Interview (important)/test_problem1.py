@@ -25,44 +25,26 @@ def f(nums1, nums2):
     return res
 
 
-class Solution:
-    def find_intersections(self, l1, l2):
-        result = []
-        for number in l1:
-            if number in l2:
-                result.append(number)
-        return result
-
-    def find_intersections_const_space(self, l1, l2):
-        for i in range(len(l1)):
-            if l1[i] not in l2:
-                l1.pop(i)  # or use l1.remove(number)
-        return l1
+# Time Complexity: O(n)
+# Space Complexity: O(n * m)
+def letter_count(arr):
+    d = {}
+    for item in arr:
+        d[item] = d.get(item, 0) + 1
+    return d
 
 
-print(Solution().find_intersections_const_space(l1=[1, 2, 3, 2, 0], l2=[5, 1, 2, 7, 3, 2]))
-
-
-# Time Complexity: O(n * m)
-# Space Complexity: O(n) - n is length of the smallest array
 def solution(arr1, arr2):
-    buffer = {}
-    if arr1 > arr2:
-        arr1, arr2 = arr2, arr1
-
-    for item in arr1:
-        if item in arr2:
-            arr2.remove(item)
-
-            if item not in buffer:
-                buffer[item] = 0
-            buffer[item] += 1
+    d1 = letter_count(arr1)
+    d2 = letter_count(arr2)
 
     result = []
-    for key, value in buffer.items():
-        while value > 0:
-            result.append(key)
-            value -= 1
+    for key, value in d1.items():
+        if key in d2 and value != 0:
+            value = min(value, d2[key])
+            while value > 0:
+                result.append(key)
+                value -= 1
 
     return result
 
