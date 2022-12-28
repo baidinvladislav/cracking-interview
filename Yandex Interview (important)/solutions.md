@@ -1,5 +1,6 @@
 # Yandex Interview
 + [Third Problem](#third-problem)
++ [Fourth Problem](#fourth-problem)
 
 
 ## Third Problem
@@ -57,5 +58,53 @@ def solution(numbers) -> str:
 
     result.append(helper(start, end))
     return ','.join(result)
+
+```
+
+
+## Fourth Problem
+Дан массив чисел с нулями и единицами, вернуть наибольшую длину последовательности из 1 при условии, 
+что удалится ровно один элемент.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Итерируем индексы массива, подсчитывая кол-во единиц.</li>
+ <li>Если в окне более чем один 0 - сжать окно, предварительно вычев 1 из счетчика единиц, если начальный индекс стоит на 1.</li>
+ <li>На каждой итерации обновляем максимальную длину окна.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: [1, 1, 0]
+Output: 3
+
+Example 2:
+Input: [1, 0, 1, 1, 1, 0, 0, 1]
+Output: 5
+
+Example 3:
+Input: [1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0]
+Output: 8
+```
+
+```python
+def solution(arr):
+    start = 0
+    ones = 0
+    result = 0
+    for end in range(len(arr)):
+        if arr[end] == 1:
+            ones += 1
+
+        if 1 < end - start + 1 - ones:
+            if arr[start] == 1:
+                ones -= 1
+            start += 1
+        result = max(result, end - start)
+
+    return result
 
 ```
