@@ -9,8 +9,29 @@
 """
 
 
-def solution(nums):
-    pass
+def helper(group_start, group_end) -> str:
+    if group_start == group_end:
+        return str(group_end)
+
+    return f'{group_start}-{group_end}'
+
+
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def solution(numbers) -> str:
+    numbers_ = sorted(numbers)
+
+    result = []
+    start = end = numbers_[0]
+    for i in range(1, len(numbers_)):
+        if end == numbers_[i] - 1:
+            end = numbers_[i]
+        else:
+            result.append(helper(start, end))
+            start = end = numbers_[i]
+
+    result.append(helper(start, end))
+    return ','.join(result)
 
 
 def test_first():
