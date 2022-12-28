@@ -1,5 +1,5 @@
 # Yandex Interview
-+ [Third Problem](#third_problem)
++ [Third Problem](#third-problem)
 
 
 ## Third Problem
