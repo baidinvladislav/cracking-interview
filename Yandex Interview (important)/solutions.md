@@ -162,9 +162,7 @@ Output: 8
 
 ```python
 def solution(arr):
-    start = 0
-    ones = 0
-    result = 0
+    start = ones = result = 0
     for end in range(len(arr)):
         if arr[end] == 1:
             ones += 1
