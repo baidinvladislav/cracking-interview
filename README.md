@@ -15,7 +15,7 @@
 * :open_file_folder: Sortings: popular sorting algorithms implemented myself from scratch.
 * :open_file_folder: Top 40 SQL: the 40 most popular SQL problems from [arcticel](https://artoftesting.com/sql-queries-for-interview).
 * :open_file_folder: Yandex Contest: problems from [Yandex.Contest](https://contest.yandex.ru/) platform.
-* :open_file_folder: Yandex Interview: problems from [habr article](https://habr.com/ru/post/550088/).
+* :open_file_folder: Yandex Interview: problems from [habr article](https://habr.com/ru/post/550088/). <i>(2022.12.27-n.d.)</i>
 * :open_file_folder: Yandex Blitz: problems from [habr arcticle](https://habr.com/ru/company/yandex/blog/340784/).
 * :open_file_folder: Yandex LeetCode: problems faced at interviews at Yandex according to [LeetCode](https://leetcode.com/company/yandex/).
 * :open_file_folder: Yatalks Conference: problems from [YouTube video](https://www.youtube.com/watch?v=3ZHbMra4NRc/).
