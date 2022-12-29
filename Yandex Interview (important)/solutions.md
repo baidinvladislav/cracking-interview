@@ -1,6 +1,76 @@
 # Yandex Interview
++ [First Problem](#first-problem)
++ [Second Problem](#second-problem)
 + [Third Problem](#third-problem)
 + [Fourth Problem](#fourth-problem)
++ [Fifth Problem](#fifth-problem)
++ [Sixth Problem](#sixth-problem)
+
+
+## First Problem
+.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output:
+
+Example 3:
+Input:
+Output:
+```
+
+```python
+
+
+```
+
+
+## Second Problem
+.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output:
+
+Example 3:
+Input:
+Output:
+```
+
+```python
+
+
+```
 
 
 ## Third Problem
@@ -106,5 +176,71 @@ def solution(arr):
         result = max(result, end - start)
 
     return result
+
+```
+
+
+## Fifth Problem
+.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output:
+
+Example 3:
+Input:
+Output:
+```
+
+```python
+
+
+```
+
+
+## Sixth Problem
+.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output:
+
+Example 3:
+Input:
+Output:
+```
+
+```python
+
 
 ```
