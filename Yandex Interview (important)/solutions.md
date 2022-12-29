@@ -181,34 +181,56 @@ def solution(arr):
 
 
 ## Fifth Problem
-.
+Дан массив кортежей, где кортеж[i] - это гость, а кортеж[i][0] и кортеж[i][1] - день
+заезда и день выезда гостя соответственно, найти максимальное кол-во
+гостей в рамках одного дня.
+
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Сначала нам нужно понять количество рассматриваемых нами дней, для этого проходим по массиву гостей и фиксируем первый день и последний день.</li>
+ <li>Затем создаем массив с ячейкой для каждого дня.</li>
+ <li>Идем по массиву дней и записываем в него каждого гостя, инкреминтуря число под индексом дня, если дата заезда гостя была в этот день или позже и строго меньше даты выезда гостя.</li>
+ <li>Вернуть максимальное число из массива дней.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: [(1, 2), (1, 3), (2, 4), (2, 3)]
+Output: 3
 
 Example 2:
-Input: 
-Output:
+Input: [(1, 3), (2, 5), (4, 5), (2, 4), (3, 4)]
+Output: 3
 
 Example 3:
-Input:
-Output:
+Input: [(1, 2), (2, 3), (3, 5), (4, 5)]
+Output: 2
+
+Example 4:
+Input: [(1, 2), (2, 3), (3, 4)]
+Output: 1
 ```
 
 ```python
+# Time Complexity: O(n * m)
+# Space Complexity: O(n)
+def solution(guests):
+    first_day, last_day = float("inf"), float("-inf")
+    for guest in guests:
+        first_day = min(first_day, guest[0])
+        last_day = max(last_day, guest[1])
 
+    days = [0] * last_day
+    for d in range(1, len(days)):
+        for g in range(len(guests)):
+            if guests[g][0] <= d < guests[g][1]:
+                days[d] += 1
+
+    return max(days)
 
 ```
 
