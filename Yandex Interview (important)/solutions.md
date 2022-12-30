@@ -234,33 +234,43 @@ def solution(guests):
 
 
 ## Sixth Problem
-.
+Дан массив строк, сгруппировать строки по символьным группам.
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Итерируем входной массив.</li>
+ <li>Сортируем каждую строку.</li>
+ <li>Вставляем в мапу слово как значение, а ключ будет отсортированным словом.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"]
+Output: [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
 
 Example 2:
-Input: 
-Output:
+Input: ["xyz", "abc", "qwe", "yxz", "cab", "eqw", "zyx", "bca", "wqe"]
+Output: [["xyz", "yxz", "zyx"], ["abc", "cab", "bca"], ["qwe", "eqw", "wqe"]]
 
 Example 3:
-Input:
-Output:
+Input: ["jkl", "cvb", "lkj", "qaz", "vcb", "kjl"]
+Output: [["jkl", "lkj", "kjl"], ["cvb", "vcb"], ["qaz"]]
 ```
 
 ```python
+from typing import List
+from collections import defaultdict
 
+
+# Time Complexity: O(n * m) (number of words * length of words)
+# Space Complexity: O(n)
+def solution(arr: List[str]) -> List[List[str]]:
+    buffer = defaultdict(list)
+    for s in arr:
+        buffer[tuple(sorted(s))].append(s)
+    return [val for val in buffer.values()]
 
 ```
