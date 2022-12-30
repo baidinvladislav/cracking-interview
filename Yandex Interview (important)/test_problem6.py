@@ -20,21 +20,21 @@ def solution(arr: List[str]) -> List[List[str]]:
 
 
 def test_first():
-    nums = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    arr = ["eat", "tea", "tan", "ate", "nat", "bat"]
     expect = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
 
-    assert expect == solution(nums)
+    assert expect == solution(arr)
 
 
 def test_second():
-    nums = ["xyz", "abc", "qwe", "yxz", "cab", "eqw", "zyx", "bca", "wqe"]
+    arr = ["xyz", "abc", "qwe", "yxz", "cab", "eqw", "zyx", "bca", "wqe"]
     expect = [["xyz", "yxz", "zyx"], ["abc", "cab", "bca"], ["qwe", "eqw", "wqe"]]
 
-    assert expect == solution(nums)
+    assert expect == solution(arr)
 
 
 def test_third():
-    nums = ["jkl", "cvb", "lkj", "qaz", "vcb", "kjl"]
+    arr = ["jkl", "cvb", "lkj", "qaz", "vcb", "kjl"]
     expect = [["jkl", "lkj", "kjl"], ["cvb", "vcb"], ["qaz"]]
 
-    assert expect == solution(nums)
+    assert expect == solution(arr)
