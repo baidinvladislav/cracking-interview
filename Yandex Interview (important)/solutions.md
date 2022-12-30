@@ -274,3 +274,53 @@ def solution(arr: List[str]) -> List[List[str]]:
     return [val for val in buffer.values()]
 
 ```
+
+
+## Seventh Problem
+Дан массив интервалов, смержить перекрывающие интервалы.
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Отсортировать интервалы по их началу.</li>
+ <li>Если конец первого интервала больше чем начало второго, то они пересекаются, мержим их.</li>
+ <li>Иначе добавить интервал в результирующий массив, а также взяться за новый интервал.</li>
+ <li>Вернуть результирующий массив.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: [[1, 3], [100, 200], [2, 4]]
+Output: [[1, 4], [100, 200]]
+
+Example 2:
+Input: [[1, 3], [5, 7], [6, 9], [10, 15], [12, 16]]
+Output: [[1, 3], [5, 9], [10, 16]]
+
+Example 3:
+Input: [[100, 300], [200, 400], [700, 800], [750, 1000]]
+Output: [[100, 400], [700, 1000]]
+```
+
+```python
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def solution(intervals):
+    intervals.sort(key=lambda x: x[0])
+    result = []
+
+    interval = intervals[0]
+    for i in range(1, len(intervals)):
+        if interval[1] > intervals[i][0]:
+            interval[1] = max(interval[1], intervals[i][1])
+        else:
+            result.append([interval[0], interval[1]])
+
+            interval = intervals[i]
+
+    result.append([interval[0], intervals[i][1]])
+    return result
+
+```
