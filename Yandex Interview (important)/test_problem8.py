@@ -12,10 +12,11 @@ def solution(points):
     the_most_right_x = max(points, key=lambda x: x[0])
 
     middle_x = (the_most_left_x[0] + the_most_right_x[0]) / 2
+    points = set(map(tuple, points))
     for x, y in points:
         symmetry_point = (2 * middle_x - x, y)
         # set's O(1) instead of list's O(n)
-        if symmetry_point in set(map(tuple, points)):
+        if symmetry_point in points:
             return True
 
     return False
