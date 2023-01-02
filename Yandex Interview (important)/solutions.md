@@ -334,34 +334,49 @@ def solution(intervals):
 
 
 ## Eighth Problem
-.
+Дан массив точек, нужно определить можно ли провести между точками такую линию, чтобы все точки были симметричны 
+относительно такой линии.
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Найти самую левую точку по абцисс.</li>
+ <li>Найти самую правую точку по абцисс.</li>
+ <li>Вычислить точку абцисс ровно посередине между самой левой и самой правой точкой.</li>
+ <li>Отталкиваясь от точки посередине вычисляем отражаемую точку, если такая отражаемая точка есть в массиве, значит между точками можно провести линию симметрии.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: [[1, 1], [-1, 1]]
+Output: True
 
 Example 2:
-Input: 
-Output: 
+Input: [[1, 1], [-1, -1]]
+Output: False
 
 Example 3:
-Input: 
-Output: 
+Input: [[2, 0], [2, 6], [6, 6], [0, 6]]
+Output: True
 ```
 
 ```python
+# Time Complexity: O(n)
+# Space Complexity: 0(n)
+def solution(points):
+    the_most_left_x = min(points, key=lambda x: x[0])
+    the_most_right_x = max(points, key=lambda x: x[0])
+
+    middle_x = (the_most_left_x[0] + the_most_right_x[0]) / 2
+    for x, y in points:
+        symmetry_point = (2 * middle_x - x, y)
+        # set's O(1) instead of list's O(n)
+        if symmetry_point in set(map(tuple, points)):
+            return True
+
+    return False
 
 ```
 
