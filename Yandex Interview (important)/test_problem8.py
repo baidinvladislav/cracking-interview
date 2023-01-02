@@ -6,7 +6,7 @@
 
 
 # Time Complexity: O(n)
-# Space Complexity: 0(n)
+# Space Complexity: O(n)
 def solution(points):
     the_most_left_x = min(points, key=lambda x: x[0])
     the_most_right_x = max(points, key=lambda x: x[0])
