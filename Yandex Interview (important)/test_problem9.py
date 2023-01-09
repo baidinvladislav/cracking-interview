@@ -9,7 +9,8 @@
 def solution(str1, str2):
     stack = []
     p1 = p2 = 0
-    while not (p1 == len(str1) - 1 and p2 == len(str2) - 1):
+    counter = max(len(str1), len(str2))
+    while counter:
         if p1 < len(str1):
             stack.append(str1[p1])
             p1 += 1
@@ -23,7 +24,34 @@ def solution(str1, str2):
                 stack.pop(-2)
                 stack.pop(-1)
 
+        counter -= 1
+
     return len(stack) <= 2
 
 
-solution("abec", "abc")
+def test_first():
+    str1, str2 = "abec", "abc"
+    expect = True
+
+    assert expect == solution(str1, str2)
+
+
+def test_second():
+    str1, str2 = "abe", "abc"
+    expect = True
+
+    assert expect == solution(str1, str2)
+
+
+def test_third():
+    str1, str2 = "abc", "azz"
+    expect = False
+
+    assert expect == solution(str1, str2)
+
+
+def test_fourth():
+    str1, str2 = "abtce", "abce"
+    expect = True
+
+    assert expect == solution(str1, str2)
