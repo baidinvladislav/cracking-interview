@@ -13,34 +13,53 @@
 
 
 ## First Problem
-.
+Даны два массива чисел, вернуть массив с общими элементами и с сохранением дубликатов.
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Считаем в мапе кол-во чисел в каждом массиве.</li>
+ <li>Формируем массив в котором содержатся одинаковые элементы.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: arr1 = [1, 2, 3], arr2 = [1, 2]
+Output: [1, 2]
 
 Example 2:
-Input: 
-Output:
+Input: arr1 = [1, 2, 3, 2, 0], arr2 = [5, 1, 2, 7, 3, 2]
+Output: [1, 2, 2, 3]
 
 Example 3:
-Input:
-Output:
+Input: arr1 = [1, 2, 3], arr2 = [1, 1]
+Output: [1]
 ```
 
 ```python
+# Time Complexity: O(n)
+# Space Complexity: O(n * m)
+def solution(arr1, arr2):
+    def letter_count(arr):
+        d = {}
+        for item in arr:
+            d[item] = d.get(item, 0) + 1
+        return d
 
+    d1 = letter_count(arr1)
+    d2 = letter_count(arr2)
+
+    result = []
+    for key, value in d1.items():
+        if key in d2 and value != 0:
+            value = min(value, d2[key])
+            while value > 0:
+                result.append(key)
+                value -= 1
+
+    return result
 
 ```
 
