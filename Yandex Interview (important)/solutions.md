@@ -65,34 +65,48 @@ def solution(arr1, arr2):
 
 
 ## Second Problem
-.
+Сжать строку по количеству повторений.
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Если соседние элементы одинаковы, то увеличиваем счетчик.</li>
+ <li>Иначе добавляем строку в результирующую строку и сбрасываем счетчик до 1.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: "AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+Output: "A4B3C2XYZD4E3F3A6B28"
 
 Example 2:
-Input: 
-Output:
+Input: "TTTPPPJJKRR"
+Output: "T3P3J2KR2"
 
 Example 3:
-Input:
-Output:
+Input: "AAABBC"
+Output: "A3B2C"
 ```
 
 ```python
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def solution(string):
+    if len(string) < 2:
+        return str(string[0])
 
+    result, counter = "", 1
+    for i in range(1, len(string)):
+        if string[i - 1] == string[i]:
+            counter += 1
+        else:
+            result += f"{string[i - 1]}{counter if counter != 1 else ''}"
+            counter = 1
+
+    result += f"{string[i]}{counter if counter != 1 else ''}"
+    return result
 
 ```
 

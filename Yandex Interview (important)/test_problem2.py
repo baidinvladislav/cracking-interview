@@ -8,6 +8,8 @@
 """
 
 
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def solution(string):
     if len(string) < 2:
         return str(string[0])
