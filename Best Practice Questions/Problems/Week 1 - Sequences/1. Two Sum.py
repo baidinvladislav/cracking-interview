@@ -4,16 +4,15 @@ from typing import List
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        if not nums:
-            return [-1, -1]
+        map = {}
+        for i in range(len(nums)):
+            map[nums[i]] = i
 
-        buffer = {}
-        for i, num in enumerate(nums):
-            attempt = target - num
-            if attempt not in buffer:
-                buffer[num] = i
-            else:
-                return [buffer[attempt], i]
+        for i in range(len(nums)):
+            attempt = target - nums[i]
+            if attempt in map and i != map[attempt]:
+                return [i, map[attempt]]
+
         return [-1, -1]
 
 
