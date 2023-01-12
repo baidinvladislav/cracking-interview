@@ -298,19 +298,23 @@ Output: false
 
 ```python3
 class Solution:
+    # Time Complexity: O(n * log n)
+    # Space Complexity: O(1)
     def isAnagram_sorting(self, s: str, t: str) -> bool:
         return sorted(s) == sorted(t)
-
+    
+    # Time Complexity: O(n)
+    # Space Complexity: O(n * m)
     def isAnagram_additional_memory(self, s: str, t: str) -> bool:
-        buffer_1, buffer_2 = {}, {}
-        
-        for char in s:
-            buffer_1[char] = buffer_1.get(char, 0) + 1
+        d1, d2 = defaultdict(int), defaultdict(int)
+        for key in s:
+            d1[key] += 1
 
-        for char in t:
-            buffer_2[char] = buffer_2.get(char, 0) + 1
+        for key in t:
+            d2[key] += 1
 
-        return buffer_1 == buffer_2
+        return d1 == d2
+
 ```
 
 <details><summary>Test cases</summary><blockquote>

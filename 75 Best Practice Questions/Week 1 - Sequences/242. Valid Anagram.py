@@ -3,9 +3,13 @@ from collections import defaultdict
 
 
 class Solution:
+    # Time Complexity: O(n * log n)
+    # Space Complexity: O(1)
     def isAnagram_sorting(self, s: str, t: str) -> bool:
         return sorted(s) == sorted(t)
 
+    # Time Complexity: O(n)
+    # Space Complexity: O(n * m)
     def isAnagram_additional_memory(self, s: str, t: str) -> bool:
         d1, d2 = defaultdict(int), defaultdict(int)
         for key in s:
