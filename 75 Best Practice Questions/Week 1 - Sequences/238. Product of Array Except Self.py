@@ -3,20 +3,22 @@ from typing import List
 
 
 class Solution:
-    def productExceptSelf(self, nums):
-        answer = []
+    # Time Complexity: O(n)
+    # Space Complexity: O(n)
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        result = [0] * len(nums)
 
         prefix = 1
         for i in range(len(nums)):
-            answer.append(prefix)
+            result[i] = prefix
             prefix *= nums[i]
 
         postfix = 1
-        for i in reversed(range(len(nums))):
-            answer[i] *= postfix
+        for i in range(len(result) - 1, -1, -1):
+            result[i] *= postfix
             postfix *= nums[i]
 
-        return answer
+        return result
 
 
 class TestProductArrayExceptSelf(unittest.TestCase):

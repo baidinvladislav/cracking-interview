@@ -434,20 +434,26 @@ Output: [0,0,9,0,0]
 ```
 
 ```python3
-def productExceptSelf(nums):
-    result = []
+from typing import List
 
-    prefix = 1
-    for i in range(len(nums)):
-        result.append(prefix)
-        prefix *= nums[i]
 
-    postfix = 1
-    for i in reversed(range(len(nums))):
-        result[i] *= postfix
-        postfix *= nums[i]
+class Solution:
+    # Time Complexity: O(n)
+    # Space Complexity: O(n)
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        result = [0] * len(nums)
 
-    return result
+        prefix = 1
+        for i in range(len(nums)):
+            result[i] = prefix
+            prefix *= nums[i]
+
+        postfix = 1
+        for i in range(len(result) - 1, -1, -1):
+            result[i] *= postfix
+            postfix *= nums[i]
+
+        return result
 ```
 
 <details><summary>Test cases</summary><blockquote>
