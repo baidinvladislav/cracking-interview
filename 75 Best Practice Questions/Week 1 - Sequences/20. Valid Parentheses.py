@@ -6,7 +6,6 @@ class Solution:
     # Space Complexity: O(n)
     def isValid(self, s: str) -> bool:
         d = {"(": ")", "[": "]", "{": "}"}
-
         stack = []
         for ch in s:
             if ch in d:
