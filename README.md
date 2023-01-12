@@ -2,9 +2,9 @@
 
 <h3>Content:</h3>
 
+* :open_file_folder: 75 Best Practice Questions: 75 best interview questions from [article](https://techinterviewhandbook.org/best-practice-questions/).
 * :open_file_folder: Algorithms: popular algorithms to work with data structures.
 * :open_file_folder: Apple LeetCode: problems faced at interviews at Apple according to [LeetCode](https://leetcode.com/company/apple/).
-* :open_file_folder: 75 Best Practice Questions: 75 best interview questions from [article](https://techinterviewhandbook.org/best-practice-questions/).
 * :open_file_folder: Cracking the Coding Interview: interview questions from CtCI [book](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/).
 * :open_file_folder: Data Structures: popular data structures implemented myself from scratch.
 * :open_file_folder: Dynamic Programming in Python: problems from [Dynamic Programming in Python](https://www.educative.io/courses/dynamic-programming-in-python/) course.
