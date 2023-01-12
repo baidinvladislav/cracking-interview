@@ -371,25 +371,23 @@ Output: false
 ```
 
 ```python3
-from collections import deque
-
-
 class Solution:
-    def isValid(self, s):
-        hash_map = {'(': ')', '[': ']', '{': '}', }
-        stack = deque()
+    # Time Complexity: O(n)
+    # Space Complexity: O(n)
+    def isValid(self, s: str) -> bool:
+        d = {"(": ")", "[": "]", "{": "}"}
 
-        for char in s:
-            if char in hash_map:
-                stack.append(char)
+        stack = []
+        for ch in s:
+            if ch in d:
+                stack.append(ch)
             else:
-                if not stack:
+                if stack and d[stack[-1]] == ch:
+                    stack.pop()
+                else:
                     return False
+        return len(stack) == 0
 
-                last_el = stack.pop()
-                if hash_map[last_el] != char:
-                    return False
-        return not stack
 ```
 
 
