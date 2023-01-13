@@ -477,10 +477,18 @@ class TestProductArrayExceptSelf(unittest.TestCase):
 
 https://leetcode.com/problems/maximum-subarray/
 
-<details><summary>Решение:</summary><blockquote>
+<details><summary>Брутфорс решение:</summary><blockquote>
 <ol>
- <li>Проходим первый раз по циклу и перемножаем элементы, сохраняем макс.произведение чисел, если натыкаемся на 0, то начинаем накапливать произведение заново.</li>
- <li>Делаем тоже самое, но в этот раз проходим массив с конца к началу.</li>
+ <li>Итерируем массив вложенным циклом.</li>
+ <li>Запоминаем максимальное значение на каждом проходе вложенного цикла.</li>
+</ol>
+</blockquote></details>
+
+<details><summary>Решение за O(n):</summary><blockquote>
+<ol>
+ <li>Итерируем массив.</li>
+ <li>На каждой итерации смотрим не уменьшил ли текущий элемент сумму, если уменьшил, то начинаем отсчет с 0 + текущий элемент.</li>
+ <li>Обновляем максимальное значение.</li>
 </ol>
 </blockquote></details>
 
@@ -500,15 +508,29 @@ Output: 23
 ```
 
 ```python3
-class Solution:
-    def maxSubArray(self, nums):
-        current_subarray = max_subarray = nums[0]
+from typing import List
 
+class Solution:
+    # Time Complexity: O(n**2)
+    # Space Complexity: O(1)
+    def maxSubArrayBruteForce(self, nums: List[int]) -> int:
+        max_sum = nums[0]
+        for i in range(len(nums)):
+            cur_sum = 0
+            for j in range(i, len(nums)):
+                cur_sum += nums[j]
+                max_sum = max(max_sum, cur_sum)
+        return max_sum
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
+    def maxSubArray(self, nums: List[int]) -> int:
+        current_subarray = max_subarray = nums[0]
         for i in range(1, len(nums)):
             current_subarray = max(nums[i], current_subarray + nums[i])
-            max_subarray = max(current_subarray, max_subarray)
-
+            max_subarray = max(max_subarray, current_subarray)
         return max_subarray
+
 ```
 
 <details><summary>Test cases</summary><blockquote>
