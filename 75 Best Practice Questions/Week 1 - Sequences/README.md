@@ -10,7 +10,7 @@
 + [Merge Intervals](#merge-intervals)
 + [Group Anagrams](#group-anagrams)
 + [Maximum Product Subarray](#maximum-product-subarray)
-+ [Search in Rotated Sorted Array](#earch-in-rotated-sorted-array)
++ [Search in Rotated Sorted Array](#search-in-rotated-sorted-array)
 
 
 ## Two Sum
