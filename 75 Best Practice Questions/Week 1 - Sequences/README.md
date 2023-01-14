@@ -775,6 +775,14 @@ class TestMaxProduct(unittest.TestCase):
 
 https://leetcode.com/problems/maximum-product-subarray/
 
+<details><summary>Брутфорс решение:</summary><blockquote>
+<ol>
+ <li>По каждому элементу массива проходим итерации, которые бы перемножили все элеметы после элемента.</li>
+ <li>Вычислить произведение внутри вложенного цикла, обновить, если произведение больше чем записано.</li>
+ <li>Вернуть макс. произведение.</li>
+</ol>
+</blockquote></details>
+
 <details><summary>Решение:</summary><blockquote>
 <ol>
  <li>Переменная max_so_far нужна для хранения максимальной суммы позитивных чисел.</li>

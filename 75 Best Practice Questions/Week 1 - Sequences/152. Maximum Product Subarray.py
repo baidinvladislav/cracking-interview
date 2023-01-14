@@ -3,22 +3,31 @@ from typing import List
 
 
 class Solution:
+
+    # Time Complexity: O(n**2)
+    # Space Complexity: O(1)
+    def maxProductBruteForce(self, nums: List[int]) -> int:
+        max_multiple = nums[0]
+        for i in range(len(nums)):
+            multiple = 1
+            for j in range(i, len(nums)):
+                multiple *= nums[j]
+                max_multiple = max(max_multiple, multiple)
+
+        return max_multiple
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(1)
     def maxProduct(self, nums: List[int]) -> int:
-        if len(nums) == 0:
-            return 0
-
-        max_so_far = nums[0]
-        min_so_far = nums[0]
+        min_so_far = max_so_far = nums[0]
         result = max_so_far
-
         for i in range(1, len(nums)):
-            curr = nums[i]
-            temp_max = max(curr, max_so_far * curr, min_so_far * curr)
-            min_so_far = min(curr, max_so_far * curr, min_so_far * curr)
+            tmp_max = max(nums[i], max_so_far * nums[i], min_so_far * nums[i])
+            min_so_far = min(nums[i], max_so_far * nums[i], min_so_far * nums[i])
 
-            max_so_far = temp_max
+            max_so_far = tmp_max
 
-            result = max(max_so_far, result)
+            result = max(result, max_so_far)
 
         return result
 
