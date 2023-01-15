@@ -26,7 +26,7 @@ class Solution:
             return self._binary_search(rotate_index, n - 1, nums, target)
 
         # search on the left side
-        else:
+        elif target > nums[0]:
             return self._binary_search(0, rotate_index, nums, target)
 
     # finds rotate index
