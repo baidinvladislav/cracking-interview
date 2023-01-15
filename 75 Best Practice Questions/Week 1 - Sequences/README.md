@@ -910,24 +910,86 @@ Output: -1
 
 
 ```python3
-def search(nums, target):
-    start, end = 0, len(nums) - 1
-    while start <= end:
-        mid = start + (end - start) // 2
-        if nums[mid] == target:
-            return mid
+class Solution:
 
-        if nums[start] <= nums[mid]:
-            if nums[start] <= target < nums[mid]:
-                end = mid - 1
-            else:
-                start = mid + 1
+    # Time Complexity: O(log n)
+    # Space Complexity: O(1)
+    def searchTwoPass(self, nums, target):
+        n = len(nums)
+        if n == 1:
+            return 0 if nums[0] == target else -1
+
+        # search rotate index
+        rotate_index = self._find_rotate_index(0, n - 1, nums)
+
+        # if target is the smallest element
+        if nums[rotate_index] == target:
+            return rotate_index
+
+        # if array is not rotated, search in the entire array
+        elif rotate_index == 0:
+            return self._binary_search(0, n - 1, nums, target)
+
+        # search on the right side
+        elif target < nums[0]:
+            return self._binary_search(rotate_index, n - 1, nums, target)
+
+        # search on the left side
         else:
-            if nums[mid] < target <= nums[end]:
-                start = mid + 1
+            return self._binary_search(0, rotate_index, nums, target)
+    
+    # finds rotate index
+    def _find_rotate_index(self, left, right, nums):
+        if nums[left] < nums[right]:
+            return 0
+
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] > nums[mid + 1]:
+                return mid + 1
             else:
-                end = mid - 1
-    return -1
+                if nums[mid] < nums[left]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+    
+    # executes binary search
+    def _binary_search(self, left, right, nums, target):
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                return mid
+            else:
+                if target < nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+        return -1
+
+    # Time Complexity: O(log n)
+    # Space Complexity: O(1)
+    def searchOnePass(self, nums, target):
+        start, end = 0, len(nums) - 1
+
+        while start <= end:
+            mid = start + (end - start) // 2
+            if nums[mid] == target:
+                return mid
+
+            if nums[start] <= nums[mid]:
+                if nums[start] <= target < nums[mid]:
+                    end = mid - 1
+                else:
+                    start = mid + 1
+
+            elif nums[start] > nums[mid]:
+                if nums[mid] < target <= nums[end]:
+                    start = mid + 1
+                else:
+                    end = mid - 1
+
+        return -1
+
 ```
 
 

@@ -2,14 +2,15 @@ import unittest
 
 
 class Solution:
+
     # Time Complexity: O(log n)
     # Space Complexity: O(1)
     def searchTwoPass(self, nums, target):
         n = len(nums)
-
         if n == 1:
             return 0 if nums[0] == target else -1
 
+        # search rotate index
         rotate_index = self._find_rotate_index(0, n - 1, nums)
 
         # if target is the smallest element
@@ -17,16 +18,18 @@ class Solution:
             return rotate_index
 
         # if array is not rotated, search in the entire array
-        if rotate_index == 0:
+        elif rotate_index == 0:
             return self._binary_search(0, n - 1, nums, target)
 
-        if target < nums[0]:
-            # search on the right side
+        # search on the right side
+        elif target < nums[0]:
             return self._binary_search(rotate_index, n - 1, nums, target)
 
         # search on the left side
-        return self._binary_search(0, rotate_index, nums, target)
+        else:
+            return self._binary_search(0, rotate_index, nums, target)
 
+    # finds rotate index
     def _find_rotate_index(self, left, right, nums):
         if nums[left] < nums[right]:
             return 0
@@ -41,6 +44,7 @@ class Solution:
                 else:
                     left = mid + 1
 
+    # executes binary search
     def _binary_search(self, left, right, nums, target):
         while left <= right:
             mid = (left + right) // 2
