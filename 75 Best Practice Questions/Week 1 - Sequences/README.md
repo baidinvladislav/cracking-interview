@@ -865,7 +865,21 @@ class TestMaxProduct(unittest.TestCase):
 
 https://leetcode.com/problems/search-in-rotated-sorted-array/
 
-<details><summary>Решение:</summary><blockquote>
+<details><summary>Решение в два прохода:</summary><blockquote>
+<ol>
+    <li>Для начала нужно найти индекс на котором был развернут массив (другими словами ищем минимальный элемент в массиве).</li>
+        <ol>
+            <li>Если число по середине массива больше чем посследующее соседнее число, то индекс разворота середина + 1.</li>
+            <li>Если число по середине массива меньше чем первый элемент массива, то ищем индекс разворота ищем в левой части массива.</li>
+            <li>Если число по середине массива больше чем первый элемент массива, то ищем индекс разворота ищем в правой части массива.</li>
+        </ol>
+    <li>Если индекс приломления равен 0, то можем считать массив не развернутым и производить бинарный поиск по всему массиву.</li>
+    <li>Если таргет меньше чем первый элемент, то ищем в правой части массива.</li>
+    <li>Если таргет больше чем первый элемент, то ищем в левой части массива.</li>
+</ol>
+</blockquote></details>
+
+<details><summary>Решение в один проход:</summary><blockquote>
 <ol>
     <li>Если начальный элемент меньше или равен центральному элементу</li>
         <ol>
@@ -925,13 +939,13 @@ import unittest
 
 class TestMaxProduct(unittest.TestCase):
     def test_first(self):
-        self.assertEqual(4, Solution().search(nums=[4, 5, 6, 7, 0, 1, 2], target=0))
+        self.assertEqual(4, Solution()._binary_search(nums=[4, 5, 6, 7, 0, 1, 2], target=0))
 
     def test_second(self):
-        self.assertEqual(-1, Solution().search(nums=[4, 5, 6, 7, 0, 1, 2], target=3))
+        self.assertEqual(-1, Solution()._binary_search(nums=[4, 5, 6, 7, 0, 1, 2], target=3))
 
     def test_third(self):
-        self.assertEqual(-1, Solution().search(nums=[1], target=0))
+        self.assertEqual(-1, Solution()._binary_search(nums=[1], target=0))
 
 
 if __name__ == "__main__":
