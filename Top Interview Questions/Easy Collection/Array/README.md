@@ -130,35 +130,46 @@ Output:
 
 
 ## Contains Duplicate
-.
+Дан массив чисел, определить есть ли там дубликаты.
 
-https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+https://leetcode.com/problems/contains-duplicate/
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Решение брутфорс.</li>
+ <li>Решение через сортировку.</li>
+ <li>Решение через мапу и сет.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: [1, 2, 3, 1]
+Output: True
 
 Example 2:
-Input: 
-Output: 
+Input: [1, 2, 3, 4]
+Output: False
 
 Example 3:
-Input: 
-Output: 
+Input: [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]
+Output: True
 ```
 
 ```python
+class Solution:
+
+    # Time Complexity: O(n log n)
+    # Space Complexity: O(1)
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        nums.sort()
+        for i in range(1, len(nums)):
+            if nums[i - 1] == nums[i]:
+                return True
+
+        return False
 
 ```
 
