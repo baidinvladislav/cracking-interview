@@ -164,35 +164,42 @@ Output:
 
 
 ## Single Number
-.
+Дан массив чисел, каждое число в массиве появляется дваждый, каждое, кроме одного, найти число, которое не имеет дубликатов.
 
-https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+https://leetcode.com/problems/single-number/
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>В одной переменной применим оператор XOR для каждого элемента, повторяющиеся элементы все будет убраны из переменной, останется только уникальное число без пары.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: [2, 2, 1]
+Output: 1
 
 Example 2:
-Input: 
-Output: 
+Input: [4, 1, 2, 1, 2]
+Output: 1
 
 Example 3:
-Input: 
-Output: 
+Input: [1]
+Output: 1
 ```
 
 ```python
+from typing import List
+
+
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        result = nums[0]
+        for i in range(1, len(nums)):
+            result ^= nums[i]
+        return result
 
 ```
 
