@@ -216,35 +216,51 @@ class Solution:
 
 
 ## Intersection of Two Arrays II
-.
+Дано два массива, найти одинаковые элементы с сохранением дубликатов.
 
-https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+https://leetcode.com/problems/intersection-of-two-arrays-ii/
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Взять массив, который меньше, поместить всего элементы в мапу, подсчитав кол-во повторений в массиве.</li>
+ <li>Идти по большому массиву, проверить есть элемент в мапе, если есть отнять 1 повторение и добавить элемент в результирующий массив, если повторение равно 0, то удалиьть ключ из мапы.</li>
+ <li>Вурнуть результирующий массив.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: nums1=[1, 2, 2, 1], nums2=[2, 2]
+Output: [2, 2] 
 
 Example 2:
-Input: 
-Output: 
-
-Example 3:
-Input: 
-Output: 
+Input: nums1=[4, 9, 5], nums2=[9, 4, 9, 8, 4]
+Output: [4, 9]
 ```
 
 ```python
+class Solution:
+    def intersect(self, nums1, nums2):
+        if nums2 < nums1:
+            nums1, nums2 = nums2, nums1
+
+        map1 = {}
+        for i in range(len(nums1)):
+            if nums1[i] not in map1:
+                map1[nums1[i]] = 0
+            map1[nums1[i]] += 1
+
+        result = []
+        for i in range(len(nums2)):
+            if nums2[i] in map1:
+                map1[nums2[i]] -= 1
+                result.append(nums2[i])
+                if map1[nums2[i]] == 0:
+                    del map1[nums2[i]]
+
+        return result
 
 ```
 
