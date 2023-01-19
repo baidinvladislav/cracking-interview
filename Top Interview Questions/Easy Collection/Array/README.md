@@ -380,35 +380,51 @@ class Solution:
 
 
 ## Two Sum
-.
+Дан массив чисел и число таргет, вернуть два индекса из массива, которые в сумме дают таргет.
 
-https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+https://leetcode.com/problems/two-sum/
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Положить все числа в мапу.</li>
+ <li>Идти по массиву и в переменной attempt вычислить target - nums[i].</li>
+ <li>Если разность между таргетом и текущим элементов на итерации есть в мапе, то вернуть текущий индекс и индекс из мапы.</li>
+ <li>Чтобы не вернуть два одинаковых числа под разными индексами, поставить условие, что оба числа должны быть не равны друг другу.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: nums = [2, 7, 11, 15], target = 9
+Output: [0, 1]
 
 Example 2:
-Input: 
-Output: 
+Input: nums = [3, 2, 4], target = 6
+Output: [1, 2]
 
 Example 3:
-Input: 
-Output: 
+Input: nums = [3, 3], target = 6
+Output: [0, 1]
 ```
 
 ```python
+from typing import List
+
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        map = {}
+        for i in range(len(nums)):
+            map[nums[i]] = i
+
+        for i in range(len(nums)):
+            attempt = target - nums[i]
+            if attempt in map and i != map[attempt]:
+                return [i, map[attempt]]
+
+        return [-1, -1]
 
 ```
 
