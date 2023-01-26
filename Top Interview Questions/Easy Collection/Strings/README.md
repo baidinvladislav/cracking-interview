@@ -1,5 +1,6 @@
 # Array
 + [Reverse String](#reverse-string)
++ [Valid Anagram](#valid-anagram)
 
 
 ## Reverse String
@@ -43,5 +44,47 @@ class Solution:
 
             left += 1
             right -= 1
+
+```
+
+
+## Valid Anagram
+Даны две строки, определить, что они диаграммы.
+
+https://leetcode.com/problems/valid-anagram/
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Перевести строки в массив.</li>
+ <li>Если размер строк отличается, то сразу False.</li>
+ <li>Остортировать.</li>
+ <li>Сравнить.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: s = "anagram", t = "nagaram"
+Output: True
+
+Example 2:
+Input: s = "rat", t = "car"
+Output: False
+```
+
+```python
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+
+        s, t = list(s), list(t)
+
+        s.sort()
+        t.sort()
+
+        return s == t
 
 ```
