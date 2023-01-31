@@ -1,6 +1,7 @@
 # Array
 + [Reverse String](#reverse-string)
 + [Valid Anagram](#valid-anagram)
++ [Reverse Integer](#reverse-integer)
 
 
 ## Reverse String
@@ -141,5 +142,43 @@ class Solution:
             right -= 1
 
         return True
+
+```
+
+
+## Reverse Integer
+Развернуть число.
+
+https://leetcode.com/problems/reverse-integer/
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 123
+Output: 321
+
+Example 2:
+Input: -123
+Output: -321
+
+Example 3:
+Input: 120
+Output: 21
+```
+
+```python
+class Solution:
+    def reverse(self, x: int) -> int:
+        rev = int(str(abs(x))[::-1])
+        return (-rev if x < 0 else rev) if rev.bit_length() < 32 else 0
 
 ```
