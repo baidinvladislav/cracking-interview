@@ -2,6 +2,7 @@
 + [Reverse String](#reverse-string)
 + [Valid Anagram](#valid-anagram)
 + [Reverse Integer](#reverse-integer)
++ [First Unique Character in a String](#first-unique-character-in-a-string)
 
 
 ## Reverse String
@@ -182,5 +183,53 @@ class Solution:
         reversed_str = to_str[::-1]
         result = int(reversed_str)
         return -result if x < 0 else result
+
+```
+
+
+
+## First Unique Character in a String
+Найти первый уникальный элемент в строке.
+
+https://leetcode.com/problems/first-unique-character-in-a-string/
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Подсчитать количество всех элементов в мапе.</li>
+ <li>Идти по строке, обращаясь к ключам мапы, вернуть индекса первожего элемента в мапе которого значением является 1.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: "leetcode"
+Output: 0
+
+Example 2:
+Input: "loveleetcode"
+Output: 2
+
+Example 3:
+Input: "aabb"
+Output: -1
+```
+
+```python
+class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        d = {}
+        for char in s:
+            if char not in d:
+                d[char] = 1
+            else:
+                d[char] += 1
+
+        for i in range(len(s)):
+            if d[s[i]] == 1:
+                return i
+
+        return -1
 
 ```
