@@ -154,9 +154,9 @@ https://leetcode.com/problems/reverse-integer/
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Привести к строке модуль числа из инпута.</li>
+ <li>Развернуть число как обычную строку срезом.</li>
+ <li>Привести к числу развернутую строку, если на инпуте было отрицательное число, то вернуть результат в отрицательной форме, иначе вернуть просто результат.</li>
 </ol>
 
 </blockquote></details>
@@ -178,7 +178,9 @@ Output: 21
 ```python
 class Solution:
     def reverse(self, x: int) -> int:
-        rev = int(str(abs(x))[::-1])
-        return (-rev if x < 0 else rev) if rev.bit_length() < 32 else 0
+        to_str = str(abs(x))
+        reversed_str = to_str[::-1]
+        result = int(reversed_str)
+        return -result if x < 0 else result
 
 ```

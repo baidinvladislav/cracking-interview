@@ -3,8 +3,10 @@ import unittest
 
 class Solution:
     def reverse(self, x: int) -> int:
-        rev = int(str(abs(x))[::-1])
-        return (-rev if x < 0 else rev) if rev.bit_length() < 32 else 0
+        to_str = str(abs(x))
+        reversed_str = to_str[::-1]
+        result = int(reversed_str)
+        return -result if x < 0 else result
 
 
 class TestTwoSum(unittest.TestCase):
