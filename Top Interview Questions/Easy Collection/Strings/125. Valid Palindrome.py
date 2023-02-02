@@ -2,6 +2,9 @@ import unittest
 
 
 class Solution:
+
+    # Time Complexity: O(N)
+    # Space Complexity: O(1)
     def isPalindrome(self, s: str) -> bool:
         left, right = 0, len(s) - 1
         while left < right:
