@@ -3,6 +3,7 @@
 + [Valid Anagram](#valid-anagram)
 + [Reverse Integer](#reverse-integer)
 + [First Unique Character in a String](#first-unique-character-in-a-string)
++ [Longest Common Prefix](#longest-common-prefix)
 
 
 ## Reverse String
@@ -234,5 +235,46 @@ class Solution:
                 return i
 
         return -1
+
+```
+
+
+
+## Longest Common Prefix
+Вернуть общий префикс строк.
+
+https://leetcode.com/problems/longest-common-prefix/
+
+<details><summary>Решение:</summary><blockquote>
+
+<ol>
+ <li>Отсортировать массив строк.</li>
+ <li>Пройти по первой и последней строке указателем, записывая общий символ в ответ.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: ["flower", "flow", "flight"]
+Output: "fl"
+
+Example 2:
+Input: ["dog", "racecar", "car"]
+Output: ""
+```
+
+```python
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        strs.sort()
+        end = min(len(strs[0]), len(strs[len(strs) - 1]))
+        result = ""
+        counter = 0
+        while counter < end and strs[0][counter] == strs[len(strs) - 1][counter]:
+            result += strs[0][counter]
+            counter += 1
+
+        return result
 
 ```
