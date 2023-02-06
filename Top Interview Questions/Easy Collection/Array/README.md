@@ -96,35 +96,41 @@ Output:
 
 
 ## Rotate Array
-.
+Сдвинуть отсортированный массив на k шагов.
 
-https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+https://leetcode.com/problems/rotate-array/
 
 <details><summary>Решение:</summary><blockquote>
 
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Вычислить остаток от деления для кол-ва итераций внешнего цикла.</li>
+ <li>Во внутреннем цикле свапаем элементы.</li>
 </ol>
 
 </blockquote></details>
 
 ```
 Example 1:
-Input: 
-Output: 
+Input: nums=[1, 2, 3, 4, 5, 6, 7], k=3
+Output: [5, 6, 7, 1, 2, 3, 4]
 
 Example 2:
-Input: 
-Output: 
-
-Example 3:
-Input: 
-Output: 
+Input: nums=[-1, -100, 3, 99], k=2
+Output: [3, 99, -1, -100]
 ```
 
 ```python
+from typing import List
+
+
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        k %= len(nums)
+
+        for i in range(k):
+            previous = nums[-1]
+            for j in range(len(nums)):
+                nums[j], previous = previous, nums[j]
 
 ```
 
