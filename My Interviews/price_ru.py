@@ -26,6 +26,9 @@ A = [7, 2, 1, 3, 1, 2, 3, 4, 5, 6, 6]
 т.е. должно получиться следующее:
 
 [7, 2, 1, 3, 4, 5, 6]
+
+https://www.geeksforgeeks.org/python-ways-to-remove-duplicates-from-list/
+ways to remove duplicates from array
 """
 
 
