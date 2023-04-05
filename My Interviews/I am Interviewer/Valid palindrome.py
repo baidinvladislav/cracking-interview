@@ -3,7 +3,6 @@
 # Example 1:
 # Input: 'шалаш'
 # Output: True
-# Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
 #
 # Example 2:
 # Input: 'заказ'
