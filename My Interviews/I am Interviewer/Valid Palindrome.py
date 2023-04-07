@@ -12,6 +12,10 @@
 # Input: 'python'
 # Output: False
 
+
+def isPalindrome(s: str) -> bool:
+    pass
+
 # =================================================================================
 
 

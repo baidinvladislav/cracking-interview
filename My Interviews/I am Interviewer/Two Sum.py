@@ -14,6 +14,10 @@
 # Input: nums = [3,3], target = 6
 # Output: [0,1]
 
+
+def twoNumberSum(array, targetSum):
+    pass
+
 # =================================================================================
 
 # 1st approach is brute:
