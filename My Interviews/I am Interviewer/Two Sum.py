@@ -15,7 +15,7 @@
 # Output: [0,1]
 
 
-def twoNumberSum(array, targetSum):
+def twoNumberSum(array, targetSum) -> list:
     pass
 
 # =================================================================================
