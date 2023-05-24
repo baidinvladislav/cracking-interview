@@ -8,14 +8,13 @@ def merge_ranges(meetings):
     meetings.sort(key=lambda x: x[0])
     start, end = meetings[0][0], meetings[0][1]
     result = []
-    for x, y in meetings[1:]:
-        if end >= x:
-            end = max(end, x)
+    for i in (1, len(meetings) - 1):
+        if end >= meetings[i][0]:
+            end = max(end, meetings[i][1])
         else:
             result.append((start, end))
-
-            start = x
-            end = y
+            start = meetings[i][0]
+            end = meetings[i][1]
 
     result.append((start, end))
     return result

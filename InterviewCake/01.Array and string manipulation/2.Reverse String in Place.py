@@ -12,8 +12,6 @@ def reverse(list_of_chars):
         left += 1
         right -= 1
 
-    return list_of_chars
-
 
 # their solution
 # Time complexity: O(n)
