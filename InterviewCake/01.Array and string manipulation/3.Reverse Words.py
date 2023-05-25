@@ -4,24 +4,22 @@ import unittest
 # my code
 # Time Complexity: O(n)
 # Space Complexity: O(1)
-def reverse_words(array):
-    swap(0, len(array) - 1, array)
+def reverse_string(string: list, start: int, end: int):
+    while start < end:
+        string[start], string[end] = string[end], string[start]
 
-    j = 0
-    for i in range(len(array) + 1):
-        if i == len(array) or array[i] == ' ':
-            swap(j, i - 1, array)
-            j = i + 1
-
-    print(array)
+        start += 1
+        end -= 1
 
 
-def swap(start_idx, end_idx, array):
-    while start_idx < end_idx:
-        array[start_idx], array[end_idx] = array[end_idx], array[start_idx]
+def reverse_words(message):
+    reverse_string(message, 0, len(message) - 1)
 
-        start_idx += 1
-        end_idx -= 1
+    start = 0
+    for end in range(len(message) + 1):
+        if end == len(message) or not message[end].isalpha():
+            reverse_string(message, start, end - 1)
+            start = end + 1
 
 
 # their solution
