@@ -6,21 +6,18 @@ import unittest
 # Space Complexity: O(n)
 def merge_lists(my_list, alices_list):
     result = [None] * (len(my_list) + len(alices_list))
-    result_ixd = idx_1 = idx_2 = 0
 
-    while result_ixd < len(result):
-        is_finished_1 = idx_1 == len(my_list)
-        is_finished_2 = idx_2 == len(alices_list)
+    p1 = p2 = 0
+    for i in range(len(result)):
+        first_is_exhausted = p1 >= len(my_list)
+        second_is_exhausted = p2 >= len(alices_list)
 
-        if not is_finished_1 and (is_finished_2 or my_list[idx_1] < alices_list[idx_2]):
-            result[result_ixd] = my_list[idx_1]
-            idx_1 += 1
-
+        if not first_is_exhausted and (second_is_exhausted or my_list[p1] < alices_list[p2]):
+            result[i] = my_list[p1]
+            p1 += 1
         else:
-            result[result_ixd] = alices_list[idx_2]
-            idx_2 += 1
-
-        result_ixd += 1
+            result[i] = alices_list[p2]
+            p2 += 1
 
     return result
 
