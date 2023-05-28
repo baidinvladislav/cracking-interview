@@ -19,7 +19,7 @@ def is_first_come_first_served(take_out_orders, dine_in_orders, served_orders):
     return True
 
 
-# my recursive solution
+# my recursive solution without slicing
 # Time complexity: O(n)
 # Space complexity: O(n)
 def is_first_come_first_served(
@@ -44,6 +44,21 @@ def is_first_come_first_served(
         take_out_orders, dine_in_orders, served_orders,
         first_counter, second_counter, third_counter
     )
+
+
+# my recursive solution
+# Time complexity: O(n^2)
+# Space complexity: O(n^2)
+def is_first_come_first_served(take_out_orders, dine_in_orders, served_orders):
+    if len(served_orders) == 0:
+        return True
+
+    if take_out_orders and take_out_orders[0] == served_orders[0]:
+        return is_first_come_first_served(take_out_orders[1:], dine_in_orders, served_orders[1:])
+    elif dine_in_orders and dine_in_orders[0] == served_orders[0]:
+        return is_first_come_first_served(take_out_orders, dine_in_orders[1:], served_orders[1:])
+    else:
+        return False
 
 
 # their third solution (iterative)
