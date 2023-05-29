@@ -5,14 +5,12 @@ import unittest
 # Time Complexity: O(n),
 # Space Complexity: O(n)
 def can_two_movies_fill_flight(movie_lengths, flight_length):
-    s = set()
-    for film in movie_lengths:
-        free_time = flight_length - film
-
-        if free_time in s:
+    movie_set = set()
+    for movie in movie_lengths:
+        if flight_length - movie in movie_set:
             return True
 
-        s.add(film)
+        movie_set.add(movie)
 
     return False
 
