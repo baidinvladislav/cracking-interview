@@ -1,6 +1,33 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+class WordCloudData(object):
+    """
+    The solution doesn't cover complex cases as their solution.
+    """
+
+    def __init__(self, input_string):
+        self.result = {}
+        self.words_to_counts = self.solution(input_string)
+
+    def insert_word(self, word):
+        if word not in self.result:
+            self.result[word] = 0
+        self.result[word] += 1
+
+    def solution(self, input_string):
+        start = 0
+        for end in range(len(input_string) + 1):
+            if end == len(input_string) or not input_string[end].isalpha():
+                self.insert_word(input_string[start:end])
+                start = end + 1
+
+        return self.result
+
+
 # their solution
 # Time Complexity: O(n)
 # Space Complexity: O(n)

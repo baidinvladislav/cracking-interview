@@ -5,15 +5,14 @@ import unittest
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def has_palindrome_permutation(the_string):
-    s = set()
-
+    char_set = set()
     for char in the_string:
-        if char not in s:
-            s.add(char)
+        if char not in char_set:
+            char_set.add(char)
         else:
-            s.remove(char)
+            char_set.remove(char)
 
-    return len(s) <= 1
+    return len(char_set) <= 1
 
 
 # their solution
