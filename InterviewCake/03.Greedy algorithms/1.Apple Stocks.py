@@ -1,18 +1,32 @@
 import unittest
 
 
+# covers when all distance price decreases
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def get_max_profit(stock_prices):
+    min_price = stock_prices[0]
+    max_profit = stock_prices[1] - stock_prices[0]
+    for i in range(1, len(stock_prices)):
+        current_price = stock_prices[i]
+        current_profit = current_price - min_price
+        max_profit = max(max_profit, current_profit)
+        min_price = min(min_price, current_price)
+
+    return max_profit
+
+
 # my code based on their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def get_max_profit(stock_prices):
+    # it's okay, but it returns 0 if we're only losing money
     min_price = float('inf')
     max_profit = 0
-
     for price in stock_prices:
         min_price = min(min_price, price)
         current_profit = price - min_price
         max_profit = max(max_profit, current_profit)
-
     return max_profit
 
 
