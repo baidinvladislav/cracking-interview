@@ -19,6 +19,33 @@ def is_first_come_first_served(take_out_orders, dine_in_orders, served_orders):
     return True
 
 
+# my code based on their solution without slicing so O(n) time instead of O(n^2)
+# Time complexity: O(n)
+# Space complexity: O(n)
+def is_first_come_first_served(
+        take_out_orders, dine_in_orders, served_orders,
+        take_out_idx=0, dine_in_idx=0, served_idx=0
+):
+    if served_idx == len(served_orders):
+        return True
+
+    if take_out_idx < len(take_out_orders) and take_out_orders[take_out_idx] == served_orders[served_idx]:
+        take_out_idx += 1
+
+    elif dine_in_idx < len(dine_in_orders) and dine_in_orders[dine_in_idx] == served_orders[served_idx]:
+        dine_in_idx += 1
+
+    else:
+        return False
+
+    served_idx += 1
+
+    return is_first_come_first_served(
+        take_out_orders, dine_in_orders, served_orders,
+        take_out_idx, dine_in_idx, served_idx
+    )
+
+
 # my recursive solution
 # Time complexity: O(n)
 # Space complexity: O(n)

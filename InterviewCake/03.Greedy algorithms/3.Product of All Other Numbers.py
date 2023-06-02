@@ -5,21 +5,20 @@ import unittest
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def get_products_of_all_ints_except_at_index(int_list):
-    n = len(int_list)
-    if n < 2:
+    if len(int_list) < 2:
         raise Exception
 
-    result = [None] * n
+    result = [None] * len(int_list)
 
-    tmp = 1
-    for i in range(n):
-        result[i] = tmp
-        tmp *= int_list[i]
+    prefix = 1
+    for i in range(len(int_list)):
+        result[i] = prefix
+        prefix *= int_list[i]
 
-    tmp = 1
-    for i in range(n - 1, -1, -1):
-        result[i] *= tmp
-        tmp *= int_list[i]
+    postfix = 1
+    for i in range(len(int_list) - 1, -1, -1):
+        result[i] *= postfix
+        postfix *= int_list[i]
 
     return result
 
