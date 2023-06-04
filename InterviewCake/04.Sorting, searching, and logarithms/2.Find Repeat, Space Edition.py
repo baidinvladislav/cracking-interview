@@ -1,6 +1,34 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(n lg n)
+# Space Complexity: O(1)
+def find_repeat(numbers):
+    left, right = 1, len(numbers) - 1
+    while left < right:
+        middle = (left + right) // 2
+
+        low_subbarray_left = left
+        low_subbarray_right = middle
+
+        high_subbarray_left = middle + 1
+        high_subbarray_right = right
+
+        number_of_items_low_subbarray = 0
+        for number in numbers:
+            if low_subbarray_left <= number <= low_subbarray_right:
+                number_of_items_low_subbarray += 1
+
+        unique_number_of_items_low_subbarray = low_subbarray_right - low_subbarray_left + 1
+        if unique_number_of_items_low_subbarray < number_of_items_low_subbarray:
+            left, right = low_subbarray_left, low_subbarray_right
+        else:
+            left, right = high_subbarray_left, high_subbarray_right
+
+    return left
+
+
 # their solution
 # Time Complexity: O(n lg n)
 # Space Complexity: O(1)
