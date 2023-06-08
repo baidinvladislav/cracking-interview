@@ -1,6 +1,29 @@
 import unittest
 
 
+# my own based on their solution
+# Time Comlexity:O(h)
+# Space Comlexity: O(1)
+def find_largest(node):
+    current = node
+    while current.right:
+        current = current.right
+    return current.value
+
+
+def find_second_largest(root_node):
+    current = root_node
+    while True:
+
+        if current.left and not current.right:
+            return find_largest(current.left)
+
+        if current.right and (not current.right.right and not current.right.left):
+            return current.value
+
+        current = current.right
+
+
 # my own solution
 # Time Complexity: O(n)
 # Space Complexity: O(n**n)
