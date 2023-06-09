@@ -5,6 +5,7 @@ import unittest
 # Time Complexity: O(n)
 # Space Complexity: O(n)
 def is_binary_search_tree(root):
+
     def in_order(node):
         if not node:
             return
