@@ -9,6 +9,22 @@ class GraphNode:
         self.color = None
 
 
+# my solution based on their
+# Time Complexity: O(N + M) where N is the number of nodes and M is the number of edges.
+# Space Complexity: O(D) where D is max graph degree
+def color_graph(graph, colors):
+    for node in graph:
+        if node in node.neighbors:
+            raise
+
+        busy_colors = set([node.color for node in node.neighbors if node.color])
+
+        for color in colors:
+            if color not in busy_colors:
+                node.color = color
+                break
+
+
 # their solution
 # Time Complexity: O(N + M) where N is the number of nodes and M is the number of edges.
 # Space Complexity: O(D) where D is max graph degree

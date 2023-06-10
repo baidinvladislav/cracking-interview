@@ -27,20 +27,23 @@ def is_binary_search_tree(root):
 # their iterative
 # Time Complexity: O(n)
 # Space Complexity: O(n)
+import unittest
+from collections import deque
+
+
 def is_binary_search_tree(root):
-    stack = [(root, float('-inf'), float('inf'))]
-
-    while stack:
-        node, left_child, right_child = stack.pop()
-
-        if node.value <= left_child or node.value >= right_child:
+    queue = deque()
+    queue.append((root, float('-inf'), float('inf')))
+    while queue:
+        node, low, high = queue.pop()
+        if node.value <= low or node.value >= high:
             return False
 
         if node.left:
-            stack.append((node.left, node.value, right_child))
+            queue.append((node.left, low, node.value))
 
         if node.right:
-            stack.append((node.right, left_child, node.value))
+            queue.append((node.right, node.value, high))
 
     return True
 
