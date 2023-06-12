@@ -5,29 +5,32 @@ from collections import deque
 # my code based on their solution
 # time: O(N(vertexes) + M(edges))
 # space: O(N)
+def reconstruct_path(path_tracker, start_node, end_node):
+    result = []
+
+    current_node = end_node
+    while current_node:
+        result.append(current_node)
+        current_node = path_tracker[current_node]
+
+    return result[::-1]
+
+
 def get_path(graph, start_node, end_node):
-    queue = deque([start_node])
-    visited = {start_node}
-    path = {start_node: None}
+    queue = deque()
+    queue.append(start_node)
+    path_tracker = {start_node: None}
+
     while queue:
         node = queue.popleft()
 
         if node == end_node:
-            # we found node then reconstruct the path
-            reversed_shortest_path = []
-            current_node = end_node
-            while current_node:
-                reversed_shortest_path.append(current_node)
-                current_node = path[current_node]
-            reversed_shortest_path.reverse()
-
-            return reversed_shortest_path
+            return reconstruct_path(path_tracker, start_node, end_node)
 
         for neighbour in graph[node]:
-            if neighbour not in visited:
+            if neighbour not in path_tracker:
                 queue.append(neighbour)
-                visited.add(node)
-                path[neighbour] = node
+                path_tracker[neighbour] = node
 
     return None
 
