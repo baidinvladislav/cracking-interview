@@ -1,6 +1,24 @@
 import unittest
 
 
+# my code based on their solution
+def get_permutations(string):
+    if len(string) <= 1:
+        return set([string])
+
+    word_without_last_char = string[:-1]
+    last_char = string[-1]
+    perms_without_last_char = get_permutations(word_without_last_char)
+
+    result = set()
+    for perm in perms_without_last_char:
+        for position in range(len(word_without_last_char) + 1):
+            permutation = perm[position:] + last_char + perm[:position]
+            result.add(permutation)
+
+    return result
+
+
 # cracking the coding interview solution
 def generate_permutations(text):
     """
