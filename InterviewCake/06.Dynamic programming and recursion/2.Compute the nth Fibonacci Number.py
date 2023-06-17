@@ -1,16 +1,20 @@
 import unittest
 
 
-# my bottom-up solution
+# my bottom-up solution based on their one
+# Time Complexity: O(n)
+# Space Complexity: O(1)
 def fib(n):
     if n < 0:
-        raise ValueError('error')
+        raise
 
-    if n in [0, 1]:
+    if n in {0, 1}:
         return n
 
-    prev_prev, prev = 0, 1
+    prev_prev = 0
+    prev = 1
     current = prev_prev + prev
+
     for i in range(2, n + 1):
         current = prev_prev + prev
         prev_prev = prev
@@ -19,34 +23,29 @@ def fib(n):
     return current
 
 
-# my memoization solution
+# my memoization solution based on their one
 # Time Complexity: O(n)
 # Space Complexity: O(n)
-class Solution:
-    def __init__(self):
-        self.memo = {}
+def fib(n, memo={}):
+    if n in {0, 1}:
+        return n
 
-    def fib(self, n):
-        if n in [0, 1]:
-            return n
+    if n in memo:
+        return memo[n]
 
-        if n in self.memo:
-            return n
-
-        result = self.fib(n - 2) + self.fib(n - 1)
-        self.memo[n] = result
-
-        return result
+    result = fib(n - 1, memo) + fib(n - 2, memo)
+    memo[n] = result
+    return result
 
 
 # my own recursive solution
 # Time Complexity: O(2^n)
 # Space Complexity: O(2^n)
 def fib(n):
-    if n in [0, 1]:
+    if n in {0, 1}:
         return n
 
-    return fib(n - 2) + fib(n - 1)
+    return fib(n - 1) + fib(n - 2)
 
 
 # their bottom-up solution
