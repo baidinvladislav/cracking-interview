@@ -1,3 +1,51 @@
+# my code based on their memoization solution
+# Time Complexity: O(n(amount_left) * m(len(denominations)))
+# Space Complexity: O(n(amount_left) * m(len(denominations)))
+def change_possibilities(amount, denominations, cur_index=0, memo={}):
+    if (amount, cur_index) in memo:
+        return memo[(amount, cur_index)]
+
+    if amount == 0:
+        return 1
+
+    if amount < 0:
+        return 0
+
+    if cur_index == len(denominations):
+        return 0
+
+    cur_coin = denominations[cur_index]
+    num_possibs = 0
+    while amount >= 0:
+        num_possibs += change_possibilities(amount, denominations, cur_index + 1)
+        amount -= cur_coin
+
+    memo[(amount, cur_index)] = num_possibs
+    return num_possibs
+
+
+# my solution based on their one
+# Time Complexity: O(n^^2)
+# Space Complexity: O(n)
+def change_possibilities(amount, denominations, cur_index=0):
+    if amount == 0:
+        return 1
+
+    if amount < 0:
+        return 0
+
+    if cur_index == len(denominations):
+        return 0
+
+    cur_coin = denominations[cur_index]
+    combinations = 0
+    while amount >= 0:
+        combinations += change_possibilities(amount, denominations, cur_index + 1)
+        amount -= cur_coin
+
+    return combinations
+
+
 # their bottom-up solution
 # Time Complexity: O(n * m)
 # Space Complexity: O(n)

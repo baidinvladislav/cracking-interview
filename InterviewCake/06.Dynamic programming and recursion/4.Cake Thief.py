@@ -4,19 +4,22 @@ import unittest
 # my solution based on their solution
 # Time Complexity: O(n * k)
 # Space Complexity: O(k)
-def max_duffel_bag_value(cakes, capacity):
-    bags = [0] * (capacity + 1)
+def max_duffel_bag_value(cake_tuples, weight_capacity):
+    bags = [0] * (weight_capacity + 1)
 
-    for capacity in range(len(bags)):
+    for i in range(len(bags)):
         current_max = 0
-        for weight, value in cakes:
-            if capacity >= weight:
-                additional_bag = capacity - weight
-                current_max = max(current_max, value + bags[additional_bag])
+        for weight, value in cake_tuples:
+            if weight == 0 and value != 0:
+                return float('inf')
 
-        bags[capacity] = current_max
+            if i >= weight:
+                additional_bag_idx = i - weight
+                current_max = max(current_max, value + bags[additional_bag_idx])
 
-    return bags[capacity]
+        bags[i] = current_max
+
+    return bags[-1]
 
 
 # my solution based on their solution
