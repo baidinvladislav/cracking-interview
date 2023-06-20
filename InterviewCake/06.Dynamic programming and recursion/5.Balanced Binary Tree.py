@@ -9,7 +9,8 @@ def is_balanced(tree_root):
     queue = deque()
     queue.append((tree_root, 1))
 
-    min_leaf, max_leaf = float('inf'), float('-inf')
+    max_level = float('-inf')
+    min_level = float('inf')
     while queue:
         node, level = queue.popleft()
 
@@ -20,9 +21,10 @@ def is_balanced(tree_root):
             queue.append((node.right, level + 1))
 
         if not node.left and not node.right:
-            min_leaf, max_leaf = min(min_leaf, level), max(max_leaf, level)
+            max_level = max(max_level, level)
+            min_level = min(min_level, level)
 
-    return max_leaf - min_leaf <= 1
+    return max_level - min_level < 2
 
 
 class Test(unittest.TestCase):

@@ -1,6 +1,34 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def get_largest(node):
+    current = node
+    while current:
+        if not current.right:
+            return current.value
+        current = current.right
+
+
+def find_second_largest(root_node):
+    if not root_node or (not root_node.left and not root_node.right):
+        raise
+
+    current = root_node
+
+    while current:
+
+        if current.left and not current.right:
+            return get_largest(current.left)
+
+        if current.right and (not current.right.left and not current.right.right):
+            return current.value
+
+        current = current.right
+
+
 # my own solution
 # Time Complexity: O(n)
 # Space Complexity: O(n**n)

@@ -1,4 +1,30 @@
 import unittest
+from collections import deque
+
+
+# my without saving all tree in space
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def is_binary_search_tree(root):
+    queue = deque()
+    high = float('inf')
+    low = float('-inf')
+
+    queue.append((root, high, low))
+
+    while queue:
+        node, high, low = queue.popleft()
+
+        if node.value < low or node.value > high:
+            return False
+
+        if node.left:
+            queue.append((node.left, node.value, low))
+
+        if node.right:
+            queue.append((node.right, high, node.value))
+
+    return True
 
 
 # their solution without space
