@@ -1,6 +1,58 @@
 import unittest
 
 
+# my solution based on their code
+# Time Complexity: O(1)
+# Space Complexity: O(m)
+class Stack(object):
+
+    def __init__(self):
+        """Initialize an empty stack"""
+        self.items = []
+
+    def push(self, item):
+        """Push a new item onto the stack"""
+        self.items.append(item)
+
+    def pop(self):
+        """Remove and return the last item"""
+        # If the stack is empty, return None
+        # (it would also be reasonable to throw an exception)
+        if not self.items:
+            return None
+
+        return self.items.pop()
+
+    def peek(self):
+        """Return the last item without removing it"""
+        if not self.items:
+            return None
+        return self.items[-1]
+
+
+class MaxStack(object):
+
+    def __init__(self):
+        self.storage = Stack()
+        self.storage_for_max = Stack()
+
+    def push(self, item):
+        self.storage.push(item)
+        last_max = self.storage_for_max.peek()
+        if not last_max or last_max <= item:
+            self.storage_for_max.push(item)
+
+    def pop(self):
+        item = self.storage.pop()
+        if item == self.storage_for_max.peek():
+            self.storage_for_max.pop()
+
+        return item
+
+    def get_max(self):
+        return self.storage_for_max.peek()
+
+
 class Stack(object):
 
     def __init__(self):
