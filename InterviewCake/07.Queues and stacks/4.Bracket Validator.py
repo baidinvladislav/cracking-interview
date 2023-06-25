@@ -1,6 +1,31 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def is_valid(code):
+    parenths = {
+        '(': ')',
+        '[': ']',
+        '{': '}'
+    }
+    stack = []
+
+    for char in code:
+        if char in parenths:
+            stack.append(char)
+        else:
+            if not stack:
+                return False
+            else:
+                last = stack.pop()
+                if parenths[last] != char:
+                    return False
+
+    return len(stack) == 0
+
+
 # their solution
 # Time Complexity: O(n)
 # Space Complexity: O(n)
