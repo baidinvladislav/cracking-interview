@@ -1,6 +1,26 @@
 import unittest
 
 
+# my solution
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+def get_closing_paren(sentence, opening_paren_index):
+    parenths = {'(': ')'}
+    stack = []
+
+    for i, el in enumerate(sentence):
+        if el in parenths:
+            stack.append((i, el))
+        else:
+            last_i, last_el = stack[-1]
+            if last_i == opening_paren_index:
+                return i
+
+            stack.pop()
+
+    raise
+
+
 # their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
