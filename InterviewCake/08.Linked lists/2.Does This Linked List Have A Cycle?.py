@@ -1,6 +1,21 @@
 import unittest
 
 
+# my code based on their solution
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def contains_cycle(first_node):
+    slow = fast = first_node
+    while fast is not None and fast.next is not None:
+        slow = slow.next
+        fast = fast.next.next
+
+        if slow == fast:
+            return True
+
+    return False
+
+
 # their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)

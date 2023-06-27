@@ -5,16 +5,13 @@ import unittest
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def reverse(head_of_list):
-    prev = next = None
-    cur = head_of_list
-    while cur:
-        # move pointers
-        next = cur.next
-        cur.next = prev
-
-        # traverse linked list
-        prev = cur
-        cur = next
+    prev = None
+    current = head_of_list
+    while current:
+        tmp = current.next
+        current.next = prev
+        prev = current
+        current = tmp
 
     return prev
 
