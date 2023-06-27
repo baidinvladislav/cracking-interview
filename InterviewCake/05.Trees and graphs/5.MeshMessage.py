@@ -7,7 +7,6 @@ from collections import deque
 # space: O(N)
 def reconstruct_path(path_tracker, start_node, end_node):
     result = []
-
     current_node = end_node
     while current_node:
         result.append(current_node)

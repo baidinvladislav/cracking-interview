@@ -45,7 +45,6 @@ def find_duplicate(int_list):
 
 
 class Test(unittest.TestCase):
-
     def test_just_the_repeated_number(self):
         actual = find_duplicate([1, 1])
         expected = 1
