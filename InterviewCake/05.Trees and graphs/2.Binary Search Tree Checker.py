@@ -34,6 +34,7 @@ from collections import deque
 def is_binary_search_tree(root):
     queue = deque()
     queue.append((root, float('-inf'), float('inf')))
+
     while queue:
         node, low, high = queue.pop()
         if node.value <= low or node.value >= high:
