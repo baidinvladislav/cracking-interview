@@ -1,6 +1,24 @@
 import unittest
 
 
+# my one pass solution based on their
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+def kth_to_last_node(k, head):
+    if k == 0:
+        raise
+
+    left = right = head
+    for _ in range(k - 1):
+        right = right.next
+
+    while right.next:
+        left = left.next
+        right = right.next
+
+    return left
+
+
 # their one pass solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
@@ -27,16 +45,18 @@ def kth_to_last_node(k, head):
     if k == 0:
         raise
 
-    counter = 0
-    head_copy = head
-    while head_copy:
-        counter += 1
-        head_copy = head_copy.next
+    current = head
+    i = 0
 
-    if k > counter:
+    while current:
+        i += 1
+        current = current.next
+
+    if k > i:
         raise
 
-    for _ in range(counter - k):
+    counter = i - k
+    for _ in range(counter):
         head = head.next
 
     return head
