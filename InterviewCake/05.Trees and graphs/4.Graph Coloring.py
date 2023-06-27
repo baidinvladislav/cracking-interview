@@ -18,7 +18,6 @@ def color_graph(graph, colors):
             raise
 
         busy_colors = set([node.color for node in node.neighbors if node.color])
-
         for color in colors:
             if color not in busy_colors:
                 node.color = color
