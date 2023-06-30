@@ -14,7 +14,7 @@ class TempTracker(object):
 
         # For mean
         self.number_of_readings = 0
-        self.total_sum = 0.0  # Mean should be float
+        self.total_sum = 0.0  # Mean should be floated
         self.mean = None
 
         # For min and max

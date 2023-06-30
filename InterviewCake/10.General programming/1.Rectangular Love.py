@@ -24,6 +24,7 @@ def find_rectangular_overlap(rect1, rect2):
 
     width = merge_intervals(width_interval1, width_interval2)
     height = merge_intervals(height_interval1, height_interval2)
+
     if width and height:
         result_rect['left_x'], result_rect['width'] = width
         result_rect['bottom_y'], result_rect['height'] = height
