@@ -1,17 +1,16 @@
 import unittest
 
 
-# my code
+# my code based on their solution
 # Time Complexity: O(n)
 # Space Complexity: O(1)
 def find_repeat(numbers_list):
-    if len(numbers_list) < 2:
-        raise ValueError('Finding duplicate requires at least two numbers')
-
     n = len(numbers_list) - 1
-    correct_sum = (n * n + n) / 2
-    actual_sum = sum(numbers_list)
-    return actual_sum - correct_sum
+
+    excepted = (n * n + n) / 2
+    fact = sum(numbers_list)
+
+    return fact - excepted
 
 
 # their solution

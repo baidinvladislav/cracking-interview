@@ -1,24 +1,23 @@
 import unittest
 
 
-# my code
+# my implementation
 # Time Complexity: O(lg n)
 # Space Complexity: O(1)
 def contains(ordered_list, number):
-    start, end = 0, len(ordered_list) - 1
+    left, right = 0, len(ordered_list) - 1
 
-    while start <= end:
-        mid = start + (end - start) // 2
-        current = ordered_list[mid]
+    while left <= right:
+        mid = (left + right) // 2
 
-        if current == number:
+        if ordered_list[mid] == number:
             return True
 
-        elif current > number:
-            end = mid - 1
+        elif ordered_list[mid] < number:
+            left = mid + 1
 
-        elif current < number:
-            start = mid + 1
+        elif ordered_list[mid] > number:
+            right = mid - 1
 
     return False
 
