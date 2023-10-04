@@ -17,11 +17,11 @@ from collections import Counter
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
         hash_map = Counter(s1)
-
         start = 0
+
         for end in range(len(s2)):
             while start <= end and (s2[end] not in hash_map or hash_map[s2[end]] <= 0):
-                if start <= end and s2[start] in hash_map:
+                if s2[start] in hash_map:
                     hash_map[s2[start]] += 1
                 start += 1
 
