@@ -9,6 +9,7 @@
 + [98. Validate Binary Search Tree](#validate-binary-search-tree)
 + [125. Valid Palindrome](#valid-palindrome)
 + [146. LRU Cache](#lru-cache)
++ [155. Min Stack](#min-stack)
 + [159. Longest Substring with At Most Two Distinct Characters](#longest-substring-with-at-most-two-distinct-characters)
 + [167. Two Sum II Input Array Is Sorted](#two-sum-ii-input-array-is-sorted)
 + [200. Number of Islands](#number-of-islands)
@@ -802,6 +803,68 @@ lRUCache.put(4, 4)  # LRU key was 1, evicts key 1, cache is {4=4, 3=3}
 lRUCache.get(1)  # return -1 (not found)
 lRUCache.get(3)  # return 3
 lRUCache.get(4)  # return 4
+
+```
+
+
+## Min Stack
+Разработать структуру данных стэк для хранения минимума. Операции должны быть выполнены за O(1) по времени.
+
+https://leetcode.com/problems/min-stack/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем 2 стэка. Один для всех элементов, второй для минимумов.</li>
+ <li>При добавлении элемента проверяем стоит ли элемент сохранить еще и в стэк минимумов.</li>
+ <li>Если удаляется минимум из общего то удаляем и из стэка минимумов.</li>
+</ol>
+</blockquote></details>
+
+```
+Example 1:
+Input:
+["MinStack","push","push","push","getMin","pop","top","getMin"]
+[[],[-2],[0],[-3],[],[],[],[]]
+
+Output:
+[null,null,null,null,-3,null,0,-2]
+
+Explanation:
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+```
+
+```python
+class MinStack:
+
+    def __init__(self):
+        self.common_storage = []
+        self.minimum_storage = []
+
+    def push(self, val: int) -> None:
+        if len(self.minimum_storage) == 0 or val <= self.minimum_storage[-1]:
+            self.minimum_storage.append(val)
+
+        self.common_storage.append(val)
+
+    def pop(self) -> None:
+        if self.common_storage[-1] == self.minimum_storage[-1]:
+            self.minimum_storage.pop()
+
+        return self.common_storage.pop()
+
+    def top(self) -> int:
+        return self.common_storage[-1]
+
+    def getMin(self) -> int:
+        return self.minimum_storage[-1] if self.minimum_storage else 0
+
 
 ```
 
