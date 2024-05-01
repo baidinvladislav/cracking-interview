@@ -1,4 +1,5 @@
 # LeetCode Yandex Track
++ [1. Two Sum](#two-sum)
 + [3. Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
 + [4. Median of Two Sorted Arrays](#median-of-two-sorted-arrays)
 + [20. Valid Parentheses](#valid-parentheses)
@@ -27,6 +28,39 @@
 + [849. Maximize Distance to Closest Person](#maximize-distance-to-closest-person)
 + [1450. Number of Students Doing Homework at a Given Time](#number-of-students-doing-homework-at-a-given-time)
 + [1493. Longest Subarray of 1 After Deleting One Element](#longest-subarray-of-1-after-deleting-one-element)
+
+## Two Sum
+Дан массив чисел и число-таргет. Вернуть индексы чисел, которые в сумме дают таргет.
+
+https://leetcode.com/problems/two-sum/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>На каждой итерации проверять что нашли второе слагаемое как разницу первого слагаемого и суммы.</li>
+ <li>Если второе слагаемое в мапе, то вернуть индексы слогаемого как текущая итерация, и второго слагаемого как значение в словаре по его ключу.</li>
+ <li>Если значение не подошло на роль второго слагааемого, то записать значение и его индекс в мапу для будущих проверок.</li>
+</ol>
+</blockquote></details>
+
+```python
+from typing import List
+
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        hash_map = {}
+
+        for i in range(len(nums)):
+            num = nums[i]
+            x = target - num
+            if x in hash_map:
+                return [hash_map[x], i]
+            
+            hash_map[num] = i
+        
+        return [-1, -1]
+
+```
 
 
 ## Longest Substring Without Repeating Characters
