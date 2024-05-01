@@ -80,23 +80,9 @@ https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
 <details><summary>"Sliding Window" решение:</summary><blockquote>
 <ol>
- <li>Иниц. массив юникода со 128 нулями, начало окна и конец окна нулями, результирующую переменную также нулём.</li>
- <li>Пока конец окна не дойдет до конца массива, переводим символ под укзателем конца окна в цифровое представление юникода и увеличиваем по этому индексу значение в юникод массиве.</li>
- <li>Пока значение в массива юникода под индексом конца окна больше 1, уменьшаем число под индексом начала окна в массиве юникода и сдвигаем начало окна ближе к концу массива.</li>
- <li>Обновляем результирующую переменную, если длина окна больше чем была в переменной.</li>
- <li>Сдвигаем конец окна ближе к концу массива.</li>
- <li>Возвращаем результирующую переменную.</li>
-</ol>
-</blockquote></details>
-
-
-<details><summary>"Optimized Sliding Window" решение:</summary><blockquote>
-<ol>
- <li>Иниц. словарь и резул. переменную и границы окна.</li>
- <li>Если символ под индексом конца окна в словаре, то обновляем индекс начала окна бОльшим значением из индекса символа в словаре или индексом начала окна.</li>
- <li>Обновляем резул. переменную, если длина окна увеличилась.</li>
- <li>Записываем индекс символа под указателем конца окна в словарь.</li>
- <li>Возвращаем результирующую переменную.</li>
+ <li>Используем скользящее окно, которое увеличивается с каждой итераций к правому концу.</li>
+ <li>Но при этом сжимается, если мы нарушаем наше ограничение, если у нас более чем 1 уникальный элемент.</li>
+ <li>Для определения нарушения ограничения используется словарь со счетчиком символов строки.</li>
 </ol>
 </blockquote></details>
 
@@ -146,48 +132,24 @@ class BrutForceSolution:
         return True
 
 
-# Time: O(2n) = O(n)
-# Space: O(min(n,m))
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        ascii_array = [0] * 128
-        window_start = window_end = 0
-        result = 0
-        while window_end < len(s):
-            last_symbol = s[window_end]
-            # The ord() function returns the number
-            # representing the unicode code of a specified character.
-            symbol_unicode = ord(last_symbol)
-            ascii_array[symbol_unicode] += 1
-
-            while ascii_array[ord(last_symbol)] > 1:
-                first_symbol = s[window_start]
-                symbol_unicode = ord(first_symbol)
-                ascii_array[symbol_unicode] -= 1
-                window_start += 1
-
-            result = max(result, window_end - window_start + 1)
-            window_end += 1
-        return result
-
-
-
 # Time complexity: O(n). Index j will iterate n times.
 # Space complexity: O(m). m is the size of the charset.
-class OptimizedWindowSlidingSolution:
+class SlidingSolution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        n = len(s)
+        start = 0
+        d = defaultdict(int)
+
         result = 0
-        hash_map = {}
+        for end in range(len(s)):
+            d[s[end]] += 1
 
-        window_start = 0
-        for window_end in range(n):
-            cur_char = s[window_end]
-            if cur_char in hash_map:
-                window_start = max(hash_map[cur_char], window_start)
+            while len(d) != end - start + 1:
+                d[s[start]] -= 1
+                if d[s[start]] == 0:
+                    del d[s[start]]
+                start += 1
 
-            result = max(result, window_end - window_start + 1)
-            hash_map[cur_char] = window_end + 1
+            result = max(result, end - start + 1)
 
         return result
 

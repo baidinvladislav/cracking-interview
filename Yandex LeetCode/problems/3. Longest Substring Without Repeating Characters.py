@@ -1,4 +1,5 @@
 import unittest
+from collections import defaultdict
 
 
 # Time: O(n**3)
@@ -55,18 +56,20 @@ class WindowSlidingSolution:
 # Space complexity: O(m). m is the size of the charset.
 class OptimizedWindowSlidingSolution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        n = len(s)
+        start = 0
+        d = defaultdict(int)
+
         result = 0
-        hash_map = {}
+        for end in range(len(s)):
+            d[s[end]] += 1
 
-        window_start = 0
-        for window_end in range(n):
-            cur_char = s[window_end]
-            if cur_char in hash_map:
-                window_start = max(hash_map[cur_char], window_start)
+            while len(d) != end - start + 1:
+                d[s[start]] -= 1
+                if d[s[start]] == 0:
+                    del d[s[start]]
+                start += 1
 
-            result = max(result, window_end - window_start + 1)
-            hash_map[cur_char] = window_end + 1
+            result = max(result, end - start + 1)
 
         return result
 
