@@ -240,6 +240,54 @@ class Solution:
 ```
 
 
+## Longest Palindromic Substring
+Дана строка, нужно найти самую длинную подстроку палиндром.
+
+https://leetcode.com/problems/longest-palindromic-substring/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Итерируем строку.</li>
+ <li>Подстрока-палиндром может иметь четную или нечетную длину символов.</li>
+ <li>От каждого индекса идем влево и вправо для нахождения самого длинного палиндрома.</li>
+ <li>Обновляем результат.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Input: s = "babad"
+Output: "bab"
+Explanation: "aba" is also a valid answer.
+
+Example 2:
+Input: s = "cbbd"
+Output: "bb"
+```
+
+```python
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        def expandAroundCenter(left, right):
+            while left >= 0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return left + 1, right - 1
+
+        start, end = 0, 0
+        for i in range(len(s)):
+            left1, right1 = expandAroundCenter(i, i)  # Odd length palindromes
+            left2, right2 = expandAroundCenter(i, i + 1)  # Even length palindromes
+
+            if right1 - left1 > end - start:
+                start, end = left1, right1
+            if right2 - left2 > end - start:
+                start, end = left2, right2
+
+        return s[start:end + 1]
+
+```
+
 ## Valid Parentheses
 Дана строка, содержащую только символы '(', ')', '{', '}', '[' и ']', определить, валидна ли входная строка. 
 Входная строка действительна, если: 
