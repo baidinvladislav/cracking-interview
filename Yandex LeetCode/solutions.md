@@ -288,6 +288,71 @@ class Solution:
 
 ```
 
+
+## Reverse Integer
+Дано число, верните его в развернутом виде.
+
+https://leetcode.com/problems/reverse-integer/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Определение, является ли число отрицательным.</li>
+ <li>Преобразование числа в его абсолютное значение для упрощения переворачивания.</li>
+ <li>Пока в числе есть цифры.</li>
+ <li>Извлечение последней цифры числа.</li>
+ <li>Удаление последней цифры из числа путем целочисленного деления на 10.</li>
+ <li>Проверка на переполнение перед добавлением цифры в result.</li>
+ <li>Возврат 0 в случае, если операция приведет к переполнению.</li>
+ <li>Если исходное число было отрицательным.</li>
+ <li>Присвоение результату отрицательного знака.</li>
+ <li>Возврат перевернутого числа.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: x = 123
+Output: 321
+
+Example 2:
+Input: x = -123
+Output: -321
+
+Example 3:
+Input: x = 120
+Output: 21
+```
+
+```python
+class Solution:
+    def reverse(self, x):
+        INT_MAX = 2**31 - 1  # 2,147,483,647
+        INT_MIN = -2**31     # -2,147,483,648
+
+        result = 0
+        negative = x < 0
+        x = abs(x)
+
+        while x != 0:
+            digit = x % 10
+            x //= 10
+            
+            # Check if appending the digit will cause overflow
+            if result > INT_MAX // 10 or (result == INT_MAX // 10 and digit > INT_MAX % 10):
+                return 0  # This would cause an overflow
+            
+            result = result * 10 + digit
+        
+        if negative:
+            result = -result
+
+        return result
+
+
+```
+
+
 ## Valid Parentheses
 Дана строка, содержащую только символы '(', ')', '{', '}', '[' и ']', определить, валидна ли входная строка. 
 Входная строка действительна, если: 
