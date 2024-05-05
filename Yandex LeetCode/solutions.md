@@ -490,6 +490,52 @@ class Solution:
 ```
 
 
+## Generate Parentheses
+Написать функцию, которая принимает число и генерирует правильную скобочную последовательность скобок для n пар скобок.
+
+https://leetcode.com/problems/generate-parentheses/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Для генерации нужной строки используем рекурсию с базовым случаем, когда строка в два раза больше чем число n.</li>
+ <li>Если открывающих меньше чем n, то добавляем открывающую скобку и вызываем ф-ию еще раз с новыми аргументами.</li>
+ <li>Тоже самое, но для закрывающих скобок пока их не станет столько же сколько открывающих.</li>
+ <li>Вернуть результирующую строку.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"] 
+
+Example 2:
+Input: n = 1
+Output: ["()"]
+```
+
+```python
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def backtrack(string, opened, closed):
+            if len(string) == n * 2:
+                result.append(string)
+                return
+            
+            if opened < n:
+                backtrack(string + "(", opened + 1, closed)
+
+            if closed < opened:
+                backtrack(string + ")", opened, closed + 1)
+
+        result = []
+        backtrack("", 0, 0)
+        return result
+
+```
+
+
 ## Merge k Sorted Lists
 Смержить k связных списков из массива в один отсортированный связный список.
 
