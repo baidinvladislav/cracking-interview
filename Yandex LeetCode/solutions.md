@@ -2082,6 +2082,56 @@ class Solution:
 ```
 
 
+## Squares of a Sorted Array
+Дан массив отсортированных чисел, вернуть массив квадратов каждого числа тоже в отсортированном порядке.
+
+https://leetcode.com/problems/squares-of-a-sorted-array/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Два указателя: один на начале, другой на конце.</li>
+ <li>Пока указатели не встретятся.</li>
+ <li>Возводим элемент на итерации в квадрат.</li>
+ <li>Если квадарат левого указателя оказывается больше, то добавляем в результат его и инкрементим левый указатель.</li>
+ <li>Если квадрат правого указателя оказывается большье. то добавляем в результат его и сдвигаем правый указатель к левому.</li>
+ <li>В конце возвращаем результат.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: nums = [-4,-1,0,3,10]
+Output: [0,1,9,16,100]
+Explanation: After squaring, the array becomes [16,1,0,9,100].
+After sorting, it becomes [0,1,9,16,100].
+
+Example 2:
+Input: nums = [-7,-3,2,3,11]
+Output: [4,9,9,49,121]
+```
+
+```python
+from collections import deque
+from typing import List
+
+
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> deque[int]:
+        left, right = 0, len(nums) - 1
+        result = deque([])
+        while left <= right:
+            if nums[left] ** 2 > nums[right] ** 2:
+                result.appendleft(nums[left] ** 2)
+                left += 1
+            else:
+                result.appendleft(nums[right] ** 2)
+                right -= 1
+        return result
+
+```
+
+
 ## Number of Students Doing Homework at a Given Time
 Даны массивы чисел, первый это начало работы студента, второй конец работы студента, также дано число, характеризуещее конкетный час.
 Вернуть кол-во студентов за работой в конкетный час.
