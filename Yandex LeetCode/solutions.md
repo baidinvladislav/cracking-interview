@@ -873,6 +873,45 @@ class Solution:
 ```
 
 
+## Single Number
+Найти уникальный элемент среди дубликатов в массиве за O(n).
+
+https://leetcode.com/problems/single-number/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Инициализируем переменную первым элементом списка.</li>
+ <li>Итерируем массив элементов со второго элемента, используя XOR оставляем в переменной только то число, которое является уникальным и не срабатывает для логического исключающего ИЛИ .</li>
+ <li>Вернуть уникальное число из списка.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: nums = [2,2,1]
+Output: 1
+
+Example 2:
+Input: nums = [4,1,2,1,2]
+Output: 4
+
+Example 3:
+Input: nums = [1]
+Output: 1
+```
+
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        result = nums[0]
+        for i in range(1, len(nums)):
+            result ^= nums[i]
+        return result
+
+```
+
+
 ## LRU Cache
 Реализовать класс для работы с кешом по приципу LRU (Least Recently Used).
 * LRUCache(int capacity) Инициализация класса кэша LRU с положительным размером.
