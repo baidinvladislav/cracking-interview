@@ -1837,6 +1837,62 @@ class Solution:
 ```
 
 
+## Max Consecutive Ones II
+Дан массив единиц и нулей, найти самую длиную подстроку из единиц, если мы можем удалить не более одного нуля.
+
+https://leetcode.com/problems/max-consecutive-ones-ii/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем скользящее окно, если в окне более чем один ноль.</li>
+ <li>То сжимаем окно, если при сжатии из окна выходит ноль.</li>
+ <li>То сбросить счетчик нулей в подстроке.</li>
+<li>После подобной валидации обновляем результат как длину окна.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: nums = [1,0,1,1,0]
+Output: 4
+Explanation: 
+- If we flip the first zero, nums becomes [1,1,1,1,0] and we have 4 consecutive ones.
+- If we flip the second zero, nums becomes [1,0,1,1,1] and we have 3 consecutive ones.
+The max number of consecutive ones is 4.
+
+Example 2:
+Input: nums = [1,0,1,1,0,1]
+Output: 4
+Explanation: 
+- If we flip the first zero, nums becomes [1,1,1,1,0,1] and we have 4 consecutive ones.
+- If we flip the second zero, nums becomes [1,0,1,1,1,1] and we have 4 consecutive ones.
+The max number of consecutive ones is 4.
+```
+
+```python
+class Solution:
+    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
+        window_start = 0
+        result = 0
+        zeroes = 0
+
+        for window_end in range(len(nums)):
+            if nums[window_end] == 0:
+                zeroes += 1
+            
+            while zeroes > 1:
+                if nums[window_start] == 0:
+                    zeroes -= 1
+                window_start += 1
+            
+            result = max(result, window_end - window_start + 1)
+        
+        return result
+
+```
+
+
 ## Permutation in String
 Даны две строки s1 и s2, вернуть true, если s2 содержит перестановку s1, или false в противном случае.
 Другими словами, вернуть true, если одна из перестановок s1 является подстрокой s2.
