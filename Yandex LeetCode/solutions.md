@@ -1901,6 +1901,59 @@ class Solution:
 ```
 
 
+
+
+## Valid Palindrome II
+Дана строка, нужно определить может ли строка являться палиндромом, если мы удалим не более одного символа из строки.
+
+https://leetcode.com/problems/valid-palindrome-ii/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем два указателя: один в начале, другой в конце.</li>
+ <li>Если символы по оба указатели отличаются, то пропускаем символ под один указателем и проверяем подстроку на палиндром.</li>
+ <li>А также вторую строку после символа, который не совпадает проверяем на палиндром.</li>
+ <li>В итоге либо оригинальная строка, либо подстрока после символа, либо подстрока до символа будет палиндромом.</li>
+ <li>Иначе строка не является палиндромом.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: s = "aba"
+Output: true
+
+Example 2:
+Input: s = "abca"
+Output: true
+Explanation: You could delete the character 'c'.
+
+Example 3:
+Input: s = "abc"
+Output: false
+```
+
+```python
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        def is_palindrome(subs: str) -> bool:
+            return subs == subs[::-1]
+        
+        left, right = 0, len(s) - 1
+        
+        while left < right:
+            if s[left] != s[right]:
+                return is_palindrome(s[left:right]) or is_palindrome(s[left+1:right+1])
+            left += 1
+            right -= 1
+        
+        return True
+
+
+```
+
+
 ## Max Stack
 Создать структуру данных с поддержкой операций стэка и поддержкой поиска максимального элемента.
 
