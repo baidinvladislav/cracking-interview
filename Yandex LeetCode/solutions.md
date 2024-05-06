@@ -1959,6 +1959,58 @@ class Solution:
 
 
 
+## Find K Closest Elements
+Дан массив отсортированный массив чисел и числа k и x, k ближайщих к x чисел.
+
+https://leetcode.com/problems/find-k-closest-elements/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем бинарный поиск для эффективного решения.</li>
+ <li>Инициализируем окно поиска как нулевой индекс и len(arr) - k, чтобы гарантировать, что мы не выйдем за границы нужного результирующего массива.</li>
+ <li>Пока индексы не встретились, вычисляем середину.</li>
+ <li>Затем условие, которое определяет в какую сторону сдвигаем окно поиска.</li>
+ <li>Если разница между границей окна слева и значением x больше чем разница между правым концом и значением x, то сжиаем окно вправо, так мы ближе к x справа</li>
+ <li>Иначе сжимаем окно влево.</li>
+ <li>Вернем срез по левому индексу и левому индексу +k.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: arr = [1,2,3,4,5], k = 4, x = 3
+Output: [1,2,3,4]
+Example 2:
+
+Input: arr = [1,2,3,4,5], k = 4, x = -1
+Output: [1,2,3,4]
+
+```
+
+```python
+from typing import List
+
+
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        left = 0
+        right = len(arr) - k
+
+        while left < right:
+            mid = (left + right) // 2
+            # Check if the window should move right
+            if x - arr[mid] > arr[mid + k] - x:
+                left = mid + 1
+            else:
+                right = mid
+
+        # Now left is the starting index of the k closest elements
+        return arr[left:left + k]
+
+```
+
+
 ## Valid Palindrome II
 Дана строка, нужно определить может ли строка являться палиндромом, если мы удалим не более одного символа из строки.
 
