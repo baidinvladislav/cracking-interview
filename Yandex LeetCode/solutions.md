@@ -1455,6 +1455,56 @@ class Solution:
 ```
 
 
+## Isomorphic Strings
+Определить что две строки изоморфны.
+
+https://leetcode.com/problems/isomorphic-strings/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Нужно связать каждый символ из строки друг с другом.</li>
+ <li>Если связь символов нарушается, значит строки не изоморфны.</li>
+ <li>Если мы прошли обе строки и не разу связи символов не были нарушены, то они изоморфны, вернем True.</li>
+</ol>
+</blockquote></details>
+
+
+```
+Example 1:
+Input: s = "egg", t = "add"
+Output: true
+
+Example 2:
+Input: s = "foo", t = "bar"
+Output: false
+
+Example 3:
+Input: s = "paper", t = "title"
+Output: true
+
+```
+
+```python3
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        
+        dict1 = {}
+        dict2 = {}
+        for i in range(len(s)):
+            if s[i] not in dict1 and t[i] not in dict2:
+                dict1[s[i]] = t[i]
+                dict2[t[i]] = s[i]
+            else:
+                if dict1.get(s[i]) != t[i] or dict2.get(t[i]) != s[i]:
+                    return False
+        
+        return True
+
+```
+
+
 ## Reverse Linked List
 Развернуть связной список.
 
