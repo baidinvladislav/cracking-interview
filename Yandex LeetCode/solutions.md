@@ -1778,6 +1778,57 @@ class Solution:
 ```
 
 
+## Longest Substring with At Most K Distinct Characters
+Дана строка и число, вернуть длину самой длиной подстроки, которая содержит не более k различных символов.
+
+https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем скользящее окно.</li>
+ <li>Сжимаем окно, до тех пор пока, оно не удовлятворяет условиям по уникальности символов.</li>
+ <li>Для этого используем словарь с подсчетом символов и их частоты.</li>
+ <li>После сжатия окна, обновляем результат, если требуется, т.к окно валидно.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: s = "eceba", k = 2
+Output: 3
+Explanation: T is "ece" which its length is 3.
+
+Example 2:
+Input: s = "aa", k = 1
+Output: 2
+Explanation: T is "aa" which its length is 2.
+```
+
+```python
+from collections import defaultdict
+
+
+class Solution:
+    def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
+        start_window = 0
+        freq_map = defaultdict(int)
+        result = 0
+
+        for end_window in range(len(s)):
+            freq_map[s[end_window]] += 1
+
+            while len(freq_map) > k:
+                freq_map[s[start_window]] -= 1
+                if freq_map[s[start_window]] == 0:
+                    del freq_map[s[start_window]]
+                start_window += 1
+
+            result = max(result, end_window - start_window + 1)
+
+        return result
+
+```
 
 
 ## Intersection of Two Arrays
