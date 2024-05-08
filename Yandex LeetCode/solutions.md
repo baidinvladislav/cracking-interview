@@ -1778,6 +1778,55 @@ class Solution:
 ```
 
 
+
+
+## Intersection of Two Arrays
+Дано два массива, нужно вернуть множество пересечения их элементов.
+
+https://leetcode.com/problems/intersection-of-two-arrays/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Нужно будет три множества: 1ое для 1го массива, 2ое для 2ое и 3ее для результата.</li>
+ <li>Пройдем по первому множеству и добавим все элементы, которые есть и во втором множестве в результат.</li>
+ <li>Пройдем по второму множеству и добавим все элементы, которые есть и в первом множестве в результат.</li>
+ <li>Вернем результирующее множество</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
+
+Example 2:
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+Explanation: [4,9] is also accepted.
+```
+
+```python
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        s1 = set(nums1)
+        s2 = set(nums2)
+        result = set()
+
+        for num in s1:
+            if num in s2:
+                result.add(num)
+        
+        for num in s2:
+            if num in s1:
+                result.add(num)
+
+        result = list(result)
+        return result
+
+```
+
+
 ## Line Reflection
 Даны точки на графике, определить можно ли провести такую линию между точками, чтобы точки оказались отражением друг друга.
 
