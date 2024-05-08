@@ -1276,6 +1276,64 @@ print(Solution().lengthOfLongestSubstringTwoDistinct(s="ccaabbb"))
 ```
 
 
+## One Edit Distance
+Даны две строки s и t, опредилить можно ли их сделать одинаковыми за одно изменение.
+
+https://leetcode.com/problems/one-edit-distance/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Опрделеить какой именно элемент отличается у массивов, нужен его индекс.</li>
+ <li>В зависимости от разницы в длинах массивов понять какая операция потенциально может сделать массивы одинаковыми.</li>
+ <li>Применить к массивам выбранную операцию для изменения.</li>
+ <li>Вернуть True, если массивы стали одинаковыми после выполнения операции, иначе вернуть False.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: s = "ab", t = "acb"
+Output: true
+Explanation: We can insert 'c' into s to get t.
+
+Example 2:
+Input: s = "", t = ""
+Output: false
+Explanation: We cannot get t from s by only one step. 
+```
+
+```python
+class Solution:
+    def get_diff_idx(self, stack_s: list, stack_t: list) -> int:
+        for i in range(min(len(stack_s), len(stack_t))):
+            if stack_s[i] != stack_t[i]:
+                return i
+
+        return min(len(stack_s), len(stack_t))
+
+    def isOneEditDistance(self, s: str, t: str) -> bool:
+        if s == t or len(t) - len(s) > 1:
+            return False
+        
+        stack_s = list(s)
+        stack_t = list(t)
+
+        diff_idx = self.get_diff_idx(stack_s, stack_t)
+
+        if len(stack_s) == len(stack_t):
+            stack_s[diff_idx] = stack_t[diff_idx]
+            return stack_s == stack_t
+        elif len(stack_s) > len(stack_t):
+            del stack_s[diff_idx]
+            return stack_s == stack_t
+        elif len(stack_s) < len(stack_t):
+            stack_s.insert(diff_idx, stack_t[diff_idx])
+            return stack_s == stack_t
+
+```
+
+
 ## Two Sum II Input Array Is Sorted
 Дан отсортированный массив и число таргет. Найти два числа в массиве, сумма которых равна таргету. 
 Вернуть индексы таких чисел.
