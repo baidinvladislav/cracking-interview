@@ -2587,6 +2587,60 @@ class Solution:
 ```
 
 
+
+
+## Max Consecutive Ones III
+Дан массив из нулей и единиц, также число k которое позволяет заменить k нулей на единицы, 
+вернуть подстроку с наибольшей последовтельностью единиц.
+
+https://leetcode.com/problems/max-consecutive-ones-iii/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>Используем скользящее окно и подсчитываем кол-во единиц в окно.</li>
+ <li>Сжимаем окно, когда кол-во нулей в окне больше k.</li>
+ <li>Обновляем результат, если нужно, потому что окно отвалидировано.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+Output: 6
+Explanation: [1,1,1,0,0,1,1,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+
+Example 2:
+Input: nums = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], k = 3
+Output: 10
+Explanation: [0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+```
+
+```python
+class Solution:
+    def longestOnes(self, nums: list[int], k: int) -> int:
+        start = 0
+        zeroes = 0
+        result = 0
+        
+        for end in range(len(nums)):
+            if nums[end] == 0:
+                zeroes += 1
+            
+            while zeroes > k:
+                if nums[start] == 0:
+                    zeroes -= 1
+                start += 1
+                
+            result = max(result, end - start + 1)
+
+        return result
+
+```
+
+
 ## Number of Students Doing Homework at a Given Time
 Даны массивы чисел, первый это начало работы студента, второй конец работы студента, также дано число, характеризуещее конкетный час.
 Вернуть кол-во студентов за работой в конкетный час.
