@@ -695,6 +695,145 @@ class Solution:
 ```
 
 
+## Simplify Path
+Упростить UNIX путь.
+
+https://leetcode.com/problems/simplify-path/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: path = "/home/"
+Output: "/home"
+Explanation:
+The trailing slash should be removed.
+ 
+Example 2:
+Input: path = "/home//foo/"
+Output: "/home/foo"
+Explanation:
+Multiple consecutive slashes are replaced by a single one.
+
+Example 3:
+Input: path = "/home/user/Documents/../Pictures"
+Output: "/home/user/Pictures"
+Explanation:
+A double period ".." refers to the directory up a level.
+
+Example 4:
+Input: path = "/../"
+Output: "/"
+Explanation:
+Going one level up from the root directory is not possible.
+
+Example 5:
+Input: path = "/.../a/../b/c/../d/./"
+Output: "/.../b/d"
+Explanation:
+"..." is a valid name for a directory in this problem.
+```
+
+```python
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        # Initialize a stack
+        stack = []
+
+        # Split the input string on "/" as the delimiter
+        # and process each portion one by one
+        paths = path.split("/")
+        for portion in paths:
+
+            # If the current component is a "..", then
+            # we pop an entry from the stack if it's non-empty
+            if portion == "..":
+                if stack:
+                    stack.pop()
+            elif portion == "." or not portion:
+                # A no-op for a "." or an empty string
+                continue
+            else:
+                # Finally, a legitimate directory name, so we add it
+                # to our stack
+                stack.append(portion)
+
+        # Stich together all the directory names together
+        final_str = "/" + "/".join(stack)
+        return final_str
+
+```
+
+
+## Merge Sorted Array
+Вам даны два целочисленных массива nums1 и nums2, отсортированные в порядке неубывания, и два целых числа m и n, 
+представляющие количество элементов в nums1 и nums2 соответственно. Объедините nums1 и nums2 в один массив, 
+отсортированный в неубывающем порядке.
+
+https://leetcode.com/problems/merge-sorted-array/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>
+    Используем 3 указателя, где 1ый это указатель на конец массива nums1, 2ой указатель - указатель на последний элемент nums2,
+    последний указатель будет указывать на последний элемент массива nums1, включая его заглушки.
+ </li>
+ <li>Пока указатель второго массива больше 0, выполняем итерации с конца к началу.</li>
+ <li>На каждой итерации мы сравниваем элементы под первый и вторым указателем.</li>
+ <li>Помещаем на k индекс в массив nums1 бОльщий элемент из двух.</li>
+ <li>Декрементим только тот указатель, который оказался с наибольшим элементов.</li>
+ <li>Декрементим третий указатель на каждой итерации.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+Output: [1,2,2,3,5,6]
+Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+
+Example 2:
+Input: nums1 = [1], m = 1, nums2 = [], n = 0
+Output: [1]
+Explanation: The arrays we are merging are [1] and [].
+The result of the merge is [1].
+
+Example 3:
+Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+Output: [1]
+Explanation: The arrays we are merging are [] and [1].
+The result of the merge is [1].
+Note that because m = 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.
+```
+
+```python
+class Solution:
+    def merge(self, nums1, m, nums2, n):
+        # Initialize pointers for nums1, nums2 and the last index of merged array
+        i, j, k = m - 1, n - 1, m + n - 1
+
+        # Merge in reverse order
+        while j >= 0:
+            if i >= 0 and nums1[i] > nums2[j]:
+                nums1[k] = nums1[i]
+                i -= 1
+            else:
+                nums1[k] = nums2[j]
+                j -= 1
+            k -= 1
+
+```
+
+
 ## Validate Binary Search Tree
 Дан рут бинарного дерева. Определить является ли дерево бинарным деровом поиска.
 Бинарное дерево поиска - это дерево в котором:
