@@ -128,51 +128,20 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
 
 
 ```python
-# Time: O(n**3)
-# Space: O(min(n,m))
-class BrutForceSolution:
+class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        n = len(s)
-        result = 0
-        for i in range(n):
-            for j in range(i, n):
-                if self.check(s, i, j):
-                    result = max(result, j - i + 1)
-        return result
-
-    def check(self, string, start, end):
-        ascii_array = [0] * 128
-
-        for i in range(start, end + 1):
-            char = string[i]
-            # The ord() function returns the number
-            # representing the unicode code of a specified character.
-            ascii_array[ord(char)] += 1
-            if ascii_array[ord(char)] > 1:
-                return False
-        return True
-
-
-# Time complexity: O(n). Index j will iterate n times.
-# Space complexity: O(m). m is the size of the charset.
-class SlidingSolution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
+        charIndexMap = {}
+        maxLength = 0
         start = 0
-        d = defaultdict(int)
 
-        result = 0
         for end in range(len(s)):
-            d[s[end]] += 1
+            if s[end] in charIndexMap and charIndexMap[s[end]] >= start:
+                start = charIndexMap[s[end]] + 1
 
-            while len(d) != end - start + 1:
-                d[s[start]] -= 1
-                if d[s[start]] == 0:
-                    del d[s[start]]
-                start += 1
+            charIndexMap[s[end]] = end
+            maxLength = max(maxLength, end - start + 1)
 
-            result = max(result, end - start + 1)
-
-        return result
+        return maxLength
 
 ```
 
