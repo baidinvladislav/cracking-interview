@@ -12,9 +12,11 @@ class Solution:
             left2, right2 = expandAroundCenter(i, i + 1)  # Even length palindromes
 
             if right1 - left1 > end - start:
-                start, end = left1, right1
+                start = left1
+                end = right1
             if right2 - left2 > end - start:
-                start, end = left2, right2
+                start = left2
+                end = right2
 
         return s[start:end+1]
 
