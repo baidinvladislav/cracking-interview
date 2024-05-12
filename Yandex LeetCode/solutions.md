@@ -2430,11 +2430,28 @@ https://leetcode.com/problems/max-stack/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>В конструкторе класса определяем хранилище.</li>
- <li>push(x) - добавляем элемент x в конец массива.</li>
- <li>top() - получаем последний элемент из хранилища.</li>
- <li>peekMax() - используем ф-ию max() для поиска максимального элемента по массиву.</li>
- <li>popMax() - получаем значение из peekMax, проходим по массиву и удаляем элемент из хранилища, итерируя последовательность с конца.</li>
+ <li><b>Конструктор класса:</b> Определяем два хранилища в виде списков:
+   <ul>
+     <li><code>stack</code> — основной стек для хранения всех элементов.</li>
+     <li><code>maxStack</code> — вспомогательный стек для хранения максимальных значений. В каждый момент времени вершина <code>maxStack</code> содержит текущий максимум всех элементов в <code>stack</code>.</li>
+   </ul>
+ </li>
+ <li><b>Метод push(x):</b> Добавляем элемент <code>x</code> в конец списка <code>stack</code>. Далее проверяем, необходимо ли добавить <code>x</code> в <code>maxStack</code>:
+   <ul>
+     <li>Если <code>maxStack</code> пуст или <code>x</code> больше или равен последнему элементу в <code>maxStack</code>, добавляем <code>x</code> в <code>maxStack</code>.</li>
+   </ul>
+ </li>
+ <li><b>Метод top():</b> Возвращает последний элемент из <code>stack</code>, не изменяя стек. Это операция получения верхнего элемента стека.</li>
+ <li><b>Метод peekMax():</b> Просто возвращает последний элемент из <code>maxStack</code>, который является максимальным значением текущего состояния <code>stack</code>.</li>
+ <li><b>Метод popMax():</b> Удаляет и возвращает максимальный элемент из стека:
+   <ul>
+     <li>Используем значение из <code>peekMax()</code> для определения максимального элемента.</li>
+     <li>Создаём временный буфер для хранения элементов, которые нужно временно удалить из <code>stack</code>, чтобы добраться до максимального элемента.</li>
+     <li>Удаляем элементы из <code>stack</code> до тех пор, пока не найдём максимальный элемент, перемещая каждый удалённый элемент в буфер.</li>
+     <li>Удаляем максимальный элемент из <code>stack</code> и <code>maxStack</code>.</li>
+     <li>Возвращаем элементы из буфера обратно в <code>stack</code>, восстанавливая порядок элементов и обновляя <code>maxStack</code> по мере необходимости.</li>
+   </ul>
+ </li>
 </ol>
 </blockquote></details>
 
@@ -2462,29 +2479,37 @@ stk.top();     // return 5, [5] the stack did not change.
 
 ```python
 class MaxStack:
-
     def __init__(self):
         self.stack = []
+        self.maxStack = []
 
-    def push(self, x: int) -> None:
+    def push(self, x: int):
         self.stack.append(x)
+        if not self.maxStack or x >= self.maxStack[-1]:
+            self.maxStack.append(x)
 
-    def pop(self) -> int:
-        return self.stack.pop()
+    def pop(self):
+        val = self.stack.pop()
+        if val == self.maxStack[-1]:
+            self.maxStack.pop()
+        return val
 
-    def top(self) -> int:
+    def top(self):
         return self.stack[-1]
 
-    def peekMax(self) -> int:
-        return max(self.stack)
+    def peekMax(self):
+        return self.maxStack[-1]
 
-    def popMax(self) -> int:
-        val = self.peekMax()
-        for i in range(-1, -len(self.stack) - 1, -1):
-            if self.stack[i] == val:
-                del self.stack[i]
-                break
-        return val
+    def popMax(self):
+        max_val = self.maxStack[-1]
+        buffer = []
+        while self.stack[-1] != max_val:
+            buffer.append(self.pop())
+        self.pop()  # Remove the max element
+        while buffer:
+            self.push(buffer.pop())
+        return max_val
+
 
 ```
 
