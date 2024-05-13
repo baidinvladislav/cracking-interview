@@ -396,8 +396,10 @@ https://leetcode.com/problems/merge-two-sorted-lists/
 
 <details><summary>Рекурсивное решение:</summary><blockquote>
 <ol>
- <li>Определяем базовые случаи рекурсии: если закончился список 1, то вернуть список 2, если закончился список 2, то вернуть список 1.</li>
- <li>Тело рекурсии: сравниваем узлы списков, тот узел, который меньше сдвигается дальше.</li>
+ <li>Создаем фиктивный начальный узел, который поможет упростить вставку.</li>
+ <li>Пока в обоих списках есть элементы.</li>
+ <li>Если элементы остались только в одном из списков, присоединяем их.</li>
+ <li>Возвращаем начало сформированного списка.</li>
 </ol>
 </blockquote></details>
 
@@ -439,25 +441,29 @@ class Solution:
     # Approach 2: Iteration
     # Time complexity: O(n + m)
     # Space complexity: O(1)
-    def mergeTwoLists(self, l1, l2):
-        # maintain an unchanging reference to node ahead of the return node.
-        prehead = ListNode(-1)
+    def mergeTwoLists1(self, list1, list2):
+        # Создаем фиктивный начальный узел, который поможет упростить вставку
+        dummy = ListNode()
+        current = dummy
 
-        prev = prehead
-        while l1 and l2:
-            if l1.val <= l2.val:
-                prev.next = l1
-                l1 = l1.next
+        # Пока в обоих списках есть элементы
+        while list1 and list2:
+            if list1.val < list2.val:
+                current.next = list1
+                list1 = list1.next
             else:
-                prev.next = l2
-                l2 = l2.next
-            prev = prev.next
+                current.next = list2
+                list2 = list2.next
+            current = current.next
 
-        # At least one of l1 and l2 can still have nodes at this point, so connect
-        # the non-null list to the end of the merged list.
-        prev.next = l1 if l1 is not None else l2
+        # Если элементы остались только в одном из списков, присоединяем их
+        if list1:
+            current.next = list1
+        elif list2:
+            current.next = list2
 
-        return prehead.next
+        # Возвращаем начало сформированного списка
+        return dummy.next
 
 ```
 
