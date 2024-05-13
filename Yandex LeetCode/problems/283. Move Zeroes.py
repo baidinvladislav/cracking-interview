@@ -11,14 +11,15 @@ class Solution:
     # Space Complexity: O(1)
     # Time Complexity: O(n)
     def moveZeroes(self, nums):
-        lastNonZeroFoundAt = 0
-        for i in range(len(nums)):
-            if nums[i] != 0:
-                nums[lastNonZeroFoundAt] = nums[i]
-                lastNonZeroFoundAt += 1
+        insertPos = 0
+        for num in nums:
+            if num != 0:
+                nums[insertPos] = num
+                insertPos += 1
 
-        for i in range(lastNonZeroFoundAt, len(nums)):
-            nums[i] = 0
+        while insertPos < len(nums):
+            nums[insertPos] = 0
+            insertPos += 1
 
     # Approach #3 (Optimal)
     # Space Complexity: O(1)
