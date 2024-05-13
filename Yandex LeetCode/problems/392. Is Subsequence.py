@@ -17,17 +17,18 @@ class Solution:
     # Time Complexity: O(T)
     # Space Complexity: O(1)
     def isSubsequence(self, s: str, t: str) -> bool:
-        left = 0
-        right = 0
+        s_pointer = t_pointer = 0
+
         while True:
-            if left == len(s):
+            if s_pointer == len(s):
                 return True
-            if right == len(t):
+
+            if t_pointer == len(t):
                 return False
 
-            if s[left] == t[right]:
-                left += 1
-            right += 1
+            if s[s_pointer] == t[t_pointer]:
+                s_pointer += 1
+            t_pointer += 1
 
 
 def main():
