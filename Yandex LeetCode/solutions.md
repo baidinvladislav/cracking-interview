@@ -680,11 +680,43 @@ https://leetcode.com/problems/simplify-path/description/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>.</li>
- <li>.</li>
- <li>.</li>
+ <li>Инициализация пустого стека для хранения имен директорий:
+   <pre><code>stack = []</code></pre>
+ </li>
+ <li>Разделение пути на компоненты, используя метод <code>.split('/'):</code>
+   <pre><code>components = path.split('/') </code></pre>
+ </li>
+ <li>Обработка каждого компонента в цикле:
+   <ol>
+     <li>Пропуск пустых компонентов и текущих директорий (одиночные точки):
+       <pre><code>if component == '' or component == '.':
+   continue</code></pre>
+     </li>
+     <li>Если компонент равен <code>'..'</code>, то:
+       <ul>
+         <li>Удаление последнего элемента из стека (если стек не пуст):
+           <pre><code>if stack:
+   stack.pop()</code></pre>
+         </li>
+       </ul>
+     </li>
+     <li>Если компонент является именем директории, то:
+       <ul>
+         <li>Добавление компонента в стек:
+           <pre><code>else:
+   stack.append(component)</code></pre>
+         </li>
+       </ul>
+     </li>
+   </ol>
+ </li>
+ <li>Формирование упрощенного пути из элементов стека:
+   <pre><code>simplified_path = '/' + '/'.join(stack)</code></pre>
+ </li>
+ <li>Возврат упрощенного пути:
+   <pre><code>return simplified_path</code></pre>
+ </li>
 </ol>
-
 </blockquote></details>
 
 ```
@@ -720,32 +752,28 @@ Explanation:
 ```
 
 ```python
-class Solution:
-    def simplifyPath(self, path: str) -> str:
-        # Initialize a stack
-        stack = []
+def simplifyPath(path: str) -> str:
+    stack = []
 
-        # Split the input string on "/" as the delimiter
-        # and process each portion one by one
-        paths = path.split("/")
-        for portion in paths:
+    # Split the path by '/'
+    components = path.split('/')
 
-            # If the current component is a "..", then
-            # we pop an entry from the stack if it's non-empty
-            if portion == "..":
-                if stack:
-                    stack.pop()
-            elif portion == "." or not portion:
-                # A no-op for a "." or an empty string
-                continue
-            else:
-                # Finally, a legitimate directory name, so we add it
-                # to our stack
-                stack.append(portion)
+    for component in components:
+        if component == '' or component == '.':
+            # Skip empty components and current directory references
+            continue
+        elif component == '..':
+            # Move up one directory level if possible
+            if stack:
+                stack.pop()
+        else:
+            # Valid directory name, push onto stack
+            stack.append(component)
 
-        # Stich together all the directory names together
-        final_str = "/" + "/".join(stack)
-        return final_str
+    # Join the stack to form the simplified path
+    simplified_path = '/' + '/'.join(stack)
+
+    return simplified_path
 
 ```
 
