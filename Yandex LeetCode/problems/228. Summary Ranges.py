@@ -8,13 +8,16 @@ def summaryRanges(nums):
     start = nums[0]
 
     for i in range(1, n):
+        prev = nums[i - 1]
+        current = nums[i]
+
         # Если текущий элемент не является последовательным
-        if nums[i] != nums[i - 1] + 1:
-            # Проверяем, если start равен предыдущему элементу
-            if start == nums[i - 1]:
+        if current != prev + 1:
+            # Проверяем, если start равен предыдущему элементу, то значит диапазон из одного числа
+            if start == prev:
                 ranges.append(f"{start}")
             else:
-                ranges.append(f"{start}->{nums[i - 1]}")
+                ranges.append(f"{start}->{prev}")
             # Обновляем начало диапазона
             start = nums[i]
 
