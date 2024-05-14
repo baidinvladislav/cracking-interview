@@ -1623,12 +1623,17 @@ https://leetcode.com/problems/summary-ranges/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Используем два указателя 'start' и 'end'. При инициализации указатели установлены в начало входного массива.</li>
- <li>До тех пор пока два соседних числа в массиве имеют между собой разницу ровно в 1, сдвигаем указатель 'end' вправо на один элемент.</li>
- <li>Если указатели стоят на разных числах (сдвигался указатель 'end'), то добавляем в результирующий массив диапозон чисел от 'start' до 'end'.</li>
- <li>В другом случае добавляем в результирующий массив только начало диапозона.</li>
- <li>В конце каждой итерации сдвигаем указатель 'end' на один элемент и ставим 'start' на это же число.</li>
- <li>Возвращаем результирующий массив.</li>
+ <li>Инициализируем указатели <code>start</code> и <code>end</code>, установив их на начало входного массива <code>nums</code>. Эти указатели будут отслеживать текущий диапазон чисел.</li>
+ <li>Начинаем итерацию по массиву <code>nums</code> с первого элемента. В процессе итерации, если разница между текущим элементом и следующим элементом равна 1 (то есть они последовательные), сдвигаем указатель <code>end</code> вправо на один элемент.</li>
+ <li>Когда обнаруживаем, что текущий элемент и следующий элемент не являются последовательными, проверяем значения указателей <code>start</code> и <code>end</code>:</li>
+    <ul>
+      <li>Если указатели <code>start</code> и <code>end</code> указывают на разные числа (то есть указатель <code>end</code> сдвигался), добавляем в результирующий массив строку формата "start->end", которая обозначает диапазон чисел от <code>start</code> до <code>end</code>.</li>
+      <li>Если указатели <code>start</code> и <code>end</code> указывают на одно и то же число (то есть диапазон состоит из одного числа), добавляем в результирующий массив только значение <code>start</code>.</li>
+    </ul>
+ <li>Обновляем указатель <code>start</code> на следующий элемент и устанавливаем указатель <code>end</code> на это же число для обработки следующего возможного диапазона.</li>
+ <li>Продолжаем итерацию до конца массива <code>nums</code>, повторяя шаги 2-4 для каждого элемента массива.</li>
+ <li>После завершения итерации добавляем последний диапазон или одиночное число в результирующий массив, так как последний диапазон не был добавлен в процессе итерации.</li>
+ <li>Возвращаем результирующий массив, содержащий все диапазоны чисел в виде строк.</li>
 </ol>
 </blockquote></details>
 
@@ -1652,33 +1657,38 @@ Explanation: The ranges are:
 ```
 
 ```python
-from typing import List
+def summaryRanges(nums):
+    ranges = []
+    n = len(nums)
+    if n == 0:
+        return ranges
 
+    # Начало текущего диапазона
+    start = nums[0]
 
-class Solution:
-    # Time complexity: O(n)
-    # Space complexity: O(n)
-    def summaryRanges(self, nums: List[int]) -> List[str]:
-        result = []
-        start = end = 0
-
-        while end < len(nums):
-            # increase end pointer because two neighboring integers are extends range
-            while end + 1 < len(nums) and nums[end] + 1 == nums[end + 1]:
-                end = end + 1
-
-            # if pointers stand not the same integer
-            if nums[start] != nums[end]:
-                result.append(f"{str(nums[start])}->{str(nums[end])}")
-            # if pointers stand the same integer
+    for i in range(1, n):
+        # Если текущий элемент не является последовательным
+        if nums[i] != nums[i - 1] + 1:
+            # Проверяем, если start равен предыдущему элементу (одиночный элемент)
+            if start == nums[i - 1]:
+                ranges.append(f"{start}")
             else:
-                result.append(str(nums[start]))
+                ranges.append(f"{start}->{nums[i - 1]}")
+            # Обновляем начало диапазона
+            start = nums[i]
 
-            # slide end pointer
-            end = end + 1
-            # set pointers to the same integer
-            start = end
-        return result
+    # Добавляем последний диапазон
+    if start == nums[-1]:
+        ranges.append(f"{start}")
+    else:
+        ranges.append(f"{start}->{nums[-1]}")
+
+    return ranges
+
+# Примеры использования:
+print(summaryRanges([0, 1, 2, 4, 5, 7]))  # Вывод: ["0->2", "4->5", "7"]
+print(summaryRanges([0, 2, 3, 4, 6, 8, 9]))  # Вывод: ["0", "2->4", "6", "8->9"]
+
 ```
 
 

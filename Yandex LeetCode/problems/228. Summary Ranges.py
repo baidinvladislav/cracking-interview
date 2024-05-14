@@ -1,35 +1,32 @@
-from typing import List
+def summaryRanges(nums):
+    ranges = []
+    n = len(nums)
+    if n == 0:
+        return ranges
 
+    # Начало текущего диапазона
+    start = nums[0]
 
-class Solution:
-    # Time complexity: O(n)
-    # Space complexity: O(n)
-    def summaryRanges(self, nums: List[int]) -> List[str]:
-        result = []
-        start = end = 0
-
-        while end < len(nums):
-            # increase end pointer because two neighboring integers are extends range
-            while end + 1 < len(nums) and nums[end] + 1 == nums[end + 1]:
-                end += 1
-
-            # if pointers stand not the same integer
-            if nums[start] != nums[end]:
-                result.append(f'{nums[start]}->{nums[end]}')
-            # if pointers stand the same integer
+    for i in range(1, n):
+        # Если текущий элемент не является последовательным
+        if nums[i] != nums[i - 1] + 1:
+            # Проверяем, если start равен предыдущему элементу
+            if start == nums[i - 1]:
+                ranges.append(f"{start}")
             else:
-                result.append(f'{nums[start]}')
+                ranges.append(f"{start}->{nums[i - 1]}")
+            # Обновляем начало диапазона
+            start = nums[i]
 
-            # slide end pointer
-            end += 1
-            # set pointers to the same integer
-            start = end
-        return result
+    # Добавляем последний диапазон
+    if start == nums[-1]:
+        ranges.append(f"{start}")
+    else:
+        ranges.append(f"{start}->{nums[-1]}")
+
+    return ranges
 
 
-def main():
-    print(Solution().summaryRanges(nums=[0, 1, 2, 4, 5, 7]))
-    print(Solution().summaryRanges(nums=[0, 2, 3, 4, 6, 8, 9]))
-
-
-main()
+# Примеры использования:
+print(summaryRanges([0, 1, 2, 4, 5, 7]))  # Вывод: ["0->2", "4->5", "7"]
+print(summaryRanges([0, 2, 3, 4, 6, 8, 9]))  # Вывод: ["0", "2->4", "6", "8->9"]
