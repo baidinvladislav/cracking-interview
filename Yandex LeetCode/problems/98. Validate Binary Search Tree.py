@@ -54,17 +54,17 @@ print(Solution().isValidBST(root))
 # Time complexity: O(N) since we visit each node exactly once.
 # Space complexity: O(N) since we keep up to the entire tree.
 class Solution:
-    def isValidBST(self, root: TreeNode) -> bool:
-        def validate(node, low=-math.inf, high=math.inf):
-            if not node:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def validate(node, low, high):
+            if node is None:
                 return True
 
-            if node.val <= low or node.val >= high:
+            left = validate(node.left, low, node.val)
+            right = validate(node.right, node.val, high)
+
+            if not low < node.val < high:
                 return False
 
-            left_subtree = validate(node=node.left, low=low, high=node.val)
-            right_subtree = validate(node=node.right, low=node.val, high=high)
+            return left and right
 
-            return left_subtree and right_subtree
-
-        return validate(root)
+        return validate(root, float('-inf'), float('inf'))
