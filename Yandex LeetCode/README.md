@@ -1699,10 +1699,10 @@ https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Начните обход дерева с корневого узла.</li>
- <li>Текущий узел является одной из двух искомых вершин, мы пометим переменную mid как True и продолжим поиск другого узла в левой и правой ветвях.</li>
- <li>Если либо левая, либо правая ветвь возвращает True, это означает, что один из двух узлов был найден ниже по этой ветке.</li>
- <li>Если в какой-либо момент обхода любые два из трех флагов слева, справа или посередине становятся истинными, это означает, что мы нашли наименьшего общего предка для узлов p и q.</li>
+ <li>БС: если текущий узел None или p или q, то вренуть текущий узел.</li>
+ <li>Вызвать рекурсивно для левого и правого поддерева.</li>
+ <li>Если вернулись узлы из обоих поддеревьев, то вернуть текущий узел.</li>
+ <li>Если вернулись узлы только из одного дерева, вернуть тот узел, который не None.</li>
 </ol>
 </blockquote></details>
 
@@ -1728,35 +1728,17 @@ Output: 1
 # Time Complexity: O(N)
 # Space Complexity: O(N)
 class Solution:
-    def __init__(self):
-        # Variable to store LCA node.
-        self.ans = None
-
-    def lowestCommonAncestor(self, root, p, q):
-        def recurse_tree(current_node):
-            # If reached the end of a branch, return False.
-            if not current_node:
-                return False
-
-            # Left Recursion
-            left = recurse_tree(current_node.left)
-
-            # Right Recursion
-            right = recurse_tree(current_node.right)
-
-            # If the current node is one of p or q
-            mid = current_node.val == p.val or current_node.val == q.val
-
-            # If any two of the three flags left, right or mid become True.
-            if mid + left + right >= 2:
-                self.ans = current_node
-
-            # Return True if either of the three bool values is True.
-            return mid or left or right
-
-        # Traverse the tree
-        recurse_tree(root)
-        return self.ans
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+          if not root or root == p or root == q:
+              return root
+      
+          left = self.lowestCommonAncestor(root.left, p, q)
+          right = self.lowestCommonAncestor(root.right, p, q)
+      
+          if left and right:
+              return root
+      
+          return left if left else right
 
 ```
 
