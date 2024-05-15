@@ -2049,9 +2049,38 @@ https://leetcode.com/problems/insert-delete-getrandom-o1/
 
 <details><summary>Решение:</summary><blockquote>
 <ol>
- <li>Метод init: инициализируем пустую хеш-мапу и пустой массив.</li>
- <li>Метод insert: вставляем значение в хеш-мап как ключ, а его значением будет последний индекс массива + 1 на момент вставки, затем вставить значение в конец массива.</li>
- <li>Метод remove: если значение есть в хеш-мап, то узнаем индекс значения в массиве, на индекс удаляемого значения записываем последнее значение массива, удаляется последнее значение из массива (для избежания дублей), обновляется индекс последнего значения в хеш-мапе, наконец удаляется ключ удаляемого значения из хеш-мапы.</li>
+ <li><strong>Метод `__init__`:</strong> Инициализируем пустую хеш-таблицу и пустой массив.</li>
+ <li><strong>Метод `insert`:</strong> 
+   <ul>
+     <li>Проверяем, существует ли значение в хеш-таблице.</li>
+     <li>Если значение уже существует, возвращаем `false`.</li>
+     <li>Если значение не существует:
+       <ul>
+         <li>Добавляем значение в конец массива.</li>
+         <li>В хеш-таблицу добавляем пару ключ-значение, где ключ — это добавляемое значение, а значение — индекс добавленного элемента в массиве.</li>
+         <li>Возвращаем `true`.</li>
+       </ul>
+     </li>
+   </ul>
+ </li>
+ <li><strong>Метод `remove`:</strong>
+   <ul>
+     <li>Проверяем, существует ли значение в хеш-таблице.</li>
+     <li>Если значение не существует, возвращаем `false`.</li>
+     <li>Если значение существует:
+       <ul>
+         <li>Получаем индекс удаляемого элемента из хеш-таблицы.</li>
+         <li>Сохраняем значение последнего элемента массива.</li>
+         <li>Перемещаем последнее значение массива на место удаляемого элемента.</li>
+         <li>Обновляем индекс последнего значения в хеш-таблице.</li>
+         <li>Удаляем последний элемент массива с помощью метода `pop`.</li>
+         <li>Удаляем значение из хеш-таблицы.</li>
+         <li>Возвращаем `true`.</li>
+       </ul>
+     </li>
+   </ul>
+ </li>
+ <li><strong>Метод `getRandom`:</strong> Возвращаем случайный элемент из массива, используя линейный конгруэнтный генератор (LCG) для генерации случайного индекса.</li>
 </ol>
 </blockquote></details>
 
@@ -2079,35 +2108,35 @@ randomizedSet.getRandom(); // Since 2 is the only number in the set, getRandom()
 ```python
 import random
 
-
 class RandomizedSet:
-
     def __init__(self):
-        self.hashmap = {}
-        self.array = []
-
+        self.data = []
+        self.val_to_index = {}
+    
     def insert(self, val: int) -> bool:
-        if val not in self.hashmap:
-            self.hashmap[val] = len(self.array)
-            self.array.append(val)
-            return True
-
-        return False
-
+        if val in self.val_to_index:
+            return False
+        self.data.append(val)
+        self.val_to_index[val] = len(self.data) - 1
+        return True
+    
     def remove(self, val: int) -> bool:
-        if val in self.hashmap:
-            idx = self.hashmap[val]
-            last_value = self.array[-1]
-            self.array[idx] = last_value
-            self.array.pop()
-            self.hashmap[last_value] = idx
-            del self.hashmap[val]
-            return True
-
-        return False
-
+        if val not in self.val_to_index:
+            return False
+        index = self.val_to_index[val]
+        last_element = self.data[-1]
+        
+        # Перемещаем последний элемент на место удаляемого элемента
+        self.data[index] = last_element
+        self.val_to_index[last_element] = index
+        
+        # Удаляем последний элемент
+        self.data.pop()
+        del self.val_to_index[val]
+        return True
+    
     def getRandom(self) -> int:
-        return random.choice(self.array)
+        return random.choice(self.data)
 
 ```
 
