@@ -16,3 +16,6 @@ class Solution:
 
         # Now left is the starting index of the k closest elements
         return arr[left:left + k]
+
+
+Solution().findClosestElements(arr=[1, 2, 3, 4, 5], k=4, x=3)
