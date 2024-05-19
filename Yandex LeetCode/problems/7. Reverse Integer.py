@@ -21,3 +21,6 @@ class Solution:
             result = -result
 
         return result
+
+
+Solution().reverse(123)
