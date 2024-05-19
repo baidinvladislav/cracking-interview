@@ -1,4 +1,8 @@
 # LeetCode Yandex Track
+
+Also I have Google Sheet file with short solutions:\
+https://docs.google.com/spreadsheets/d/1rVY3TVtwOXMm8j2h93VBsJgNu9rJw2w_f2w_BR5gtkg/edit#gid=0
+
 + [1. Two Sum](#two-sum)
 + [3. Longest Substring Without Repeating Characters](#longest-substring-without-repeating-characters)
 + [4. Median of Two Sorted Arrays](#median-of-two-sorted-arrays)
@@ -942,6 +946,53 @@ class Solution:
 ```
 
 
+## Symmetric Tree
+Определить ясвляется ли дерево симетричным.
+
+https://leetcode.com/problems/symmetric-tree/description/
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: root = [1,2,2,3,4,4,3]
+Output: true
+
+Example 2:
+Input: root = [1,2,2,null,3,null,3]
+Output: false
+```
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+class Solution:
+    def isSymmetric(self, root):
+        def isMirror(left, right):
+            if not left and not right:
+                return True
+            if not left or not right:
+                return False
+            return (left.val == right.val) and isMirror(left.left, right.right) and isMirror(left.right, right.left)
+
+        return isMirror(root, root)
+
+```
+
+
 ## Valid Palindrome
 Дана строка s, вернуть true, если это палиндром, или false.
 В строке могут содержаться буквы разного регистра, а также не только буквенно-цифровые символы.
@@ -1405,6 +1456,35 @@ class Solution:
             
             elif current_sum < target:
                 left += 1
+```
+
+
+## Binary Tree Right Side View
+.
+
+https://leetcode.com/problems
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output: 
+```
+
+```python
+
 ```
 
 
@@ -2291,6 +2371,35 @@ class Solution:
 ```
 
 
+## Subarray Sum Equals K
+.
+
+https://leetcode.com/problems
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output: 
+```
+
+```python
+
+```
+
+
 ## Permutation in String
 Даны две строки s1 и s2, вернуть true, если s2 содержит перестановку s1, или false в противном случае.
 Другими словами, вернуть true, если одна из перестановок s1 является подстрокой s2.
@@ -2355,6 +2464,33 @@ class Solution:
 ```
 
 
+## Find Duplicate Subtrees
+.
+
+https://leetcode.com/problems
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output: 
+```
+
+```python
+
+```
 
 
 ## Find K Closest Elements
@@ -2600,24 +2736,35 @@ Output: 1
 
 ```python
 class Solution:
-    def maxDistToClosest(self, seats):
-        reserved = (i for i, seat in enumerate(seats) if seat == 1)
-        prev = None
-        future = next(reserved)
-        result = 0
-
-        for i, seat in enumerate(seats):
-            if seat:
-                prev = i
-            else:
-                while future is not None and future < i:
-                    future = next(reserved, None)
-
-                left = float('inf') if prev is None else i - prev
-                right = float('inf') if future is None else future - i
-                result = max(result, min(left, right))
-
-        return result
+    def maxDistToClosest(self, seats: List[int]) -> int:
+        # Инициализируем переменную для хранения максимального расстояния
+        max_distance = 0
+        # Инициализируем переменную для хранения индекса последнего встреченного человека
+        last_person = -1
+        # Длина массива seats
+        n = len(seats)
+        
+        # Проходим по каждому элементу массива seats
+        for i in range(n):
+            # Если текущий элемент - человек (1)
+            if seats[i] == 1:
+                # Если это первый встреченный человек
+                if last_person == -1:
+                    # Максимальное расстояние до ближайшего человека для всех предыдущих пустых мест равно i
+                    max_distance = i
+                else:
+                    # Если это не первый человек, вычисляем расстояние до ближайшего человека для всех мест между last_person и текущим человеком
+                    max_distance = max(max_distance, (i - last_person) // 2)
+                # Обновляем last_person на текущий индекс
+                last_person = i
+        
+        # Обработка хвоста массива, если последние места пустые
+        if seats[n - 1] == 0:
+            # Проверяем и обновляем max_distance, если расстояние от последнего человека до конца массива больше текущего max_distance
+            max_distance = max(max_distance, n - 1 - last_person)
+        
+        # Возвращаем максимальное расстояние до ближайшего человека
+        return max_distance
 
 ```
 
@@ -2672,6 +2819,33 @@ class Solution:
 ```
 
 
+## Interval List Intersections
+.
+
+https://leetcode.com/problems
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output: 
+```
+
+```python
+
+```
 
 
 ## Max Consecutive Ones III
@@ -2722,6 +2896,35 @@ class Solution:
             result = max(result, end - start + 1)
 
         return result
+
+```
+
+
+## Destination City
+.
+
+https://leetcode.com/problems
+
+<details><summary>Решение:</summary><blockquote>
+<ol>
+ <li>.</li>
+ <li>.</li>
+ <li>.</li>
+</ol>
+
+</blockquote></details>
+
+```
+Example 1:
+Input: 
+Output: 
+
+Example 2:
+Input: 
+Output: 
+```
+
+```python
 
 ```
 
