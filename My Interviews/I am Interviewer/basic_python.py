@@ -66,3 +66,17 @@ class MathList:
 
   def extend(self, iterable):
       self.data.extend(iterable)
+
+
+# что выведет в аутпут?
+x = 10
+y = x
+y = 20
+print(x)  # x все еще 10, потому что int неизменяемый объект
+
+
+# что выведет в аутпут?
+a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)  # [1, 2, 3, 4], потому что a и b ссылаются на один и тот же объект
