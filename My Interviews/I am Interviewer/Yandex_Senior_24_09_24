@@ -31,7 +31,6 @@ class CustomIterator:
         return self
 
 
-        
 def get_gen():
     yield db_get_next_page()
 
