@@ -1,0 +1,152 @@
+# На вход сервису поступают обновления документов:
+from collections import defaultdict
+
+
+# Документы могут поступать в произвольном порядке (не в том, как они обновлялись),
+# также возможно дублирование отдельных сообщений.
+
+# Необходимо на выходе формировать такие же сообщения,
+# но с исправленными отдельными полями по следующим правилам (всё нижеуказанное - для группы документов с совпадающим полем Url):
+
+# * Поле Text и FetchTime должны быть такими, какими были в документе с наибольшим FetchTime, полученным на данный момент
+# * Поле PubDate должно быть таким, каким было у сообщения с наименьшим FetchTime
+# * Поле FirstFetchTime должно быть равно минимальному значению FetchTime
+
+# Т.е. в каждый момент времени мы берём PubDate и FirstFetchTime от самой первой из полученных на данный момент версий
+# (если отсортировать их по FetchTime), а Text - от самой последней.
+
+from pydantic import BaseModel
+
+
+class TDocument(BaseModel):
+    url: str  # id
+    pub_date: int  # Поле PubDate должно быть таким, каким было у сообщения с наименьшим FetchTime
+    fetch_time: int  # Поле Text и FetchTime
+    text: str  # Поле Text и FetchTime
+    first_fetch_time: int | None  # Поле FirstFetchTime должно быть равно минимальному значению FetchTime
+
+
+STORAGE = {}
+
+
+class Processor:
+    def process(self, document: TDocument) -> TDocument | None:
+        """
+        Данный код будет работать в сервисе, читающим входные сообщения из очереди сообщений (Kafka или подобное),
+        и записывающем результат также в очередь. Если Process возвращает Null - то в очередь ничего не пишется.
+        """
+        # url = f"URL",
+        # pub_date = item * 10,
+        # fetch_time = item,
+        # text = f"{item} + TEXT",
+        # first_fetch_time = None,
+
+        if document.url not in STORAGE:
+            STORAGE[document.url] = {
+                "old_file": document,
+                "new_file": document,
+            }
+            STORAGE[document.url]["old_file"].first_fetch_time = document.fetch_time
+            STORAGE[document.url]["new_file"].first_fetch_time = document.fetch_time
+        else:
+            if STORAGE[document.url]["new_file"].fetch_time < document.fetch_time:
+                STORAGE[document.url]["new_file"] = document
+            # else:[document.url]
+            #     return None
+
+            if STORAGE[document.url]["old_file"].fetch_time > document.fetch_time:
+                STORAGE[document.url]["old_file"] = document
+#             else:
+#                 return None
+
+        return TDocument(
+            url=STORAGE[document.url]["new_file"].url,
+            pub_date=STORAGE[document.url]["old_file"].pub_date,
+            fetch_time=STORAGE[document.url]["new_file"].fetch_time,
+            text=STORAGE[document.url]["new_file"].text,
+            first_fetch_time=STORAGE[document.url]["old_file"].first_fetch_time,
+        )
+
+
+def test_doc_valid():
+    processor = Processor()
+
+    q = [2, 3, 1, 4]
+    for item in q:
+        result = processor.process(
+            TDocument(
+                url=f"URL",
+                pub_date=item * 10,
+                fetch_time=item,
+                text=f"{item} + TEXT",
+                first_fetch_time=None,
+            )
+        )
+        print(result)
+
+
+test_doc_valid()
+
+      
+# ================================================================================================================================================================================================
+# valid solution:
+# ================================================================================================================================================================================================
+from pydantic import BaseModel
+from typing import Optional
+
+
+class TDocument(BaseModel):
+    url: str
+    pub_date: int
+    fetch_time: int
+    text: str
+    first_fetch_time: Optional[int]
+
+
+class Processor:
+    def __init__(self):
+        self.state = {}
+
+    def process(self, document: TDocument) -> TDocument | None:
+        url = document.url
+        fetch_time = document.fetch_time
+
+        if url not in self.state:
+            # Инициализация
+            self.state[url] = {
+                "min_fetch_doc": document,
+                "max_fetch_doc": document,
+                "min_fetch_time_seen": fetch_time,
+                "last_emitted": None
+            }
+        else:
+            state = self.state[url]
+
+            # Обновляем min fetch doc (для pub_date)
+            if fetch_time < state["min_fetch_doc"].fetch_time:
+                state["min_fetch_doc"] = document
+
+            # Обновляем max fetch doc (для text и fetch_time)
+            if fetch_time > state["max_fetch_doc"].fetch_time:
+                state["max_fetch_doc"] = document
+
+            # Обновляем first_fetch_time (наименьший fetch_time, который мы когда-либо видели)
+            state["min_fetch_time_seen"] = min(state["min_fetch_time_seen"], fetch_time)
+
+        state = self.state[url]
+
+        # Формируем агрегированный документ
+        result = TDocument(
+            url=url,
+            pub_date=state["min_fetch_doc"].pub_date,
+            fetch_time=state["max_fetch_doc"].fetch_time,
+            text=state["max_fetch_doc"].text,
+            first_fetch_time=state["min_fetch_time_seen"]
+        )
+
+        # Если ничего не изменилось — не отправляем
+        if result == state["last_emitted"]:
+            return None
+
+        self.state[url]["last_emitted"] = result
+        return result
